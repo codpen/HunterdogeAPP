@@ -6,7 +6,6 @@ import { isMobile } from 'react-device-detect'
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { Button } from "@mui/material";
-
 import { injected } from './connectors.js'
 import { normalizeEth, normalizeAccount } from './utils';
 

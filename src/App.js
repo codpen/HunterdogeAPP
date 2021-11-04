@@ -3,10 +3,8 @@ import './App.css';
 import Header from './blocks/header/index.jsx';
 import Hero from './blocks/hero';
 import AllTokens from './pages/AllTokens';
-
-
-
 import HomePage from './pages/HomePage';
+
 
 function App() {
   return (

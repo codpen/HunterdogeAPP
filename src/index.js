@@ -12,12 +12,6 @@ import { createWeb3ReactRoot, Web3ReactProvider } from '@web3-react/core';
 import Web3ReactManager from './connection/Web3ReactManager.jsx'
 import { Web3ContractProvider } from './connection/web3Contract.jsx'
 import { theme } from './theme';
-// import { createTheme } from '@mui/material';
-// import { createTheme } from '@mui/system';
-
-// import { createTheme } from '@mui/material/styles';
-// createTheme
-// createTheme
 
 
 Number.prototype.toFixedDown = function (digits) {
