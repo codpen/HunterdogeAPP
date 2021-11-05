@@ -40,6 +40,21 @@ export const theme = createTheme({
           border: '3px solid #FFF3D4',
           borderBottom: '0',
           filter: 'drop-shadow(5px 5px 0px rgba(0, 0, 0, 0.1))',
+          '&.Mui-selected': {
+            color: '#B78300',
+            fontWeight: 900,
+          }
+            
+        }
+      }
+    },
+    MuiTabs: {
+      styleOverrides: {
+        flexContainer: {
+          gap: '3px',
+        },
+        indicator: {
+          backgroundColor: '#fff',
         }
       }
     },

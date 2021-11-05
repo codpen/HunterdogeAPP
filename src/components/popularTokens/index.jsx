@@ -13,6 +13,7 @@ import hunterdoge from '../../images/hunterdoge.png';
 
 import  { GoogleSpreadsheet }  from 'google-spreadsheet';
 import { useEffect, useState } from 'react';
+import TabPanel from '../TabPanel'
 
 const SPREADSHEET_ID = "1SqgE5cqm0yj7v9xCZxVs96XK85Zw8DD7JqW6_e9z7Vs";
 const SHEET_ID = "0";
@@ -21,8 +22,8 @@ const PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAA
 
 const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
 
-
 const PopularTokens = () => {
+  const [value, setValue] = useState(0)
   const [data, setData] = useState([])
 
   const appendSpreadsheet = async () => {
@@ -36,8 +37,6 @@ const PopularTokens = () => {
       const sheet = doc.sheetsById[SHEET_ID];
       const rows = await sheet.getRows();
       setData(rows)
-      console.log(rows);
-      // const data = rows.map(item => [])
     } catch (e) {
       console.error('Error: ', e);
     }
@@ -47,11 +46,19 @@ const PopularTokens = () => {
     const timer = setInterval(() => {
       appendSpreadsheet();
       console.log('интервал');
-    }, 5000)
+    }, 30000)
     return () => {
       clearInterval(timer)
     }
   }, []);
+
+  const filterOneDay = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (24*60*60*1000))
+  const filterWeek = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (7*24*60*60*1000))
+
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue)
+  }
 
   return (
     <Box sx={{mt: '20px', width: '100%', textAlign: 'center', position: 'relative'}}>
@@ -65,7 +72,9 @@ const PopularTokens = () => {
       <Box component='h2' sx={{fontSize: '60px', mb: 3}}>
         Most popular Tokens
       </Box>
-      <Tabs>
+      <Tabs
+        value={value} onChange={handleChange} aria-label="sort"
+        >
         <Tab label="Today’s best"></Tab>
         <Tab label="This week’s"></Tab>
         <Tab label="all-time"></Tab>
@@ -73,7 +82,7 @@ const PopularTokens = () => {
       <Box
         sx={{
           // height: '544px',
-          
+          overflow: 'hidden',
           backgroundColor: '#ffffff',
           borderRadius: '25px',
           borderTopLeftRadius: 0,
@@ -95,65 +104,192 @@ const PopularTokens = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-            {data.map(row => {
-              return(
-                <TableRow>
-                  <TableCell component="th" scope="row">
-                    <Stack direction="row" alignItems="center" >
-                    <Typography variant="h6" sx={{mr:'36px'}}>
-                      1.
-                    </Typography>
-                    <Box component="img" src={logo} sx={{width: '66px'}}/>
-                    </Stack>
-                  </TableCell>
-                  <TableCell >
-                    <Stack>
-                      <Typography variant="h5">
-                        {row.Project_Name}
+            <TabPanel
+              value={value} index={0}
+              >
+              {filterOneDay.map((row, index) => {
+                return(
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      <Stack direction="row" alignItems="center" >
+                      <Typography variant="h6" sx={{mr:'36px'}}>
+                        {index+1}.
                       </Typography>
-                      <Stack direction="row" sx={{gap: 2, mt: '14px'}}>
-                        <IconReward/>
-                        <IconDialogue/>
+                      <Box component="img" src={logo} sx={{width: '66px'}}/>
                       </Stack>
-                    </Stack>
-                  </TableCell>
-                  <TableCell >
-                    <Typography variant="h6" sx={{fontWeight: 900}}>
-                      {row.Project_Symbol}
-                    </Typography>
-                  </TableCell>
-                  <TableCell >
-                    <Typography variant="table">
-                      $900’999
-                    </Typography>
-                  </TableCell>
-                  <TableCell >
-                    <Stack>
-                      <Typography variant="table" sx={{pt: '26px'}}>
-                        {row.Project_Price}
-                      </Typography>
-                      <Stack direction="row" sx={{mt: 1}}>
-                        <Box component='img' src={arrowUp} sx={{width: '17px', mr: 1}}/>
-                        <Typography variant="caption">
-                          24H = +12.99%
+                    </TableCell>
+                    <TableCell >
+                      <Stack>
+                        <Typography variant="h5">
+                          {row.Project_Name}
                         </Typography>
+                        <Stack direction="row" sx={{gap: 2, mt: '14px'}}>
+                          <IconReward/>
+                          <IconDialogue/>
+                        </Stack>
                       </Stack>
-                    </Stack>
-                  </TableCell>
-                  <TableCell >
-                    <Stack direction="row" alignItems="center">
-                      <Typography variant="table">
-                        156’093
+                    </TableCell>
+                    <TableCell >
+                      <Typography variant="h6" sx={{fontWeight: 900}}>
+                        {row.Project_Symbol}
                       </Typography>
-                      <Button sx={{ml: '33px', mr: 2}}>
-                        VOTE
-                      </Button>
-                      <Button variant="more">...</Button>
-                    </Stack>
-                  </TableCell>            
-                </TableRow>
-              )
-            })}
+                    </TableCell>
+                    <TableCell >
+                      <Typography variant="table">
+                        $900’999
+                      </Typography>
+                    </TableCell>
+                    <TableCell >
+                      <Stack>
+                        <Typography variant="table" sx={{pt: '26px'}}>
+                          {row.Project_Price}
+                        </Typography>
+                        <Stack direction="row" sx={{mt: 1}}>
+                          <Box component='img' src={arrowUp} sx={{width: '17px', mr: 1}}/>
+                          <Typography variant="caption">
+                            24H = +12.99%
+                          </Typography>
+                        </Stack>
+                      </Stack>
+                    </TableCell>
+                    <TableCell >
+                      <Stack direction="row" alignItems="center">
+                        <Typography variant="table">
+                          156’093
+                        </Typography>
+                        <Button sx={{ml: '33px', mr: 2}}>
+                          VOTE
+                        </Button>
+                        <Button variant="more">...</Button>
+                      </Stack>
+                    </TableCell>            
+                  </TableRow>
+                )
+              })}
+            </TabPanel>
+            
+            <TabPanel value={value} index={1}>
+            {filterWeek.map((row, index) => {
+                return(
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      <Stack direction="row" alignItems="center" >
+                      <Typography variant="h6" sx={{mr:'36px'}}>
+                        {index+1}.
+                      </Typography>
+                      <Box component="img" src={logo} sx={{width: '66px'}}/>
+                      </Stack>
+                    </TableCell>
+                    <TableCell >
+                      <Stack>
+                        <Typography variant="h5">
+                          {row.Project_Name}
+                        </Typography>
+                        <Stack direction="row" sx={{gap: 2, mt: '14px'}}>
+                          <IconReward/>
+                          <IconDialogue/>
+                        </Stack>
+                      </Stack>
+                    </TableCell>
+                    <TableCell >
+                      <Typography variant="h6" sx={{fontWeight: 900}}>
+                        {row.Project_Symbol}
+                      </Typography>
+                    </TableCell>
+                    <TableCell >
+                      <Typography variant="table">
+                        $900’999
+                      </Typography>
+                    </TableCell>
+                    <TableCell >
+                      <Stack>
+                        <Typography variant="table" sx={{pt: '26px'}}>
+                          {row.Project_Price}
+                        </Typography>
+                        <Stack direction="row" sx={{mt: 1}}>
+                          <Box component='img' src={arrowUp} sx={{width: '17px', mr: 1}}/>
+                          <Typography variant="caption">
+                            24H = +12.99%
+                          </Typography>
+                        </Stack>
+                      </Stack>
+                    </TableCell>
+                    <TableCell >
+                      <Stack direction="row" alignItems="center">
+                        <Typography variant="table">
+                          156’093
+                        </Typography>
+                        <Button sx={{ml: '33px', mr: 2}}>
+                          VOTE
+                        </Button>
+                        <Button variant="more">...</Button>
+                      </Stack>
+                    </TableCell>            
+                  </TableRow>
+                )
+              })}
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+            {data.map((row, index) => {
+                return(
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      <Stack direction="row" alignItems="center" >
+                      <Typography variant="h6" sx={{mr:'36px'}}>
+                        {index+1}.
+                      </Typography>
+                      <Box component="img" src={logo} sx={{width: '66px'}}/>
+                      </Stack>
+                    </TableCell>
+                    <TableCell >
+                      <Stack>
+                        <Typography variant="h5">
+                          {row.Project_Name}
+                        </Typography>
+                        <Stack direction="row" sx={{gap: 2, mt: '14px'}}>
+                          <IconReward/>
+                          <IconDialogue/>
+                        </Stack>
+                      </Stack>
+                    </TableCell>
+                    <TableCell >
+                      <Typography variant="h6" sx={{fontWeight: 900}}>
+                        {row.Project_Symbol}
+                      </Typography>
+                    </TableCell>
+                    <TableCell >
+                      <Typography variant="table">
+                        $900’999
+                      </Typography>
+                    </TableCell>
+                    <TableCell >
+                      <Stack>
+                        <Typography variant="table" sx={{pt: '26px'}}>
+                          {row.Project_Price}
+                        </Typography>
+                        <Stack direction="row" sx={{mt: 1}}>
+                          <Box component='img' src={arrowUp} sx={{width: '17px', mr: 1}}/>
+                          <Typography variant="caption">
+                            24H = +12.99%
+                          </Typography>
+                        </Stack>
+                      </Stack>
+                    </TableCell>
+                    <TableCell >
+                      <Stack direction="row" alignItems="center">
+                        <Typography variant="table">
+                          156’093
+                        </Typography>
+                        <Button sx={{ml: '33px', mr: 2}}>
+                          VOTE
+                        </Button>
+                        <Button variant="more">...</Button>
+                      </Stack>
+                    </TableCell>            
+                  </TableRow>
+                )
+              })}
+            </TabPanel>
             {/* <TableRow>
               <TableCell component="th" scope="row">
                 <Stack direction="row" alignItems="center" >
@@ -208,7 +344,7 @@ const PopularTokens = () => {
                   <Button variant="more">...</Button>
                 </Stack>
               </TableCell>            
-            </TableRow> */}
+            </TableRow>
             <TableRow>
               <TableCell component="th" scope="row">
                 <Stack direction="row" alignItems="center" >
@@ -280,7 +416,7 @@ const PopularTokens = () => {
                     HunterDoge
                   </Typography>
                   <Stack direction="row" sx={{gap: 2, mt: '14px'}}>
-                    {/* <IconReward/> */}
+                    <IconReward/>
                     <IconDialogue/>
                   </Stack>
                 </Stack>
@@ -336,7 +472,7 @@ const PopularTokens = () => {
                   </Typography>
                   <Stack direction="row" sx={{gap: 2, mt: '14px'}}>
                     <IconReward/>
-                    {/* <IconDialogue/> */}
+                    <IconDialogue/>
                   </Stack>
                 </Stack>
               </TableCell>
@@ -390,8 +526,8 @@ const PopularTokens = () => {
                     HunterDoge
                   </Typography>
                   <Stack direction="row" sx={{gap: 2, mt: '14px'}}>
-                    {/* <IconReward/>
-                    <IconDialogue/> */}
+                    <IconReward/>
+                    <IconDialogue/>
                   </Stack>
                 </Stack>
               </TableCell>
@@ -445,8 +581,8 @@ const PopularTokens = () => {
                     HunterDoge
                   </Typography>
                   <Stack direction="row" sx={{gap: 2, mt: '14px'}}>
-                    {/* <IconReward/>
-                    <IconDialogue/> */}
+                    <IconReward/>
+                    <IconDialogue/>
                   </Stack>
                 </Stack>
               </TableCell>
@@ -484,7 +620,7 @@ const PopularTokens = () => {
                   <Button variant="more">...</Button>
                 </Stack>
               </TableCell>            
-            </TableRow>
+            </TableRow> */}
             
             
             </TableBody>
