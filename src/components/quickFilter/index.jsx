@@ -7,6 +7,7 @@ import ButtonCheckbox from '../buttonCheckbox';
 import SelectForm from '../selectForm';
 
 const QuickFilter = () => {
+  const search = () => console.log('search')
   return(
     <Stack
       sx={{
@@ -58,7 +59,7 @@ const QuickFilter = () => {
       <Typography sx={{ fontSize: 12, fontWeight: 400, textAlign: 'start', mt: '5px', ml: 4}}>
         Mcap Ratio
       </Typography>
-      <Button sx={{width: '96px', mt: '12px', mx: 'auto'}}>
+      <Button onClick={() => search()} sx={{width: '96px', mt: '12px', mx: 'auto'}}>
         SEARCH
       </Button>
     </Stack>

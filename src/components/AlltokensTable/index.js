@@ -59,6 +59,8 @@ const AllTokensTable = () => {
     setValue(newValue)
   }
 
+  const vote = () => console.log('vote')}
+
   return (
     <Box sx={{mt: 4, width: '100%', textAlign: 'center', position: 'relative'}}>
       <Tabs
@@ -169,7 +171,7 @@ const AllTokensTable = () => {
                         <Typography variant="table">
                           156’093
                         </Typography>
-                        <Button sx={{ml: '33px', mr: 2}}>
+                        <Button onClick={() => vote()} sx={{ml: '33px', mr: 2}}>
                           VOTE
                         </Button>
                         <Button variant="more">...</Button>

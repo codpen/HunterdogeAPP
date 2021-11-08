@@ -8,6 +8,11 @@ import logo from '../../images/hunter_logo.png';
 import SearchInput from '../searchInput'
 
 const CheckLiguidity = () => {
+
+  const getMoreInfo = () => {
+    
+  }
+
   return(
     <Box
       sx={{
@@ -54,6 +59,7 @@ const CheckLiguidity = () => {
             $hunt
           </Typography>
           <Button variant="contained"
+            onClick={() => getMoreInfo()}
             sx={{px:'7px', fontSize: 13, mt: '25px'}}
           >
             more info
