@@ -52,6 +52,8 @@ const data = [
 
 const CardNft = () => {
     const classes = useStyles();
+    const buy = () => console.log('buy') 
+    const sell = () => console.log'('sell')
     return (
         <Card className={classes.root}>
             <div className={classes.headerContent}>
@@ -73,8 +75,8 @@ const CardNft = () => {
                     </Box>
                 )}
                 <Box component='div' className={classes.flexLine} sx={{mt: '18px'}}>
-                    <Button size="small">buy this nft</Button>
-                    <Button size="small">Sell your nft</Button>
+                    <Button size="small" onClick={() => buy()}>Buy this nft</Button>
+                    <Button size="small" onClick={() => sell()}>Sell your nft</Button>
                 </Box>
             </CardContent>
         </Card>
