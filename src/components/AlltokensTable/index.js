@@ -59,7 +59,7 @@ const AllTokensTable = () => {
     setValue(newValue)
   }
 
-  const vote = () => console.log('vote')}
+  const vote = () => console.log('vote')
 
   return (
     <Box sx={{mt: 4, width: '100%', textAlign: 'center', position: 'relative'}}>
