@@ -257,16 +257,17 @@ const Hero = () => {
           pt: 1
         }}
       >
-        <Button 
+        
+        <ConnectMetaMask />
+        {/* <Button 
           sx={{
             width: '100%',
             border: '10px solid B78300',
-            mb: '30px'
+            mt: '30px'
           }}
         >
           join  whitelist
-        </Button>
-        <ConnectMetaMask />
+        </Button> */}
       </Box>    
       
     </Stack>

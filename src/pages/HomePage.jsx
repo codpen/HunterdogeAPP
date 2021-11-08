@@ -14,9 +14,11 @@ import QuickFilter from '../components/quickFilter';
 import Paws from '../images/paws_bg.svg';
 import Loupe from '../images/loupe_bg.svg';
 import Bow from '../images/bow_bg.svg';
+import Footer from '../blocks/footer';
 
 const HomePage = () => {
   return (
+    <>
     <Stack direction="row" alignItems="start"
       sx={{
         mt: 5,
@@ -53,7 +55,11 @@ const HomePage = () => {
         <PromotedSpots/>
         <News/>
       </Stack>
+
+      
     </Stack>
+    {/* <Footer/> */}
+    </>
   )
 }
 

@@ -26,6 +26,25 @@ export const theme = createTheme({
         },
       },
     },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: "transparent",
+        }
+      }
+    },
+    MuiLink: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          color: '#fff',
+          textDecoration: 'none',
+          fontWeight: 500,
+          fontSize: 21,
+        },
+      },
+    },
     MuiTab: {
       styleOverrides: {
         root: {
@@ -65,6 +84,7 @@ export const theme = createTheme({
           textTransform: 'uppercase',
           borderBottom: '3px solid #FAF0CB',
           padding: '6px 16px',
+          textAlign: 'center'
         },
         head: {
           fontFamily: 'MonsterHunter',
@@ -98,7 +118,7 @@ export const theme = createTheme({
           props: { variant: 'large' },
           style: {
             width: '100%',
-            padding: '20px 16px',
+            padding: '28px 16px',
             fontSize: 18,
             fontWeight: 700,
             filter: 'none'
@@ -115,6 +135,30 @@ export const theme = createTheme({
             height: '35px'
             // fontWeight: 700,
             // lineHeight: '45px',
+          },
+        },
+        {
+          props: { variant: 'yellow' },
+          style: {
+            fontSize: 15,
+            color: ' #B78300',
+            backgroundColor: '#FFDA01',
+            padding: '0 32px',
+            height: '35px',
+            border: '2px solid #B78300',
+            fontWeight: 700,
+          },
+        },
+        {
+          props: { variant: 'transparent' },
+          style: {
+            fontSize: 15,
+            color: ' #B78300',
+            backgroundColor: 'transparent',
+            padding: '0',
+            height: '35px',
+            // border: '2px solid #B78300',
+            fontWeight: 700,
           },
         },
         

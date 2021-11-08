@@ -11,8 +11,7 @@ const SearchOrFilter = () => {
   return(
     <Box
         sx={{
-          mx: '65px',
-          // mr: '64px',
+          
           display: 'flex',
           flexWrap: 'wrap',
           width: '1037px',

@@ -2,8 +2,9 @@ import {  Button, InputAdornment, InputBase, Stack, IconButton, InputLabel } fro
 import { Box, width } from '@mui/system';
 
 import { ReactComponent as IconComponent } from '../../images/loupe_ico.svg';
-import hunterdogeShadow from '../../images/hunterdoge_shadow.png';
+import hunterdogeShadow from '../../images/hunterdoge_menu.png';
 import SearchInput from '../../components/searchInput'
+import {Link} from "react-router-dom";
 
 const Menu = () => {
   return(
@@ -17,33 +18,33 @@ const Menu = () => {
         pl:'38px',
         pr: '31px',
         pt: '36px',
-        pb: '31px'
+        pb: 1
       }}
       >
         <Box sx={{position: 'relative'}}>
           <SearchInput small mb={'28px'}/>
         </Box>
 
-        <Button variant="large" sx={{mb: 3}}>
+        <Button variant="large" sx={{mb: 3}}  component={ Link } to="/allTokens">
           All Tokens
         </Button>
         <Button variant="large" sx={{mb: 3}}>
           All Pre-sales
         </Button>
-        <Button variant="large" sx={{mb: 3}}>
-          Lottery
+        <Button variant="large" sx={{mb: 3}} component={ Link } to="/nft-gallery">
+          NFT GALLERY
         </Button>
         <Button variant="large" sx={{mb: 3}}>
-          News & Updates
+          Documents
         </Button>
         <Button variant="large" sx={{mb: 3}}>
-          shill & Win
+          Contact
         </Button>
-        <Button variant="large" sx={{mb: '36px'}}>
+        {/* <Button variant="large" sx={{mb: '36px'}}>
           Staking
-        </Button>
+        </Button> */}
 
-        <Stack direction="row">
+        {/* <Stack direction="row">
           <Button 
             sx={{
               width: '100%',
@@ -57,15 +58,19 @@ const Menu = () => {
           >
             Contact
           </Button>
+        </Stack> */}
+        <Stack direction="row" alignItems="end" justifyContent="space-between" sx={{mt: '27px'}}>
+          <Button variant="transparent">
+            + Submit your  coin
+          </Button>
+          <Box component="img" src={hunterdogeShadow}
+            sx={{
+              // position: 'absolute',
+              // right: 0,
+              bottom: '-115px'
+            }}
+          />
         </Stack>
-        
-        <Box component="img" src={hunterdogeShadow}
-          sx={{
-            position: 'absolute',
-            right: 0,
-            bottom: '-115px'
-          }}
-        />
     </Box>
   )
 }

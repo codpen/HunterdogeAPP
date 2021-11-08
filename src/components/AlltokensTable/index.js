@@ -22,7 +22,7 @@ const PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAA
 
 const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
 
-const PopularTokens = () => {
+const AllTokensTable = () => {
   const [value, setValue] = useState(0)
   const [data, setData] = useState([])
 
@@ -60,17 +60,7 @@ const PopularTokens = () => {
   }
 
   return (
-    <Box sx={{mt: '20px', width: '100%', textAlign: 'center', position: 'relative'}}>
-      <Box component="img" src={hunterdoge}
-        sx={{
-          position: 'absolute',
-          right: 0,
-          top: '2%'
-        }}
-      />
-      <Box component='h2' sx={{fontSize: '60px', mb: 3}}>
-        Most popular Tokens
-      </Box>
+    <Box sx={{mt: 4, width: '100%', textAlign: 'center', position: 'relative'}}>
       <Tabs
         value={value} onChange={handleChange} aria-label="sort"
         >
@@ -98,6 +88,9 @@ const PopularTokens = () => {
                 <TableCell>Ticker</TableCell>
                 <TableCell>MCAP</TableCell>
                 <TableCell>Price</TableCell>
+                <TableCell>Liq / Mcap<br/> Ratio</TableCell>
+                <TableCell>holders</TableCell>
+                <TableCell>Popularity</TableCell>
                 <TableCell sx={{textAlign: 'left'}}>Votes</TableCell>
                 
               </TableRow>
@@ -151,6 +144,26 @@ const PopularTokens = () => {
                         </Stack>
                       </Stack>
                     </TableCell>
+
+                    <TableCell >
+                      <Typography variant="h6">
+                        HIGH
+                      </Typography>
+                      <Typography variant="h6" sx={{fontSize: 16, fontWeight: 600}}>
+                        0.67
+                      </Typography>
+                    </TableCell>
+                    <TableCell >
+                      <Typography variant="table">
+                        322’000’222
+                      </Typography>
+                    </TableCell>
+                    <TableCell >
+                      <Typography variant="table" sx={{textTransform: 'capitalize'}}>
+                        Very high
+                      </Typography>
+                    </TableCell>
+
                     <TableCell >
                       <Stack direction="row" alignItems="center">
                         <Typography variant="table">
@@ -213,6 +226,26 @@ const PopularTokens = () => {
                         </Stack>
                       </Stack>
                     </TableCell>
+
+                    <TableCell >
+                      <Typography variant="h6">
+                        HIGH
+                      </Typography>
+                      <Typography variant="h6" sx={{fontSize: 16, fontWeight: 600}}>
+                        0.67
+                      </Typography>
+                    </TableCell>
+                    <TableCell >
+                      <Typography variant="table">
+                        322’000’222
+                      </Typography>
+                    </TableCell>
+                    <TableCell >
+                      <Typography variant="table" sx={{textTransform: 'capitalize'}}>
+                        Very high
+                      </Typography>
+                    </TableCell>
+
                     <TableCell >
                       <Stack direction="row" alignItems="center">
                         <Typography variant="table">
@@ -274,6 +307,26 @@ const PopularTokens = () => {
                         </Stack>
                       </Stack>
                     </TableCell>
+
+                    <TableCell >
+                      <Typography variant="h6">
+                        HIGH
+                      </Typography>
+                      <Typography variant="h6" sx={{fontSize: 16, fontWeight: 600}}>
+                        0.67
+                      </Typography>
+                    </TableCell>
+                    <TableCell >
+                      <Typography variant="table">
+                        322’000’222
+                      </Typography>
+                    </TableCell>
+                    <TableCell >
+                      <Typography variant="table" sx={{textTransform: 'capitalize'}}>
+                        Very high
+                      </Typography>
+                    </TableCell>
+
                     <TableCell >
                       <Stack direction="row" alignItems="center">
                         <Typography variant="table">
@@ -635,4 +688,4 @@ const PopularTokens = () => {
   )
 }
 
-export default PopularTokens;
+export default AllTokensTable;

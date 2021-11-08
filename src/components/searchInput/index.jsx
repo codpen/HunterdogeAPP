@@ -10,6 +10,7 @@ const SearchInput = ({ placeholder, small, padding, mr, mb }) => {
       <InputBase
         placeholder={placeholder ? placeholder : 'search for name, contract address'}
         fullWidth
+
         sx={{
           mb: mb? mb : 0,
           padding: padding ? padding : '0 5px 0 35px',

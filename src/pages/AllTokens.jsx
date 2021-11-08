@@ -2,6 +2,8 @@ import { Stack} from '@mui/material';
 import { Box, width } from '@mui/system';
 
 import Menu from '../blocks/menu';
+import AllTokensTable from '../components/AlltokensTable';
+import PopularPreSales from '../components/popularPreSales';
 import PromotedPreSales from '../components/promotedPresales';
 import SearchOrFilter from '../components/searchOrFilter';
 
@@ -18,10 +20,15 @@ const AllTokens = () => {
     }}
     >
       <Menu/>
-      <SearchOrFilter/>
-      <Stack>
-        <PromotedPreSales/>
+      <Stack sx={{ml: '66px'}}>
+        <SearchOrFilter/>
+        <AllTokensTable/>
+        <PopularPreSales/>
       </Stack>
+      {/* <Stack>
+        <PromotedPreSales/>
+        
+      </Stack> */}
     </Stack>
   )
 }

@@ -28,11 +28,11 @@ const PopularPreSales = () => {
             <TableHead>
               <TableRow>
                 <TableCell>#Rank</TableCell>
-                <TableCell>name</TableCell>
+                <TableCell sx={{textAlign: 'left'}}>name</TableCell>
                 <TableCell>Ticker</TableCell>
-                <TableCell>Caps</TableCell>
-                <TableCell>Limits</TableCell>
-                <TableCell>Votes</TableCell>
+                <TableCell sx={{textAlign: 'left'}}>Caps</TableCell>
+                <TableCell sx={{textAlign: 'left'}}>Limits</TableCell>
+                <TableCell sx={{textAlign: 'left'}}>Votes</TableCell>
                 
               </TableRow>
             </TableHead>
@@ -47,7 +47,7 @@ const PopularPreSales = () => {
                 </Stack>
               </TableCell>
               <TableCell >
-                <Stack >
+                <Stack sx={{textAlign: 'left'}}>
                   <Typography variant="h5">
                     HunterDoge
                   </Typography>
@@ -131,7 +131,7 @@ const PopularPreSales = () => {
                 </Stack>
               </TableCell>
               <TableCell >
-                <Stack >
+                <Stack sx={{textAlign: 'left'}}>
                   <Typography variant="h5">
                     HunterDoge
                   </Typography>
@@ -215,7 +215,7 @@ const PopularPreSales = () => {
                 </Stack>
               </TableCell>
               <TableCell >
-                <Stack >
+                <Stack sx={{textAlign: 'left'}}>
                   <Typography variant="h5">
                     HunterDoge
                   </Typography>
@@ -299,7 +299,7 @@ const PopularPreSales = () => {
                 </Stack>
               </TableCell>
               <TableCell >
-                <Stack >
+                <Stack sx={{textAlign: 'left'}}>
                   <Typography variant="h5">
                     HunterDoge
                   </Typography>
@@ -383,7 +383,7 @@ const PopularPreSales = () => {
                 </Stack>
               </TableCell>
               <TableCell >
-                <Stack >
+                <Stack sx={{textAlign: 'left'}}>
                   <Typography variant="h5">
                     HunterDoge
                   </Typography>
@@ -467,7 +467,7 @@ const PopularPreSales = () => {
                 </Stack>
               </TableCell>
               <TableCell >
-                <Stack >
+                <Stack sx={{textAlign: 'left'}}>
                   <Typography variant="h5">
                     HunterDoge
                   </Typography>
