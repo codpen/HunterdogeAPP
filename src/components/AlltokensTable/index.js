@@ -10,10 +10,14 @@ import { ReactComponent as IconReward } from '../../images/reward_ico.svg';
 import arrowUp from '../../images/arrow-up.svg';
 import arrowDown from '../../images/arrow-down.svg';
 import hunterdoge from '../../images/hunterdoge.png';
+import close from '../../images/close_ico.svg';
+import info from '../../images/info_ico.svg';
 
 import  { GoogleSpreadsheet }  from 'google-spreadsheet';
 import { useEffect, useState } from 'react';
 import TabPanel from '../TabPanel'
+import Pagination from '../pagination/Pagination';
+import CheckboxShow from '../checkboxShow';
 
 const SPREADSHEET_ID = "10es63D__Qs2hpZKEYvmStkrWHzVyCQtCdxGM2gMBBzQ";
 const SHEET_ID = "0";
@@ -59,16 +63,33 @@ const AllTokensTable = () => {
     setValue(newValue)
   }
 
+
+  const backToTop = () => console.log('back')
+
+  const closeTab = () => console.log('close')
+
   const vote = () => console.log('vote')
 
+
   return (
-    <Box sx={{mt: 4, width: '100%', textAlign: 'center', position: 'relative'}}>
+    <Box sx={{mt: 4, width: '1426px', textAlign: 'center', position: 'relative'}}>
       <Tabs
         value={value} onChange={handleChange} aria-label="sort"
         >
-        <Tab label="Today’s best"></Tab>
-        <Tab label="This week’s"></Tab>
-        <Tab label="all-time"></Tab>
+        <Tab label="Search 1" sx={{position: 'relative', width: 224}}
+        icon={<Box component="img" src={close}
+        onClick={() => closeTab()}
+        sx={{
+          position: 'absolute',
+          right: '10px',
+          top: '18px'
+        }}
+      />}>
+        
+        </Tab>
+        <Tab label="Today’s best" sx={{width: 224}}></Tab>
+        <Tab label="This week’s" sx={{width: 224}}></Tab>
+        <Tab label="all-time" sx={{width: 224}}></Tab>
       </Tabs>
       <Box
         sx={{
@@ -78,9 +99,18 @@ const AllTokensTable = () => {
           borderRadius: '25px',
           borderTopLeftRadius: 0,
           boxShadow: '5px 5px 0px rgba(0, 0, 0, 0.1)',
-          border: '3px solid #FFF3D4'
+          border: '3px solid #FFF3D4',
+          position: 'relative'
         }}
       >
+        <Box component="img" src={info}
+          // onClick={() => closeTab()}
+          sx={{
+            position: 'absolute',
+            right: '14px',
+            top: '11px'
+          }}
+        />
         <TableContainer>
           <Table>
             <TableHead>
@@ -181,8 +211,91 @@ const AllTokensTable = () => {
                 )
               })}
             </TabPanel>
+            <TabPanel
+              value={value} index={1}
+              >
+              {filterOneDay.map((row, index) => {
+                return(
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      <Stack direction="row" alignItems="center" >
+                      <Typography variant="h6" sx={{mr:'36px'}}>
+                        {index+1}.
+                      </Typography>
+                      <Box component="img" src={logo} sx={{width: '66px'}}/>
+                      </Stack>
+                    </TableCell>
+                    <TableCell >
+                      <Stack>
+                        <Typography variant="h5">
+                          {row.Project_Name}
+                        </Typography>
+                        <Stack direction="row" sx={{gap: 2, mt: '14px'}}>
+                          <IconReward/>
+                          <IconDialogue/>
+                        </Stack>
+                      </Stack>
+                    </TableCell>
+                    <TableCell >
+                      <Typography variant="h6" sx={{fontWeight: 900}}>
+                        {row.Project_Symbol}
+                      </Typography>
+                    </TableCell>
+                    <TableCell >
+                      <Typography variant="table">
+                        $900’999
+                      </Typography>
+                    </TableCell>
+                    <TableCell >
+                      <Stack>
+                        <Typography variant="table" sx={{pt: '26px'}}>
+                          {row.Project_Price}
+                        </Typography>
+                        <Stack direction="row" sx={{mt: 1}}>
+                          <Box component='img' src={arrowUp} sx={{width: '17px', mr: 1}}/>
+                          <Typography variant="caption">
+                            24H = +12.99%
+                          </Typography>
+                        </Stack>
+                      </Stack>
+                    </TableCell>
+
+                    <TableCell >
+                      <Typography variant="h6">
+                        HIGH
+                      </Typography>
+                      <Typography variant="h6" sx={{fontSize: 16, fontWeight: 600}}>
+                        0.67
+                      </Typography>
+                    </TableCell>
+                    <TableCell >
+                      <Typography variant="table">
+                        322’000’222
+                      </Typography>
+                    </TableCell>
+                    <TableCell >
+                      <Typography variant="table" sx={{textTransform: 'capitalize'}}>
+                        Very high
+                      </Typography>
+                    </TableCell>
+
+                    <TableCell >
+                      <Stack direction="row" alignItems="center">
+                        <Typography variant="table">
+                          156’093
+                        </Typography>
+                        <Button sx={{ml: '33px', mr: 2}}>
+                          VOTE
+                        </Button>
+                        <Button variant="more">...</Button>
+                      </Stack>
+                    </TableCell>            
+                  </TableRow>
+                )
+              })}
+            </TabPanel>
             
-            <TabPanel value={value} index={1}>
+            <TabPanel value={value} index={2}>
             {filterWeek.map((row, index) => {
                 return(
                   <TableRow>
@@ -263,7 +376,7 @@ const AllTokensTable = () => {
                 )
               })}
             </TabPanel>
-            <TabPanel value={value} index={2}>
+            <TabPanel value={value} index={3}>
             {data.map((row, index) => {
                 return(
                   <TableRow>
@@ -681,11 +794,14 @@ const AllTokensTable = () => {
           </Table>
         </TableContainer>
       </Box>
-      <Button component={ Link } to="/allTokens"
-        sx={{mt: 5, minWidth: '187px'}}
-        >
-        see all tokens
-      </Button>
+      <Stack direction="row" justifyContent="space-between" sx={{mt: 3, px: 2}}>
+        <CheckboxShow/>
+        <Pagination count={56}/>
+        <Button variant="transparent" sx={{ml: '380px'}}
+        onClick={() => backToTop()}>
+          go back top
+        </Button>
+      </Stack>
     </Box>
   )
 }

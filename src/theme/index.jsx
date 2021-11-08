@@ -159,6 +159,7 @@ export const theme = createTheme({
             height: '35px',
             // border: '2px solid #B78300',
             fontWeight: 700,
+            filter: 'none'
           },
         },
         
@@ -243,6 +244,26 @@ export const theme = createTheme({
           //   borderBottom: '2px solid red',
           // },
         },
+      },
+    },
+  },
+  MuiButtonBase: {
+    styleOverrides: {
+      root: {
+        MuiCheckbox: {
+          root: {
+            color: 'red'
+          }
+        }
+      },
+    },
+  },
+  MuiCheckbox: {
+    styleOverrides: {
+        color: 'red',
+        '&.Mui-checked': {
+          color: 'red',
+       
       },
     },
   },

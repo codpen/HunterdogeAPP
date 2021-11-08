@@ -52,8 +52,10 @@ const data = [
 
 const CardNft = () => {
     const classes = useStyles();
+
     const buy = () => console.log('buy') 
     const sell = () => console.log('sell')
+
     return (
         <Card className={classes.root}>
             <div className={classes.headerContent}>

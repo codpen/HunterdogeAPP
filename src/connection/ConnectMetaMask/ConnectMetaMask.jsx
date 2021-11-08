@@ -27,7 +27,7 @@ const SUPPORTED_WALLETS = {
   }
 }
 
-const ConnectMetaMask = () => {
+const ConnectMetaMask = ({text}) => {
   const { activate, account, chainId, deactivate } = useWeb3React()
   const [balance, setBalance] = useState(0)
   const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
@@ -110,7 +110,7 @@ const ConnectMetaMask = () => {
 
   return (
     <>
-      {!account && ( <Button onClick={() => onConnect(SUPPORTED_WALLETS.METAMASK.connector)} sx={{ width: '100%', border: '10px solid B78300' }}>Register / Connect Wallet</Button>
+      {!account && ( <Button onClick={() => onConnect(SUPPORTED_WALLETS.METAMASK.connector)} sx={{ width: '100%', border: '10px solid B78300' }}>{text || 'Register / Connect Wallet'}</Button>
         // <Button className={'at-click at-btn-cnt-metamask-wlt'} onClick={() => onConnect(SUPPORTED_WALLETS.METAMASK.connector)}>Connect to a Wallet</Button>
       )}
       {account && (

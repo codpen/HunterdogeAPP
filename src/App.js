@@ -6,6 +6,7 @@ import Hero from './blocks/hero';
 import AllTokens from './pages/AllTokens';
 import HomePage from './pages/HomePage';
 import NftGallery from './pages/NftGallary.jsx';
+import TokenPage from "./pages/TokenPage";
 
 
 function App() {
@@ -22,6 +23,9 @@ function App() {
                 </Route>
                 <Route path="/nft-gallery" exact>
                     <NftGallery/>
+                </Route>
+                <Route path="/token" exact>
+                    <TokenPage/>
                 </Route>
             </Switch>
             <Footer/>

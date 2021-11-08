@@ -8,7 +8,7 @@ const Header = () => {
     return (
         <RootStyle>
             <Stack direction="row" alignItems="center" sx={{
-                width: '2600xp',
+                width: '100%',
                 overflow: 'auto hidden'
             }}>
                 <Box
@@ -42,8 +42,8 @@ const RootStyle = styled('div')(({theme}) => ({
     background: 'linear-gradient(270deg, rgba(136, 109, 40, 0.5) 3.52%, #886D28 18.73%, #886D28 82.08%, rgba(136, 109, 40, 0.5) 98.54%)',
     boxShadow: '0px 5px 0px rgba(0, 0, 0, 0.1)',
     height: '62pх',
-    maxWidth: '1920px',
-    overflow: 'hidden'
+    maxWidth: '100vw'
+
     // overflowX: 'scroll'
     // padding: '',
     // [theme.breakpoints.down('lg')]: {

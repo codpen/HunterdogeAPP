@@ -16,11 +16,9 @@ import LiveChart from "../components/chartsViews/LiveChart";
 
 const useStyles = makeStyles({
     root: {
-        boxSizing: 'border-box',
         padding: '0 50px',
         maxWidth: '1161px',
         width: '100%',
-        gap: '40px'
     },
     card: {}
 });
@@ -42,25 +40,11 @@ const NftGallery = () => {
             >
 
                 <Menu/>
-                {/*/!*<NoPresaleView />*!/*/}
-                {/*<LiveChart />*/}
-                <div>
-                    <Box component='h2' sx={{fontSize: '60px', textAlign: 'center', mb: '41px'}}>
-                        Hunter’s nfts
-                    </Box>
-                    <Grid className={classes.root} container justifyContent="center">
-                        {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((value) => (
-                            <Grid key={value} item justifyContent='center' spacing={2}>
-                                <CardNft/>
-                            </Grid>
-                        ))}
-                    </Grid>
-                    <Pagination count={56}/>
-                </div>
-                <Stack>
-                    <News/>
-                </Stack>
-                <Modal/>
+                <Grid className={classes.root}>
+                    <NoPresaleView />
+                    <LiveChart />
+                </Grid>
+
             </Stack>
 
         </>

@@ -1,6 +1,6 @@
 import { Box, width } from '@mui/system';
 import {  Button, InputAdornment, InputBase, Stack, IconButton, InputLabel } from '@mui/material';
-import { FormControl, MenuItem, Select, TextField, Typography } from '@material-ui/core';
+import { FormControl, Input, MenuItem, Select, TextField, Typography } from '@material-ui/core';
 
 import hunterdogeSearch from '../../images/hunterdoge_search.png';
 
@@ -37,13 +37,13 @@ const SearchOrFilter = () => {
         }}
       >
         
-        <Stack direction="row"
+        <Stack direction="row" 
           sx={{
             mb: 2,
             width: '417px'}}>
           <SearchInput mr={'11px'} padding = {'0 5px 0 15px'}/>
         </Stack>
-        <Stack direction="row" gap="13px">
+        <Stack direction="row" alignItems="end" gap="13px">
           <SelectForm label="Filter tokens by:">
             <MenuItem value="">
               Market Cap
@@ -54,27 +54,30 @@ const SearchOrFilter = () => {
           </SelectForm>
           <SelectForm label="Sort tokens by:">
             <MenuItem value="">
-              Highest first
+             Descending
             </MenuItem>
-            <MenuItem value={10}>1.Highest first</MenuItem>
-            <MenuItem value={20}>2.Highest first</MenuItem>
-            <MenuItem value={30}>3.Highest first</MenuItem>
+            <MenuItem value={10}>1.Descending</MenuItem>
+            <MenuItem value={20}>2.Descending</MenuItem>
+            <MenuItem value={30}>3.Descending</MenuItem>
           </SelectForm>
-          <SelectForm label="Sort tokens by:">
+          <SelectForm label="Show only tokens with:">
             <MenuItem value="">
-              Highest first
+              Liq./Mcap-Ratio
             </MenuItem>
-            <MenuItem value={10}>1.Highest first</MenuItem>
-            <MenuItem value={20}>2.Highest first</MenuItem>
-            <MenuItem value={30}>3.Highest first</MenuItem>
+            <MenuItem value={10}>1.Liq./Mcap-Ratio</MenuItem>
+            <MenuItem value={20}>2.Liq./Mcap-Ratio</MenuItem>
+            <MenuItem value={30}>3.Liq./Mcap-Ratio</MenuItem>
           </SelectForm>
-          <SelectForm label="Sort tokens by:">
+          <Typography>of</Typography>
+          <Input value={70} textAlign='center!important'></Input>
+          <Typography>% end</Typography>
+          <SelectForm>
             <MenuItem value="">
-              Highest first
+              higher
             </MenuItem>
-            <MenuItem value={10}>1.Highest first</MenuItem>
-            <MenuItem value={20}>2.Highest first</MenuItem>
-            <MenuItem value={30}>3.Highest first</MenuItem>
+            <MenuItem value={10}>1.higher</MenuItem>
+            <MenuItem value={20}>2.higher</MenuItem>
+            <MenuItem value={30}>3.higher</MenuItem>
           </SelectForm>
         </Stack>
         <Button sx={{mt: '22px'}}>
