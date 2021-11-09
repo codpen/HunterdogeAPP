@@ -9,6 +9,7 @@ import TokenInformation from "../components/chartsViews/tokenInformation/TokenIn
 import PreSale from "../components/chartsViews/upcomingPreSale/Presale";
 import {useWeb3React} from "@web3-react/core";
 import TokenHeader from "../components/tokenInformationHeader/TokenHeader";
+import {Button} from "../components/common/index";
 
 const useStyles = makeStyles({
     root: {
@@ -37,6 +38,7 @@ const NftGallery = () => {
     return (
         <Block>
             <Grid className={classes.root}>
+                <Button size={'20px'} height={'47px'} width={'104px'} margin={'0 0 27px 0'}>{'< BACK'}</Button>
                 <TokenHeader/>
                 <ChangePart setPartActive={setPartActive}/>
                 {partActive === 1 ? <LiveChart/> : partActive === 2 ? <TokenInformation/> : isPresale}

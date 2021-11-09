@@ -1,214 +1,88 @@
 import React from 'react';
-import styled from "styled-components";
 import LogoImage from '../../images/hunter_logo.png'
 import M from '../../images/M.png'
 import Dialogue from '../../images/dialogue_ico.svg'
 import Reward from '../../images/reward_ico.svg'
+import Like from '../../images/like_ico.svg'
+import {
+    Wrapper,
+    Image,
+    Flex,
+    HeadTitle,
+    Substrate,
+    Text,
+    BadgesWrapper,
+    Card,
+    InfoWrapper,
+    Inner,
+    Label
+} from './TokeHeaderStyled'
+import {Button} from '../common'
 
-export const Wrapper = styled.div`
-  max-width: 1040px;
-  height: 466px;
-  padding: 26px 21px 21px 21px;
-  margin-bottom: 32px;
-  background: #FFDA01;
-  border-radius: 25px;
-  display: flex;
-  justify-content: space-between;
-`
-
-export const BadgesWrapper = styled.div`
-  width: 143px;
-  display: flex;
-  flex-direction: column;
-`
-
-export const InfoWrapper = styled.div`
-  max-width: 826px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-left: 15px;
-`
-
-export const Inner = styled.div`
-  width: 100%;
-  height: 342px;
-  background: #FFFFFF;
-  
-  padding: 20px 27px 19px 27px;
-  
-  border: 2px solid #B78300;
-  box-sizing: border-box;
-  border-radius: 25px;
-  
-  margin-top: auto;
-`
-
-export const HeadTitle = styled.h3`
-  font-size: ${({size}) => size || 'inherit'};
-  line-height: ${({size}) => size || 'inherit'};
-`
-
-export const Substrate = styled.div`
-  display: flex;
-  padding: ${({padding}) => padding || '12px 22px'};
-  background: #FAF0CB;
-  border-radius: 25px;
-  margin: ${({margin}) => margin || '0'};
-  box-shadow: 1px 3px 0 rgba(0, 0, 0, 0.1);
-`
-
-export const Label = styled.h4`
-  width: 152px;
-  height: 56px;
-  padding-top: 6px;
-  margin-left: 22px;
-  
-  text-align: center;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 44px;
-  line-height: 98.1%;
-  color: #B78300;
-
-  background: #FFFFFF;
-  border: 1.4px solid #B78300;
-  border-radius: 18px;
-  box-shadow: 3.6px 3.6px 0 rgba(0, 0, 0, 0.1);
-`
-
-
-
-export const Card = styled.div`
-  font-family: Raleway;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  div {
-    width: 72.13px;
-    height: 72.13px;
-    border-radius: 50%;
-    background: #AB882E;
-    
-    margin-bottom: 22px;
-  }
-  span {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18.5px;
-    line-height: 18px;
-    text-transform: uppercase;
-    color: #B78300;
-    margin-bottom: 9px;
-  }
-  p {
-    width: 176px;
-    height: 42px;
-    background: ${({color}) => color || '#FAF0CB'};
-    border-radius: 25px;
-    
-    box-shadow: 1px 3px 0 rgba(0, 0, 0, 0.1);
-    
-    padding: 11px 0;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 20px;
-    text-align: center;
-    color: #B78300;
-  }
-`
-
-export const Text = styled.p`
-  font-family: Raleway;
-  font-style: normal;
-  font-weight: ${({weight}) => weight || '600'};
-  font-size: ${({size}) => size || '18px'};
-  line-height: ${({size}) => size || '18px'};
-  text-transform: uppercase;
-  color: #AB882E;
-`
-
-export const Flex = styled.div`
-  display: flex;
-  justify-content: ${({justify}) => justify || 'start'};
-  align-items: center;
-  margin: ${({margin}) => margin || '0'};
-`
-
-export const Button = styled.button`
-  width: 100%;
-  height: ${({height}) => height || '36px'};
-  border: none;
-  cursor: pointer;
-  background: #B78300;
-  box-sizing: border-box;
-  border-radius: 25px;
-  font-size: ${({size}) => size || '15px'};
-  line-height: ${({size}) => size || '15px'};
-
-  font-family: Raleway;
-  font-style: normal;
-  font-weight: ${({weight}) => weight || '500'};
-
-  text-align: center;
-  text-transform: uppercase;
-  box-shadow: 1px 3px 0 rgba(0, 0, 0, 0.1);
-  color: #FFFFFF;
-`
-
-const Image = styled.img.attrs(props => ({
-    src: props.src || Image,}))`
-  width: ${({width}) => width || '100%'};
-  height: ${({height}) => height}
-`;
 
 const TokenHeader = () => {
     const visitWebsite = () => console.log('visit website')
+    const vote = () => console.log('vote')
 
     return (
         <Wrapper>
             <BadgesWrapper>
-                <Image src={LogoImage}/>
+                <Image src={LogoImage} margin={'0 0 21px 0'}/>
                 <Button weight={'700'} onClick={visitWebsite}>
                     visit website
                 </Button>
-                <Flex>
+                <Flex margin={'20px 0 19px 0'}>
                     <Image src={M}/>
                     <Image src={M}/>
                     <Image src={M}/>
                     <Image src={M}/>
                 </Flex>
-                <Flex justify={'space-between'}>
-                    <Image src={Reward} width={'22px'}/>
-                    <Image src={Dialogue} width={'35px'}/>
-                    <Image src={Dialogue} width={'35px'}/>
+                <HeadTitle size={'22px'}>earned badges</HeadTitle>
+                <Flex margin={'15px 0 0 0'}>
+                    <Image src={Reward}/>
+                    <Image src={Dialogue}/>
+                    <Image src={Dialogue}/>
                 </Flex>
-                <Flex justify={'space-between'}>
-                    <Image src={Reward} height={'35px'}/>
-                    <Image src={Dialogue} height={'35px'}/>
-                    <Image src={Dialogue} height={'35px'}/>
+                <Flex margin={'15px 0 20px 0'}>
+                    <Image src={Reward}/>
+                    <Image src={Dialogue}/>
+                    <Image src={Dialogue}/>
                 </Flex>
+                <Text size={'13px'} weight={'700'}>what are badges?</Text>
             </BadgesWrapper>
             <InfoWrapper>
-                <Flex>
+                <Flex justify={'start'}>
                     <HeadTitle size={'50px'}>hunterdoge</HeadTitle>
                     <Label>$HUNT</Label>
+                    <Flex left>
+                        <Image src={Like} height={'28px'} margin={'0 8.5px 0 0'}/>
+                        <Text size={'24px'}>156’093</Text>
+                        <Button
+                            onClick={vote}
+                            size={'20px'}
+                            weight={'500'}
+                            width={'104px'}
+                            height={'47px'}
+                            margin={'0 0 0 16px'}
+                        >Vote
+                        </Button>
+                    </Flex>
+
                 </Flex>
                 <Inner>
-                    <Flex>
+                    <Flex justify={'start'}>
                         <Text>network</Text>
-                        <Substrate margin={'0 400px 0 auto'}  padding={'10px 30px'}>
+                        <Substrate margin={'0 400px 0 auto'} padding={'10px 30px'}>
                             <HeadTitle size={'27px'}>bsc</HeadTitle>
                         </Substrate>
                     </Flex>
-                    <Flex justify={'space-between'} margin={'17px 0 26px 0'}>
+                    <Flex margin={'17px 0 26px 0'}>
                         <Text>contract address</Text>
                         <Substrate>
                             <Text>0xfa17b330bcc4e7f3e2456996d89a5a54ab044831</Text>
                         </Substrate>
                     </Flex>
-                    <Flex justify={'space-between'}>
+                    <Flex>
                         <Card>
                             <div/>
                             <span>token price</span>

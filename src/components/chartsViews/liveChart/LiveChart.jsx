@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {Grid, Stack, Typography} from "@material-ui/core";
 import Divider from '@material-ui/core/Divider';
 import {Box} from "@mui/system";
-import { TradingViewEmbed, widgetType } from "react-tradingview-embed";
+import { AdvancedChart } from "react-tradingview-embed";
 
 import Chart from "../../../images/Chart.png";
 import arrowUp from "../../../images/arrow-up.svg";
@@ -14,21 +14,7 @@ const Dashboard = () => {
 
     return (
       <div>
-        <div id='mainChart' className="charty">
-          {query.length > 2 ? (
-            <TradingViewEmbed
-              widgetType={widgetType.ADVANCED_CHART}
-              widgetConfig={{
-                interval: "1D",
-                colorTheme: "dark",
-                width: "100%",
-                symbol: query + "USD",
-              }}
-            />
-          ) : (
-            "BNBUSD"
-          )}
-        </div>
+          <AdvancedChart widgetProps={{"theme": "dark", symbol: query + "USD" }} />
       </div>
     );
 }
