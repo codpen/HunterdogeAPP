@@ -1,16 +1,13 @@
 import {Box} from "@mui/system";
 import Stack from "@mui/material/Stack";
-import {styled} from '@material-ui/core/styles';
+// import {styled} from '@material-ui/core/styles';
+import styled from 'styled-components'
 
 import BlockHunt from '../../components/blockHunt'
 
 const Header = () => {
     return (
-        <RootStyle>
-            <Stack direction="row" alignItems="center" sx={{
-                width: '100%',
-                overflow: 'auto hidden'
-            }}>
+        <Block>
                 <Box
                     component='h1'
                     sx={{
@@ -27,16 +24,29 @@ const Header = () => {
                 >
                     BIGGEST GAINERS
                 </Box>
-                <BlockHunt number={'1'}/>
-                <BlockHunt number={'2'}/>
-                <BlockHunt number={'3'}/>
-                <BlockHunt number={'4'}/>
-            </Stack>
-        </RootStyle>
+                <BlockOverflow>
+                    <BlockHunt number={'1'}/>
+                    <BlockHunt number={'2'}/>
+                    <BlockHunt number={'3'}/>
+                    <BlockHunt number={'4'}/>
+                </BlockOverflow>
+                
+        </Block>
     )
 }
 
 export default Header;
+
+const Block = styled.div`
+    display: flex;
+    background: linear-gradient(270deg, rgba(136, 109, 40, 0.5) 3.52%, #886D28 18.73%, #886D28 82.08%, rgba(136, 109, 40, 0.5) 98.54%);
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
+`;
+
+const BlockOverflow = styled.div`
+    overflow: auto;
+    display: flex;
+`
 
 const RootStyle = styled('div')(({theme}) => ({
     background: 'linear-gradient(270deg, rgba(136, 109, 40, 0.5) 3.52%, #886D28 18.73%, #886D28 82.08%, rgba(136, 109, 40, 0.5) 98.54%)',

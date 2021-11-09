@@ -14,6 +14,7 @@ const useStyles = makeStyles({
     },
 
     modal: {
+        zIndex: 100,
         position: "fixed",
         top: '205px',
         left: 0,
@@ -72,15 +73,14 @@ const data = [
     {id: '229', value: '500 votes'},
 ]
 
-const Modal = () => {
+const Modal = ({ setIsOpen }) => {
     const classes = useStyles();
 
     const buyVotes = () => console.log('buy votes')
-    const close = () => console.log('close')
 
     return (
         <Card className={classes.modal}>
-            <button className={classes.btnClose} onClick={close}>X</button>
+            <button className={classes.btnClose} onClick={() => setIsOpen(false)}>X</button>
             <div>
                 <Box component='h4' sx={{fontSize: '60px', mb: '10px', textAlign: 'center', lineHeight: '58px'}}>
                     Buy votes

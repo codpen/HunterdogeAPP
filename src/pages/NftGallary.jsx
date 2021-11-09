@@ -12,13 +12,14 @@ import Pagination from "../components/pagination/Pagination";
 import News from "../components/promotedPresales/news";
 import Modal from "../components/modal/Modal";
 import NoPresaleView from "../components/chartsViews/NoPresale";
-import LiveChart from "../components/chartsViews/LiveChart";
+import LiveChart from "../components/chartsViews/liveChart/LiveChart";
 
 const useStyles = makeStyles({
     root: {
         boxSizing: 'border-box',
         padding: '0 50px',
         maxWidth: '1161px',
+        // maxWidth: '1420px',
         width: '100%',
         gap: '40px'
     },
@@ -28,22 +29,22 @@ const useStyles = makeStyles({
 const NftGallery = () => {
     const classes = useStyles();
     return (
-        <>
-            <Stack direction="row" alignItems="start"
-                   sx={{
-                       mt: 5,
-                       pl: '44px',
-                       pr: '51px',
-                       backgroundImage: `url(${Paws}), url(${Loupe}), url(${Bow})`,
-                       backgroundRepeat: 'no-repeat',
-                       // backgroundSize:'100% 100%',
-                       backgroundPosition: 'top 130px left 330px, top 130px right 340px, top 950px left 315px',
-                   }}
-            >
+        // <>
+        //     <Stack direction="row" alignItems="start"
+        //            sx={{
+        //                mt: 5,
+        //                pl: '44px',
+        //                pr: '51px',
+        //                backgroundImage: `url(${Paws}), url(${Loupe}), url(${Bow})`,
+        //                backgroundRepeat: 'no-repeat',
+        //                // backgroundSize:'100% 100%',
+        //                backgroundPosition: 'top 130px left 330px, top 130px right 340px, top 950px left 315px',
+        //            }}
+        //     >
 
-                <Menu/>
-                {/*/!*<NoPresaleView />*!/*/}
-                {/*<LiveChart />*/}
+        //         <Menu/>
+                // {/*/!*<NoPresaleView />*!/*/}
+                // {/*<LiveChart />*/}
                 <div>
                     <Box component='h2' sx={{fontSize: '60px', textAlign: 'center', mb: '41px'}}>
                         Hunter’s nfts
@@ -57,13 +58,13 @@ const NftGallery = () => {
                     </Grid>
                     <Pagination count={56}/>
                 </div>
-                <Stack>
-                    <News/>
-                </Stack>
-                <Modal/>
-            </Stack>
+        //         <Stack>
+        //             <News/>
+        //         </Stack>
+        //         <Modal/>
+        //     </Stack>
 
-        </>
+        // </>
     );
 };
 

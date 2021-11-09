@@ -12,6 +12,7 @@ const Menu = () => {
       sx={{
         position: 'relative',
         width: '348px',
+        height: '100%',
         backgroundColor: '#FAF0CB',
         borderRadius: '25px',
         boxShadow: '5px 5px 0px rgba(0, 0, 0, 0.1)',

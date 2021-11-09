@@ -27,7 +27,7 @@ const SUPPORTED_WALLETS = {
   }
 }
 
-const ConnectMetaMask = ({text}) => {
+const ConnectMetaMask = ({text, setIsOpen}) => {
   const { activate, account, chainId, deactivate } = useWeb3React()
   const [balance, setBalance] = useState(0)
   const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
@@ -122,7 +122,7 @@ const ConnectMetaMask = ({text}) => {
              <Box component='img' src={likeDark}
                sx={{mr: '3px'}}
              />
-             <Button>
+             <Button onClick={() => setIsOpen(true)}>
               Buy votes
              </Button>
            </Stack>

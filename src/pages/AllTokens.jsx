@@ -10,17 +10,17 @@ import News from '../components/promotedPresales/news';
 
 const AllTokens = () => {
   return(
-    <Stack direction="row" alignItems="start"
-    sx={{
-      mt: 5,
-      pl: '44px',
-      pr: '51px',
-      // backgroundImage: `url(${Paws}), url(${Loupe}), url(${Bow})`,
-      backgroundRepeat: 'no-repeat', 
-      backgroundPosition:'top 130px left 330px, top 130px right 340px, top 950px left 315px',       
-    }}
-    >
-      <Menu/>
+    // <Stack direction="row" alignItems="start"
+    // sx={{
+    //   mt: 5,
+    //   pl: '44px',
+    //   pr: '51px',
+    //   // backgroundImage: `url(${Paws}), url(${Loupe}), url(${Bow})`,
+    //   backgroundRepeat: 'no-repeat', 
+    //   backgroundPosition:'top 130px left 330px, top 130px right 340px, top 950px left 315px',       
+    // }}
+    // >
+    //   <Menu/>
       <Stack sx={{ml: '60px'}}>
         <SearchOrFilter/>
         <AllTokensTable/>
@@ -29,11 +29,11 @@ const AllTokens = () => {
           <News/>
         </Stack>
       </Stack>
-      {/* <Stack>
-        <PromotedPreSales/>
+    //   {/* <Stack>
+    //     <PromotedPreSales/>
         
-      </Stack> */}
-    </Stack>
+    //   </Stack> */}
+    // {/* </Stack> */}
   )
 }
 
