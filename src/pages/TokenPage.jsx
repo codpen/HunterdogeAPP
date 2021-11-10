@@ -2,9 +2,6 @@ import React, {useState} from 'react';
 import {Link} from 'react-router-dom'
 import styled from "styled-components";
 
-import {Grid} from "@material-ui/core";
-import {makeStyles} from "@material-ui/styles";
-
 import NoPresaleView from "../components/chartsViews/noPresale/NoPresale";
 import LiveChart from "../components/chartsViews/liveChart/LiveChart";
 import Comments from "../components/comments/";
@@ -13,6 +10,7 @@ import PreSale from "../components/chartsViews/upcomingPreSale/Presale";
 import {useWeb3React} from "@web3-react/core";
 import TokenHeader from "../components/tokenInformationHeader/TokenHeader";
 import {Button, Flex} from "../components/common/index";
+import PopularPreSales from "../components/popularPreSales";
 
 const ChangePart = ({setPartActive, partActive}) => (
     <Part>
@@ -40,6 +38,7 @@ const TokenPage = () => {
                 <ChangePart setPartActive={setPartActive} partActive={partActive}/>
                 {partActive === 1 ? <LiveChart/> : partActive === 2 ? <TokenInformation/> : isPresale}
                 <Comments/>
+                <PopularPreSales/>
             </Container>
         </Block>
     );

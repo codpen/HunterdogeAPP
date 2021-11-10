@@ -1,41 +1,39 @@
 import * as React from 'react';
-import {makeStyles} from "@material-ui/styles";
-import {Box} from "@mui/system";
 import arrowLeft from '../../images/left.png';
 import arrowRight from '../../images/right.png';
-
-const useStyles = makeStyles({
-    root: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    btn: {
-        backgroundColor: 'transparent',
-        border: 'none',
-        cursor: 'pointer'
-    },
-    content: {
-        fontFamily: 'Monster Hunter Staggered',
-        fontSize: '44px',
-        color: '#B78300'
-    }
-});
+import styled from "styled-components";
+import {Image} from "../common";
 
 export default function Pagination({count}) {
-    const classes = useStyles();
 
     return (
-        <div className={classes.root}>
-            <button className={classes.btn}>
-                <Box component='img' src={arrowLeft}/>
-            </button>
-            <Box component='h5' sx={{fontSize: '44px', mx: '11px'}}>
+        <Wrapper>
+            <Button>
+                <Image src={arrowLeft}/>
+            </Button>
+            <Count>
                 {1} / {count}
-            </Box>
-            <button className={classes.btn}>
-                <Box component='img' src={arrowRight}/>
-            </button>
-        </div>
+            </Count>
+            <Button>
+                <Image src={arrowRight}/>
+            </Button>
+        </Wrapper>
     );
 }
+
+export const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+export const Button = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+`
+export const Count = styled.h6`
+  font-size: 44px;
+  margin: 0 11px;
+  color: #B78300;
+`

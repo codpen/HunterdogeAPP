@@ -1,39 +1,26 @@
-import { useEffect, useState } from 'react';
-import { Tab, Table, TableContainer, TableHead, Tabs, TableRow, TableCell, TableBody, Typography, Stack, Button } from '@material-ui/core';
-import { Box } from '@mui/system';
+import {
+    Button,
+    Stack,
+    Tab,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Tabs,
+    Typography
+} from '@material-ui/core';
+import {Box} from '@mui/system';
 import logo from '../../images/hunter_logo.png';
-import  { GoogleSpreadsheet }  from 'google-spreadsheet';
-import { SPREADSHEET_ID, CLIENT_EMAIL, PRIVATE_KEY, SHEET_ID_PRESALES } from "../../constants";
+import {ButtonGreen, ButtonRed, ButtonYellow, More, VoteWrapper} from '../common'
+import {SHEET_ID_PRESALES} from "../../constants";
+import {useGoogleSheet} from '../../hooks/useGoogleSheet';
 
-const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
 
 const PopularPreSales = () => {
-  const [data, setData] = useState([])
-  const appendSpreadsheet = async () => {
-    try {
-      await doc.useServiceAccountAuth({
-        client_email: CLIENT_EMAIL,
-        private_key: PRIVATE_KEY,
-      });
-      // loads document properties and worksheets
-      await doc.loadInfo();
-      const sheet = doc.sheetsById[SHEET_ID_PRESALES];
-      const rows = await sheet.getRows();
-      setData(rows)
-    } catch (e) {
-      console.error('Error: ', e);
-    }
-  };
+  const {data} = useGoogleSheet(SHEET_ID_PRESALES)
 
-  useEffect(() => {
-    appendSpreadsheet();
-    const timer = setInterval(() => {
-      appendSpreadsheet();
-    }, 60000)
-    return () => {
-      clearInterval(timer)
-    }
-  }, []);
   
   return (
     <Box sx={{mt: '55px', width: '100%', textAlign: 'center'}}>
@@ -42,8 +29,8 @@ const PopularPreSales = () => {
       </Box>
       <Tabs>
         <Tab label="Today’s best"></Tab>
-        <Tab label="upcoming"></Tab>
-        <Tab label="ended"></Tab>
+        {/* <Tab label="upcoming"></Tab>
+        <Tab label="ended"></Tab> */}
       </Tabs>
       <Box
         sx={{
@@ -67,7 +54,7 @@ const PopularPreSales = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-            {data.map((row, index) => {
+            {data?.map((row, index) => {
                 return(
                   <TableRow>
                     <TableCell component="th" scope="row">
@@ -146,10 +133,22 @@ const PopularPreSales = () => {
                         <Typography variant="table">
                           156’093
                         </Typography>
-                        <Button sx={{ml: '33px', mr: 2}}>
-                          VOTE
-                        </Button>
-                        <Button variant="more">...</Button>
+                          <VoteWrapper>
+                              <ButtonRed height={'22px'} weight={'700'} size={'12px'}>
+                                  VOTE - 1
+                              </ButtonRed>
+                              <ButtonYellow height={'22px'} weight={'700'}  size={'12px'}>
+                                  VOTE + 2
+                              </ButtonYellow>
+                              <ButtonGreen height={'22px'} weight={'700'}  size={'12px'}>
+                                  VOTE + 1
+                              </ButtonGreen>
+                          </VoteWrapper>
+                          <More>...</More>
+                        {/*<Button sx={{ml: '33px', mr: 2}}>*/}
+                        {/*  VOTE*/}
+                        {/*</Button>*/}
+                        {/*<Button variant="more">...</Button>*/}
                       </Stack>
                     </TableCell>            
                   </TableRow>

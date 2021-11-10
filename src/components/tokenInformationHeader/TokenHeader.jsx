@@ -15,7 +15,7 @@ import {
     Inner,
     Label
 } from './TokeHeaderStyled'
-import {Button,Flex, Image} from '../common'
+import {Button,Flex, Image,ButtonRed, ButtonGreen, ButtonYellow} from '../common'
 
 const TokenHeader = () => {
     const visitWebsite = () => console.log('visit website')
@@ -64,37 +64,33 @@ const TokenHeader = () => {
                         {/*>Vote*/}
                         {/*</Button>*/}
 
-                        <Button
+                        <ButtonRed
                             onClick={vote}
                             size={'17px'}
                             weight={'500'}
                             width={'90px'}
                             height={'37px'}
                             margin={'0 0 0 16px'}
-                            bg={'red'}
                         >Vote - 1
-                        </Button>
-                        <Button
+                        </ButtonRed>
+                        <ButtonYellow
                             onClick={vote}
                             size={'17px'}
                             weight={'500'}
                             width={'90px'}
                             height={'37px'}
                             margin={'0 0 0 16px'}
-                            bg={'yellow'}
-                            color={'black'}
                         >Vote + 1
-                        </Button>
-                        <Button
+                        </ButtonYellow>
+                        <ButtonGreen
                             onClick={vote}
                             size={'17px'}
                             weight={'500'}
                             width={'90px'}
                             height={'37px'}
                             margin={'0 12px 0 16px'}
-                            bg={'green'}
                         >Vote + 2
-                        </Button>
+                        </ButtonGreen>
                         <Substrate padding={'10px 20px'} bg={'#B78300'}>
                             0
                         </Substrate>

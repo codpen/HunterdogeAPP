@@ -5,7 +5,7 @@ import {CLIENT_EMAIL, PRIVATE_KEY, SPREADSHEET_ID } from "../constants";
 
 export const useGoogleSheet = (id) => {
     const [state, setState] = useState({
-        data: null,
+        data: [],
         error: undefined,
         isLoading: true
     })
@@ -20,6 +20,7 @@ export const useGoogleSheet = (id) => {
                 });
                 // loads document properties and worksheets
                 await doc.loadInfo();
+                console.log(doc)
                 const sheet = doc.sheetsById[id];
                 const rows = await sheet.getRows();
 
@@ -28,12 +29,17 @@ export const useGoogleSheet = (id) => {
                 setState({error: e, isLoading: false})
             }
         };
-
+        let timer;
         if (id) {
             fetchSheet()
+            timer = setInterval(() => {
+                fetchSheet()
+            }, 30000)
         } else {
             setState({error: 'You need to set id'})
         }
+
+        return () => clearInterval(timer)
     },[id])
 
     return state;

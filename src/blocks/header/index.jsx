@@ -12,7 +12,7 @@ const Header = () => {
 
     return (
         <Block>
-                <Box
+                {/* <Box
                     component='h1'
                     sx={{
                         fontSize: '33px',
@@ -27,13 +27,13 @@ const Header = () => {
                     }}
                 >
                     BIGGEST GAINERS
-                </Box>
-                <BlockOverflow>
+                </Box> */}
+                {/* <BlockOverflow> */}
                     <BlockHunt/>
                     {/* <BlockHunt number={'2'}/>
                     <BlockHunt number={'3'}/>
                     <BlockHunt number={'4'}/> */}
-                </BlockOverflow>
+                {/* </BlockOverflow> */}
                 
         </Block>
     )
@@ -43,8 +43,9 @@ export default Header;
 
 const Block = styled.div`
     display: flex;
-    background: linear-gradient(270deg, rgba(136, 109, 40, 0.5) 3.52%, #886D28 18.73%, #886D28 82.08%, rgba(136, 109, 40, 0.5) 98.54%);
-    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
+    justify-content: space-around
+    /* background: linear-gradient(270deg, rgba(136, 109, 40, 0.5) 3.52%, #886D28 18.73%, #886D28 82.08%, rgba(136, 109, 40, 0.5) 98.54%);
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1); */
 `;
 
 const BlockOverflow = styled.div`
