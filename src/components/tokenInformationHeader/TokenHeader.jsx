@@ -1,13 +1,11 @@
 import React from 'react';
-import LogoImage from '../../images/hunter_logo.png'
+import LogoImage from '../../images/big_logo.png'
 import M from '../../images/M.png'
 import Dialogue from '../../images/dialogue_ico.svg'
 import Reward from '../../images/reward_ico.svg'
 import Like from '../../images/like_ico.svg'
 import {
     Wrapper,
-    Image,
-    Flex,
     HeadTitle,
     Substrate,
     Text,
@@ -17,8 +15,7 @@ import {
     Inner,
     Label
 } from './TokeHeaderStyled'
-import {Button} from '../common'
-
+import {Button,Flex, Image} from '../common'
 
 const TokenHeader = () => {
     const visitWebsite = () => console.log('visit website')
@@ -27,7 +24,7 @@ const TokenHeader = () => {
     return (
         <Wrapper>
             <BadgesWrapper>
-                <Image src={LogoImage} margin={'0 0 21px 0'}/>
+                <Image src={LogoImage} height={'140px'} margin={'0 0 21px 0'}/>
                 <Button weight={'700'} onClick={visitWebsite}>
                     visit website
                 </Button>
@@ -55,19 +52,53 @@ const TokenHeader = () => {
                     <HeadTitle size={'50px'}>hunterdoge</HeadTitle>
                     <Label>$HUNT</Label>
                     <Flex left>
-                        <Image src={Like} height={'28px'} margin={'0 8.5px 0 0'}/>
-                        <Text size={'24px'}>156’093</Text>
+                        {/*<Image src={Like} height={'28px'} margin={'0 8.5px 0 0'}/>*/}
+                        {/*<Text size={'24px'}>156’093</Text>*/}
+                        {/*<Button*/}
+                        {/*    onClick={vote}*/}
+                        {/*    size={'20px'}*/}
+                        {/*    weight={'500'}*/}
+                        {/*    width={'104px'}*/}
+                        {/*    height={'47px'}*/}
+                        {/*    margin={'0 0 0 16px'}*/}
+                        {/*>Vote*/}
+                        {/*</Button>*/}
+
                         <Button
                             onClick={vote}
-                            size={'20px'}
+                            size={'17px'}
                             weight={'500'}
-                            width={'104px'}
-                            height={'47px'}
+                            width={'90px'}
+                            height={'37px'}
                             margin={'0 0 0 16px'}
-                        >Vote
+                            bg={'red'}
+                        >Vote - 1
                         </Button>
+                        <Button
+                            onClick={vote}
+                            size={'17px'}
+                            weight={'500'}
+                            width={'90px'}
+                            height={'37px'}
+                            margin={'0 0 0 16px'}
+                            bg={'yellow'}
+                            color={'black'}
+                        >Vote + 1
+                        </Button>
+                        <Button
+                            onClick={vote}
+                            size={'17px'}
+                            weight={'500'}
+                            width={'90px'}
+                            height={'37px'}
+                            margin={'0 12px 0 16px'}
+                            bg={'green'}
+                        >Vote + 2
+                        </Button>
+                        <Substrate padding={'10px 20px'} bg={'#B78300'}>
+                            0
+                        </Substrate>
                     </Flex>
-
                 </Flex>
                 <Inner>
                     <Flex justify={'start'}>

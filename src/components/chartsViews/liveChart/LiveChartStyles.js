@@ -28,10 +28,11 @@ export const useStyles = makeStyles({
         marginRight: '48px',
     },
     good: {
+        textAlign: 'center',
         backgroundColor: '#CDFEC5',
         color: '#4EC505',
-        padding: '8px 11px',
-        height: '19px',
+        padding: '5px 0',
+        height: '28px',
         width: '64px',
         fontSize: '19px',
         borderRadius: '9px',

@@ -4,7 +4,6 @@ import Divider from '@material-ui/core/Divider';
 import {Box} from "@mui/system";
 import { AdvancedChart } from "react-tradingview-embed";
 
-import Chart from "../../../images/Chart.png";
 import arrowUp from "../../../images/arrow-up.svg";
 import Pancake from "../../../images/pancakeswap.png";
 import {useStyles} from "./LiveChartStyles";
@@ -30,7 +29,7 @@ const LiveChart = () => {
     return (
         <Grid container className={classes.root} xs={12}>
             <Grid item className={classes.imgContainer}>
-                <Grid container>
+                <Grid container sx={{mb: '22px'}}>
                     <Typography className={classes.liveChartTitle}>
                         LIVE CHART
                     </Typography>
@@ -79,27 +78,23 @@ const LiveChart = () => {
                     </Stack>
                 </Stack>
                 <Stack direction="row" alignItems="flex-end">
-                    <Stack>
-                        <Typography className={classes.title}>
-                            total liquidity
-                        </Typography>
-                        <Typography className={classes.subTitle}>
-                            $98’034’283
-                        </Typography>
-                    </Stack>
-                    <Stack sx={{ml: '28px'}}>
-                        <Typography className={classes.title}>
-                            liquidity / Mcap ratio
-                        </Typography>
-                        <Stack direction="row">
-                            <Typography className={classes.subTitle}>
-                                0.52
-                            </Typography>
-                            {/*<Box component='h6' className={classes.good}>*/}
-                            {/*    GOOD*/}
-                            {/*</Box>*/}
-                        </Stack>
-                    </Stack>
+                    <Typography className={classes.title}>
+                        total liquidity
+                    </Typography>
+                    <Typography sx={{ml: '42px'}} className={classes.title}>
+                        liquidity / Mcap ratio
+                    </Typography>
+                </Stack>
+                <Stack direction="row">
+                    <Typography  className={classes.subTitle}>
+                        $98’034’283
+                    </Typography>
+                    <Typography sx={{ml: '57px'}} className={classes.subTitle}>
+                        0.52
+                    </Typography>
+                    <Box component='h6' sx={{ml: '7px'}} className={classes.good}>
+                        GOOD
+                    </Box>
                 </Stack>
                 <Typography className={classes.title}>
                     Pc v2 | HUNT/BNB LP HOLDINGS

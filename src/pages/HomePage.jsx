@@ -42,10 +42,10 @@ const HomePage = () => {
           width: '1037px',
           justifyContent: 'center'
         }}>
-        <Stack direction="row">
-          <CheckLiguidity/>
-          <QuickFilter/>
-        </Stack>
+        {/*<Stack direction="row">*/}
+        {/*  <CheckLiguidity/>*/}
+        {/*  <QuickFilter/>*/}
+        {/*</Stack>*/}
         <PopularTokens/>
         <PopularPreSales/>
       </Box>

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {Box} from "@mui/system";
 import Stack from "@mui/material/Stack";
 // import {styled} from '@material-ui/core/styles';
@@ -5,7 +6,10 @@ import styled from 'styled-components'
 
 import BlockHunt from '../../components/blockHunt'
 
+
+
 const Header = () => {
+
     return (
         <Block>
                 <Box
@@ -25,10 +29,10 @@ const Header = () => {
                     BIGGEST GAINERS
                 </Box>
                 <BlockOverflow>
-                    <BlockHunt number={'1'}/>
-                    <BlockHunt number={'2'}/>
+                    <BlockHunt/>
+                    {/* <BlockHunt number={'2'}/>
                     <BlockHunt number={'3'}/>
-                    <BlockHunt number={'4'}/>
+                    <BlockHunt number={'4'}/> */}
                 </BlockOverflow>
                 
         </Block>

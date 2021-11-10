@@ -5,7 +5,11 @@ import {
     RightContent,
     Wrapper
 } from "../tokenInformation/TokenInfoStyled";
-import {Dribble, Instagram, Medium, Telegram, Twitter} from "../../SocialLink/socials/Socials";
+import Instagram from "../../../images/socialBg/instagram.svg";
+import Reddit from "../../../images/socialBg/reddit.svg";
+import Medium from "../../../images/socialBg/medium.svg";
+import Telegram from "../../../images/socialBg/telegram.svg";
+import Twitter from "../../../images/socialBg/twitter.svg";
 import {
     ContentWrapper,
     SocialWrapper,
@@ -24,6 +28,8 @@ import {
     ParticipationWrapper,
     PerBnb
 } from './PreSaleStyled'
+import {Image} from "../../common";
+import {Link} from "react-router-dom";
 
 const PreSale = () => {
 
@@ -53,11 +59,11 @@ const PreSale = () => {
                         <ActionButton onClick={website}>WEBSITE</ActionButton>
                         <ActionButton onClick={bscScan}>BSC-Scan</ActionButton>
                         <SocialWrapper>
-                            <Telegram/>
-                            <Twitter/>
-                            <Instagram/>
-                            <Dribble/>
-                            <Medium/>
+                            <Link to='#'><Image src={Telegram}/></Link>
+                            <Link to='#'><Image src={Twitter}/></Link>
+                            <Link to='#'><Image src={Instagram}/></Link>
+                            <Link to='#'><Image src={Reddit}/></Link>
+                            <Link to='#'><Image src={Medium}/></Link>
                         </SocialWrapper>
                     </ActionWrapper>
                 </BannerWrapper>

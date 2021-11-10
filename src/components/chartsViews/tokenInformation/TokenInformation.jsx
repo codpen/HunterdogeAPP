@@ -15,6 +15,7 @@ import {
     Value,
     Wrapper
 } from "./TokenInfoStyled";
+import {Image} from "../../common";
 
 const TokenInformation = () => {
     const classes = useStyles();
@@ -75,7 +76,7 @@ const TokenInformation = () => {
                 <Value>SEPT 25, 2021 <Upcoming>(upcoming pre-sale)</Upcoming></Value>
                 <Value>WHERE TO BUY</Value>
                 <button className={classes.stockBtn} onClick={pancakeSwap}>PANCAKESWAP
-                    <Box src={Pancake} component='img' sx={{ml: '18px'}}/>
+                    <Image src={Pancake} margin={'0 0 0 18px'}/>
                 </button>
             </RightContent>
         </Wrapper>

@@ -87,8 +87,8 @@ const AllTokensTable = () => {
       />}>
         
         </Tab>
-        <Tab label="Today’s best" sx={{width: 224}}></Tab>
-        <Tab label="This week’s" sx={{width: 224}}></Tab>
+        {/*<Tab label="Today’s best" sx={{width: 224}}></Tab>*/}
+        {/*<Tab label="This week’s" sx={{width: 224}}></Tab>*/}
         <Tab label="all-time" sx={{width: 224}}></Tab>
       </Tabs>
       <Box
@@ -131,7 +131,7 @@ const AllTokensTable = () => {
             <TabPanel
               value={value} index={0}
               >
-              {filterOneDay.map((row, index) => {
+              {data.map((row, index) => {
                 return(
                   <TableRow>
                     <TableCell component="th" scope="row">
@@ -211,7 +211,7 @@ const AllTokensTable = () => {
                 )
               })}
             </TabPanel>
-            <TabPanel
+            {/* <TabPanel
               value={value} index={1}
               >
               {filterOneDay.map((row, index) => {
@@ -293,9 +293,9 @@ const AllTokensTable = () => {
                   </TableRow>
                 )
               })}
-            </TabPanel>
+            </TabPanel> */}
             
-            <TabPanel value={value} index={2}>
+            {/* <TabPanel value={value} index={2}>
             {filterWeek.map((row, index) => {
                 return(
                   <TableRow>
@@ -375,8 +375,8 @@ const AllTokensTable = () => {
                   </TableRow>
                 )
               })}
-            </TabPanel>
-            <TabPanel value={value} index={3}>
+            </TabPanel> */}
+            <TabPanel value={value} index={1}>
             {data.map((row, index) => {
                 return(
                   <TableRow>

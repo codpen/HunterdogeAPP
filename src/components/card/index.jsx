@@ -4,12 +4,12 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from "@material-ui/styles";
-import nft from '../../images/nft_image.png';
 import {Box} from "@mui/system";
+import {Image} from "../common";
 
 const useStyles = makeStyles({
     root: {
-        minWidth: 317,
+
         backgroundColor: 'transparent',
         boxShadow: 'none'
     },
@@ -34,8 +34,8 @@ const useStyles = makeStyles({
         padding: '5px 10px 0 10px',
     },
     headerContent: {
-        width: '317px',
-        height: '309px',
+        position: 'relative',
+
         background: 'linear-gradient(180deg, #D9B354 0%, rgba(14, 13, 10, 0.1) 100%)',
         display: 'flex',
         justifyContent: 'center',
@@ -50,7 +50,7 @@ const data = [
     {id: '126', des: 'cost per NFT', value: '0.01 BNB'},
 ]
 
-const CardNft = () => {
+const CardNft = ({image}) => {
     const classes = useStyles();
 
     const buy = () => console.log('buy') 
@@ -59,8 +59,7 @@ const CardNft = () => {
     return (
         <Card className={classes.root}>
             <div className={classes.headerContent}>
-                <Box component='img' src={nft}
-                     sx={{width: "285.83px", height: "276px"}}/>
+                <Image src={image} width={'317px'} height={'309px'}/>
             </div>
             <Box component='h5' sx={{fontSize: '25px', mt: '17px', textAlign: 'center'}}>
                 Hunter chasing hotdogs

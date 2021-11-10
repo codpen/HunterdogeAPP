@@ -1,59 +1,79 @@
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom'
 import styled from "styled-components";
+
 import {Grid} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
-import NoPresaleView from "../components/chartsViews/NoPresale";
+
+import NoPresaleView from "../components/chartsViews/noPresale/NoPresale";
 import LiveChart from "../components/chartsViews/liveChart/LiveChart";
 import Comments from "../components/comments/";
 import TokenInformation from "../components/chartsViews/tokenInformation/TokenInformation";
 import PreSale from "../components/chartsViews/upcomingPreSale/Presale";
 import {useWeb3React} from "@web3-react/core";
 import TokenHeader from "../components/tokenInformationHeader/TokenHeader";
-import {Button} from "../components/common/index";
+import {Button, Flex} from "../components/common/index";
 
-const useStyles = makeStyles({
-    root: {
-        margin: '0 50px',
-        maxWidth: '1420px',
-    },
-    card: {}
-});
-
-const ChangePart = ({setPartActive}) => (
+const ChangePart = ({setPartActive, partActive}) => (
     <Part>
-        <span className='active' onClick={() => setPartActive(1)}>chart & stats</span>
+        <span className={partActive === 1 ? 'active' : ''} onClick={() => setPartActive(1)}>chart & stats</span>
         <Divider/>
-        <span onClick={() => setPartActive(2)}>token information</span>
+        <span className={partActive === 2 ? 'active' : ''} onClick={() => setPartActive(2)}>token information</span>
         <Divider/>
-        <span onClick={() => setPartActive(3)}>upcoming pre-sale</span>
+        <span className={partActive === 3 ? 'active' : ''} onClick={() => setPartActive(3)}>upcoming pre-sale</span>
     </Part>
 )
 // <Index />
-const NftGallery = () => {
+const TokenPage = () => {
     const {account} = useWeb3React()
     const [partActive, setPartActive] = useState(1)
-    const classes = useStyles();
 
     const isPresale = account ? <PreSale/> : <NoPresaleView/>
     return (
         <Block>
-            <Grid className={classes.root}>
-                <Button size={'20px'} height={'47px'} width={'104px'} margin={'0 0 27px 0'}>{'< BACK'}</Button>
+            <Container>
+                <Flex mwidth={'1040px'}>
+                    <Button size={'20px'} height={'47px'} width={'104px'} margin={'0 0 27px 0'}>{'< BACK'}</Button>
+                    <Edit>+ edit your token information</Edit>
+                </Flex>
                 <TokenHeader/>
-                <ChangePart setPartActive={setPartActive}/>
+                <ChangePart setPartActive={setPartActive} partActive={partActive}/>
                 {partActive === 1 ? <LiveChart/> : partActive === 2 ? <TokenInformation/> : isPresale}
                 <Comments/>
-            </Grid>
+            </Container>
         </Block>
     );
 };
 
-export default NftGallery;
+export default TokenPage;
+
+const Container = styled.div`
+  margin: 0 50px;
+  max-width: 1420px;
+`
 
 const Block = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+`
+
+const Edit = styled(Link)`
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 16px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #B78300;
+  transition: 0.4s;
+  
+  margin-right: 30px;
+  &:hover {
+    color: #d5b562;
+  }
 `
 
 const Divider = styled.div`
@@ -83,15 +103,16 @@ const Part = styled.div`
     text-transform: uppercase;
     color: #B78300;
     cursor: pointer;
+    
+    transition: 0.4s;
 
     &:hover {
-      font-weight: bold;
-      
+      color: #d5b562;
     }
-
-    &:active {
-      font-weight: bold;
-    }
+    //
+    //&:active {
+    //  font-weight: bold;
+    //}
 
     &.active {
       font-weight: bold;

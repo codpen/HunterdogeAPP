@@ -39,7 +39,6 @@ export const BannerWrapper = styled.div`
 `
 
 export const Banner = styled.div`
-  min-width: 300px;
   max-width: 622px;
   width: 100%;
   height: 342px;
@@ -54,16 +53,21 @@ export const Banner = styled.div`
     width: 70%;
     font-style: normal;
     font-weight: normal;
-    font-size: 50px;
-    line-height: 49px;
+    font-size: 40px;
+    line-height: 39px;
     text-align: center;
     text-transform: uppercase;
     color: #FF0000;
 
+    @media (min-width: 1920px) {
+      font-size: 50px;
+      line-height: 49px;
+    }
+
     @media (max-width: 1600px) {
       width: 80%;
-      font-size: 40px;
-      line-height: 39px;
+      font-size: 32px;
+      line-height: 30px;
     }
   }
 `
@@ -153,15 +157,15 @@ export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   min-width: 300px;
-  max-width: 876px;
+  max-width: 827px;
   margin-right: 16px;
-
+  
   @media (min-width: 1600px) {
-    margin-right: 32px;
+    margin-right: 61px;
   }
 
   @media (max-width: 1600px) {
-    width: 70%;
+    width: 60%;
   }
 `
 

@@ -1,10 +1,17 @@
+import { useEffect, useState } from 'react';
 import { Button, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import styled from 'styled-components'
 
 import logo from '../../images/hunter_logo.png';
 import chart from '../../images/chart_ico.svg';
-import ConnectMetaMask from '../../connection/ConnectMetaMask'
+import ConnectMetaMask from '../../connection/ConnectMetaMask';
+
+import  { GoogleSpreadsheet }  from 'google-spreadsheet';
+
+import { SPREADSHEET_ID, CLIENT_EMAIL, PRIVATE_KEY, SHEET_ID_BANNER } from "../../constants";
+
+const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
 
 const AdsToken = () => (
   <Stack direction="row"
@@ -97,6 +104,28 @@ const AdsToken = () => (
 )
 
 const Hero = ({setIsOpen}) => {
+  const [linkBanner, setLinkBanner] = useState('')
+
+  const appendSpreadsheet = async () => {
+    try {
+      await doc.useServiceAccountAuth({
+        client_email: CLIENT_EMAIL,
+        private_key: PRIVATE_KEY,
+      });
+      // loads document properties and worksheets
+      await doc.loadInfo();
+      const sheet = doc.sheetsById[SHEET_ID_BANNER];
+      const rows = await sheet.getRows();
+      setLinkBanner(rows[0].Link)
+    } catch (e) {
+      console.error('Error: ', e);
+    }
+  };
+
+  useEffect(() => {
+    appendSpreadsheet();
+  }, []);
+  
   return (
     <Block  
     >
@@ -142,10 +171,11 @@ const Hero = ({setIsOpen}) => {
           </Button>
         </Stack>
       </Box>
-      <Content>
-        <AdsToken />
-        <AdsToken />
-      </Content>
+      {/* <Content> */}
+        <Banner url={linkBanner}/>
+        {/* <AdsToken />
+        <AdsToken /> */}
+      {/* </Content> */}
       
 
       <Box 
@@ -179,3 +209,8 @@ const Content = styled.div`
   filter: drop-shadow(0px 5px 0px rgba(0, 0, 0, 0.1));
 `
 
+const Banner = styled.div`
+  width: 900px;
+  height: 100px;
+  background-image: url(${({url}) => url});
+`

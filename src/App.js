@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -17,7 +17,6 @@ import Menu from './blocks/menu';
 import Paws from './images/paws_bg.svg';
 import Loupe from './images/loupe_bg.svg';
 import Bow from './images/bow_bg.svg';
-
 
 const App = () => {
     const [isOpen, setIsOpen] = useState(false)
