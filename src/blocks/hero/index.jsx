@@ -145,13 +145,13 @@ const Hero = ({setIsOpen}) => {
             HunterDoge
           </Box>
         </Stack>
-        <Stack direction="row" alignItems='center'
+        <Stack direction="row" alignItems='center' justifyContent="center"
           sx={{
             pt: '14px',
            
           }}
         >
-          <Box component='img' src={chart}
+          {/* <Box component='img' src={chart}
               sx={{
                 height: '30px',
                 width: '30px',
@@ -165,14 +165,16 @@ const Hero = ({setIsOpen}) => {
             }}
           >
             1 Hunt = $0.0005 
-          </Typography>
-          <Button>
+          </Typography> */}
+          <Button target="_blank" href="https://pancakeswap.finance">
             Buy $hunt
           </Button>
         </Stack>
       </Box>
       {/* <Content> */}
+      <Link target="_blank" href='#'>
         <Banner url={linkBanner}/>
+      </Link>
         {/* <AdsToken />
         <AdsToken /> */}
       {/* </Content> */}
@@ -210,7 +212,15 @@ const Content = styled.div`
 `
 
 const Banner = styled.div`
-  width: 900px;
+  margin-left: 20px;
+  width: 100%;
+  max-width: 900px;
   height: 100px;
   background-image: url(${({url}) => url});
+`
+const Link = styled.a`
+    display: block;
+    width: 100%;
+    max-width: 900px;
+;
 `

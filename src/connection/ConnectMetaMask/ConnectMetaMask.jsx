@@ -15,6 +15,7 @@ import { AccountDiv, WalletSpan, WalletMobileSpan } from './ConnectMetaMask.styl
 import { Stack, Tooltip, Typography } from '@material-ui/core';
 import { Box } from "@material-ui/system";
 import likeDark from '../../images/like_dark.svg';
+import {getUserVotes} from "../functions";
 
 const SUPPORTED_WALLETS = {
   METAMASK: {
@@ -30,6 +31,7 @@ const SUPPORTED_WALLETS = {
 const ConnectMetaMask = ({text, setIsOpen}) => {
   const { activate, account, chainId, deactivate } = useWeb3React()
   const [balance, setBalance] = useState(0)
+  const [votes, setVotes] = useState(0)
   const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
  
   async function disconnect() {
@@ -39,6 +41,15 @@ const ConnectMetaMask = ({text, setIsOpen}) => {
     console.log(e)
     }
   }
+
+  useEffect(() => {
+    const call = async () => {
+      const votes = await getUserVotes(account)
+      setVotes(votes)
+    }
+
+    account && call()
+  },[account])
 
   useEffect(() => {
     window.addEventListener('load', async () => {
@@ -117,8 +128,8 @@ const ConnectMetaMask = ({text, setIsOpen}) => {
          <>
            <Button onClick={disconnect} sx={{ width: '100%', border: '10px solid B78300' }}>DISCONNECT</Button>
            <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{mt: '14px'}}>
-             <Typography>No. of votes</Typography>
-             <Typography>100</Typography>
+             <Typography>{votes > 0 ? 'votes' : 'No.of votes'}</Typography>
+             <Typography>{votes}</Typography>
              <Box component='img' src={likeDark}
                sx={{mr: '3px'}}
              />

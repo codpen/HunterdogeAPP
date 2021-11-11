@@ -1,15 +1,10 @@
 import {useEffect, useState} from 'react';
-import {Box} from "@mui/system";
-import Typography from '@mui/material/Typography';
 import Stack from "@mui/material/Stack";
 import styled from 'styled-components';
 
-import logo from '../../images/hunter_logo.png';
-import arrowUp from '../../images/arrow-up.svg';
-
 import {GoogleSpreadsheet} from 'google-spreadsheet';
 
-import {SPREADSHEET_ID, CLIENT_EMAIL, PRIVATE_KEY, SHEET_ID_BANNER} from "../../constants";
+import {CLIENT_EMAIL, PRIVATE_KEY, SHEET_ID_BANNER, SPREADSHEET_ID} from "../../constants";
 
 const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
 
@@ -36,7 +31,7 @@ const BlockHunt = () => {
     useEffect(() => {
         appendSpreadsheet();
     }, []);
-
+    console.log(data[0]);
     return (
         <Stack
           direction="row"
@@ -52,7 +47,10 @@ const BlockHunt = () => {
             {data[0] ? (
                 data.map((banner) => {
                     return (
-                        <Banner url={banner.Link_Banner}/>
+                        <Link target="_blank" href='#'>
+                            <Banner url={banner.Link_Banner}/>
+                        </Link>
+                        
                     )
                 })) : (
                 null
@@ -105,4 +103,6 @@ const Banner = styled.div`
   background-image: url(${({url}) => url});
   border-right: 2px solid #FFFBE2;
 `
-// <Banner url={data[0]?.Link || ''}/>
+const Link = styled.a`
+    display: block;
+`

@@ -16,6 +16,7 @@ import logo from '../../images/hunter_logo.png';
 import {ButtonGreen, ButtonRed, ButtonYellow, More, VoteWrapper} from '../common'
 import {SHEET_ID_PRESALES} from "../../constants";
 import {useGoogleSheet} from '../../hooks/useGoogleSheet';
+import Row from "./Row";
 
 
 const PopularPreSales = () => {
@@ -54,107 +55,7 @@ const PopularPreSales = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-            {data?.map((row, index) => {
-                return(
-                  <TableRow>
-                    <TableCell component="th" scope="row">
-                      <Stack direction="row" alignItems="center" >
-                      <Typography variant="h6" sx={{mr:'36px'}}>
-                        {index+1}.
-                      </Typography>
-                      <Box component="img" src={logo} sx={{width: '66px'}}/>
-                      </Stack>
-                    </TableCell>
-                    <TableCell >
-                      <Stack sx={{textAlign: 'left'}}>
-                        <Typography variant="h5">
-                          {row.Project_Name}
-                        </Typography>
-                        <Typography variant="body2"
-                          sx={{
-                            fontSize: 12,
-                            fontWeight: 300,
-                            mt: '5px',
-                            mb: '10px'
-                          }}
-                        >
-                          (Sale ID: 103432)
-                        </Typography>
-                        <Typography variant="body1"
-                          sx={{fontSize: 12}}
-                        >
-                          Start Time: 5:00 PM - 17 SEPT
-                        </Typography>
-                      </Stack>
-                    </TableCell>
-                    <TableCell >
-                      <Typography variant="h6" sx={{fontWeight: 900}}>
-                        {row.Project_Symbol}
-                      </Typography>
-                    </TableCell>
-                    <TableCell >
-                      <Stack direction="row" justifyContent="space-between">
-                      <Typography variant="body1">
-                        SOFT
-                      </Typography>
-                      <Typography variant="body1" sx={{fontWeight: 500}}>
-                        1500 BNB
-                      </Typography>
-                      </Stack>
-                      <Stack direction="row" justifyContent="space-between">
-                      <Typography variant="body1">
-                        HARD
-                      </Typography>
-                      <Typography variant="body1" sx={{fontWeight: 500}}>
-                        3000 BNB
-                      </Typography>
-                      </Stack>
-                    </TableCell>
-                    <TableCell >
-                      <Stack direction="row" justifyContent="space-between">
-                        <Typography variant="body1">
-                          MIN.
-                        </Typography>
-                        <Typography variant="body1" sx={{fontWeight: 500}}>
-                          0.1 BNB
-                        </Typography>
-                        </Stack>
-                        <Stack direction="row" justifyContent="space-between">
-                        <Typography variant="body1">
-                          MAX.
-                        </Typography>
-                        <Typography variant="body1" sx={{fontWeight: 500}}>
-                          5.0 BNB
-                        </Typography>
-                      </Stack>
-                    </TableCell>
-                    <TableCell >
-                      <Stack direction="row" alignItems="center">
-                        <Typography variant="table">
-                          156’093
-                        </Typography>
-                          <VoteWrapper>
-                              <ButtonRed height={'22px'} weight={'700'} size={'12px'}>
-                                  VOTE - 1
-                              </ButtonRed>
-                              <ButtonYellow height={'22px'} weight={'700'}  size={'12px'}>
-                                  VOTE + 2
-                              </ButtonYellow>
-                              <ButtonGreen height={'22px'} weight={'700'}  size={'12px'}>
-                                  VOTE + 1
-                              </ButtonGreen>
-                          </VoteWrapper>
-                          <More>...</More>
-                        {/*<Button sx={{ml: '33px', mr: 2}}>*/}
-                        {/*  VOTE*/}
-                        {/*</Button>*/}
-                        {/*<Button variant="more">...</Button>*/}
-                      </Stack>
-                    </TableCell>            
-                  </TableRow>
-                )
-              })}
-            
+            {data?.map((row, index) => <Row key={index} index={index} data={row}/>)}
             </TableBody>
           </Table>
         </TableContainer>

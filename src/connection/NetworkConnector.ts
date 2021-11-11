@@ -160,6 +160,7 @@ export class NetworkConnector extends AbstractConnector {
   }
 
   public async activate(): Promise<ConnectorUpdate> {
+    console.log(this.currentChainId)
     return { provider: this.providers[this.currentChainId], chainId: this.currentChainId, account: null }
   }
 

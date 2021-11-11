@@ -4,6 +4,8 @@ import {makeStyles} from "@material-ui/styles";
 import {Box} from "@mui/system";
 import {Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import {buyVotes} from "../../connection/functions";
+import {useWeb3React} from "@web3-react/core";
 
 const useStyles = makeStyles({
 
@@ -63,20 +65,21 @@ const useStyles = makeStyles({
     },
 });
 const data = [
-    {id: '222', value: '1 vote'},
-    {id: '223', value: '5 votes'},
-    {id: '224', value: '10 votes'},
-    {id: '225', value: '25 votes'},
-    {id: '226', value: '50 votes'},
-    {id: '227', value: '100 votes'},
-    {id: '228', value: '250 votes'},
-    {id: '229', value: '500 votes'},
+    {id: '222', value: '1 vote', votes: 1},
+    {id: '223', value: '5 votes', votes: 5},
+    {id: '224', value: '10 votes', votes: 10},
+    {id: '225', value: '25 votes', votes: 25},
+    {id: '226', value: '50 votes', votes: 50},
+    {id: '227', value: '100 votes', votes: 100},
+    {id: '228', value: '250 votes', votes: 250},
+    {id: '229', value: '500 votes', votes: 500},
 ]
 
 const Modal = ({ setIsOpen }) => {
+    const {account} = useWeb3React()
     const classes = useStyles();
 
-    const buyVotes = () => console.log('buy votes')
+    const buy = (votes) => buyVotes(account, votes)
 
     return (
         <Card className={classes.modal}>
@@ -95,7 +98,7 @@ const Modal = ({ setIsOpen }) => {
                         <Typography className={classes.value}>
                             {item.value}
                         </Typography>
-                        <Button className={classes.btn} size="small" onClick={buyVotes}>Buy now</Button>
+                        <Button className={classes.btn} size="small" onClick={() => buy(item.votes)}>Buy now</Button>
                     </Box>
                 )}
             </Box>

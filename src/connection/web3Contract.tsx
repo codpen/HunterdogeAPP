@@ -36,6 +36,7 @@ interface TProps {
 export const Web3ContractProvider: FC<TProps> = ({ children, account }) => {
     const { chainId } = account
   const [web3, setWeb3] = useState<any>()
+    console.log(chainId);
   useEffect(() => {
     if (chainId) {
       const provider = Web3.givenProvider || getAlternativeProvider(chainId)

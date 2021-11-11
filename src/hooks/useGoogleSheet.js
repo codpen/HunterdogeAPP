@@ -3,7 +3,7 @@ import  { GoogleSpreadsheet }  from 'google-spreadsheet';
 
 import {CLIENT_EMAIL, PRIVATE_KEY, SPREADSHEET_ID } from "../constants";
 
-export const useGoogleSheet = (id) => {
+export const useGoogleSheet = (id, time = 30000) => {
     const [state, setState] = useState({
         data: [],
         error: undefined,
@@ -20,21 +20,22 @@ export const useGoogleSheet = (id) => {
                 });
                 // loads document properties and worksheets
                 await doc.loadInfo();
-                console.log(doc)
                 const sheet = doc.sheetsById[id];
                 const rows = await sheet.getRows();
 
-                setState({data: rows, isLoading: false})
+                setState({data: [...rows], error: undefined, isLoading: false})
             } catch (e) {
-                setState({error: e, isLoading: false})
+                setState({data: [], error: e, isLoading: false})
             }
         };
         let timer;
         if (id) {
             fetchSheet()
-            timer = setInterval(() => {
-                fetchSheet()
-            }, 30000)
+            if (time) {
+                timer = setInterval(() => {
+                    fetchSheet()
+                }, time)
+            }
         } else {
             setState({error: 'You need to set id'})
         }
