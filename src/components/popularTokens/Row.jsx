@@ -5,14 +5,13 @@ import logo from "../../images/hunter_logo.png";
 import {ReactComponent as IconReward} from "../../images/reward_ico.svg";
 import {ReactComponent as IconDialogue} from "../../images/dialogue_ico.svg";
 import arrowUp from "../../images/arrow-up.svg";
-import {ButtonGreen, ButtonRed, ButtonYellow, More, VoteWrapper} from "../common";
+import {LinkWrapper, More} from "../common";
 import {useVotesPerProject} from "../../hooks/useVotesPerProject";
-import {useWeb3React} from "@web3-react/core";
-import { upVoteProject, downVoteProject } from '../../connection/functions';
+import {Votes} from "../common/votes";
 
 const Row = ({data, index}) => {
     const {votes, error, isLoading} = useVotesPerProject(data.Project_Address)
-    const {account, chainId} = useWeb3React()
+
     return (
         <TableRow>
             <TableCell component="th" scope="row">
@@ -24,15 +23,17 @@ const Row = ({data, index}) => {
                 </Stack>
             </TableCell>
             <TableCell>
-                <Stack>
-                    <Typography variant="h5">
-                        {data.Project_Name}
-                    </Typography>
-                    <Stack direction="row" sx={{gap: 2, mt: '14px'}}>
-                        <IconReward/>
-                        <IconDialogue/>
+                <LinkWrapper to={`/token/${data.Project_Address}`}>
+                    <Stack>
+                        <Typography variant="h5">
+                            {data.Project_Name}
+                        </Typography>
+                        <Stack direction="row" sx={{gap: 2, mt: '14px'}}>
+                            <IconReward/>
+                            <IconDialogue/>
+                        </Stack>
                     </Stack>
-                </Stack>
+                </LinkWrapper>
             </TableCell>
             <TableCell>
                 <Typography variant="h6" sx={{fontWeight: 900}}>
@@ -62,17 +63,7 @@ const Row = ({data, index}) => {
                     <Typography variant="table" sx={{width: '50px'}}>
                         {votes}
                     </Typography>
-                    <VoteWrapper>
-                        <ButtonRed onClick={() => downVoteProject( 1, account)} height={'22px'} weight={'700'} size={'12px'}>
-                            VOTE - 1
-                        </ButtonRed>
-                        <ButtonYellow onClick={() => upVoteProject( 2, account)} height={'22px'} weight={'700'} size={'12px'}>
-                            VOTE + 2
-                        </ButtonYellow>
-                        <ButtonGreen onClick={() => upVoteProject( 1, account)} height={'22px'} weight={'700'} size={'12px'}>
-                            VOTE + 1
-                        </ButtonGreen>
-                    </VoteWrapper>
+                    <Votes address={data.Project_Address}/>
                     <More>...</More>
                 </Stack>
             </TableCell>

@@ -26,7 +26,8 @@ import {
     Flex,
     ParticipationButton,
     ParticipationWrapper,
-    PerBnb
+    PerBnb,
+    LinkStyled
 } from './PreSaleStyled'
 import {Image} from "../../common";
 import {Link} from "react-router-dom";
@@ -59,11 +60,11 @@ const PreSale = () => {
                         <ActionButton onClick={website}>WEBSITE</ActionButton>
                         <ActionButton onClick={bscScan}>BSC-Scan</ActionButton>
                         <SocialWrapper>
-                            <Link to='#'><Image src={Telegram}/></Link>
-                            <Link to='#'><Image src={Twitter}/></Link>
-                            <Link to='#'><Image src={Instagram}/></Link>
-                            <Link to='#'><Image src={Reddit}/></Link>
-                            <Link to='#'><Image src={Medium}/></Link>
+                            <LinkStyled href='https://t.me/hunterdogeofficial' target="_blank"><Image src={Telegram}/></LinkStyled>
+                            <LinkStyled href='https://twitter.com/hunterdoge_' target="_blank"><Image src={Twitter}/></LinkStyled>
+                            <LinkStyled href='https://www.instagram.com/hunterdogeofficial/' target="_blank"><Image src={Instagram}/></LinkStyled>
+                            <LinkStyled href='https://www.reddit.com/user/hunterdoge_?utm_source=share&utm_medium=ios_app&utm_name=iossmf' target="_blank"><Image src={Reddit}/></LinkStyled>
+                            <LinkStyled href='https://medium.com/@hunterdoge' target="_blank"><Image src={Medium}/></LinkStyled>
                         </SocialWrapper>
                     </ActionWrapper>
                 </BannerWrapper>

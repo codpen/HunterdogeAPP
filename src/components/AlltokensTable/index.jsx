@@ -15,17 +15,18 @@ import close from '../../images/close_ico.svg';
 import info from '../../images/info_ico.svg';
 
 import {useGoogleSheet} from '../../hooks/useGoogleSheet';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import TabPanel from '../TabPanel'
 import Pagination from '../pagination/Pagination';
 import CheckboxShow from '../checkboxShow';
 import {SHEET_ID} from "../../constants";
 import Row from "./Row";
+import {Link} from "react-router-dom";
 
 
 const AllTokensTable = () => {
   const [value, setValue] = useState(0)
-  const {data} = useGoogleSheet(SHEET_ID)
+  const {data} = useGoogleSheet(SHEET_ID, 60000)
 
   // const filterOneDay = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (24*60*60*1000))
   // const filterWeek = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (7*24*60*60*1000))
@@ -97,7 +98,7 @@ const AllTokensTable = () => {
             </TableHead>
             <TableBody>
             <TabPanel value={value} index={0}>
-              {data.map((row, index) => <Row key={index} index={index} data={row}/>)}
+                {data.map((row, index) => <Row key={index} index={index} data={row}/>)}
             </TabPanel>
             <TabPanel value={value} index={1}>
                 {data.map((row, index) => <Row key={index} index={index} data={row}/>)}

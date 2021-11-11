@@ -18,28 +18,31 @@ export const getVotesPerProject = async (address) => {
         return  await contract.methods.getVotesPerProject(address).call()
     } else {
         throw new Error('The project is not registered');
+
     }
 }
 
-export const downVoteProject = async (vote, address) => {
+export const downVoteProject = async (vote, account, address) => {
   const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
-    try {
+    const isActive = await contract.methods.isActive(address).call()
+    if (isActive) {
         await contract.methods
             .downVoteProject(vote, address)
-            .send({from: address})
-    } catch (error) {
-        console.log(error)
+            .send({from: account})
+    } else {
+        alert('The project is not registered');
     }
 }
 
-export const upVoteProject = async (vote, address) => {
+export const upVoteProject = async (vote, account, address) => {
   const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
-    try {
+    const isActive = await contract.methods.isActive(address).call()
+    if (isActive) {
         await contract.methods
             .upVoteProject(vote, address)
-            .send({from: address})
-    } catch (error) {
-        console.log(error)
+            .send({from: account})
+    } else {
+        alert('The project is not registered');
     }
 }
 

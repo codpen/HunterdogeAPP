@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import {Box} from "@mui/system";
 import Stack from "@mui/material/Stack";
 // import {styled} from '@material-ui/core/styles';
@@ -7,12 +7,11 @@ import styled from 'styled-components'
 import BlockHunt from '../../components/blockHunt'
 
 
-
 const Header = () => {
 
     return (
         <Block>
-                {/* <Box
+            {/* <Box
                     component='h1'
                     sx={{
                         fontSize: '33px',
@@ -28,13 +27,13 @@ const Header = () => {
                 >
                     BIGGEST GAINERS
                 </Box> */}
-                {/* <BlockOverflow> */}
-                    <BlockHunt/>
-                    {/* <BlockHunt number={'2'}/>
+            {/* <BlockOverflow> */}
+            <BlockHunt/>
+            {/* <BlockHunt number={'2'}/>
                     <BlockHunt number={'3'}/>
                     <BlockHunt number={'4'}/> */}
-                {/* </BlockOverflow> */}
-                
+            {/* </BlockOverflow> */}
+
         </Block>
     )
 }
@@ -42,15 +41,15 @@ const Header = () => {
 export default Header;
 
 const Block = styled.div`
-    display: flex;
-    justify-content: space-around
-    /* background: linear-gradient(270deg, rgba(136, 109, 40, 0.5) 3.52%, #886D28 18.73%, #886D28 82.08%, rgba(136, 109, 40, 0.5) 98.54%);
+  overflow: hidden;
+  display: flex;
+  justify-content: space-around /* background: linear-gradient(270deg, rgba(136, 109, 40, 0.5) 3.52%, #886D28 18.73%, #886D28 82.08%, rgba(136, 109, 40, 0.5) 98.54%);
     box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1); */
 `;
 
 const BlockOverflow = styled.div`
-    overflow: auto;
-    display: flex;
+  overflow: auto;
+  display: flex;
 `
 
 const RootStyle = styled('div')(({theme}) => ({

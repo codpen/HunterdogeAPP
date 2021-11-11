@@ -12,7 +12,7 @@ import Row from "./Row";
 
 const PopularTokens = () => {
     const [value, setValue] = useState(0)
-    const {data} = useGoogleSheet(SHEET_ID)
+    const {data} = useGoogleSheet(SHEET_ID, 60000)
     console.log('data', data)
 
     const filterOneDay = data?.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (24 * 60 * 60 * 1000))

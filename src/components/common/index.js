@@ -1,4 +1,9 @@
 import styled from "styled-components";
+import {Link} from "react-router-dom";
+
+export const LinkWrapper = styled(Link)`
+  text-decoration: none;
+`
 
 export const Button = styled.button`
   width: ${({width}) => width};
@@ -29,14 +34,14 @@ export const Button = styled.button`
 `
 
 export const ButtonGreen = styled.button`
-  width: ${({width}) => width};
-  height: ${({height}) => height || '36px'};
+  width: ${({big}) => big ? '160px' : '100%'};
+  height: ${({big}) => big ? '36px' : '22px'};
   border: none;
   cursor: pointer;
   background: green;
   border-radius: 25px;
-  font-size: ${({size}) => size || '15px'};
-  line-height: ${({size}) => size || '15px'};
+  font-size: ${({big}) => big ? '15px' : '11px'};
+  line-height: ${({big}) => big ? '15px' : '11px'};
   margin: ${({margin}) => margin || '0'};
 
   font-family: Raleway;
@@ -87,19 +92,19 @@ export const ButtonYellow = styled.button`
 `
 
 export const ButtonRed = styled.button`
-  width: ${({width}) => width};
-  height: ${({height}) => height || '36px'};
+  width: ${({big}) => big ? '160px' : '100%'};
+  height: ${({big}) => big ? '36px' : '22px'};
   border: none;
   cursor: pointer;
   background: red;
   border-radius: 25px;
-  font-size: ${({size}) => size || '15px'};
-  line-height: ${({size}) => size || '15px'};
+  font-size: ${({big}) => big ? '15px' : '11px'};
+  line-height: ${({big}) => big ? '15px' : '11px'};
   margin: ${({margin}) => margin || '0'};
 
   font-family: Raleway;
   font-style: normal;
-  font-weight: ${({weight}) => weight || '600'};
+  font-weight: ${({big}) => big ? '600' : '500'};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -116,11 +121,16 @@ export const ButtonRed = styled.button`
 `
 
 export const VoteWrapper = styled.div`
+  width: ${({big}) => big ? '220px' : '85px'};
+  height: ${({big}) => big ? '56px' : '100%'};
   margin: 0 20px;
   gap: 7px;
   display: flex;
-  flex-direction: column;
+  text-align: center;
+  align-items: ${({big}) => big ? 'center' : 'stretch'};
+  flex-direction: ${({big}) => big ? 'row' : 'column'};
 `
+
 export const More = styled.button`
   padding: 0 0 25px 0;
   width: 35px;

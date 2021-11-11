@@ -1,25 +1,16 @@
 import React from 'react';
+import {useParams} from 'react-router-dom'
 import LogoImage from '../../images/big_logo.png'
 import M from '../../images/M.png'
 import Dialogue from '../../images/dialogue_ico.svg'
 import Reward from '../../images/reward_ico.svg'
-import Like from '../../images/like_ico.svg'
-import {
-    Wrapper,
-    HeadTitle,
-    Substrate,
-    Text,
-    BadgesWrapper,
-    Card,
-    InfoWrapper,
-    Inner,
-    Label
-} from './TokeHeaderStyled'
-import {Button,Flex, Image,ButtonRed, ButtonGreen, ButtonYellow} from '../common'
+import {BadgesWrapper, Card, HeadTitle, InfoWrapper, Inner, Label, Substrate, Text, Wrapper} from './TokeHeaderStyled'
+import {Button, Flex, Image} from '../common'
+import {Votes} from "../common/votes";
 
 const TokenHeader = () => {
+    const {address} = useParams()
     const visitWebsite = () => console.log('visit website')
-    const vote = () => console.log('vote')
 
     return (
         <Wrapper>
@@ -52,45 +43,7 @@ const TokenHeader = () => {
                     <HeadTitle size={'50px'}>hunterdoge</HeadTitle>
                     <Label>$HUNT</Label>
                     <Flex left>
-                        {/*<Image src={Like} height={'28px'} margin={'0 8.5px 0 0'}/>*/}
-                        {/*<Text size={'24px'}>156’093</Text>*/}
-                        {/*<Button*/}
-                        {/*    onClick={vote}*/}
-                        {/*    size={'20px'}*/}
-                        {/*    weight={'500'}*/}
-                        {/*    width={'104px'}*/}
-                        {/*    height={'47px'}*/}
-                        {/*    margin={'0 0 0 16px'}*/}
-                        {/*>Vote*/}
-                        {/*</Button>*/}
-
-                        <ButtonRed
-                            onClick={vote}
-                            size={'17px'}
-                            weight={'500'}
-                            width={'90px'}
-                            height={'37px'}
-                            margin={'0 0 0 16px'}
-                        >Vote - 1
-                        </ButtonRed>
-                        <ButtonYellow
-                            onClick={vote}
-                            size={'17px'}
-                            weight={'500'}
-                            width={'90px'}
-                            height={'37px'}
-                            margin={'0 0 0 16px'}
-                        >Vote + 1
-                        </ButtonYellow>
-                        <ButtonGreen
-                            onClick={vote}
-                            size={'17px'}
-                            weight={'500'}
-                            width={'90px'}
-                            height={'37px'}
-                            margin={'0 12px 0 16px'}
-                        >Vote + 2
-                        </ButtonGreen>
+                        <Votes big={true} address={address}/>
                         <Substrate padding={'10px 20px'} bg={'#B78300'}>
                             0
                         </Substrate>

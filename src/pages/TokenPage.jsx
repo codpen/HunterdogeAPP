@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import styled from "styled-components";
 
 import NoPresaleView from "../components/chartsViews/noPresale/NoPresale";
@@ -23,6 +23,7 @@ const ChangePart = ({setPartActive, partActive}) => (
 )
 // <Index />
 const TokenPage = () => {
+    let history = useHistory();
     const {account} = useWeb3React()
     const [partActive, setPartActive] = useState(1)
 
@@ -31,7 +32,7 @@ const TokenPage = () => {
         <Block>
             <Container>
                 <Flex mwidth={'1040px'}>
-                    <Button size={'20px'} height={'47px'} width={'104px'} margin={'0 0 27px 0'}>{'< BACK'}</Button>
+                    <Button onClick={() => history.goBack()} size={'20px'} height={'47px'} width={'104px'} margin={'0 0 27px 0'}>{'< BACK'}</Button>
                     <Edit>+ edit your token information</Edit>
                 </Flex>
                 <TokenHeader/>

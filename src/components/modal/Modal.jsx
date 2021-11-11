@@ -79,7 +79,13 @@ const Modal = ({ setIsOpen }) => {
     const {account} = useWeb3React()
     const classes = useStyles();
 
-    const buy = (votes) => buyVotes(account, votes)
+    const buy = (votes) => {
+        if (account) {
+            buyVotes(account, votes)
+        } else {
+            alert('You need to connect wallet')
+        }
+    }
 
     return (
         <Card className={classes.modal}>

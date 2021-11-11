@@ -80,3 +80,23 @@ export const SocialWrapper = styled.div`
   height: 70px;
   margin-top: 35px;
 `
+
+export const LinkStyled = styled.a`
+  display: block;
+  text-decoration: none;
+`
+
+export const LinkFooter = styled.a`
+  display: block;
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 21px;
+  line-height: 21px;
+  color: #FFFFFF;
+  text-decoration: none;
+  
+  margin: ${({margin}) => margin || '25px 0 0 0'};
+`
+
+

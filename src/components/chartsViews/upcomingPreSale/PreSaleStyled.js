@@ -232,3 +232,6 @@ export const PerBnb = styled.span`
   text-transform: none;
   color: #B78300;
 `
+export const LinkStyled = styled.a`
+  display: block;
+`

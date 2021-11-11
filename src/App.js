@@ -39,7 +39,7 @@ const App = () => {
                         <Route path="/nft-gallery" exact>
                             <NftGallery/>
                         </Route>
-                        <Route path="/token" exact>
+                        <Route path="/token/:address" exact>
                             <TokenPage/>
                         </Route>
                     </Switch>
