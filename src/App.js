@@ -17,15 +17,28 @@ import Menu from './blocks/menu';
 import Paws from './images/paws_bg.svg';
 import Loupe from './images/loupe_bg.svg';
 import Bow from './images/bow_bg.svg';
+import {useWeb3React} from "@web3-react/core";
+import { isMember } from './connection/functions';
 
 const App = () => {
+    const {account} = useWeb3React()
     const [isOpen, setIsOpen] = useState(false)
+    const [register, setRegister] = useState(false)
+
+    useEffect(() => {
+        const getIsMember = async () => {
+            const member = await isMember(account)
+            console.log('member',member)
+            setRegister(member)
+        }
+        account && getIsMember()
+    },[account])
 
     return (
         <Router>
             <Main>
                 <Header/>
-                <Hero setIsOpen={setIsOpen}/>
+                <Hero setIsOpen={setIsOpen} register={register}/>
                 { isOpen && <Modal setIsOpen={setIsOpen}/> }
                 <Pages>
                     <Menu/>

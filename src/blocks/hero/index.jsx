@@ -10,8 +10,11 @@ import {SHEET_ID_BANNER} from "../../constants";
 import {useGoogleSheet} from '../../hooks/useGoogleSheet';
 import {Image, LinkWrapper} from "../../components/common";
 import likeDark from "../../images/like_dark.svg";
-import {getUserVotes} from "../../connection/functions";
+import chart from "../../images/chart_ico.svg";
+import {getUserVotes, returnMembership} from "../../connection/functions";
 import {useWeb3React} from "@web3-react/core";
+import RegisterModal from '../../components/modal/RegisterModal';
+import {usePrice} from "../../hooks/usePrice";
 
 const AdsToken = () => (
     <Stack direction="row"
@@ -103,10 +106,12 @@ const AdsToken = () => (
     </Stack>
 )
 
-const Hero = ({setIsOpen}) => {
-    const { account} = useWeb3React()
+const Hero = ({setIsOpen, register}) => {
+    const {account} = useWeb3React()
+    const state = usePrice()
     const {data} = useGoogleSheet(SHEET_ID_BANNER)
     const [votes, setVotes] = useState(0)
+    const [isModal, setIsModal] = useState(false)
 
     useEffect(() => {
         const call = async () => {
@@ -115,13 +120,13 @@ const Hero = ({setIsOpen}) => {
         }
 
         account && call()
-    },[account])
+    }, [account])
 
 
     return (
         <Block
         >
-            <Box>
+            <Box sx={{flexShrink: 0}}>
                 <Stack direction="row">
                     <LinkWrapper to='/'>
                         <Box component='img' src={logo}
@@ -147,21 +152,21 @@ const Hero = ({setIsOpen}) => {
 
                        }}
                 >
-                    {/* <Box component='img' src={chart}
-              sx={{
-                height: '30px',
-                width: '30px',
-                mr: '21px'
-              }}
-          />
-          <Typography variant='body1'
-            sx={{
-              fontSize: 16,
-              mr: '28px'
-            }}
-          >
-            1 Hunt = $0.0005 
-          </Typography> */}
+                    <Box component='img' src={chart}
+                         sx={{
+                             height: '30px',
+                             width: '30px',
+                             mr: '21px'
+                         }}
+                    />
+                    <Typography variant='body1'
+                                sx={{
+                                    fontSize: 16,
+                                    mr: '28px'
+                                }}
+                    >
+                        {`1 Hunt = $ ${Number(state.price).toFixed(4)}`}
+                    </Typography>
                     <Button target="_blank" href="https://pancakeswap.finance">
                         Buy $hunt
                     </Button>
@@ -178,13 +183,30 @@ const Hero = ({setIsOpen}) => {
 
             <Container>
                 <ConnectMetaMask setIsOpen={setIsOpen}/>
-                <Flex>
-                    <Text>{votes > 0 ? 'votes' : 'No.of votes'}</Text>
-                    <Text>{votes}</Text>
-                    <Image src={likeDark}/>
-                    <Button>buy votes</Button>
-                </Flex>
+
+                {register ? (
+                    <>
+                        <Button
+                            onClick={() => returnMembership(account)}
+                            fullWidth sx={{mt: 1.5}}>
+                            unregister
+                        </Button>
+                        <Flex>
+                            <Text>{votes > 0 ? 'votes' : 'No.of votes'}</Text>
+                            <Text>{votes}</Text>
+                            <Image src={likeDark}/>
+                            <Button onClick={() => setIsOpen(true)}>buy votes</Button>
+                        </Flex>
+                    </>
+                ) : (
+                    <Button
+                        onClick={() => setIsModal(true)}
+                        fullWidth sx={{mt: 1.5}}>
+                        register
+                    </Button>
+                )}
             </Container>
+            {isModal && <RegisterModal setIsOpen={setIsModal}/>}
         </Block>
     )
 }

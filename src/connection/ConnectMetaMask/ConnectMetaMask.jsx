@@ -104,12 +104,12 @@ const ConnectMetaMask = ({text, setIsOpen}) => {
 
   return (
     <>
-      {!account && ( <Button onClick={() => onConnect(SUPPORTED_WALLETS.METAMASK.connector)} sx={{ width: '100%', border: '10px solid B78300' }}>{text || 'Register / Connect Wallet'}</Button>
+      {!account && ( <Button onClick={() => onConnect(SUPPORTED_WALLETS.METAMASK.connector)} sx={{ width: '100%', border: '10px solid B78300' }}>{text || 'Connect Wallet'}</Button>
         // <Button className={'at-click at-btn-cnt-metamask-wlt'} onClick={() => onConnect(SUPPORTED_WALLETS.METAMASK.connector)}>Connect to a Wallet</Button>
       )}
       {account && (
          <>
-           <Button onClick={disconnect} sx={{ width: '100%', border: '10px solid B78300' }}>DISCONNECT</Button>
+           <Button onClick={disconnect} sx={{ width: '100%', border: '10px solid B78300' }}>DISCONNECT {account.slice(0,6) + '...' + account.slice(-4)}</Button>
           </>
         // <>
         // <Tooltip

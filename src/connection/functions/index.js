@@ -1,12 +1,13 @@
 import Web3 from "web3";
-import {bscMainContract, bscProjectContact} from '../contracts'
+import {bscMembershipContract, bscProjectContact, bscTokenContact} from '../contracts'
 import ABIMAIN from '../contracts/ABIMAIN.json'
 import PROJECTABI from '../contracts/PROJECTABI.json'
+import REGISTERABI from '../contracts/REGISTERABI.json'
 
 const web3 = new Web3(Web3.givenProvider)
 
 export const getUserVotes = async (account) => {
-    const contract = new web3.eth.Contract(ABIMAIN, bscMainContract);
+    const contract = new web3.eth.Contract(ABIMAIN, bscMembershipContract);
     const votes = await contract.methods.getUserVotes(account).call();
     return votes
 }
@@ -47,7 +48,7 @@ export const upVoteProject = async (vote, account, address) => {
 }
 
 export const buyVotes = async (account, amount) => {
-    const contract = new web3.eth.Contract(ABIMAIN, bscMainContract);
+    const contract = new web3.eth.Contract(ABIMAIN, bscMembershipContract);
 
     await contract.methods.buyVotes(amount)
         .send({from: account})
@@ -57,4 +58,46 @@ export const buyVotes = async (account, amount) => {
         .on('error', function (error, receipt) {
             console.log(error)
         })
+}
+
+export const register = async (account) => {
+    const address = '0x901fef9F8aF72Ac5777Ec69b812fb31D9C6f5d0b'
+    const amount = '115792089237316195423570985008687907853269984665640564039457584007913129639935'
+    const contract = new web3.eth.Contract(REGISTERABI, bscTokenContact);
+
+    await contract.methods
+        .approve(address, amount)
+        .send({from: account})
+}
+
+export const membership = async (account) => {
+    const contract = new web3.eth.Contract(ABIMAIN, bscMembershipContract);
+
+    await contract.methods
+        .getMembership()
+        .send({from: account})
+        .on('receipt', function (receipt) {
+            console.log('member', receipt)
+        })
+        .on('error', function (error, receipt) {
+            console.log(error)
+        })
+}
+
+export const isMember = async (account) => {
+    const contract = new web3.eth.Contract(ABIMAIN, bscMembershipContract);
+
+    const data =  await contract.methods
+        .isMember(account)
+        .call()
+    console.log(data)
+    return data
+}
+
+export const returnMembership = async (account) => {
+    const contract = new web3.eth.Contract(ABIMAIN, bscMembershipContract);
+
+    await contract.methods
+        .returnMembership()
+        .send({from: account})
 }
