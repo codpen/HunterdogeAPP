@@ -8,15 +8,20 @@ import {BadgesWrapper, Card, HeadTitle, InfoWrapper, Inner, Label, Substrate, Te
 import {Button, Flex, Image} from '../common'
 import {Votes} from "../common/votes";
 import { getMCap, getSymbol, getName } from '../../connection/functions'
+import {useGoogleSheet} from '../../hooks/useGoogleSheet';
+import {SHEET_ID} from "../../constants";
 
 const TokenHeader = () => {
     const {address} = useParams()
     const visitWebsite = () => console.log('visit website')
+    const {data} = useGoogleSheet(SHEET_ID, 60000)
+
 
     const [price, setPrice] = useState(0)
     const [mcap, setMCap] = useState(0)
     const [symbol, setSymbol] = useState('')
     const [name, setName] = useState('')
+    const [logo, setLogo] = useState('')
 
     useEffect(() => {
         const fetchSheet = async () => {
@@ -49,10 +54,22 @@ const TokenHeader = () => {
         getMarketCap()
     },[price])
 
+    useEffect(() => {
+        data.map((row) => {
+            console.log(row?.Project_Logo)
+            if (row?.Project_Address?.toLowerCase() === address.toLowerCase()) {
+                console.log(row?.Project_Logo)
+                setLogo(row?.Project_Logo)
+            }
+        })
+    }, [data])
+
+    console.log(logo)
+
     return (
         <Wrapper>
             <BadgesWrapper>
-                <Image src={LogoImage} height={'140px'} margin={'0 0 21px 0'}/>
+                <Image src={logo.length < 1 ? LogoImage : logo} height={'140px'} margin={'0 0 21px 0'}/>
                 <Button weight={'700'} onClick={visitWebsite}>
                     visit website
                 </Button>
