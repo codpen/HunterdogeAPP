@@ -9,6 +9,7 @@ import {
     Divider,
     Flex,
     HeadTitle,
+    HeadSubTitle,
     RightContent,
     Title,
     Upcoming,
@@ -27,6 +28,7 @@ const TokenInformation = () => {
         <Wrapper>
             <ContentWrapper>
                 <HeadTitle>PROJECT DESCRIPTION</HeadTitle>
+                <HeadSubTitle>(coming soon)</HeadSubTitle>
                 <DescTextWrapper>
                     <DescText>
                         1. Cardence is World's first decentralised launchpad to offer release of token as per vesting schedule, create presale only for whitelisted wallet, affiliate marketing option for projects, liquidity locking, smart mint features, staking, assured IDOs , guaranteed participation for everyone all at one place.
@@ -48,14 +50,14 @@ const TokenInformation = () => {
                         3.Doxed dev and reputed advisors, all info is public and can be seen on cardence.io
                     </DescText>
                 </DescTextWrapper>
-                <Flex>
+                {/* <Flex>
                     <button onClick={plug} className={classes.redBtn} style={{color: 'white'}}>
                         report this token to staff
                     </button>
                     <button onClick={plug} className={classes.beigeBtn} style={{color: '#AB882E'}}>
                         SHARE $HUNT
                     </button>
-                </Flex>
+                </Flex> */}
             </ContentWrapper>
             <Divider />
             <RightContent >

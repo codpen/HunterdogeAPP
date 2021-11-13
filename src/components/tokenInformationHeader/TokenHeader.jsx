@@ -7,7 +7,7 @@ import Reward from '../../images/reward_ico.svg'
 import {BadgesWrapper, Card, HeadTitle, InfoWrapper, Inner, Label, Substrate, Text, Wrapper} from './TokeHeaderStyled'
 import {Button, Flex, Image} from '../common'
 import {Votes} from "../common/votes";
-import { getMCap, getSymbol } from '../../connection/functions'
+import { getMCap, getSymbol, getName } from '../../connection/functions'
 
 const TokenHeader = () => {
     const {address} = useParams()
@@ -16,6 +16,7 @@ const TokenHeader = () => {
     const [price, setPrice] = useState(0)
     const [mcap, setMCap] = useState(0)
     const [symbol, setSymbol] = useState('')
+    const [name, setName] = useState('')
 
     useEffect(() => {
         const fetchSheet = async () => {
@@ -33,6 +34,8 @@ const TokenHeader = () => {
             }
             const symbol = await getSymbol(address)
             setSymbol(symbol)
+            const name = await getName(address)
+            setName(name)
         };
         fetchSheet()
     },[address])
@@ -74,7 +77,7 @@ const TokenHeader = () => {
             </BadgesWrapper>
             <InfoWrapper>
                 <Flex justify={'start'}>
-                    <HeadTitle size={'50px'}>hunterdoge</HeadTitle>
+                    <HeadTitle size={'50px'}>{name}</HeadTitle>
                     <Label>{symbol}</Label>
                     <Flex left>
                         <Votes big={true} address={address}/>

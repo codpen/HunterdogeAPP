@@ -34,6 +34,7 @@ export const RightContent = styled.div`
 `
 
 export const DescTextWrapper = styled.div`
+  filter: blur(3px);
   min-width: 300px;
   max-width: 827px;
   width: 100%;
@@ -83,6 +84,18 @@ export const HeadTitle = styled.h4`
   text-transform: ${({text}) => text || 'uppercase'};
   color: #B78300;
 `
+export const HeadSubTitle = styled.h4`
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: ${({weight}) => weight || '800'};
+  font-size: 12px;
+  line-height: 15px;
+  /* text-transform: ${({text}) => text || 'uppercase'}; */
+  color: #B78300;
+  font-style: italic;
+`
+
+
 
 export const Value = styled.p`
   margin-bottom: 26px;

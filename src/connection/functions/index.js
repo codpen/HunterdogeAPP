@@ -134,3 +134,16 @@ export const getSymbol = async (address) => {
         return ''
     }
 }
+
+export const getName = async (address) => {
+    try {
+        const contract = new web3.eth.Contract(ABIMCAP, address);
+
+        const symbol = await contract.methods
+            .name()
+            .call()
+        return symbol
+    } catch (error) {
+        return ''
+    }
+}
