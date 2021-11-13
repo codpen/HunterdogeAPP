@@ -8,6 +8,7 @@ import {Votes} from "../common/votes";
 
 const Row = ({data, index}) => {
     const {votes, error, isLoading} = useVotesPerProject(data.Project_Address)
+    console.log(data.Project_Logo)
 
     return (
         <TableRow>
@@ -16,7 +17,7 @@ const Row = ({data, index}) => {
                     <Typography variant="h6" sx={{mr:'36px'}}>
                         {index+1}.
                     </Typography>
-                    <Box component="img" src={logo} sx={{width: '66px'}}/>
+                    <Box component="img" src={data.Project_Logo} sx={{width: '66px'}}/>
                 </Stack>
             </TableCell>
             <TableCell >

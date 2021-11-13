@@ -165,10 +165,10 @@ const Hero = ({setIsOpen, register}) => {
                                     mr: '28px'
                                 }}
                     >
-                        {`1 Hunt = $ ${Number(state.price).toFixed(4)}`}
+                        {`1 HD = $ ${Number(state.price).toFixed(4)}`}
                     </Typography>
                     <Button target="_blank" href="https://pancakeswap.finance">
-                        Buy $hunt
+                        Buy $HD
                     </Button>
                 </Stack>
             </Box>

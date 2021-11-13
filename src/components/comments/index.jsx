@@ -51,14 +51,14 @@ const Comment = ({show}) => {
 const Comments = () => {
     return (
         <Block>
-            <Title>COMMENTS (88) </Title>
-            <Comment />
+            <Title>COMMENTS (0) </Title>
+            {/* <Comment />
             <Comment />
             <Comment show/>
             <CenterWrapper>
                 <Show>Show more</Show>
                 <ButtonDown height={'35px'} width={'35px'}/>
-            </CenterWrapper>
+            </CenterWrapper> */}
         </Block>
     )
 }

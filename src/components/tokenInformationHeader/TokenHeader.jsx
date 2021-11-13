@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {useParams} from 'react-router-dom'
 import LogoImage from '../../images/big_logo.png'
 import M from '../../images/M.png'
@@ -7,10 +7,44 @@ import Reward from '../../images/reward_ico.svg'
 import {BadgesWrapper, Card, HeadTitle, InfoWrapper, Inner, Label, Substrate, Text, Wrapper} from './TokeHeaderStyled'
 import {Button, Flex, Image} from '../common'
 import {Votes} from "../common/votes";
+import { getMCap, getSymbol } from '../../connection/functions'
 
 const TokenHeader = () => {
     const {address} = useParams()
     const visitWebsite = () => console.log('visit website')
+
+    const [price, setPrice] = useState(0)
+    const [mcap, setMCap] = useState(0)
+    const [symbol, setSymbol] = useState('')
+
+    useEffect(() => {
+        const fetchSheet = async () => {
+            try {
+                await fetch(`https://api.pancakeswap.info/api/v2/tokens/${address}`)
+                    .then((response) => {
+                        return response.json();
+                    })
+                    .then((data) => {
+                        setPrice((+data.data.price).toFixed(4))
+                        
+                    });
+            } catch (e) {
+                console.warn(e)
+            }
+            const symbol = await getSymbol(address)
+            setSymbol(symbol)
+        };
+        fetchSheet()
+    },[address])
+
+    useEffect(() => {
+        const getMarketCap = async () => {
+            const mcap = await getMCap(address, price)
+            console.log(mcap)
+            setMCap(mcap)
+        }
+        getMarketCap()
+    },[price])
 
     return (
         <Wrapper>
@@ -41,7 +75,7 @@ const TokenHeader = () => {
             <InfoWrapper>
                 <Flex justify={'start'}>
                     <HeadTitle size={'50px'}>hunterdoge</HeadTitle>
-                    <Label>$HUNT</Label>
+                    <Label>{symbol}</Label>
                     <Flex left>
                         <Votes big={true} address={address}/>
                         <Substrate padding={'10px 20px'} bg={'#B78300'}>
@@ -59,19 +93,19 @@ const TokenHeader = () => {
                     <Flex margin={'17px 0 26px 0'}>
                         <Text>contract address</Text>
                         <Substrate>
-                            <Text>0xfa17b330bcc4e7f3e2456996d89a5a54ab044831</Text>
+                            <Text>{address}</Text>
                         </Substrate>
                     </Flex>
                     <Flex>
                         <Card>
                             <div/>
                             <span>token price</span>
-                            <p>$0.0000005</p>
+                            <p>${new Intl.NumberFormat('en-US').format(price)}</p>
                         </Card>
                         <Card>
                             <div/>
                             <span>market cap</span>
-                            <p>$999’999</p>
+                            <p>${new Intl.NumberFormat('en-US').format(mcap)}</p>
                         </Card>
                         <Card color={'#DFFFE8'}>
                             <div/>

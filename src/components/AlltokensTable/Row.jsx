@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {Stack, TableCell, TableRow, Typography} from "@material-ui/core";
 import {Box} from "@mui/system";
 import logo from "../../images/hunter_logo.png";
@@ -8,6 +8,7 @@ import arrowUp from "../../images/arrow-up.svg";
 import {LinkWrapper, More} from "../common";
 import {useVotesPerProject} from "../../hooks/useVotesPerProject";
 import {Votes} from "../common/votes";
+import { getMCap, getSymbol } from '../../connection/functions'
 
 const Row = (
 {
@@ -16,6 +17,39 @@ const Row = (
 ) =>
 {
     const {votes, error, isLoading} = useVotesPerProject(data.Project_Address)
+
+    const [price, setPrice] = useState(0)
+    const [mcap, setMCap] = useState(0)
+    const [symbol, setSymbol] = useState('')
+
+    useEffect(() => {
+        const fetchSheet = async () => {
+            try {
+                await fetch(`https://api.pancakeswap.info/api/v2/tokens/${data.Project_Address}`)
+                    .then((response) => {
+                        return response.json();
+                    })
+                    .then((data) => {
+                        setPrice((+data.data.price).toFixed(4))
+                        
+                    });
+            } catch (e) {
+                console.warn(e)
+            }
+            const symbol = await getSymbol(data.Project_Address)
+            setSymbol(symbol)
+        };
+        fetchSheet()
+    },[data])
+
+    useEffect(() => {
+        const getMarketCap = async () => {
+            const mcap = await getMCap(data.Project_Address, price)
+            console.log(mcap)
+            setMCap(mcap)
+        }
+        getMarketCap()
+    },[price])
 
     return (
         <TableRow>
@@ -27,7 +61,7 @@ const Row = (
                     <Box component="img" src={logo} sx={{width: '66px'}}/>
                 </Stack>
             </TableCell>
-            <TableCell>
+            <TableCell style={{ textAlign: 'left' }}>
                 <LinkWrapper to={`/token/${data.Project_Address}`}>
                     <Stack>
                         <Typography variant="h5">
@@ -47,20 +81,20 @@ const Row = (
             </TableCell>
             <TableCell>
                 <Typography variant="table">
-                    $900’999
+                    {new Intl.NumberFormat('en-US').format(mcap)}
                 </Typography>
             </TableCell>
             <TableCell>
                 <Stack>
-                    <Typography variant="table" sx={{pt: '26px'}}>
-                        {data.Project_Price}
+                    <Typography variant="table">
+                        {new Intl.NumberFormat('en-US').format(price)}
                     </Typography>
-                    <Stack direction="row" sx={{mt: 1}}>
+                    {/* <Stack direction="row" sx={{mt: 1}}>
                         <Box component='img' src={arrowUp} sx={{width: '17px', mr: 1}}/>
                         <Typography variant="caption">
                             24H = +12.99%
                         </Typography>
-                    </Stack>
+                    </Stack> */}
                 </Stack>
             </TableCell>
 
@@ -69,17 +103,17 @@ const Row = (
                     HIGH
                 </Typography>
                 <Typography variant="h6" sx={{fontSize: 16, fontWeight: 600}}>
-                    0.67
+                    -
                 </Typography>
             </TableCell>
             <TableCell>
                 <Typography variant="table">
-                    322’000’222
+                    -
                 </Typography>
             </TableCell>
             <TableCell>
                 <Typography variant="table" sx={{textTransform: 'capitalize'}}>
-                    Very high
+                    -
                 </Typography>
             </TableCell>
             <TableCell>

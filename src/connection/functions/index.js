@@ -3,6 +3,7 @@ import {bscMembershipContract, bscProjectContact, bscTokenContact} from '../cont
 import ABIMAIN from '../contracts/ABIMAIN.json'
 import PROJECTABI from '../contracts/PROJECTABI.json'
 import REGISTERABI from '../contracts/REGISTERABI.json'
+import ABIMCAP from '../contracts/MCAP.json'
 
 const web3 = new Web3(Web3.givenProvider)
 
@@ -90,7 +91,6 @@ export const isMember = async (account) => {
     const data =  await contract.methods
         .isMember(account)
         .call()
-    console.log(data)
     return data
 }
 
@@ -100,4 +100,37 @@ export const returnMembership = async (account) => {
     await contract.methods
         .returnMembership()
         .send({from: account})
+}
+
+export const getMCap = async (address, price) => {
+
+    try {
+        const contract = new web3.eth.Contract(ABIMCAP, address);
+
+        const total = await contract.methods
+            .totalSupply()
+            .call()
+
+            const decimals = await contract.methods
+            .decimals()
+            .call()
+
+        const mcap = (total / 10 ** decimals) * price
+        return mcap
+    } catch (error) {
+        return 0
+    }
+}
+
+export const getSymbol = async (address) => {
+    try {
+        const contract = new web3.eth.Contract(ABIMCAP, address);
+
+        const symbol = await contract.methods
+            .symbol()
+            .call()
+        return symbol
+    } catch (error) {
+        return ''
+    }
 }

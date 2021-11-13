@@ -36,9 +36,9 @@ const PopularTokens = () => {
             <Tabs
                 value={value} onChange={handleChange} aria-label="sort"
             >
+                <Tab label="all-time"></Tab>
                 <Tab label="Today’s best"></Tab>
                 <Tab label="This week’s"></Tab>
-                <Tab label="all-time"></Tab>
             </Tabs>
             <Box
                 sx={{
@@ -65,13 +65,14 @@ const PopularTokens = () => {
                         </TableHead>
                         <TableBody>
                             <TabPanel value={value} index={0}>
-                                {filterOneDay.map((row, index) => <Row key={index} index={index} data={row}/>)}
+                                {data.map((row, index) => <Row key={index} index={index} data={row}/>)}
                             </TabPanel>
+                            
                             <TabPanel value={value} index={1}>
                                 {filterWeek.map((row, index) => <Row key={index} index={index} data={row}/>)}
                             </TabPanel>
                             <TabPanel value={value} index={2}>
-                                {data.map((row, index) => <Row key={index} index={index} data={row}/>)}
+                                {filterOneDay.map((row, index) => <Row key={index} index={index} data={row}/>)}
                             </TabPanel>
                         </TableBody>
                     </Table>

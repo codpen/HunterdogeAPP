@@ -46,7 +46,7 @@ const AllTokensTable = () => {
       <Tabs
         value={value} onChange={handleChange} aria-label="sort"
         >
-        <Tab label="Search 1" sx={{position: 'relative', width: 224}}
+        {/* <Tab label="Search 1" sx={{position: 'relative', width: 224}}
         icon={<Box component="img" src={close}
         onClick={() => closeTab()}
         sx={{
@@ -56,7 +56,7 @@ const AllTokensTable = () => {
         }}
       />}>
         
-        </Tab>
+        </Tab> */}
         {/*<Tab label="Today’s best" sx={{width: 224}}></Tab>*/}
         {/*<Tab label="This week’s" sx={{width: 224}}></Tab>*/}
         <Tab label="all-time" sx={{width: 224}}></Tab>
@@ -97,10 +97,10 @@ const AllTokensTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-            <TabPanel value={value} index={0}>
+            {/* <TabPanel value={value} index={0}>
                 {data.map((row, index) => <Row key={index} index={index} data={row}/>)}
-            </TabPanel>
-            <TabPanel value={value} index={1}>
+            </TabPanel> */}
+            <TabPanel value={value} index={0}>
                 {data.map((row, index) => <Row key={index} index={index} data={row}/>)}
             </TabPanel>
             </TableBody>
@@ -109,7 +109,7 @@ const AllTokensTable = () => {
       </Box>
       <Stack direction="row" justifyContent="space-between" sx={{mt: 3, px: 2}}>
         <CheckboxShow/>
-        <Pagination count={56}/>
+        <Pagination count={1}/>
         <Button variant="transparent" sx={{ml: '380px'}}
         onClick={() => backToTop()}>
           go back top
