@@ -93,7 +93,7 @@ const RegisterModal = ({ setIsOpen }) => {
                   membership costs
                 </Typography>
                 <Typography sx={{fontSize: '30px', textAlign: 'center', lineHeight: '30px', textTransform: 'uppercase', color: '#000000'}}>
-                  10’000 $HD
+                  1’000 $HD
                 </Typography>
             </div>
             <Box component='div' sx={{ mt: '57px', width: 257, mx: 'auto'}}>

@@ -61,7 +61,7 @@ const Menu = () => {
           </Button>
         </Stack> */}
         <Stack direction="row" alignItems="end" justifyContent="space-between" sx={{mt: '27px'}}>
-          <Button variant="transparent">
+          <Button variant="transparent" target="_blank" onClick={() => window.open('https://t.me/hunterdogeofficial')}>
             + Submit your  coin
           </Button>
           <Box component="img" src={hunterdogeShadow}
