@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom'
 import styled from "styled-components";
 
@@ -11,6 +11,8 @@ import {useWeb3React} from "@web3-react/core";
 import TokenHeader from "../components/tokenInformationHeader/TokenHeader";
 import {Button, Flex} from "../components/common/index";
 import PopularPreSales from "../components/popularPreSales";
+import EditTokenModal from '../components/modal/EditTokenModal';
+import {Context} from '../hooks/context';
 
 const ChangePart = ({setPartActive, partActive}) => (
     <Part>
@@ -26,20 +28,28 @@ const TokenPage = () => {
     let history = useHistory();
     const {account} = useWeb3React()
     const [partActive, setPartActive] = useState(1)
+    const context = useContext(Context)
 
     const isPresale = account ? <PreSale/> : <NoPresaleView/>
+
+    const handleClick = (e) => {
+      // e.preventDefault() // if you remove this comment, the modal will display on this page
+      context.setOpenModal(true)
+    }
+
     return (
         <Block>
             <Container>
                 <Flex mwidth={'1040px'}>
                     <Button onClick={() => history.goBack()} size={'20px'} height={'47px'} width={'104px'} margin={'0 0 27px 0'}>{'< BACK'}</Button>
-                    <Edit>+ edit your token information</Edit>
+                    <Edit to="/" onClick={handleClick}>+ edit your token information</Edit>
                 </Flex>
                 <TokenHeader/>
                 <ChangePart setPartActive={setPartActive} partActive={partActive}/>
                 {partActive === 1 ? <LiveChart/> : partActive === 2 ? <TokenInformation/> : isPresale}
                 <Comments/>
                 <PopularPreSales/>
+                {context.openModal === true ? <EditTokenModal setIsOpen={context.setOpenModal} /> : false}
             </Container>
         </Block>
     );

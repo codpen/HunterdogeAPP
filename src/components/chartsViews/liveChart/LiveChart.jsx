@@ -74,7 +74,7 @@ const LiveChart = () => {
     const plug = () => console.log('plug')
 
     return (
-        <Grid container className={classes.root} xs={12}>
+        <Grid container className={classes.root}>
             <Grid item className={classes.imgContainer}>
                 <Grid container sx={{mb: '22px'}}>
                     <Typography className={classes.liveChartTitle}>

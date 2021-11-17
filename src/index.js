@@ -12,6 +12,7 @@ import { createWeb3ReactRoot, Web3ReactProvider } from '@web3-react/core';
 import Web3ReactManager from './connection/Web3ReactManager.jsx'
 import { Web3ContractProvider } from './connection/web3Contract.jsx'
 import { theme } from './theme';
+import { ContextProvider } from './hooks/context';
 
 
 Number.prototype.toFixedDown = function (digits) {
@@ -36,17 +37,19 @@ if (!!window.ethereum) {
  
 ReactDOM.render(
   <React.StrictMode>
-    <Web3ReactProvider getLibrary={getLibrary}>
-      <Web3ProviderNetwork getLibrary={getLibrary}>
-        <Web3ReactManager>
-          <Web3ContractProvider>
-            <ThemeProvider theme={theme}>
-              <App />
-            </ThemeProvider> 
-          </Web3ContractProvider>
-        </Web3ReactManager>
-      </Web3ProviderNetwork>
-    </Web3ReactProvider>
+    <ContextProvider>
+      <Web3ReactProvider getLibrary={getLibrary}>
+        <Web3ProviderNetwork getLibrary={getLibrary}>
+          <Web3ReactManager>
+            <Web3ContractProvider>
+              <ThemeProvider theme={theme}>
+                <App />
+              </ThemeProvider> 
+            </Web3ContractProvider>
+          </Web3ReactManager>
+        </Web3ProviderNetwork>
+      </Web3ReactProvider>
+    </ContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
