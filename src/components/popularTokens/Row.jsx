@@ -21,7 +21,7 @@ const Row = ({data, index}) => {
     const [price, setPrice] = useState(0)
     const [mcap, setMCap] = useState(0)
     const [isOpen, setIsOpen] = useState(false)
-    console.log('data', data.KYC);
+
     useEffect(() => {
         const fetchSheet = async () => {
             try {
@@ -42,7 +42,7 @@ const Row = ({data, index}) => {
     useEffect(() => {
         const getMarketCap = async () => {
             const mcap = await getMCap(data.Project_Address, price)
-            console.log(mcap)
+            // console.log(mcap)
             setMCap(mcap)
         }
         getMarketCap()

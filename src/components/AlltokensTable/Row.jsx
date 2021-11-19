@@ -48,7 +48,6 @@ const Row = (
     useEffect(() => {
         const getMarketCap = async () => {
             const mcap = await getMCap(data.Project_Address, price)
-            console.log(mcap)
             setMCap(mcap)
         }
         getMarketCap()

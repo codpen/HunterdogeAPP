@@ -11,7 +11,6 @@ export const usePrice = (time = 30000) => {
                         return response.json();
                     })
                     .then((data) => {
-                        console.log(data)
                         setState({price: data.data.price})
                     });
             } catch (e) {
