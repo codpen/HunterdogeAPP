@@ -17,33 +17,38 @@ export const getVotesPerProject = async (address) => {
     const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
     const isActive = await contract.methods.isActive(address).call()
     if (isActive) {
-        return  await contract.methods.getVotesPerProject(address).call()
+        return await contract.methods.getVotesPerProject(address).call()
     } else {
         throw new Error('The project is not registered');
-
     }
 }
 
 export const downVoteProject = async (vote, account, address) => {
-  const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
-    const isActive = await contract.methods.isActive(address).call()
-    if (isActive) {
-        await contract.methods
-            .downVoteProject(vote, address)
-            .send({from: account})
-    } else {
+    const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
+
+    try {
+        const isActive = await contract.methods.isActive(address).call()
+        if (isActive) {
+            await contract.methods
+                .downVoteProject(vote, address)
+                .send({from: account})
+        }
+    } catch (e) {
         alert('The project is not registered');
     }
 }
 
 export const upVoteProject = async (vote, account, address) => {
-  const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
-    const isActive = await contract.methods.isActive(address).call()
-    if (isActive) {
-        await contract.methods
-            .upVoteProject(vote, address)
-            .send({from: account})
-    } else {
+    const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
+
+    try {
+        const isActive = await contract.methods.isActive(address).call()
+        if (isActive) {
+            await contract.methods
+                .upVoteProject(vote, address)
+                .send({from: account})
+        }
+    } catch (e) {
         alert('The project is not registered');
     }
 }
@@ -85,10 +90,23 @@ export const membership = async (account) => {
         })
 }
 
+export const membershipCosts = async () => {
+    const contract = new web3.eth.Contract(ABIMAIN, bscMembershipContract);
+    try {
+        const result = await contract.methods.membershipCosts().call()
+
+        return web3.utils.fromWei(result)
+    } catch (e) {
+        console.log('membershipCosts', e)
+    }
+
+
+}
+
 export const isMember = async (account) => {
     const contract = new web3.eth.Contract(ABIMAIN, bscMembershipContract);
 
-    const data =  await contract.methods
+    const data = await contract.methods
         .isMember(account)
         .call()
     return data
@@ -111,7 +129,7 @@ export const getMCap = async (address, price) => {
             .totalSupply()
             .call()
 
-            const decimals = await contract.methods
+        const decimals = await contract.methods
             .decimals()
             .call()
 

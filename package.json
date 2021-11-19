@@ -1,6 +1,5 @@
 {
   "name": "hunterdoge",
-  "homepage": "https://app.hunterdoge.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -29,6 +28,8 @@
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/walletconnect-connector": "^6.2.4",
+    "axios": "^0.24.0",
+    "cheerio": "^1.0.0-rc.10",
     "emotion": "^11.0.0",
     "google-spreadsheet": "^3.1.15",
     "googleapis": "^89.0.0",
@@ -45,11 +46,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI=false && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

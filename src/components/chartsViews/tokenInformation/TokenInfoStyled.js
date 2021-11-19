@@ -34,7 +34,7 @@ export const RightContent = styled.div`
 `
 
 export const DescTextWrapper = styled.div`
-  filter: blur(3px);
+  /* filter: blur(3px); */
   min-width: 300px;
   max-width: 827px;
   width: 100%;

@@ -4,9 +4,34 @@ import {Link} from "react-router-dom";
 export const LinkWrapper = styled(Link)`
   text-decoration: none;
 `
+export const Link_ = styled(Link)`
+  text-decoration: none;
+  font-family: Raleway;
+  font-weight: 700;
+  color: #AB882E;
+  font-size: ${({size}) => size || '30px'};
+  line-height: ${({size}) => size || '30px'};
+  margin: ${({margin}) => margin || '0'};
+  text-transform: uppercase;
+  transition: 0.4s;
+  
+  &:hover {
+    color: #d5b562;
+  }
+`
+
+
+export const Text = styled.h3`
+  font-family: Raleway;
+  font-weight: 700;
+  font-size: ${({size}) => size || '30px'};
+  line-height: ${({size}) => size || '30px'};
+  margin: ${({margin}) => margin || '0'};
+  text-transform: uppercase;
+`
 
 export const Button = styled.button`
-  width: ${({width}) => width};
+  width: ${({width}) => width || '100%'};
   height: ${({height}) => height || '36px'};
   border: none;
   cursor: pointer;
@@ -20,13 +45,13 @@ export const Button = styled.button`
   font-family: Raleway;
   font-style: normal;
   font-weight: ${({weight}) => weight || '500'};
-
+  
   text-align: center;
   text-transform: uppercase;
   box-shadow: 1px 3px 0 rgba(0, 0, 0, 0.1);
   color: ${({color}) => color || '#FFFFFF'};
   
-  transition: 0.5s;
+  transition: hover 0.5s;
   
   &:hover {
     background-color: #d5b562
@@ -38,10 +63,10 @@ export const ButtonGreen = styled.button`
   height: ${({big}) => big ? '36px' : '22px'};
   border: none;
   cursor: pointer;
-  background: green;
+  background: rgba(50, 193, 48, 0.62);
   border-radius: 25px;
-  font-size: ${({big}) => big ? '15px' : '11px'};
-  line-height: ${({big}) => big ? '15px' : '11px'};
+  font-size: ${({big}) => big ? '15px' : '13px'};
+  line-height: ${({big}) => big ? '15px' : '13px'};
   margin: ${({margin}) => margin || '0'};
 
   font-family: Raleway;
@@ -58,19 +83,19 @@ export const ButtonGreen = styled.button`
   transition: 0.5s;
 
   &:hover {
-    background-color: rgba(10, 193, 10, 0.7);
+    background: #32C130;
   }
 `
 
 export const ButtonYellow = styled.button`
-  width: ${({width}) => width};
-  height: ${({height}) => height || '36px'};
+  width: ${({big}) => big ? '160px' : '100%'};
+  height: ${({big}) => big ? '36px' : '22px'};
   border: none;
   cursor: pointer;
-  background: yellow;
+  background: rgba(255, 218, 1, 0.81);
   border-radius: 25px;
-  font-size: ${({size}) => size || '15px'};
-  line-height: ${({size}) => size || '15px'};
+  font-size: ${({big}) => big ? '15px' : '13px'};
+  line-height: ${({big}) => big ? '15px' : '13px'};
   margin: ${({margin}) => margin || '0'};
 
   font-family: Raleway;
@@ -82,12 +107,12 @@ export const ButtonYellow = styled.button`
   align-items: center;
   text-transform: uppercase;
   box-shadow: 1px 3px 0 rgba(0, 0, 0, 0.1);
-  color: #000;
+  color: #fff;
 
   transition: 0.5s;
 
   &:hover {
-    background-color: #e5e544;
+    background: #FFDA01;
   }
 `
 
@@ -96,10 +121,10 @@ export const ButtonRed = styled.button`
   height: ${({big}) => big ? '36px' : '22px'};
   border: none;
   cursor: pointer;
-  background: red;
+  background: rgba(255, 0, 0, 0.63);
   border-radius: 25px;
-  font-size: ${({big}) => big ? '15px' : '11px'};
-  line-height: ${({big}) => big ? '15px' : '11px'};
+  font-size: ${({big}) => big ? '15px' : '13px'};
+  line-height: ${({big}) => big ? '15px' : '13px'};
   margin: ${({margin}) => margin || '0'};
 
   font-family: Raleway;
@@ -116,22 +141,25 @@ export const ButtonRed = styled.button`
   transition: 0.5s;
 
   &:hover {
-    background-color: #f83535;
+    background: #FF0000;
   }
 `
 
 export const VoteWrapper = styled.div`
-  width: ${({big}) => big ? '220px' : '85px'};
+  position: relative;
+  width: ${({big}) => big ? '180px' : '91px'};
   height: ${({big}) => big ? '56px' : '100%'};
   margin: 0 20px;
   gap: 7px;
   display: flex;
   text-align: center;
-  align-items: ${({big}) => big ? 'center' : 'stretch'};
+  //align-items: ${({big}) => big ? 'center' : 'stretch'};
+  align-items: center;
   flex-direction: ${({big}) => big ? 'row' : 'column'};
 `
 
 export const More = styled.button`
+  position: relative;
   padding: 0 0 25px 0;
   width: 35px;
   height: 35px;
@@ -156,7 +184,7 @@ export const Flex = styled.div`
   display: flex;
   justify-content: ${({justify}) => justify || 'space-between'};
   flex-direction: ${({direction}) => direction || 'row'};
-  align-items: center;
+  align-items: ${({items}) => items || 'center'};
   margin: ${({margin}) => margin || '0'};
   margin-left: ${({left}) => left ? 'auto' : '0'};
   max-width: ${({mwidth}) => mwidth};

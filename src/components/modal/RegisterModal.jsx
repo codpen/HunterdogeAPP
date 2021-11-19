@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Card from '@material-ui/core/Card';
 import {makeStyles} from "@material-ui/styles";
 import {Box} from "@mui/system";
 import {Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import {isMember, register, membership} from "../../connection/functions";
+import {isMember, register, membership, membershipCosts} from "../../connection/functions";
 import {useWeb3React} from "@web3-react/core";
 
 const useStyles = makeStyles({
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     modal: {
         zIndex: 100,
         position: "absolute",
-        top: '20%',
+        top: '10%',
         left: 0,
         right: 0,
         margin: '0 auto',
@@ -67,7 +67,8 @@ const useStyles = makeStyles({
 });
 
 const RegisterModal = ({ setIsOpen }) => {
-    const {account} = useWeb3React()
+    const [cost, setCost] = useState('0')
+    const {account, chainId} = useWeb3React()
     const classes = useStyles();
 
     const buy = async () => {
@@ -78,6 +79,15 @@ const RegisterModal = ({ setIsOpen }) => {
             alert('You need to connect wallet')
         }
     }
+
+    useEffect(() => {
+        const call = async () => {
+            const res = await membershipCosts()
+            console.log(res)
+            setCost(res)
+        }
+        {chainId === 56 && call()}
+    },[account])
 
     return (
         <Card className={classes.modal}>
@@ -93,7 +103,7 @@ const RegisterModal = ({ setIsOpen }) => {
                   membership costs
                 </Typography>
                 <Typography sx={{fontSize: '30px', textAlign: 'center', lineHeight: '30px', textTransform: 'uppercase', color: '#000000'}}>
-                  1’000 $HD
+                    {cost} $HD
                 </Typography>
             </div>
             <Box component='div' sx={{ mt: '57px', width: 257, mx: 'auto'}}>

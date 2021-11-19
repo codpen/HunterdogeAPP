@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import {Stack, TableCell, TableRow, Typography} from "@material-ui/core";
 import {Box} from "@mui/system";
 import logo from "../../images/hunter_logo.png";
-import {ReactComponent as IconReward} from "../../images/reward_ico.svg";
-import {ReactComponent as IconDialogue} from "../../images/dialogue_ico.svg";
+import {ReactComponent as Kyc} from "../../images/KYC.svg";
+import {ReactComponent as Audit} from "../../images/Audit.svg";
+import {ReactComponent as Utility} from "../../images/Utility.svg";
+import {ReactComponent as Memecoin} from "../../images/Memecoin.svg";
 import arrowUp from "../../images/arrow-up.svg";
 import {LinkWrapper, More} from "../common";
 import {useVotesPerProject} from "../../hooks/useVotesPerProject";
 import {Votes} from "../common/votes";
 import { getMCap, getSymbol } from '../../connection/functions'
+import {useHolders} from "../../hooks/useHolders";
 
 const Row = (
 {
@@ -17,7 +20,7 @@ const Row = (
 ) =>
 {
     const {votes, error, isLoading} = useVotesPerProject(data.Project_Address)
-
+    const holders = useHolders(data.Project_Address)
     const [price, setPrice] = useState(0)
     const [mcap, setMCap] = useState(0)
     const [symbol, setSymbol] = useState('')
@@ -68,8 +71,10 @@ const Row = (
                             {data.Project_Name}
                         </Typography>
                         <Stack direction="row" sx={{gap: 2, mt: '14px'}}>
-                            <IconReward/>
-                            <IconDialogue/>
+                            {data.KYC === 'TRUE' && <Kyc/>}
+                            {data.Audit === 'TRUE' && <Audit/>}
+                            {data.Utility === 'TRUE' && <Utility/>}
+                            {data.Memecoin === 'TRUE' && <Memecoin/>}
                         </Stack>
                     </Stack>
                 </LinkWrapper>
@@ -108,7 +113,7 @@ const Row = (
             </TableCell>
             <TableCell>
                 <Typography variant="table">
-                    -
+                    {holders}
                 </Typography>
             </TableCell>
             <TableCell>

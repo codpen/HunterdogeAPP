@@ -22,11 +22,16 @@ import CheckboxShow from '../checkboxShow';
 import {SHEET_ID} from "../../constants";
 import Row from "./Row";
 import {Link} from "react-router-dom";
+import TabsStyled from '../Tabs/Tabs';
 
+const tabs = [
+  "All time"
+]
 
 const AllTokensTable = () => {
   const [value, setValue] = useState(0)
   const {data} = useGoogleSheet(SHEET_ID, 60000)
+  const [partActive, setPartActive] = useState(1)
 
   // const filterOneDay = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (24*60*60*1000))
   // const filterWeek = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (7*24*60*60*1000))
@@ -55,16 +60,15 @@ const AllTokensTable = () => {
           top: '18px'
         }}
       />}>
-        
         </Tab> */}
         {/*<Tab label="Today’s best" sx={{width: 224}}></Tab>*/}
         {/*<Tab label="This week’s" sx={{width: 224}}></Tab>*/}
-        <Tab label="all-time" sx={{width: 224}}></Tab>
+        <TabsStyled setPartActive={setPartActive} partActive={partActive} data={tabs}/>
       </Tabs>
       <Box
         sx={{
           // height: '544px',
-          overflow: 'hidden',
+          // overflow: 'hidden',
           backgroundColor: '#ffffff',
           borderRadius: '25px',
           borderTopLeftRadius: 0,
@@ -81,7 +85,7 @@ const AllTokensTable = () => {
             top: '11px'
           }}
         />
-        <TableContainer>
+        <TableContainer sx={{overflowX: 'visible'}}>
           <Table>
             <TableHead>
               <TableRow>

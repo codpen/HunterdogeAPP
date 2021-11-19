@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import {useParams} from 'react-router-dom';
 import {Box} from "@mui/system";
 import Pancake from "../../../images/pancakeswap.png";
 import {useStyles} from "../liveChart/LiveChartStyles";
@@ -17,12 +18,27 @@ import {
     Wrapper
 } from "./TokenInfoStyled";
 import {Image} from "../../common";
+import {SHEET_ID} from "../../../constants";
+import {useGoogleSheet} from '../../../hooks/useGoogleSheet';
 
 const TokenInformation = () => {
+    const {data} = useGoogleSheet(SHEET_ID, 60000);
+    const {address} = useParams();
     const classes = useStyles();
+    const [descr, setDescr] = useState('')
 
     const pancakeSwap = () => console.log('pancakeswap')
     const plug = () => console.log('plug')
+    console.log('data info', data);
+    useEffect(() => {
+        data.map((row) => {
+            // console.log(row?.Project_Description)
+            if (row?.Project_Address?.toLowerCase() === address.toLowerCase()) {
+                // console.log(row?.Project_Description)
+                setDescr(row?.Project_Description)
+            }
+        })
+    }, [data])
 
     return (
         <Wrapper>
@@ -31,7 +47,8 @@ const TokenInformation = () => {
                 <HeadSubTitle>(coming soon)</HeadSubTitle>
                 <DescTextWrapper>
                     <DescText>
-                        1. Cardence is World's first decentralised launchpad to offer release of token as per vesting schedule, create presale only for whitelisted wallet, affiliate marketing option for projects, liquidity locking, smart mint features, staking, assured IDOs , guaranteed participation for everyone all at one place.
+                        {descr}
+                        {/* 1. Cardence is World's first decentralised launchpad to offer release of token as per vesting schedule, create presale only for whitelisted wallet, affiliate marketing option for projects, liquidity locking, smart mint features, staking, assured IDOs , guaranteed participation for everyone all at one place.
                         <br/><br/>
                         2. Smart contract audited by techrate and can be seen here -https://github.com/TechRate/Smart-Contract-Audits
                         <br/><br/>
@@ -47,7 +64,7 @@ const TokenInformation = () => {
                         <br /><br/>
                         2. Smart contract audited by techrate and can be seen here -https://github.com/TechRate/Smart-Contract-Audits
                         <br /><br/>
-                        3.Doxed dev and reputed advisors, all info is public and can be seen on cardence.io
+                        3.Doxed dev and reputed advisors, all info is public and can be seen on cardence.io */}
                     </DescText>
                 </DescTextWrapper>
                 {/* <Flex>

@@ -1,20 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import {Stack, TableCell, TableRow, Typography} from "@material-ui/core";
 import {Box} from "@mui/system";
+import styled from "styled-components";
 import logo from "../../images/hunter_logo.png";
-import {ReactComponent as IconReward} from "../../images/reward_ico.svg";
-import {ReactComponent as IconDialogue} from "../../images/dialogue_ico.svg";
+
+import {ReactComponent as Kyc} from "../../images/KYC.svg";
+import {ReactComponent as Audit} from "../../images/Audit.svg";
+import {ReactComponent as Utility} from "../../images/Utility.svg";
+import {ReactComponent as Memecoin} from "../../images/Memecoin.svg";
+
 import arrowUp from "../../images/arrow-up.svg";
 import {LinkWrapper, More} from "../common";
 import {useVotesPerProject} from "../../hooks/useVotesPerProject";
 import {Votes} from "../common/votes";
 import {getMCap} from '../../connection/functions'
+import { CheckPopup } from '../checkPopup/checkPopup';
 
 const Row = ({data, index}) => {
     const {votes, error, isLoading} = useVotesPerProject(data.Project_Address)
     const [price, setPrice] = useState(0)
     const [mcap, setMCap] = useState(0)
-
+    const [isOpen, setIsOpen] = useState(false)
+    console.log('data', data.KYC);
     useEffect(() => {
         const fetchSheet = async () => {
             try {
@@ -58,8 +65,19 @@ const Row = ({data, index}) => {
                             {data.Project_Name}
                         </Typography>
                         <Stack direction="row" sx={{gap: 2, mt: '14px'}}>
-                            <IconReward/>
-                            <IconDialogue/>
+                            {data.KYC === 'TRUE' && 
+                                <Kyc/>
+                            }
+                            {data.Audit === 'TRUE' && 
+                                <Audit/>
+                            }
+                            {data.Utility === 'TRUE' && 
+                                <Utility/>
+                            }
+                            {data.Memecoin === 'TRUE' && 
+                                <Memecoin/>
+                            }
+                            
                         </Stack>
                     </Stack>
                 </LinkWrapper>
@@ -93,7 +111,9 @@ const Row = ({data, index}) => {
                         {votes}
                     </Typography>
                     <Votes address={data.Project_Address}/>
-                    <More>...</More>
+                    <More onClick={() => setIsOpen(!isOpen)}>...
+                        {isOpen && <CheckPopup setIsOpen={setIsOpen}/>}
+                    </More>
                 </Stack>
             </TableCell>
         </TableRow>
@@ -101,3 +121,8 @@ const Row = ({data, index}) => {
 };
 
 export default Row;
+
+export const WrapperIco = styled.div`
+  width: 20px;
+  height: 20px;
+`

@@ -1,4 +1,4 @@
-import {Button, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs} from '@material-ui/core';
+import {Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@material-ui/core';
 import {Box} from '@mui/system';
 
 import {Link} from 'react-router-dom';
@@ -9,10 +9,32 @@ import {useState} from 'react';
 import TabPanel from '../TabPanel';
 import {SHEET_ID} from "../../constants";
 import Row from "./Row";
+import TabsStyled from '../Tabs/Tabs';
+
+const tabs = [
+    "all-time",
+    "Today’s best",
+    "This week’s"
+]
+
+// const ChangePart = ({setPartActive, partActive}) => (
+//     <Part>
+//         <Tab className={partActive === 1 ? 'active' : ''} onClick={() => setPartActive(1)}>
+//             <span>all-time</span>
+//         </Tab>
+//         <Tab className={partActive === 2 ? 'active' : ''} onClick={() => setPartActive(2)}>
+//             <span>Today’s best</span>
+//         </Tab>
+//         <Tab className={partActive === 3 ? 'active' : ''} onClick={() => setPartActive(3)}>
+//             <span>This week’s</span>
+//         </Tab>
+//     </Part>
+// )
 
 const PopularTokens = () => {
     const [value, setValue] = useState(0)
     const {data} = useGoogleSheet(SHEET_ID, 60000)
+    const [partActive, setPartActive] = useState(1)
     console.log('data', data)
 
     const filterOneDay = data?.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (24 * 60 * 60 * 1000))
@@ -33,17 +55,11 @@ const PopularTokens = () => {
             <Box component='h2' sx={{fontSize: '60px', mb: 3}}>
                 Most popular Tokens
             </Box>
-            <Tabs
-                value={value} onChange={handleChange} aria-label="sort"
-            >
-                <Tab label="all-time"></Tab>
-                <Tab label="Today’s best"></Tab>
-                <Tab label="This week’s"></Tab>
-            </Tabs>
+            <TabsStyled setPartActive={setPartActive} partActive={partActive} data={tabs}/>
             <Box
                 sx={{
                     // height: '544px',
-                    overflow: 'hidden',
+                    // overflow: 'hidden',
                     backgroundColor: '#ffffff',
                     borderRadius: '25px',
                     borderTopLeftRadius: 0,
@@ -51,7 +67,7 @@ const PopularTokens = () => {
                     border: '3px solid #FFF3D4'
                 }}
             >
-                <TableContainer>
+                <TableContainer sx={{overflow: 'visible'}}>
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -88,3 +104,4 @@ const PopularTokens = () => {
 }
 
 export default PopularTokens;
+
