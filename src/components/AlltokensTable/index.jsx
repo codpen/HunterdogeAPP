@@ -15,7 +15,7 @@ import close from '../../images/close_ico.svg';
 import info from '../../images/info_ico.svg';
 
 import {useGoogleSheet} from '../../hooks/useGoogleSheet';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import TabPanel from '../TabPanel'
 import Pagination from '../pagination/Pagination';
 import CheckboxShow from '../checkboxShow';
