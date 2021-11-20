@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import {Link, useHistory} from 'react-router-dom'
 import styled from "styled-components";
 
@@ -11,24 +11,28 @@ import {useWeb3React} from "@web3-react/core";
 import TokenHeader from "../components/tokenInformationHeader/TokenHeader";
 import {Button, Flex} from "../components/common/index";
 import PopularPreSales from "../components/popularPreSales";
-import EditTokenModal from '../components/modal/EditTokenModal';
-import {Context} from '../hooks/context';
+import TabsStyled from '../components/Tabs/Tabs';
 
-const ChangePart = ({setPartActive, partActive}) => (
-    <Part>
-        <span className={partActive === 1 ? 'active' : ''} onClick={() => setPartActive(1)}>chart & stats</span>
-        <Divider/>
-        <span className={partActive === 2 ? 'active' : ''} onClick={() => setPartActive(2)}>token information</span>
-        <Divider/>
-        <span className={partActive === 3 ? 'active' : ''} onClick={() => setPartActive(3)}>upcoming pre-sale</span>
-    </Part>
-)
+const tabs = [
+  "chart & stats",
+  "token information",
+  `upcoming pre-sale`
+]
+
+// const ChangePart = ({setPartActive, partActive}) => (
+//     <Part>
+//         <span className={partActive === 1 ? 'active' : ''} onClick={() => setPartActive(1)}>chart & stats</span>
+//         <Divider/>
+//         <span className={partActive === 2 ? 'active' : ''} onClick={() => setPartActive(2)}>token information</span>
+//         <Divider/>
+//         <span className={partActive === 3 ? 'active' : ''} onClick={() => setPartActive(3)}>upcoming pre-sale</span>
+//     </Part>
+// )
 // <Index />
 const TokenPage = () => {
     let history = useHistory();
     const {account} = useWeb3React()
     const [partActive, setPartActive] = useState(1)
-    const context = useContext(Context)
 
     const isPresale = account ? <PreSale/> : <NoPresaleView/>
 
@@ -40,16 +44,12 @@ const TokenPage = () => {
     return (
         <Block>
             <Container>
-                <Flex mwidth={'1040px'}>
-                    <Button onClick={() => history.goBack()} size={'20px'} height={'47px'} width={'104px'} margin={'0 0 27px 0'}>{'< BACK'}</Button>
-                    <Edit to="/" onClick={handleClick}>+ edit your token information</Edit>
-                </Flex>
+                <Button onClick={() => history.goBack()} size={'20px'} height={'47px'} width={'104px'} margin={'0 0 27px 0'}>{'< BACK'}</Button>
                 <TokenHeader/>
-                <ChangePart setPartActive={setPartActive} partActive={partActive}/>
+                <TabsStyled setPartActive={setPartActive} partActive={partActive} data={tabs}/>
                 {partActive === 1 ? <LiveChart/> : partActive === 2 ? <TokenInformation/> : isPresale}
-                <Comments/>
+                {/* <Comments/> */}
                 <PopularPreSales/>
-                {context.openModal === true ? <EditTokenModal setIsOpen={context.setOpenModal} /> : false}
             </Container>
         </Block>
     );

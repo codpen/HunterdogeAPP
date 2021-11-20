@@ -17,7 +17,7 @@ import Bow from '../images/bow_bg.svg';
 import Footer from '../blocks/footer';
 
 const HomePage = () => {
-  
+
   return (
     // <>
     // <Stack direction="row" alignItems="start"

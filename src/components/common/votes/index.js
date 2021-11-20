@@ -1,79 +1,52 @@
-import styled from "styled-components";
 import React, {useState} from "react";
 import {downVoteProject, upVoteProject} from "../../../connection/functions";
-import {ButtonGreen, ButtonRed, VoteWrapper} from "../index";
+import {Button, ButtonGreen, ButtonRed, ButtonYellow, VoteWrapper} from "../index";
 import {useWeb3React} from "@web3-react/core";
+import {ExtraSmall, Input, Modal} from "./VotesStyled";
 
 
 export const Votes = ({address, big = false}) => {
     const {account} = useWeb3React()
     const [votes, setVotes] = useState(0)
-    const [activeBtn, setActiveBtn] = useState('all')
-    const voteFor = () => {
+    const [activeBtn, setActiveBtn] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
+
+    const voteFor = (x) => {
         if (votes > 0) {
-            upVoteProject(votes, account, address)
-            setActiveBtn('all')
+            upVoteProject(votes * x, account, address)
+            setActiveBtn(false)
+            setIsOpen(false)
         }
     }
 
     const voteAgainst = () => {
         if (votes > 0) {
             downVoteProject(votes, account, address)
-            setActiveBtn('all')
+            setActiveBtn(false)
+            setIsOpen(false)
         }
     }
+
+    const activeInput = () => {
+        setActiveBtn(!activeBtn)
+        setIsOpen(false)
+
+    }
     return (<VoteWrapper big={big}>
-            {activeBtn === 'all' ? null
-                : <>
-                    <Label big={big}>
-                        enter the <br/># of votes
-                        <Input big={big}  placeholder={0} onChange={(e) => setVotes(e.target.value)}/>
-                    </Label>
-                    {activeBtn === 'against' ?
-                        <ButtonRed onClick={voteAgainst} big={big}>
-                            VOTE NOW
-                        </ButtonRed>
-                        :
-                        <ButtonGreen onClick={voteFor} big={big}>
-                            VOTE NOW
-                        </ButtonGreen>}
-                </>}
-            {activeBtn === 'all' ?
-                <>
-                    <ButtonRed onClick={() => setActiveBtn('against')} big={big}>
-                        VOTE NOW
-                    </ButtonRed>
-                    <ButtonGreen onClick={() => setActiveBtn('for')} big={big}>
-                        VOTE NOW
-                    </ButtonGreen>
-                </>
-                : null}
+            {activeBtn && <Input big={big}
+                                 placeholder='enter number of the votes'
+                                 onChange={(e) => setVotes(e.target.value)}
+                                 onClick={() => setIsOpen(true)}
+            />}
+            {isOpen && <Modal big={big}>
+                <ButtonGreen onClick={() => voteFor(2)} >vote <ExtraSmall> x </ExtraSmall> 2</ButtonGreen>
+                <ButtonYellow onClick={() => voteFor(1)}>vote <ExtraSmall> x </ExtraSmall> 1</ButtonYellow>
+                <ButtonRed onClick={voteAgainst}>vote <ExtraSmall> x </ExtraSmall> -1</ButtonRed>
+            </Modal>}
+            <Button margin={big && '0 0 0 auto'}
+                    width='79px'
+                    height={activeBtn && '28px'}
+                    onClick={activeInput}>Vote</Button>
         </VoteWrapper>
     )
 }
-
-export const Input = styled.input`
-  width: ${({big}) => big ? '75px' : '100%'};
-  height: 27px;
-  border-radius: 5px;
-  text-align: center;
-  border: none;
-  color: #000;
-  font-weight: 700;
-  font-size: 14px;
-  background-color: #FAF0CB;
-  transition: 0.4s;
-  margin-top: 5px;
-
-  &:focus {
-    outline: none;
-  }
-`
-
-export const Label = styled.label`
-  text-transform: lowercase;
-  font-size: ${({big}) => big ? '18px' : '13px'};
-  line-height: 15px;
-  color: #775600;
-  font-weight: 600;
-`

@@ -2,42 +2,39 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   max-width: 1040px;
-  height: 466px;
-  padding: 26px 21px 21px 21px;
+  height: 494px;
+  padding: 14px 21px 21px 21px;
   margin-bottom: 32px;
-  background: #FFDA01;
+  background: #FFF;
   border-radius: 25px;
   display: flex;
   justify-content: space-between;
 `
 
 export const BadgesWrapper = styled.div`
-  width: 143px;
+  width: 162px;
   display: flex;
   flex-direction: column;
-  
+  flex-shrink: 0;
   text-align: center;
 `
 
 export const InfoWrapper = styled.div`
-  max-width: 826px;
+  max-width: 820px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-left: 15px;
+  margin: 0 0 27px 15px;
 `
 
 export const Inner = styled.div`
   width: 100%;
-  height: 342px;
-  background: #FFFFFF;
-  
-  padding: 20px 27px 19px 27px;
-  
-  border: 2px solid #B78300;
+  height: 335px;
+  background: #FFF8CC;
+  padding: 20px 27px 33px 27px;
   box-sizing: border-box;
   border-radius: 25px;
-  
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.1);
   margin-top: auto;
 `
 
@@ -45,6 +42,7 @@ export const HeadTitle = styled.h3`
   font-size: ${({size}) => size || 'inherit'};
   line-height: ${({size}) => size || 'inherit'};
   font-weight: ${({weight}) => weight || '400'};
+  margin: ${({margin}) => margin || '0'};
 `
 
 export const Substrate = styled.div`
@@ -101,17 +99,20 @@ export const Card = styled.div`
   p {
     width: 176px;
     height: 42px;
-    background: ${({color}) => color || '#FAF0CB'};
+    background: ${({color}) => color || 'transparent'};
     border-radius: 25px;
-    
+    border: 2px solid rgba(183, 131, 0, 0.5);
     box-shadow: 1px 3px 0 rgba(0, 0, 0, 0.1);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
     
     padding: 11px 0;
     font-style: normal;
     font-weight: bold;
     font-size: 20px;
     line-height: 20px;
-    text-align: center;
     color: #B78300;
   }
 `
@@ -122,6 +123,7 @@ export const Text = styled.p`
   font-weight: ${({weight}) => weight || '600'};
   font-size: ${({size}) => size || '18px'};
   line-height: ${({size}) => size || '18px'};
+  margin: ${({margin}) => margin || '0'};
   text-transform: uppercase;
   color: #AB882E;
 `

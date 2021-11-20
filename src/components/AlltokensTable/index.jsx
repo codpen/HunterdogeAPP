@@ -22,6 +22,7 @@ import CheckboxShow from '../checkboxShow';
 import { SHEET_ID } from "../../constants";
 import Row from "./Row";
 import { Link } from "react-router-dom";
+import TabsStyled from '../Tabs/Tabs';
 
 import { Context } from '../../hooks/context';
 
@@ -29,9 +30,14 @@ import { Context } from '../../hooks/context';
 const AllTokensTable = (isTitle) => {
   const context = useContext(Context)
 
+  const tabs = [
+    "All time"
+  ]
+
   const [value, setValue] = useState(0)
   const { data } = useGoogleSheet(SHEET_ID, 60000)
 
+  const [partActive, setPartActive] = useState(1)
 
   // const filterOneDay = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (24*60*60*1000))
   // const filterWeek = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (7*24*60*60*1000))
@@ -68,7 +74,7 @@ const AllTokensTable = (isTitle) => {
           {context.searchOption.map((item, i) => {
             return (
               <Tab
-                label={`search ${(i+1)}`}
+                label={`search ${(i + 1)}`}
                 sx={{ position: 'relative', width: 224 }}
                 icon={
                   <Box component="img"
@@ -84,19 +90,21 @@ const AllTokensTable = (isTitle) => {
             )
           })}
           {/* <Tab label="Search 1" sx={{position: 'relative', width: 224}}
-          icon={<Box component="img" src={close}
-          onClick={() => closeTab()}
-          sx={{
-            position: 'absolute',
-            right: '10px',
-            top: '18px'
-          }}
-        />}>
-          
+            icon={<Box component="img" src={close}
+            onClick={() => closeTab()}
+            {/* <Tab label="Search 1" sx={{position: 'relative', width: 224}}
+            icon={<Box component="img" src={close}
+            onClick={() => closeTab()}
+            sx={{
+              position: 'absolute',
+              right: '10px',
+              top: '18px'
+            }}
+          />}>
           </Tab> */}
           {/*<Tab label="Today’s best" sx={{width: 224}}></Tab>*/}
           {/*<Tab label="This week’s" sx={{width: 224}}></Tab>*/}
-          <Tab label="all-time" sx={{ width: 224 }}></Tab>
+          <TabsStyled setPartActive={setPartActive} partActive={partActive} data={tabs} />
         </Tabs>
         <Box
           sx={{
