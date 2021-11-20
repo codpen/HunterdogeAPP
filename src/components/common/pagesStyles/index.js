@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const NftContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   padding: 0 20px;
   max-width: 1161px;

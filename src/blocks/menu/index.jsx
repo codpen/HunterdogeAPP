@@ -5,8 +5,12 @@ import { ReactComponent as IconComponent } from '../../images/loupe_ico.svg';
 import hunterdogeShadow from '../../images/hunterdoge_menu.png';
 import SearchInput from '../../components/searchInput'
 import {Link} from "react-router-dom";
+import ContactModal from '../../components/modal/Contact';
+import { useState } from 'react';
 
 const Menu = () => {
+  const [open, setOpen] = useState(false)
+
   return(
     <Box
       sx={{
@@ -29,18 +33,24 @@ const Menu = () => {
         <Button variant="large" sx={{mb: 3}}  component={ Link } to="/allTokens">
           All Tokens
         </Button>
-        <Button variant="large" sx={{mb: 3}}>
+        {/* <Button variant="large" sx={{mb: 3}}>
           All Pre-sales
-        </Button>
+        </Button> */}
         <Button variant="large" sx={{mb: 3}} component={ Link } to="/nft-gallery">
           NFT GALLERY
         </Button>
-        <Button variant="large" sx={{mb: 3}}>
-          Documents
-        </Button>
-        <Button variant="large" sx={{mb: 3}}>
+        <a href="https://t.me/huntersground" target="_blank">
+          <Button variant="large" sx={{mb: 3}}>
+            telegram shill bot
+          </Button>
+        </a>
+        <Button variant="large" sx={{mb: 3}} onClick={() => {
+          console.log('открыть модалку');
+          setOpen(true)}
+          }>
           Contact
         </Button>
+       
         {/* <Button variant="large" sx={{mb: '36px'}}>
           Staking
         </Button> */}
@@ -72,6 +82,7 @@ const Menu = () => {
             }}
           />
         </Stack>
+        {open && <ContactModal setIsOpen={setOpen}/>}
     </Box>
   )
 }

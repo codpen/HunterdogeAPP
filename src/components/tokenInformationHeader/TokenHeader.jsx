@@ -6,7 +6,7 @@ import Dialogue from '../../images/dialogue_ico.svg'
 import Reward from '../../images/reward_ico.svg'
 import Guard from '../../images/guard_white.svg'
 import Like from '../../images/like_ico.svg'
-import {BadgesWrapper, Card, HeadTitle, InfoWrapper, Inner, Label, Substrate, Text, Wrapper} from './TokeHeaderStyled'
+import {BadgesWrapper, Card, HeadTitle, InfoWrapper, Inner, Label, Substrate, Text, Wrapper, IcoWrapper} from './TokeHeaderStyled'
 import {Button, Flex, Image, LinkWrapper, Link_} from '../common'
 import {Votes} from "../common/votes";
 import {getMCap, getSymbol, getName} from '../../connection/functions'
@@ -17,6 +17,9 @@ import {ReactComponent as Kyc} from "../../images/KYC.svg";
 import {ReactComponent as Audit} from "../../images/Audit.svg";
 import {ReactComponent as Utility} from "../../images/Utility.svg";
 import {ReactComponent as Memecoin} from "../../images/Memecoin.svg";
+import {ReactComponent as TokenPrice} from "../../images/tokenPrice.svg";
+import {ReactComponent as MarketCap} from "../../images/marketCap.svg";
+import {ReactComponent as Popularity} from "../../images/popularity.svg";
 
 const TokenHeader = () => {
     const {address} = useParams()
@@ -145,17 +148,17 @@ const TokenHeader = () => {
                     </Flex>
                     <Flex>
                         <Card>
-                            <div/>
+                            <IcoWrapper><TokenPrice/></IcoWrapper>
                             <span>token price</span>
                             <p>${new Intl.NumberFormat('en-US').format(price)}</p>
                         </Card>
                         <Card>
-                            <div/>
+                            <IcoWrapper mb={'40px'}><MarketCap/></IcoWrapper>
                             <span>market cap</span>
                             <p>${new Intl.NumberFormat('en-US').format(mcap)}</p>
                         </Card>
                         <Card color={'rgba(255, 218, 1, 0.25)'}>
-                            <div/>
+                            <IcoWrapper><Popularity/></IcoWrapper>
                             <span>popularity</span>
                             <p>MEDIUM</p>
                         </Card>

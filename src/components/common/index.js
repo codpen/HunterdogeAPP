@@ -14,7 +14,7 @@ export const Link_ = styled(Link)`
   margin: ${({margin}) => margin || '0'};
   text-transform: uppercase;
   transition: 0.4s;
-  
+
   &:hover {
     color: #d5b562;
   }
@@ -45,14 +45,14 @@ export const Button = styled.button`
   font-family: Raleway;
   font-style: normal;
   font-weight: ${({weight}) => weight || '500'};
-  
+
   text-align: center;
   text-transform: uppercase;
   box-shadow: 1px 3px 0 rgba(0, 0, 0, 0.1);
   color: ${({color}) => color || '#FFFFFF'};
-  
+
   transition: hover 0.5s;
-  
+
   &:hover {
     background-color: #d5b562
   }
@@ -153,7 +153,7 @@ export const VoteWrapper = styled.div`
   gap: 7px;
   display: flex;
   text-align: center;
-  //align-items: ${({big}) => big ? 'center' : 'stretch'};
+    //align-items: ${({big}) => big ? 'center' : 'stretch'};
   align-items: center;
   flex-direction: ${({big}) => big ? 'row' : 'column'};
 `
@@ -191,8 +191,18 @@ export const Flex = styled.div`
 `
 
 export const Image = styled.img.attrs(props => ({
-    src: props.src || Image,}))`
+    src: props.src || Image,
+}))`
   width: ${({width}) => width};
-  height: ${({height}) =>  height || '100%'};
+  height: ${({height}) => height || '100%'};
   margin: ${({margin}) => margin || '0'};
+`;
+
+export const Changes24 = styled.p`
+  color: ${({up}) => up ? '#32C130' : '#FF0000'};
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 11.8px;
 `;

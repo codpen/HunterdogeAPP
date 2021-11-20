@@ -10,18 +10,28 @@ import {ReactComponent as Utility} from "../../images/Utility.svg";
 import {ReactComponent as Memecoin} from "../../images/Memecoin.svg";
 
 import arrowUp from "../../images/arrow-up.svg";
-import {LinkWrapper, More} from "../common";
+import {Changes24, Flex, Image, LinkWrapper, More} from "../common";
 import {useVotesPerProject} from "../../hooks/useVotesPerProject";
 import {Votes} from "../common/votes";
 import {getMCap} from '../../connection/functions'
 import { CheckPopup } from '../checkPopup/checkPopup';
+import arrowDown from "../../images/arrow-down.svg";
+import {marketCap} from "../../utils/marketCap";
+import {changeFormatter} from "../../utils/changeFormatter";
 
 const Row = ({data, index}) => {
     const {votes, error, isLoading} = useVotesPerProject(data.Project_Address)
     const [price, setPrice] = useState(0)
     const [mcap, setMCap] = useState(0)
     const [isOpen, setIsOpen] = useState(false)
-    console.log('data', data.KYC);
+    const [change24h, setChange24h] = useState()
+
+    useEffect(() => {
+        marketCap(data.Project_Symbol)
+            .then((res) => changeFormatter(res.percent_change_24h))
+            .then((res) => setChange24h(res))
+    }, [])
+
     useEffect(() => {
         const fetchSheet = async () => {
             try {
@@ -42,7 +52,7 @@ const Row = ({data, index}) => {
     useEffect(() => {
         const getMarketCap = async () => {
             const mcap = await getMCap(data.Project_Address, price)
-            console.log(mcap)
+            // console.log(mcap)
             setMCap(mcap)
         }
         getMarketCap()
@@ -97,12 +107,10 @@ const Row = ({data, index}) => {
                     <Typography variant="table">
                         ${new Intl.NumberFormat('en-US').format(price)}
                     </Typography>
-                    {/* <Stack direction="row" sx={{mt: 1}}>
-                        <Box component='img' src={arrowUp} sx={{width: '17px', mr: 1}}/>
-                        <Typography variant="caption">
-                            24H = +12.99%
-                        </Typography>
-                    </Stack> */}
+                    {change24h && <Flex margin={'6px 0 0 0'}>
+                        <Image src={change24h.up ? arrowUp : arrowDown}/>
+                        <Changes24 up={change24h.up}>{change24h.text}</Changes24>
+                    </Flex>}
                 </Stack>
             </TableCell>
             <TableCell>

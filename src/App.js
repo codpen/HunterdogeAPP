@@ -19,6 +19,7 @@ import Loupe from './images/loupe_bg.svg';
 import Bow from './images/bow_bg.svg';
 import {useWeb3React} from "@web3-react/core";
 import { isMember } from './connection/functions';
+import {marketCap} from "./utils/marketCap";
 
 const App = () => {
     const {account} = useWeb3React()

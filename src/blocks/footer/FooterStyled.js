@@ -50,10 +50,10 @@ export const Button = styled.button`
   color: #B78300;
   padding: 10px;
   width: 100%;
-  margin-top: 27px;
+  margin-top: 5px;
   
   text-align: center;
-  background: #FFDA01;
+  background: #FFF8CC;
   border: 2px solid #B78300;
   border-radius: 25px;
   cursor: pointer;
@@ -91,7 +91,7 @@ export const LinkFooter = styled.a`
   font-family: Raleway;
   font-style: normal;
   font-weight: 500;
-  font-size: 21px;
+  font-size: ${({size}) => size || '21px'};
   line-height: 21px;
   color: #FFFFFF;
   text-decoration: none;

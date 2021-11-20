@@ -79,9 +79,10 @@ export const HeadTitle = styled.h4`
   font-family: Raleway;
   font-style: normal;
   font-weight: ${({weight}) => weight || '800'};
-  font-size: 21px;
+  font-size: ${({size}) => size || '21px'};
   line-height: 21px;
   text-transform: ${({text}) => text || 'uppercase'};
+  text-align: center;
   color: #B78300;
 `
 export const HeadSubTitle = styled.h4`
