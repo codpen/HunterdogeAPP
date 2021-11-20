@@ -10,17 +10,13 @@ import PopularPreSales from '../components/popularPreSales';
 import Menu from '../blocks/menu';
 import CheckLiguidity from '../components/checkLiquidity';
 import QuickFilter from '../components/quickFilter';
-import EditTokenModal from '../components/modal/EditTokenModal';
-import { Context } from '../hooks/context';
 
 import Paws from '../images/paws_bg.svg';
 import Loupe from '../images/loupe_bg.svg';
 import Bow from '../images/bow_bg.svg';
 import Footer from '../blocks/footer';
-import { useContext } from 'react';
 
 const HomePage = () => {
-  const context = useContext(Context)
   
   return (
     // <>
@@ -47,13 +43,12 @@ const HomePage = () => {
           width: '1037px',
           justifyContent: 'center'
         }}>
-        {/*<Stack direction="row">*/}
-        {/*  <CheckLiguidity/>*/}
-        {/*  <QuickFilter/>*/}
-        {/*</Stack>*/}
+        <Stack direction="row" >
+         <CheckLiguidity/>
+         <QuickFilter/>
+        </Stack>
         <PopularTokens/>
         <PopularPreSales/>
-        {context.openModal === true ? <EditTokenModal setIsOpen={context.setOpenModal} /> : false}
       </Box>
 
     //   <Stack>

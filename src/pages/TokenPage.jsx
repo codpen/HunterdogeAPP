@@ -33,7 +33,7 @@ const TokenPage = () => {
     const isPresale = account ? <PreSale/> : <NoPresaleView/>
 
     const handleClick = (e) => {
-      // e.preventDefault() // if you remove this comment, the modal will display on this page
+      e.preventDefault() // if you remove this comment, the modal will display on this page
       context.setOpenModal(true)
     }
 

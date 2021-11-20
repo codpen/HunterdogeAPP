@@ -1,38 +1,30 @@
 import { Stack, Typography } from "@material-ui/core";
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import { FormControlLabel, Checkbox, FormGroup } from '@mui/material';
 
-const CheckboxShow = () => {
-  return(
+const options = [25, 50, 100]
+
+const CheckboxShow = ({ limit, handleCheck }) => {
+
+  return (
     <Stack direction="row" alignItems="center">
-      <Typography sx={{mr: 3}}>
+      <Typography sx={{ mr: 3 }}>
         Show
       </Typography>
-      <FormControlLabel control={<Checkbox defaultChecked sx={{
-    root: {
-      color: 'red',
-    },
-    '&.Mui-checked': {
-      color: '#AB882E',
-    },
-  }}/>} label="25" />
-      <FormControlLabel control={<Checkbox sx={{
-    root: {
-      color: 'red',
-    },
-    '&.Mui-checked': {
-      color: '#AB882E',
-    },
-  }}/>} label="50" />
-      <FormControlLabel control={<Checkbox sx={{
-    root: {
-      color: 'red',
-    },
-    '&.Mui-checked': {
-      color: '#AB882E',
-    },
-  }}/>} label="100" />
+      {options.map((opt, i) =>
+        <FormControlLabel
+          key={i}
+          control={
+            <Checkbox onChange={() => { handleCheck(opt) }} checked={limit == opt ? true : false}
+              sx={{
+                root: {
+                  color: 'red',
+                },
+                '&.Mui-checked': {
+                  color: '#AB882E',
+                },
+              }} />
+          } label={opt} />
+      )}
       <Typography>
         per page
       </Typography>

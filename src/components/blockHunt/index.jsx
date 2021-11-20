@@ -24,7 +24,7 @@ const BlockHunt = () => {
                 data.map((banner, index) => {
                     if(index <= 2) {
                         return (
-                            <Link target="_blank" href={banner.Link_Website}>
+                            <Link key={index} target="_blank" href={banner.Link_Website}>
                                 <Banner url={banner.Link_Banner}/>
                             </Link>
                             

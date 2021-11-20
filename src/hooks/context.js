@@ -1,8 +1,13 @@
 import React, { useState, createContext } from 'react'
 
 const Context = createContext({
-    openModal: true,
+    openModal: false,
     setOpenModal: () => { },
+    openSearch: false,
+    setOpenSearch: () => { },
+    searchOption: [],
+    setSearchOption: () => {},
+    removeSearchOption: () => {}
 })
 
 const ContextProvider = ({ children }) => {
@@ -10,7 +15,7 @@ const ContextProvider = ({ children }) => {
     /*eslint-disable */
 
     const setOpenModal = () => {
-        setValue(prevState => {
+        setOpenModalValue(prevState => {
             return {
                 ...prevState,
                 openModal: !prevState.openModal
@@ -18,18 +23,43 @@ const ContextProvider = ({ children }) => {
         })
     }
 
-
-    const modeState = {
-        openModal: false,
-        setOpenModal,
+    const setOpenSearch = (value) => {
+        setOpenSearchValue(value)
     }
 
-    const [openModal, setValue] = useState(modeState)
+    const setSearchOption = (option) => {
+        setSearchOptionValue(prevState => {
+            return [
+                ...prevState,
+                option
+            ]
+        })
+    }
+
+    const removeSearchOption = (id) => {
+        const options = searchOption.filter((item)=>id != item.id)
+        setSearchOptionValue(options)
+    }
+
+
+    const [openModal, setOpenModalValue] = useState(false)
+    const [openSearch, setOpenSearchValue] = useState(false)
+    const [searchOption, setSearchOptionValue] = useState([])
+
+    const contextState = {
+        openModal,
+        setOpenModal,
+        openSearch,
+        setOpenSearch,
+        searchOption,
+        setSearchOption,
+        removeSearchOption,
+    }
 
     /*eslint-enable */
 
     return (
-        <Context.Provider value={openModal}>
+        <Context.Provider value={contextState}>
             {children}
         </Context.Provider>
     )
