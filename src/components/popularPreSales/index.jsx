@@ -22,8 +22,8 @@ import info from '../../images/info_ico.svg';
 
 
 const tabs = [
-  "upcoming",
-  "Ended"
+  {label: "upcoming"},
+  {label: "Ended"}
 ]
 
 const PopularPreSales = () => {

@@ -1,6 +1,6 @@
 import { FormControl, MenuItem, Select, TextField, Typography } from '@material-ui/core';
 import { Button, InputAdornment, InputBase, Stack, IconButton, InputLabel } from '@mui/material';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 
 import { ReactComponent as IconSelect } from '../../images/select_ico.svg';
@@ -37,8 +37,21 @@ const QuickFilter = () => {
 
   const search = () => {
     context.setOpenSearch(true)
+    // context.removeSearchOption('default')
     history.push('/allTokens')
   }
+
+  // useEffect(()=>{
+  //   context.setSearchOption({
+  //     id: 'default',
+  //     filter: filter,
+  //     sort: sort,
+  //     securityAudit: securityAudit,
+  //     doxxedTeam: doxxedTeam,
+  //     useCase: useCase,
+  //     memeCoin: memeCoin,
+  //   })
+  // }, [filter, sort, securityAudit, doxxedTeam, useCase, memeCoin])
 
   return (
     <Stack
@@ -90,7 +103,7 @@ const QuickFilter = () => {
           }
         </SelectForm>
       </Stack>
-      <Typography variant='body1' sx={{ mb: '10px', mt: '18px', textAlign: 'start' }}>
+      <Typography variant='body1' sx={{ mb: '10px', mt: '20px', textAlign: 'center' }}>
         Show only tokens with:
       </Typography>
       <Stack direction="row" sx={{ mb: '14px', }}>

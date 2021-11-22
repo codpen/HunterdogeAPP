@@ -1,14 +1,31 @@
 import styled from "styled-components";
+import close from '../../images/close_ico.svg';
+import { Box } from '@mui/system';
 
-const TabsStyled = ({setPartActive, partActive, data}) => (
+const TabsStyled = ({ setPartActive, partActive, data, closeTab }) => (
   <Part>
-      {data.map((item, index) => {
-          return (
-              <Tab className={partActive === index + 1 ? 'active' : ''} onClick={() => setPartActive(index + 1)}>
-                  <span>{item}</span>
-              </Tab>
-          )
-      })}
+    {data.map((item, index) => {
+      return (
+        <Tab key={index} className={partActive === index + 1 ? 'active' : ''} onClick={() => setPartActive(index + 1)}>
+          <span>{item.label}</span>
+          {
+            item.close 
+            ?
+            <Box component="img"
+              src={close}
+              onClick={() => closeTab(item.id)}
+              sx={{
+                position: 'absolute',
+                right: '5px',
+                top: '10px'
+              }}
+            />
+            :
+            false
+          }
+        </Tab>
+      )
+    })}
   </Part>
 )
 
@@ -22,6 +39,7 @@ const Part = styled.div`
 `
 
 const Tab = styled.div`
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;

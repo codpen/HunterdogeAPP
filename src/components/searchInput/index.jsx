@@ -9,7 +9,7 @@ const SearchInput = ({ placeholder, small, padding, mr, mb, value, setValue }) =
     <Fragment>
       <InputBase
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => setValue ? setValue(e.target.value) : {}}
         placeholder={placeholder ? placeholder : 'search for name, contract address'}
         fullWidth
 

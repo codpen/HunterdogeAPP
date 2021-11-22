@@ -12,7 +12,7 @@ import { useContext } from 'react';
 
 const AllTokens = () => {
   const context = useContext(Context)
-  console.log(context.openSearch)
+  
   return(
     // <Stack direction="row" alignItems="start"
     // sx={{

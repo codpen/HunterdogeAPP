@@ -46,7 +46,7 @@ const ContextProvider = ({ children }) => {
     const [openSearch, setOpenSearchValue] = useState(false)
     const [searchOption, setSearchOptionValue] = useState([])
 
-    const contextState = {
+    let contextState = {
         openModal,
         setOpenModal,
         openSearch,

@@ -14,9 +14,9 @@ import PopularPreSales from "../components/popularPreSales";
 import TabsStyled from '../components/Tabs/Tabs';
 
 const tabs = [
-  "chart & stats",
-  "token information",
-  `upcoming pre-sale`
+  {label: "chart & stats"},
+  {label: "token information"},
+  {label: `upcoming pre-sale`}
 ]
 
 // const ChangePart = ({setPartActive, partActive}) => (
@@ -35,11 +35,6 @@ const TokenPage = () => {
     const [partActive, setPartActive] = useState(1)
 
     const isPresale = account ? <PreSale/> : <NoPresaleView/>
-
-    const handleClick = (e) => {
-      e.preventDefault() // if you remove this comment, the modal will display on this page
-      context.setOpenModal(true)
-    }
 
     return (
         <Block>

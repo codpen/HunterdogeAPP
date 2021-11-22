@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
 import './App.css';
@@ -17,47 +17,50 @@ import Menu from './blocks/menu';
 import Paws from './images/paws_bg.svg';
 import Loupe from './images/loupe_bg.svg';
 import Bow from './images/bow_bg.svg';
-import {useWeb3React} from "@web3-react/core";
+import { useWeb3React } from "@web3-react/core";
 import { isMember } from './connection/functions';
+import { ContextProvider } from './hooks/context';
 
 const App = () => {
-    const {account} = useWeb3React()
+    const { account } = useWeb3React()
     const [isOpen, setIsOpen] = useState(false)
     const [register, setRegister] = useState(false)
 
     useEffect(() => {
         const getIsMember = async () => {
             const member = await isMember(account)
-            console.log('member',member)
+            console.log('member', member)
             setRegister(member)
         }
         account && getIsMember()
-    },[account])
+    }, [account])
 
     return (
         <Router>
             <Main>
-                <Header/>
-                <Hero setIsOpen={setIsOpen} register={register}/>
-                { isOpen && <Modal setIsOpen={setIsOpen}/> }
+                <Header />
+                <Hero setIsOpen={setIsOpen} register={register} />
+                {isOpen && <Modal setIsOpen={setIsOpen} />}
                 <Pages>
-                    <Menu/>
-                    <Switch>
-                        <Route path="/" exact>
-                            <HomePage/>
-                        </Route>
-                        <Route path="/allTokens" exact>
-                            <AllTokens/>
-                        </Route>
-                        <Route path="/nft-gallery" exact>
-                            <NftGallery/>
-                        </Route>
-                        <Route path="/token/:address" exact>
-                            <TokenPage/>
-                        </Route>
-                    </Switch>
+                    <ContextProvider>
+                        <Menu />
+                        <Switch>
+                            <Route path="/" exact>
+                                <HomePage />
+                            </Route>
+                            <Route path="/allTokens" exact>
+                                <AllTokens />
+                            </Route>
+                            <Route path="/nft-gallery" exact>
+                                <NftGallery />
+                            </Route>
+                            <Route path="/token/:address" exact>
+                                <TokenPage />
+                            </Route>
+                        </Switch>
+                    </ContextProvider>
                 </Pages>
-                <Footer/>
+                <Footer />
             </Main>
         </Router>
     )

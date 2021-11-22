@@ -11,7 +11,6 @@ import {
   Tabs
 } from '@material-ui/core';
 import { Box } from '@mui/system';
-import close from '../../images/close_ico.svg';
 import info from '../../images/info_ico.svg';
 
 import { useGoogleSheet } from '../../hooks/useGoogleSheet';
@@ -25,14 +24,19 @@ import { Link } from "react-router-dom";
 import TabsStyled from '../Tabs/Tabs';
 
 import { Context } from '../../hooks/context';
+import { filter } from 'cheerio/lib/api/traversing';
+import { data } from 'cheerio/lib/api/attributes';
 
 
 const AllTokensTable = (isTitle) => {
   const context = useContext(Context)
 
-  const tabs = [
-    "All time"
-  ]
+  let tabs = []
+  let defaultOption = {}
+  context.searchOption.map((item, i) => {
+    tabs.push({ label: `Search ${i + 1}`, close: true, id: item.id })
+  })
+  tabs = [...tabs, { label: "All time", close: false }]
 
   const [value, setValue] = useState(0)
   const { data } = useGoogleSheet(SHEET_ID, 60000)
@@ -60,7 +64,18 @@ const AllTokensTable = (isTitle) => {
 
   const closeTab = (id) => {
     context.removeSearchOption(id)
-    console.log(context.searchOption)
+  }
+
+  const filter = (data, optId) => {
+    const option = context.searchOption.filter(e=>e.id == optId)[0]
+    let result = data.filter(item=> {
+      if(option.memeCoin && option.memeCoin.toString().toLowerCase() != item.Memecoin.toLowerCase()) return false;
+      if(option.securityAudit && option.securityAudit.toString().toLowerCase() != item.Audit.toLowerCase()) return false;
+      if(option.doxxedTeam && option.doxxedTeam.toString().toLowerCase() != item.KYC.toLowerCase()) return false;
+      if(option.useCase && option.useCase.toString().toLowerCase() != item.Utility.toLowerCase()) return false;
+      return true
+    })
+    return result;
   }
 
   const vote = () => console.log('vote')
@@ -71,40 +86,7 @@ const AllTokensTable = (isTitle) => {
         <Tabs
           value={value} onChange={handleChange} aria-label="sort"
         >
-          {context.searchOption.map((item, i) => {
-            return (
-              <Tab
-                label={`search ${(i + 1)}`}
-                sx={{ position: 'relative', width: 224 }}
-                icon={
-                  <Box component="img"
-                    src={close}
-                    onClick={() => closeTab(item.id)}
-                    sx={{
-                      position: 'absolute',
-                      right: '10px',
-                      top: '18px'
-                    }}
-                  />}
-              />
-            )
-          })}
-          {/* <Tab label="Search 1" sx={{position: 'relative', width: 224}}
-            icon={<Box component="img" src={close}
-            onClick={() => closeTab()}
-            {/* <Tab label="Search 1" sx={{position: 'relative', width: 224}}
-            icon={<Box component="img" src={close}
-            onClick={() => closeTab()}
-            sx={{
-              position: 'absolute',
-              right: '10px',
-              top: '18px'
-            }}
-          />}>
-          </Tab> */}
-          {/*<Tab label="Today’s best" sx={{width: 224}}></Tab>*/}
-          {/*<Tab label="This week’s" sx={{width: 224}}></Tab>*/}
-          <TabsStyled setPartActive={setPartActive} partActive={partActive} data={tabs} />
+          <TabsStyled setPartActive={setPartActive} partActive={partActive} data={tabs} closeTab={closeTab} />
         </Tabs>
         <Box
           sx={{
@@ -134,9 +116,15 @@ const AllTokensTable = (isTitle) => {
                 {/* <TabPanel value={value} index={0}>
                     {data.map((row, index) => <Row key={index} index={index} data={row}/>)}
                 </TabPanel> */}
-                <TabPanel value={value} index={0}>
-                  {data.map((row, index) => <Row key={index} index={index} data={row} />)}
-                </TabPanel>
+                {
+                  tabs.map((tab, i)=>{
+                    return (
+                      <TabPanel key={i} value={value} index={0}>
+                        {(tab.id ? filter(data, tab.id) : data).map((row, index) => <Row key={index} index={index} data={row} />)}
+                      </TabPanel>
+                    )
+                  })
+                }
               </TableBody>
             </Table>
           </TableContainer>
