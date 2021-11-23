@@ -6,7 +6,7 @@ const TabsStyled = ({ setPartActive, partActive, data, closeTab }) => (
   <Part>
     {data.map((item, index) => {
       return (
-        <Tab key={index} className={partActive === index + 1 ? 'active' : ''} onClick={() => setPartActive(item.id ? item.id : index + 1)}>
+        <Tab key={index} className={(item.id ? item.id === partActive : partActive === index + 1) ? 'active' : ''} onClick={() => setPartActive(item.id ? item.id : index + 1)}>
           <span>{item.label}</span>
           {
             item.close 
