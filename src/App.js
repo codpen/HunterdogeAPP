@@ -20,6 +20,7 @@ import Bow from './images/bow_bg.svg';
 import { useWeb3React } from "@web3-react/core";
 import { isMember } from './connection/functions';
 import { ContextProvider } from './hooks/context';
+import {marketCap} from "./utils/marketCap";
 
 const App = () => {
     const { account } = useWeb3React()

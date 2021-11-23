@@ -3,7 +3,7 @@ import { FormControlLabel, Checkbox, FormGroup } from '@mui/material';
 
 const options = [25, 50, 100]
 
-const CheckboxShow = ({ limit, handleCheck }) => {
+const CheckboxShow = ({ perPage, handleCheck }) => {
 
   return (
     <Stack direction="row" alignItems="center">
@@ -14,7 +14,7 @@ const CheckboxShow = ({ limit, handleCheck }) => {
         <FormControlLabel
           key={i}
           control={
-            <Checkbox onChange={() => { handleCheck(opt) }} checked={limit == opt ? true : false}
+            <Checkbox onChange={() => { handleCheck(opt) }} checked={perPage === opt ? true : false}
               sx={{
                 root: {
                   color: 'red',

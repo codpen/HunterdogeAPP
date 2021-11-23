@@ -45,6 +45,44 @@ export const HeadTitle = styled.h3`
   margin: ${({margin}) => margin || '0'};
 `
 
+export const BadgesNotification = styled.div`
+  width: 462px;
+  height: 97px;
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  background: #FFF599;
+  border: 3px solid #FAF0CB;
+  font-family: Raleway;
+  font-style: normal;
+  font-size: 15px;
+
+  p {
+    font-weight: 800;
+    line-height: 15px;
+    color: #AB882E;
+  }
+
+  span {
+    font-weight: 700;
+    line-height: 22px;
+    letter-spacing: 0.05em;
+    color: rgba(171, 136, 46, 0.7);
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+
+    border-right: 10px solid blue;
+  }
+`
+
 export const Substrate = styled.div`
   display: flex;
   padding: ${({padding}) => padding || '12px 22px'};
@@ -60,7 +98,7 @@ export const Label = styled.h4`
   height: 56px;
   padding-top: 6px;
   margin-left: 22px;
-  
+
   text-align: center;
   font-style: normal;
   font-weight: normal;
@@ -79,14 +117,9 @@ export const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  div {
-    width: 72.13px;
-    height: 72.13px;
-    border-radius: 50%;
-    background: #AB882E;
-    
-    margin-bottom: 22px;
-  }
+
+  
+
   span {
     font-style: normal;
     font-weight: normal;
@@ -96,6 +129,7 @@ export const Card = styled.div`
     color: #B78300;
     margin-bottom: 9px;
   }
+
   p {
     width: 176px;
     height: 42px;
@@ -103,11 +137,11 @@ export const Card = styled.div`
     border-radius: 25px;
     border: 2px solid rgba(183, 131, 0, 0.5);
     box-shadow: 1px 3px 0 rgba(0, 0, 0, 0.1);
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
     padding: 11px 0;
     font-style: normal;
     font-weight: bold;
@@ -126,4 +160,11 @@ export const Text = styled.p`
   margin: ${({margin}) => margin || '0'};
   text-transform: uppercase;
   color: #AB882E;
+`
+export const IcoWrapper = styled.div` 
+  width: 72.13px;
+  height: 72.13px;
+  /* border-radius: 50%; */
+  display: flex;
+  margin-bottom: ${({mb}) => mb || '22px'};
 `

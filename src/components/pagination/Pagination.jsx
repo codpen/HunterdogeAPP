@@ -4,21 +4,26 @@ import arrowRight from '../../images/right.png';
 import styled from "styled-components";
 import { Image } from "../common";
 
-export default function Pagination({ pos, count, setPage }) {
-
-  return (
-    <Wrapper>
-      <Button disabled={pos == 1 ? true : false} onClick={()=>{ setPage(pos-1) }} >
-        <Image src={arrowLeft} />
-      </Button>
-      <Count>
-        {pos} / {count}
-      </Count>
-      <Button disabled={pos == count ? true : false} onClick={()=>{ setPage(pos+1) }} >
-        <Image src={arrowRight} />
-      </Button>
-    </Wrapper>
-  );
+export default function Pagination({start, end, page, pageHandler}) {
+    const handleLeft = () => {
+        pageHandler((page) => page - 1)
+    }
+    const handleRight = () => {
+        pageHandler((page) => page + 1)
+    }
+    return (
+        <Wrapper>
+            <Button disabled={page === 1} onClick={handleLeft}>
+                <Image src={arrowLeft}/>
+            </Button>
+            <Count>
+                {start} / {end}
+            </Count>
+            <Button disabled={page === end}  onClick={handleRight}>
+                <Image src={arrowRight}/>
+            </Button>
+        </Wrapper>
+    );
 }
 
 export const Wrapper = styled.div`

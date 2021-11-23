@@ -4,7 +4,7 @@ import axios from "axios";
 
 const instance = axios.create({
     baseURL: 'https://bscscan.com/token/',
-    headers: {'content-type': 'application/json'},
+    headers: {'content-type': 'application/json'}
 });
 
 export const useHolders = (address) => {

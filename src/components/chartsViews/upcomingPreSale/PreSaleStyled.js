@@ -1,14 +1,29 @@
 import styled from "styled-components";
 
+
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 1039px;
+  background: #FFFFFF;
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  padding: 30px 5px 25px 52px;
+`
+
 export const Flex = styled.div`
   display: flex;
+  flex-direction: ${({direction}) => direction || 'row'};
+  justify-content: ${({content}) => content || 'evenly'};
+  align-items: ${({items}) => items || 'start'};
+  margin: ${({margin}) => margin};
 `
 export const Block = styled.div`
   margin: ${({margin}) => margin};
 `
 
 export const Title = styled.p`
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   font-family: Raleway;
   font-style: normal;
   font-weight: normal;
@@ -19,36 +34,35 @@ export const Title = styled.p`
 `
 
 export const Value = styled.p`
-  margin-bottom: 26px;
+  margin: ${({margin}) => margin || '0 0 19px 0'};
   font-family: Raleway;
   font-style: normal;
-  font-weight: 800;
+  font-weight: ${({weight}) => weight || '800'};
   font-size: ${({size}) => size || '19px'};
   line-height: ${({size}) => size || '19px'};
   color: #B78300;
 `
 
 export const BannerWrapper = styled.div`
-  margin: ${({margin}) => margin || '34px 0 0 0'};
+  margin: ${({margin}) => margin || '0 25px 0 0'};
   min-width: 300px;
-  max-width: 870px;
+  max-width: 577px;
   width: 100%;
 
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 `
 
 export const Banner = styled.div`
-  max-width: 622px;
+  max-width: 577px;
   width: 100%;
-  height: 342px;
+  height: 431px;
   background: #C4C4C4;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 32px;
-  margin-bottom: 32px;
-
+  
   h5 {
     width: 70%;
     font-style: normal;
@@ -72,23 +86,12 @@ export const Banner = styled.div`
   }
 `
 
-export const Text = styled.div`
-  max-width: 622px;
-  max-height: 180px;
-  height: 100%;
-  width: 100%;
-  font-family: Raleway;
+export const Text = styled.h3`
   font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 16px;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 29px;
   color: #B78300;
-  margin-right: 32px;
-
-  @media (max-width: 1919px) {
-    padding: 10px 10px 0 0;
-    overflow-y: auto;
-  }
 `
 
 export const ActionWrapper = styled.div`
@@ -155,23 +158,18 @@ export const SocialWrapper = styled.div`
 `
 export const ContentWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  min-width: 300px;
-  max-width: 827px;
-  margin-right: 16px;
-  
-  @media (min-width: 1600px) {
-    margin-right: 61px;
-  }
-
-  @media (max-width: 1600px) {
-    width: 60%;
-  }
+  margin-top: 18px;
+  //@media (min-width: 1600px) {
+  //  margin-right: 61px;
+  //}
+  //
+  //@media (max-width: 1600px) {
+  //  width: 60%;
+  //}
 `
 
 export const ParticipationWrapper = styled.div`
-  min-width: 222px;
-  text-align: center;
+  width: 217px;
 
   button {
     padding: 8px 19px;
@@ -190,8 +188,6 @@ export const ParticipationWrapper = styled.div`
     span {
       font-size: 30px;
       line-height: 29px;
-      text-align: center;
-      color: #000000;
     }
   }
 `
@@ -219,7 +215,6 @@ export const ParticipationButton = styled.button`
     font-size: 30px;
     line-height: 29px;
     text-align: center;
-    color: #000000;
     text-transform: capitalize;
   }
 `

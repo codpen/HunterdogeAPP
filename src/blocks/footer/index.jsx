@@ -33,20 +33,21 @@ const Footer = () => {
                     <LinkStyled href='https://medium.com/@hunterdoge' target="_blank"><Image src={Medium}/></LinkStyled>
                 </SocialWrapper>
             </Flex>
-            <Flex direction={'column'}>
+            <Flex direction={'column'} items={'start'}>
                 <Title size={'30px'} mtop={'22px'}>Quick links</Title>
                 <Text to='/allTokens'>All Tokens</Text>
-                <Text to='/'>All Pre-Sales</Text>
+                <LinkFooter href='https://idopresales.com/presale-reviews/hunter-doge-project-review-hd-presale-ido-on-dxsale/' target="_blank">KYC verification</LinkFooter>
+                <LinkFooter href='https://content.hunterdoge.com' target="_blank">Download $HD contents</LinkFooter>
             </Flex>
-            <Flex direction={'column'}>
+            <Flex direction={'column'} items={'start'}>
                 <Title size={'30px'} mtop={'22px'}>Documents</Title>
-                <LinkFooter href='/'>Whitepaper</LinkFooter>
+                {/* <LinkFooter href='/'>Whitepaper</LinkFooter> */}
                 <LinkFooter href='https://ipfs.io/ipfs/QmdWZEMvNximaswhn3p6qTsioBASgGLx2QRMkDcXNrVxoG?filename=Techpaper_HunterDoge_v1.0.0.pdf' target="_blank">Tech paper</LinkFooter>
             </Flex>
             <Flex>
-                <Flex direction={'column'}>
-                    <Title size={'30px'} mtop={'22px'}>Contact</Title>
-                    <LinkFooter href="mailto:info@hunterdoge.com" target="_blank">info@hunterdoge.com</LinkFooter>
+                <Flex direction={'column'} items={'start'}>
+                    <Title size={'30px'}>Contact</Title>
+                    <LinkFooter href="mailto:info@hunterdoge.com" target="_blank" size={'19px'}>info@hunterdoge.com</LinkFooter>
                     <Button onClick={submit}>Submit your Coin</Button>
                 </Flex>
                 <ImageWrapper>
