@@ -13,10 +13,10 @@ import { SHEET_ID } from "../../constants";
 import { bscWBNBContact } from '../../connection/contracts';
 
 const CheckLiguidity = () => {
-
   const { data } = useGoogleSheet(SHEET_ID, 60000)
   const bnbPrice = usePrice(bscWBNBContact)
   const [getMoreInfo, setGetMoreInfo] = useState(false)
+  const [pairAddress, setPairAddress] = useState('')
 
   const [project, setProject] = useState({
     wbnb: 0,
@@ -30,48 +30,8 @@ const CheckLiguidity = () => {
   })
 
   const checkSumAddress = (addr) => {
-    if(!addr) {
-      setProject({
-        wbnb: 0,
-        token: 0,
-        price: 0,
-        symbol: '',
-        wbnb: '',
-        honey: '',
-        buy_tax: 0,
-        sell_tax: 0,
-      })
-      return false
-    }
-    const address = toChecksumAddress(addr)
-    
-    data.map(async (row) => {
-      let projectAddress = toChecksumAddress(row?.Project_Address)
-      if (projectAddress === address) {
-        const pair = await getPair(address);
-
-        project.wbnb = await getBalanceWBNB(pair);
-        project.token = await getBalanceToken(pair, address);
-
-        const honey = await isHoneypot(address)
-        project.honey = honey.is
-        project.buy_tax = honey.buy_tax
-        project.sell_tax = honey.sell_tax
-
-        fetch(`https://api.pancakeswap.info/api/v2/tokens/${address}`)
-          .then((response) => {
-            return response.json();
-          })
-          .then((res) => {
-            project.price = project.wbnb * res.data.price_BNB
-            project.name = res.data.name
-            project.symbol = res.data.symbol
-            project.totalLP = project.wbnb * bnbPrice.price
-            setProject(project)
-          }).catch(e => {
-            console.log(e)
-          });
-      } else {
+    const callAsync = async () => {
+      if (!addr) {
         setProject({
           wbnb: 0,
           token: 0,
@@ -82,8 +42,36 @@ const CheckLiguidity = () => {
           buy_tax: 0,
           sell_tax: 0,
         })
+        return false
       }
-    })
+      const address = toChecksumAddress(addr)
+
+      const pair = await getPair(address);
+      setPairAddress(pair)
+
+      project.wbnb = await getBalanceWBNB(pair);
+      project.token = await getBalanceToken(pair, address);
+
+      const honey = await isHoneypot(address)
+      project.honey = honey.is
+      project.buy_tax = honey.buy_tax
+      project.sell_tax = honey.sell_tax
+
+      fetch(`https://api.pancakeswap.info/api/v2/tokens/${address}`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((res) => {
+          project.price = project.wbnb * res.data.price_BNB
+          project.name = res.data.name
+          project.symbol = res.data.symbol
+          project.totalLP = project.wbnb * bnbPrice.price
+          setProject(project)
+        }).catch(e => {
+          console.log(e)
+        });
+    }
+    callAsync()
   }
 
 
@@ -93,6 +81,11 @@ const CheckLiguidity = () => {
       setProject(project)
     }
   }, [bnbPrice])
+
+  const goToDexTool = () => {
+    if (!pairAddress) return false
+    window.location.href = `https://www.dextools.io/app/bsc/pair-explorer/${pairAddress}`
+  }
 
   const handleGetMoreInfo = () => {
     // history.push('/token/0x04F73A09e2eb410205BE256054794fB452f0D245')
@@ -243,9 +236,9 @@ const CheckLiguidity = () => {
       </Stack>
       <Stack>
         {
-          project.symbol
+          pairAddress
             ?
-            <Button sx={{ mt: '12px', mx: 'auto' }}>
+            <Button onClick={goToDexTool} sx={{ mt: '12px', mx: 'auto' }}>
               SHOW ON DEXTOOLS
             </Button>
             :
