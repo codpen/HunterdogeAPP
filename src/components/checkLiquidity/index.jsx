@@ -38,7 +38,7 @@ const CheckLiguidity = () => {
         const pair = await getPair(address);
 
         project.wbnb = await getBalanceWBNB(pair);
-        project.token = await getBalanceToken(pair);
+        project.token = await getBalanceToken(pair, address);
 
         const honey = await isHoneypot(address)
         project.honey = honey.is
@@ -50,7 +50,7 @@ const CheckLiguidity = () => {
             return response.json();
           })
           .then((res) => {
-            project.price = project.token * res.data.price_BNB
+            project.price = project.wbnb * res.data.price_BNB
             project.name = res.data.name
             project.symbol = res.data.symbol
             setProject(project)
@@ -129,7 +129,7 @@ const CheckLiguidity = () => {
               <Typography variant="h4"
                 sx={{ fontSize: 25, m: 'auto' }}
               >
-                SEARCH FOR ANY BSC TOKEN
+                CONNECT YOUR WALLET TO SEARCH FOR ANY BSC TOKEN
               </Typography>
               :
               <>
@@ -192,7 +192,7 @@ const CheckLiguidity = () => {
                     Pooled {project.name}
                   </Typography>
                   <Typography variant="body1">
-                    {formartNumber(project.price)} BNB
+                    {formartNumber(project.token)}
                   </Typography>
                 </Stack>
                 <Stack direction="row" justifyContent="space-between" alignItems="center"

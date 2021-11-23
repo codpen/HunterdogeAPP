@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import {getVotesPerProject} from "../connection/functions";
 
 export const useVotesPerProject = (address) => {
@@ -12,9 +12,9 @@ export const useVotesPerProject = (address) => {
         const call = async () => {
             try {
                 const votes = await getVotesPerProject(address)
-                setState((state) => ({...state, votes, isLoading: true}))
+                setState((state) => ({...state, votes: 0, isLoading: true}))
             } catch (error) {
-                setState((state) => ({...state, error: error, isLoading: true}))
+                setState((state) => ({...state, votes: 0, isLoading: true}))
             }
         }
         call()

@@ -3,6 +3,7 @@ import { bscMembershipContract, bscProjectContact, bscTokenContact, bscFactorCon
 import ABIMAIN from '../contracts/ABIMAIN.json'
 import PROJECTABI from '../contracts/PROJECTABI.json'
 import REGISTERABI from '../contracts/REGISTERABI.json'
+import ERC20ABI from '../contracts/ERC20_ABI.json'
 import ABIMCAP from '../contracts/MCAP.json'
 import FACTORYABI from '../contracts/FACTORYABI.json'
 import PAIRABI from '../contracts/PAIRABI.json'
@@ -185,19 +186,19 @@ export const getBalanceWBNB = async (address) => {
         const contract = new web3.eth.Contract(PAIRABI, bscWBNBContact)
 
         const balance = await contract.methods.balanceOf(address).call()
-        return web3.utils.fromWei(balance, 'gwei')
+        return web3.utils.fromWei(balance, 'ether')
     } catch (error) {
         console.log(error)
         return ''
     }
 }
 
-export const getBalanceToken = async (address) => {
+export const getBalanceToken = async (address, token) => {
     try {
-        const contract = new web3.eth.Contract(PAIRABI, bscTokenContact)
-
-        const balance = await contract.methods.balanceOf(address).call()
-        return web3.utils.fromWei(balance, 'gwei')
+        const contract = new web3.eth.Contract(ERC20ABI, token)
+        let decimals_local = await contract.methods.decimals().call()
+        let balance = await contract.methods.balanceOf(address).call()
+        return (balance / 10**decimals_local)
     } catch (error) {
         console.log(error)
         return ''
