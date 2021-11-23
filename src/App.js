@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -20,7 +20,7 @@ import Bow from './images/bow_bg.svg';
 import { useWeb3React } from "@web3-react/core";
 import { isMember } from './connection/functions';
 import { ContextProvider } from './hooks/context';
-import {marketCap} from "./utils/marketCap";
+import { marketCap } from "./utils/marketCap";
 
 const App = () => {
     const { account } = useWeb3React()
@@ -35,15 +35,14 @@ const App = () => {
         }
         account && getIsMember()
     }, [account])
-
     return (
         <Router>
-            <Main>
-                <Header />
-                <Hero setIsOpen={setIsOpen} register={register} />
-                {isOpen && <Modal setIsOpen={setIsOpen} />}
-                <Pages>
-                    <ContextProvider>
+            <ContextProvider>
+                <Main>
+                    <Header />
+                    <Hero setIsOpen={setIsOpen} register={register} />
+                    {isOpen && <Modal setIsOpen={setIsOpen} />}
+                    <Pages>
                         <Menu />
                         <Switch>
                             <Route path="/" exact>
@@ -59,10 +58,10 @@ const App = () => {
                                 <TokenPage />
                             </Route>
                         </Switch>
-                    </ContextProvider>
-                </Pages>
-                <Footer />
-            </Main>
+                    </Pages>
+                    <Footer />
+                </Main>
+            </ContextProvider>
         </Router>
     )
 }

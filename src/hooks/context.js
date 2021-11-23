@@ -11,6 +11,9 @@ const Context = createContext({
 })
 
 const ContextProvider = ({ children }) => {
+    const [openModal, setOpenModalValue] = useState(false)
+    const [openSearch, setOpenSearchValue] = useState(true)
+    const [searchOption, setSearchOptionValue] = useState([])
 
     /*eslint-disable */
 
@@ -41,10 +44,6 @@ const ContextProvider = ({ children }) => {
         setSearchOptionValue(options)
     }
 
-
-    const [openModal, setOpenModalValue] = useState(false)
-    const [openSearch, setOpenSearchValue] = useState(false)
-    const [searchOption, setSearchOptionValue] = useState([])
 
     let contextState = {
         openModal,
