@@ -1,37 +1,37 @@
-import {  IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 
 import { ReactComponent as IconComponent } from '../../images/loupe_ico.svg';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useRef, useState } from 'react';
 import { InputBase } from '@material-ui/core';
 
-const SearchInput = ({ placeholder, small, padding, mr, mb, value, setValue }) => {
-  return(
+const SearchInput = ({ placeholder, small, padding, mr, mb, setValue }) => {
+  const inp = useRef('')
+  return (
     <Fragment>
       <InputBase
-        value={value}
-        onChange={(e) => setValue ? setValue(e.target.value) : {}}
+        inputRef={ inp }
         placeholder={placeholder ? placeholder : 'search for name, contract address'}
         fullWidth
 
         sx={{
-          mb: mb? mb : 0,
+          mb: mb ? mb : 0,
           padding: padding ? padding : '0 5px 0 35px',
           mr: mr ? mr : 0
         }}
-      >      
+      >
       </InputBase>
       {
-        small 
-          ? <IconComponent style={{ stroke: '#B78300', position: 'absolute', left: '10px', top: '7px'}}/>
-          : <IconButton aria-label="search"
+        small
+          ? <IconComponent onClick={() => setValue ? setValue(inp.current.value) : {}} style={{ stroke: '#B78300', position: 'absolute', left: '10px', top: '7px' }} />
+          : <IconButton onClick={() => setValue ? setValue(inp.current.value) : {}} aria-label="search"
             sx={{
               height: '35px',
             }}
           >
-          <IconComponent style={{ stroke: 'white'}}/>
-        </IconButton>  
+            <IconComponent style={{ stroke: 'white' }} />
+          </IconButton>
       }
-      
+
     </Fragment>
   )
 }

@@ -14,16 +14,15 @@ import { Context } from '../../hooks/context';
 
 
 const marketCap = [
-  { value: '', label: 'Market Cap' },
-  { value: 10, label: '1.Market Cap' },
-  { value: 20, label: '2.Market Cap' },
-  { value: 30, label: '3.Market Cap' },
+  { value: 'mcap', label: 'Market Cap' },
+  { value: 'price', label: 'Price ' },
+  { value: 'liq', label: 'Liq./Mcap-Ratio' },
+  { value: 'holder', label: 'Holders' },
+  { value: 'vote', label: 'Votes' },
 ]
 const descending = [
-  { value: '', label: 'Descending' },
-  { value: 10, label: '1.Descending' },
-  { value: 20, label: '2.Descending' },
-  { value: 30, label: '3.Descending' },
+  { value: 'asc', label: 'Ascending' },
+  { value: 'desc', label: 'Descending' },
 ]
 
 const projects = [
@@ -34,10 +33,8 @@ const projects = [
 ]
 
 const highestList = [
-  { value: '', label: 'Highest first' },
-  { value: 10, label: '1.Highest first' },
-  { value: 20, label: '2.Highest first' },
-  { value: 30, label: '3.Highest first' },
+  { value: 'high', label: 'Highest first' },
+  { value: 'low', label: 'Lowest first' },
 ]
 const SearchOrFilter = () => {
   const { data } = useGoogleSheet(SHEET_ID_PRESALES)
@@ -45,10 +42,10 @@ const SearchOrFilter = () => {
   const context = useContext(Context)
 
   const [search, setSearch] = useState('')
-  const [filter, setFilter] = useState('')
-  const [sort, setSort] = useState('')
+  const [filter, setFilter] = useState('vote')
+  const [sort, setSort] = useState('desc')
   const [project, setProject] = useState('')
-  const [highest, setHighest] = useState('')
+  const [highest, setHighest] = useState('high')
   const [securityAudit, setSecurityAudit] = useState(false)
   const [doxxedTeam, setDoxxedTeam] = useState(false)
   const [useCase, setUseCase] = useState(false)
@@ -105,7 +102,7 @@ const SearchOrFilter = () => {
           <SearchInput value={search} setValue={setSearch} mr={'11px'} padding={'0 5px 0 15px'} />
         </Stack>
         <Stack direction="row" alignItems="end" gap="13px">
-          <SelectForm label="Filter tokens by:">
+          <SelectForm label="Filter tokens by:" defaultValue={filter}>
             {
               marketCap.map((item, key) => {
                 return (
@@ -121,7 +118,7 @@ const SearchOrFilter = () => {
               })
             }
           </SelectForm>
-          <SelectForm label="Sort tokens by:">
+          <SelectForm label="Sort tokens by:" defaultValue={sort}>
             {
               descending.map((item, key) => {
                 return (
@@ -137,7 +134,7 @@ const SearchOrFilter = () => {
               })
             }
           </SelectForm>
-          <SelectForm label="Display projects with:">
+          <SelectForm label="Display projects with:" defaultValue={project}>
             {
               projects.map((item, key) => {
                 return (
@@ -156,7 +153,7 @@ const SearchOrFilter = () => {
           <Typography>of</Typography>
           <Input value={70} inputProps={{ sx: { textAlign: 'center !important' } }}></Input>
           <Typography sx={{ whiteSpace: 'nowrap' }}>% end</Typography>
-          <SelectForm>
+          <SelectForm defaultValue={highest}>
             {
               highestList.map((item, key) => {
                 return (

@@ -28,6 +28,8 @@ import { Context } from '../../hooks/context';
 import { filter } from 'cheerio/lib/api/traversing';
 import { data } from 'cheerio/lib/api/attributes';
 
+import { toChecksumAddress } from '../../connection/functions'
+
 
 const AllTokensTable = (isTitle) => {
   const context = useContext(Context)
@@ -53,8 +55,10 @@ const AllTokensTable = (isTitle) => {
     let result = data
     const option = context.searchOption.filter(e => e.id == partActive)[0]
     if (option) {
+      const address = toChecksumAddress(option.search)
       result = data.filter(item => {
-        if (item?.Project_Address?.toLowerCase() !== option.search.toLowerCase()) return false;
+        let projectAddress = toChecksumAddress(item?.Project_Address)
+        if (projectAddress !== address) return false;
         if (option.memeCoin && option.memeCoin.toString().toLowerCase() != item.Memecoin.toLowerCase()) return false;
         if (option.securityAudit && option.securityAudit.toString().toLowerCase() != item.Audit.toLowerCase()) return false;
         if (option.doxxedTeam && option.doxxedTeam.toString().toLowerCase() != item.KYC.toLowerCase()) return false;
