@@ -5,21 +5,18 @@ import { Box, width } from '@mui/system';
 import { ReactComponent as IconComponent } from '../../images/loupe_ico.svg';
 import logo from '../../images/hunter_logo.png';
 import SearchInput from '../searchInput'
-import { useHistory } from "react-router-dom";
 import { useEffect, useState } from 'react';
-import { getPair, getBalanceWBNB, getBalanceToken, isHoneypot } from '../../connection/functions'
+import { getPair, getBalanceWBNB, getBalanceToken, isHoneypot, toChecksumAddress } from '../../connection/functions'
 import { useGoogleSheet } from '../../hooks/useGoogleSheet';
 import { usePrice } from '../../hooks/usePrice';
 import { SHEET_ID } from "../../constants";
 import { bscWBNBContact } from '../../connection/contracts';
 
 const CheckLiguidity = () => {
-  const history = useHistory()
 
   const { data } = useGoogleSheet(SHEET_ID, 60000)
   const bnbPrice = usePrice(bscWBNBContact)
   const [getMoreInfo, setGetMoreInfo] = useState(false)
-  const [address, setAddress] = useState('')
 
   const [project, setProject] = useState({
     wbnb: 0,
@@ -32,9 +29,25 @@ const CheckLiguidity = () => {
     sell_tax: 0,
   })
 
-  useEffect(async () => {
+  const checkSumAddress = (addr) => {
+    if(!addr) {
+      setProject({
+        wbnb: 0,
+        token: 0,
+        price: 0,
+        symbol: '',
+        wbnb: '',
+        honey: '',
+        buy_tax: 0,
+        sell_tax: 0,
+      })
+      return false
+    }
+    const address = toChecksumAddress(addr)
+    
     data.map(async (row) => {
-      if (row?.Project_Address?.toLowerCase() === address.toLowerCase()) {
+      let projectAddress = toChecksumAddress(row?.Project_Address)
+      if (projectAddress === address) {
         const pair = await getPair(address);
 
         project.wbnb = await getBalanceWBNB(pair);
@@ -70,7 +83,8 @@ const CheckLiguidity = () => {
         })
       }
     })
-  }, [address])
+  }
+
 
   useEffect(() => {
     if (bnbPrice.price) {
@@ -106,8 +120,7 @@ const CheckLiguidity = () => {
       </Typography>
       <Stack direction="row" sx={{ mt: 2, mb: 2 }}>
         <SearchInput
-          value={address}
-          setValue={setAddress}
+          setValue={(v) => checkSumAddress(v)}
           padding={'0 5px 0 15px'}
           mr={2}
         />
@@ -229,7 +242,7 @@ const CheckLiguidity = () => {
       </Stack>
       <Stack>
         {
-          address
+          project.symbol
             ?
             <Button sx={{ mt: '12px', mx: 'auto' }}>
               SHOW ON DEXTOOLS

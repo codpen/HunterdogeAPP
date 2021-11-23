@@ -322,3 +322,13 @@ export const isHoneypot = async (address) => {
 
     return {is: 'No', buy_tax: buy_tax, sell_tax: sell_tax}
 }
+
+
+export const toChecksumAddress = (address) => {
+    try {
+        return web3.utils.toChecksumAddress(address)
+    } catch (error) {
+        console.log(error)
+        return ''
+    }
+}
