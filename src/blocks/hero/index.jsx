@@ -15,6 +15,7 @@ import {getUserVotes, returnMembership} from "../../connection/functions";
 import {useWeb3React} from "@web3-react/core";
 import RegisterModal from '../../components/modal/RegisterModal';
 import {usePrice} from "../../hooks/usePrice";
+import {bscTokenContact} from '../../connection/contracts'
 
 const AdsToken = () => (
     <Stack direction="row"
@@ -108,7 +109,7 @@ const AdsToken = () => (
 
 const Hero = ({setIsOpen, register}) => {
     const {account} = useWeb3React()
-    const state = usePrice()
+    const state = usePrice(bscTokenContact)
     const {data} = useGoogleSheet(SHEET_ID_BANNER)
     const [votes, setVotes] = useState(0)
     const [isModal, setIsModal] = useState(false)

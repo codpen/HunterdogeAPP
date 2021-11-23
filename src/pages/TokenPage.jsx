@@ -14,9 +14,9 @@ import PopularPreSales from "../components/popularPreSales";
 import TabsStyled from '../components/Tabs/Tabs';
 
 const tabs = [
-  "chart & stats",
-  "token information",
-  `upcoming pre-sale`
+  {label: "chart & stats"},
+  {label: "token information"},
+  {label: `upcoming pre-sale`}
 ]
 
 // const ChangePart = ({setPartActive, partActive}) => (
@@ -35,6 +35,7 @@ const TokenPage = () => {
     const [partActive, setPartActive] = useState(1)
 
     const isPresale = account ? <PreSale/> : <NoPresaleView/>
+
     return (
         <Block>
             <Container>

@@ -17,6 +17,7 @@ import Bow from '../images/bow_bg.svg';
 import Footer from '../blocks/footer';
 
 const HomePage = () => {
+
   return (
     // <>
     // <Stack direction="row" alignItems="start"
@@ -42,10 +43,10 @@ const HomePage = () => {
           width: '1037px',
           justifyContent: 'center'
         }}>
-        {/*<Stack direction="row">*/}
-        {/*  <CheckLiguidity/>*/}
-        {/*  <QuickFilter/>*/}
-        {/*</Stack>*/}
+        <Stack direction="row" >
+         <CheckLiguidity/>
+         <QuickFilter/>
+        </Stack>
         <PopularTokens/>
         <PopularPreSales/>
       </Box>

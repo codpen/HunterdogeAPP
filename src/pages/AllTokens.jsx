@@ -7,8 +7,12 @@ import PopularPreSales from '../components/popularPreSales';
 import PromotedPreSales from '../components/promotedPresales';
 import SearchOrFilter from '../components/searchOrFilter';
 import News from '../components/promotedPresales/news';
+import { Context } from '../hooks/context';
+import { useContext } from 'react';
 
 const AllTokens = () => {
+  const context = useContext(Context)
+  
   return(
     // <Stack direction="row" alignItems="start"
     // sx={{
@@ -22,11 +26,11 @@ const AllTokens = () => {
     // >
     //   <Menu/>
       <Stack sx={{ml: '60px'}}>
-        {/*<SearchOrFilter/>*/}
+        {context.openSearch ? <SearchOrFilter/> : false}
         <AllTokensTable/>
         <Stack direction="row" alignItems="center" sx={{gap: 8}}>
           <PopularPreSales/>
-          <News/>
+          {/* <News/> */}
         </Stack>
       </Stack>
     //   {/* <Stack>

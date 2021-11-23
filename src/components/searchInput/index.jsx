@@ -4,13 +4,12 @@ import { ReactComponent as IconComponent } from '../../images/loupe_ico.svg';
 import React, { Fragment, useState } from 'react';
 import { InputBase } from '@material-ui/core';
 
-const SearchInput = ({ placeholder, small, padding, mr, mb }) => {
-  const [value, setValue] = useState('')
+const SearchInput = ({ placeholder, small, padding, mr, mb, value, setValue }) => {
   return(
     <Fragment>
       <InputBase
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => setValue ? setValue(e.target.value) : {}}
         placeholder={placeholder ? placeholder : 'search for name, contract address'}
         fullWidth
 
@@ -23,13 +22,13 @@ const SearchInput = ({ placeholder, small, padding, mr, mb }) => {
       </InputBase>
       {
         small 
-          ? <IconComponent onClick={() => console.log('click')} style={{ stroke: '#B78300', position: 'absolute', left: '10px', top: '7px'}}/>
+          ? <IconComponent style={{ stroke: '#B78300', position: 'absolute', left: '10px', top: '7px'}}/>
           : <IconButton aria-label="search"
             sx={{
               height: '35px',
             }}
           >
-          <IconComponent onClick={() => console.log('click')} style={{ stroke: 'white'}}/>
+          <IconComponent style={{ stroke: 'white'}}/>
         </IconButton>  
       }
       

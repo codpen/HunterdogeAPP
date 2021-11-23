@@ -12,9 +12,9 @@ import Row from "./Row";
 import TabsStyled from '../Tabs/Tabs';
 
 const tabs = [
-    "all-time",
-    "Today’s best",
-    "This week’s"
+    {label: "all-time"},
+    {label: "Today’s best"},
+    {label: "This week’s"}
 ]
 
 // const ChangePart = ({setPartActive, partActive}) => (

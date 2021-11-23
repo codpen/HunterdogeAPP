@@ -2,7 +2,7 @@ import * as React from 'react';
 import arrowLeft from '../../images/left.png';
 import arrowRight from '../../images/right.png';
 import styled from "styled-components";
-import {Image} from "../common";
+import { Image } from "../common";
 
 export default function Pagination({start, end, page, pageHandler}) {
     const handleLeft = () => {

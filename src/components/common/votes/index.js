@@ -45,7 +45,7 @@ export const Votes = ({address, big = false}) => {
             </Modal>}
             <Button margin={big && '0 0 0 auto'}
                     width='79px'
-                    height={activeBtn && '28px'}
+                    height={activeBtn ? '28px' : ''}
                     onClick={activeInput}>Vote</Button>
         </VoteWrapper>
     )
