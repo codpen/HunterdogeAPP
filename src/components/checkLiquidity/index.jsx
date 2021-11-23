@@ -13,10 +13,10 @@ import { SHEET_ID } from "../../constants";
 import { bscWBNBContact } from '../../connection/contracts';
 
 const CheckLiguidity = () => {
-
   const { data } = useGoogleSheet(SHEET_ID, 60000)
   const bnbPrice = usePrice(bscWBNBContact)
   const [getMoreInfo, setGetMoreInfo] = useState(false)
+  const [pairAddress, setPairAddress] = useState('')
 
   const [project, setProject] = useState({
     wbnb: 0,
@@ -49,6 +49,7 @@ const CheckLiguidity = () => {
       let projectAddress = toChecksumAddress(row?.Project_Address)
       if (projectAddress === address) {
         const pair = await getPair(address);
+        setPairAddress(pair)
 
         project.wbnb = await getBalanceWBNB(pair);
         project.token = await getBalanceToken(pair, address);
@@ -93,6 +94,11 @@ const CheckLiguidity = () => {
       setProject(project)
     }
   }, [bnbPrice])
+
+  const goToDexTool = () =>{
+    if(!pairAddress) return false
+    window.location.href = `https://www.dextools.io/app/bsc/pair-explorer/${pairAddress}`
+  }
 
   const handleGetMoreInfo = () => {
     // history.push('/token/0x04F73A09e2eb410205BE256054794fB452f0D245')
@@ -243,9 +249,9 @@ const CheckLiguidity = () => {
       </Stack>
       <Stack>
         {
-          project.symbol
+          pairAddress
             ?
-            <Button sx={{ mt: '12px', mx: 'auto' }}>
+            <Button onClick={goToDexTool} sx={{ mt: '12px', mx: 'auto' }}>
               SHOW ON DEXTOOLS
             </Button>
             :
