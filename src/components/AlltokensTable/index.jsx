@@ -31,7 +31,7 @@ import { data } from 'cheerio/lib/api/attributes';
 
 const AllTokensTable = (isTitle) => {
   const context = useContext(Context)
-  const [currentData, setCurrentData] = useState({newData: [], currentPage: 0, endPage: 0})
+  const [currentData, setCurrentData] = useState({ newData: [], currentPage: 0, endPage: 0 })
 
   let tabs = []
   let defaultOption = {}
@@ -46,14 +46,15 @@ const AllTokensTable = (isTitle) => {
   //checkbox and pagination button
   const [perPage, setPerPage] = useState(25)
   const [page, setPage] = useState(1)
-  
+
   // const filterOneDay = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (24*60*60*1000))
   // const filterWeek = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (7*24*60*60*1000))
   const filter = () => {
     let result = data
     const option = context.searchOption.filter(e => e.id == partActive)[0]
-    if(option) {
+    if (option) {
       result = data.filter(item => {
+        if (item?.Project_Address?.toLowerCase() !== option.search.toLowerCase()) return false;
         if (option.memeCoin && option.memeCoin.toString().toLowerCase() != item.Memecoin.toLowerCase()) return false;
         if (option.securityAudit && option.securityAudit.toString().toLowerCase() != item.Audit.toLowerCase()) return false;
         if (option.doxxedTeam && option.doxxedTeam.toString().toLowerCase() != item.KYC.toLowerCase()) return false;
@@ -64,7 +65,7 @@ const AllTokensTable = (isTitle) => {
 
     return result
   }
-  useEffect(()=>{
+  useEffect(() => {
     let result = filter()
     const res = paginate(result.length, page, perPage, result)
     setCurrentData(res)

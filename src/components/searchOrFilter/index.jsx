@@ -57,6 +57,7 @@ const SearchOrFilter = () => {
   const startSearch = () => {
     context.setSearchOption({
       id: (new Date).valueOf(),
+      search: search,
       filter: filter,
       sort: sort,
       securityAudit: securityAudit,
