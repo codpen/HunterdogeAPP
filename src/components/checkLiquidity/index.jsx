@@ -93,7 +93,7 @@ const CheckLiguidity = () => {
   }
 
   const formartNumber = (value) => {
-    return value.toLocaleString().replace(/'/g, /'/)
+    return value.toLocaleString().replace(/,/g, "'")
   }
 
   return (
@@ -150,14 +150,14 @@ const CheckLiguidity = () => {
                   <Typography variant="h4"
                     sx={{ fontSize: 17 }}
                   >
-                    HunterDoge
+                    {project.name}
                   </Typography>
                   <Typography variant="body2"
                     sx={{
                       fontSize: 12
                     }}
                   >
-                    All-time Rank: #322
+                    ${project.symbol}
                   </Typography>
                 </Stack>
                 <Stack direction="row" justifyContent="space-between" alignItems="center"
