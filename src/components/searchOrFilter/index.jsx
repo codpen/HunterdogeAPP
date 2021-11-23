@@ -26,10 +26,10 @@ const descending = [
 ]
 
 const projects = [
-  { value: '', label: 'Liq./Mcap-Ratio' },
-  { value: 10, label: '1.Liq./Mcap-Ratio' },
-  { value: 20, label: '2.Liq./Mcap-Ratio' },
-  { value: 30, label: '3.Liq./Mcap-Ratio' },
+  { value: 10, label: 'Liq./Mcap-Ratio' },
+  { value: 20, label: '1.Liq./Mcap-Ratio' },
+  { value: 30, label: '2.Liq./Mcap-Ratio' },
+  { value: 40, label: '3.Liq./Mcap-Ratio' },
 ]
 
 const highestList = [
