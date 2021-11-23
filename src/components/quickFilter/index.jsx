@@ -11,23 +11,22 @@ import { Context } from '../../hooks/context';
 import { useHistory } from "react-router-dom";
 
 const marketCap = [
-  { value: '', label: 'Market Cap' },
-  { value: 10, label: '1.Market Cap' },
-  { value: 20, label: '2.Market Cap' },
-  { value: 30, label: '3.Market Cap' },
+  { value: 'mcap', label: 'Market Cap' },
+  { value: 'price', label: 'Price ' },
+  { value: 'liq', label: 'Liq./Mcap-Ratio' },
+  { value: 'holder', label: 'Holders' },
+  { value: 'vote', label: 'Votes' },
 ]
 const highestFirst = [
-  { value: '', label: 'Highest first' },
-  { value: 10, label: '1.Highest first' },
-  { value: 20, label: '2.Highest first' },
-  { value: 30, label: '3.Highest first' },
+  { value: 'high', label: 'Highest first' },
+  { value: 'low', label: 'Lowest first' },
 ]
 
 const QuickFilter = () => {
   const history = useHistory()
 
-  const [filter, setFilter] = useState('')
-  const [sort, setSort] = useState('')
+  const [filter, setFilter] = useState('vote')
+  const [sort, setSort] = useState('high')
   const [securityAudit, setSecurityAudit] = useState(false)
   const [doxxedTeam, setDoxxedTeam] = useState(false)
   const [useCase, setUseCase] = useState(false)
@@ -68,7 +67,7 @@ const QuickFilter = () => {
         Quick Filter
       </Typography>
       <Stack sx={{ mt: '12px', mx: 'auto' }}>
-        <SelectForm label="Filter tokens by:">
+        <SelectForm label="Filter tokens by:" defaultValue={filter}>
           {
             marketCap.map((item, key) => {
               return (
@@ -86,7 +85,7 @@ const QuickFilter = () => {
         </SelectForm>
       </Stack>
       <Stack sx={{ mt: '12px', mx: 'auto' }}>
-        <SelectForm label="Sort tokens by:">
+        <SelectForm label="Sort tokens by:" defaultValue={sort}>
           {
             highestFirst.map((item, key) => {
               return (

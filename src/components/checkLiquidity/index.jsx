@@ -66,6 +66,7 @@ const CheckLiguidity = () => {
             project.price = project.wbnb * res.data.price_BNB
             project.name = res.data.name
             project.symbol = res.data.symbol
+            project.totalLP = project.wbnb * bnbPrice.price
             setProject(project)
           }).catch(e => {
             console.log(e)
@@ -120,7 +121,7 @@ const CheckLiguidity = () => {
       </Typography>
       <Stack direction="row" sx={{ mt: 2, mb: 2 }}>
         <SearchInput
-          setValue={(v) => checkSumAddress(v)}
+          setValue={checkSumAddress}
           padding={'0 5px 0 15px'}
           mr={2}
         />
