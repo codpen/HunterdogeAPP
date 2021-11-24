@@ -20,11 +20,13 @@ import {ReactComponent as Memecoin} from "../../images/Memecoin.svg";
 import {ReactComponent as TokenPrice} from "../../images/tokenPrice.svg";
 import {ReactComponent as MarketCap} from "../../images/marketCap.svg";
 import {ReactComponent as Popularity} from "../../images/popularity.svg";
+import TokenEditModal from "../modal/TokenEditModal/TokenEditModal";
 
 const TokenHeader = () => {
     const {address} = useParams()
     const visitWebsite = () => console.log('visit website')
-    const {data} = useGoogleSheet(SHEET_ID, 60000)
+    const { state: { data } } = useGoogleSheet(SHEET_ID, 60000)
+    const [isTokenEditModal, setIsTokenEditModal] = useState(false)
 
     const [kyc, setKyc] = useState('')
     const [audit, setAudit] = useState('')
@@ -124,7 +126,7 @@ const TokenHeader = () => {
                 </Link_>
             </BadgesWrapper>
             <InfoWrapper>
-                <Link_ to='#' size={'16px'} weight={'700'} margin={'0 0 21px auto'}>
+                <Link_ to='#' size={'16px'} weight={'700'} margin={'0 0 21px auto'} onClick={() => { setIsTokenEditModal(true); }}>
                     + edit your token information
                 </Link_>
                 <Flex justify={'center'}>
@@ -132,7 +134,7 @@ const TokenHeader = () => {
                     <Flex>
                         <Image height={'29px'} src={Like}/>
                         <Text margin={'0 0 0 7px'} size={'24px'}>156’093</Text>
-                        <Votes big={true} address={address}/>
+                        <Votes big={true} address={address} />
                     </Flex>
                 </Flex>
                 <Inner>
@@ -165,6 +167,7 @@ const TokenHeader = () => {
                     </Flex>
                 </Inner>
             </InfoWrapper>
+            {isTokenEditModal && <TokenEditModal setIsOpen={setIsTokenEditModal} tokenId={address} />}
         </Wrapper>
     );
 };

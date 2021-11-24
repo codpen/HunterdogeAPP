@@ -4,7 +4,7 @@ import arrowRight from '../../images/right.png';
 import styled from "styled-components";
 import { Image } from "../common";
 
-export default function Pagination({start, end, page, pageHandler}) {
+export default function Pagination({start, end, page, pageHandler, showPageNumber = true}) {
     const handleLeft = () => {
         pageHandler((page) => page - 1)
     }
@@ -17,7 +17,7 @@ export default function Pagination({start, end, page, pageHandler}) {
                 <Image src={arrowLeft}/>
             </Button>
             <Count>
-                {start} / {end}
+                {showPageNumber ? `{page} / {end}`: ''}
             </Count>
             <Button disabled={page === end}  onClick={handleRight}>
                 <Image src={arrowRight}/>

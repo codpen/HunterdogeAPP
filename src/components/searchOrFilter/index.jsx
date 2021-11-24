@@ -37,7 +37,7 @@ const highestList = [
   { value: 'low', label: 'Lowest first' },
 ]
 const SearchOrFilter = () => {
-  const { data } = useGoogleSheet(SHEET_ID_PRESALES)
+  const { state: { data } } = useGoogleSheet(SHEET_ID_PRESALES)
 
   const context = useContext(Context)
 
