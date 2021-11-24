@@ -28,8 +28,14 @@ import { Context } from '../../hooks/context';
 import { filter } from 'cheerio/lib/api/traversing';
 import { data } from 'cheerio/lib/api/attributes';
 
-import { toChecksumAddress } from '../../connection/functions'
+import { getVotesPerProject, toChecksumAddress } from '../../connection/functions'
 
+const fieldMap = {
+  mcap: 'Project_MarketCap',
+  price: 'Project_Price',
+  liq: 'Project_LiqMcapRatio',
+  holder: 'Project_Holder',
+}
 
 const AllTokensTable = (isTitle) => {
   const context = useContext(Context)
@@ -52,18 +58,42 @@ const AllTokensTable = (isTitle) => {
   // const filterOneDay = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (24*60*60*1000))
   // const filterWeek = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (7*24*60*60*1000))
   const filter = () => {
-    let result = data
+    let result = [...data]
     const option = context.searchOption.filter(e => e.id == partActive)[0]
     if (option) {
-      const address = toChecksumAddress(option.search)
-      result = data.filter(item => {
+      const address = option.search ? toChecksumAddress(option.search) : false
+      let direct = option.direct === 'asc' ? 1 : -1;
+      result = result.filter(item => {
         let projectAddress = toChecksumAddress(item?.Project_Address)
-        if (projectAddress !== address) return false;
-        if (option.memeCoin && option.memeCoin.toString().toLowerCase() != item.Memecoin.toLowerCase()) return false;
-        if (option.securityAudit && option.securityAudit.toString().toLowerCase() != item.Audit.toLowerCase()) return false;
-        if (option.doxxedTeam && option.doxxedTeam.toString().toLowerCase() != item.KYC.toLowerCase()) return false;
-        if (option.useCase && option.useCase.toString().toLowerCase() != item.Utility.toLowerCase()) return false;
+        if (address && projectAddress !== address) return false;
+        if (option.memeCoin && option.memeCoin.toString().toLowerCase() != item.Project_IsMemeCoin.toLowerCase()) return false;
+        if (option.securityAudit && option.securityAudit.toString().toLowerCase() != item.Project_ISKYC.toLowerCase()) return false;
+        if (option.doxxedTeam && option.doxxedTeam.toString().toLowerCase() != item.Project_ISDOX.toLowerCase()) return false;
+        if (option.useCase && option.useCase.toString().toLowerCase() != item.Project_HasUtility.toLowerCase()) return false;
+        if (option.project == 'vote') {
+          if(option.cond === 'high') {
+            return getVotesPerProject(projectAddress) >= option.value
+          } else {
+            return getVotesPerProject(projectAddress) <= option.value
+          }
+        } else {
+          if(option.cond === 'high') {
+            return item[fieldMap[option.field]] >= option.value
+          } else {
+            return item[fieldMap[option.field]] <= option.value
+          }
+        }
         return true
+      })
+      result.sort((a, b) => {
+        let order = 1;
+        if(option.field === 'vote' && a.Project_Address && b.Project_Address) {
+          order = getVotesPerProject(a.Project_Address) - getVotesPerProject(b.Project_Address)
+        } else {
+          order = a[fieldMap[option.field]] - b[fieldMap[option.field]]
+        }
+
+        return order * direct
       })
     }
 

@@ -7,15 +7,13 @@ import hunterdogeSearch from '../../images/hunterdoge_search.png';
 import SearchInput from '../searchInput';
 import SelectForm from '../selectForm';
 import ButtonCheckbox from '../buttonCheckbox';
-import { SHEET_ID_PRESALES } from "../../constants";
-import { useGoogleSheet } from '../../hooks/useGoogleSheet';
 
 import { Context } from '../../hooks/context';
 
 
 const marketCap = [
   { value: 'mcap', label: 'Market Cap' },
-  { value: 'price', label: 'Price ' },
+  { value: 'price', label: 'Price' },
   { value: 'liq', label: 'Liq./Mcap-Ratio' },
   { value: 'holder', label: 'Holders' },
   { value: 'vote', label: 'Votes' },
@@ -26,26 +24,26 @@ const descending = [
 ]
 
 const projects = [
-  { value: 10, label: 'Liq./Mcap-Ratio' },
-  { value: 20, label: '1.Liq./Mcap-Ratio' },
-  { value: 30, label: '2.Liq./Mcap-Ratio' },
-  { value: 40, label: '3.Liq./Mcap-Ratio' },
+  { value: 'mcap', label: 'Marketcap' },
+  { value: 'liq', label: 'Liq./Mcap-Ratio' },
+  { value: 'holder', label: 'Holders' },
+  { value: 'vote', label: 'Votes' },
 ]
 
-const highestList = [
+const condList = [
   { value: 'high', label: 'Highest first' },
   { value: 'low', label: 'Lowest first' },
 ]
-const SearchOrFilter = () => {
-  const { data } = useGoogleSheet(SHEET_ID_PRESALES)
 
+const SearchOrFilter = () => {
   const context = useContext(Context)
 
   const [search, setSearch] = useState('')
-  const [filter, setFilter] = useState('vote')
-  const [sort, setSort] = useState('desc')
-  const [project, setProject] = useState('')
-  const [highest, setHighest] = useState('high')
+  const [field, setField] = useState('vote')
+  const [direct, setDirect] = useState('desc')
+  const [project, setProject] = useState('liq')
+  const [value, setValue] = useState(70)
+  const [cond, setCond] = useState('high')
   const [securityAudit, setSecurityAudit] = useState(false)
   const [doxxedTeam, setDoxxedTeam] = useState(false)
   const [useCase, setUseCase] = useState(false)
@@ -55,8 +53,11 @@ const SearchOrFilter = () => {
     context.setSearchOption({
       id: (new Date).valueOf(),
       search: search,
-      filter: filter,
-      sort: sort,
+      field: field,
+      direct: direct,
+      project: project,
+      value: value,
+      cond: cond,
       securityAudit: securityAudit,
       doxxedTeam: doxxedTeam,
       useCase: useCase,
@@ -75,14 +76,14 @@ const SearchOrFilter = () => {
         // textAlign: 'start'
       }}>
       <Box component='h2' sx={{ fontSize: '44px', ml: 2 }}>
-        Search or filter your tokens
+        Search or field your tokens
       </Box>
       <Box
         sx={{
           position: 'relative',
           width: '1043px',
           backgroundColor: '#FAF0CB',
-          borderRadius: '25px',
+          bdirectRadius: '25px',
           boxShadow: '5px 5px 0px rgba(0, 0, 0, 0.1)',
           textAlign: 'center',
           mt: '19px',
@@ -102,15 +103,15 @@ const SearchOrFilter = () => {
           <SearchInput value={search} setValue={setSearch} mr={'11px'} padding={'0 5px 0 15px'} />
         </Stack>
         <Stack direction="row" alignItems="end" gap="13px">
-          <SelectForm label="Filter tokens by:" defaultValue={filter}>
+          <SelectForm label="Filter tokens by:" defaultValue={field}>
             {
               marketCap.map((item, key) => {
                 return (
                   <MenuItem
-                    onClick={() => setFilter(item.value)}
+                    onClick={() => setField(item.value)}
                     value={item.value}
                     key={key}
-                    sx={{ backgroundColor: (item.value == filter ? '#FAF0CB' : 'unset') }}
+                    sx={{ backgroundColor: (item.value == field ? '#FAF0CB' : 'unset') }}
                   >
                     {item.label}
                   </MenuItem>
@@ -118,15 +119,15 @@ const SearchOrFilter = () => {
               })
             }
           </SelectForm>
-          <SelectForm label="Sort tokens by:" defaultValue={sort}>
+          <SelectForm label="Sort tokens by:" defaultValue={direct}>
             {
               descending.map((item, key) => {
                 return (
                   <MenuItem
-                    onClick={() => setSort(item.value)}
+                    onClick={() => setDirect(item.value)}
                     value={item.value}
                     key={key}
-                    sx={{ backgroundColor: (item.value == sort ? '#FAF0CB' : 'unset') }}
+                    sx={{ backgroundColor: (item.value == direct ? '#FAF0CB' : 'unset') }}
                   >
                     {item.label}
                   </MenuItem>
@@ -151,17 +152,29 @@ const SearchOrFilter = () => {
             }
           </SelectForm>
           <Typography>of</Typography>
-          <Input value={70} inputProps={{ sx: { textAlign: 'center !important' } }}></Input>
-          <Typography sx={{ whiteSpace: 'nowrap' }}>% end</Typography>
-          <SelectForm defaultValue={highest}>
+          <Input
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            inputProps={{
+              sx: {
+                textAlign: 'center !important',
+                minWidth: '80px',
+                p: '4px'
+              },
+              min: 0,
+              max: (project === 'mcap' || project === 'liq') ? 100 : null,
+              type: 'number'
+            }}></Input>
+          <Typography sx={{ whiteSpace: 'nowrap' }}> {(project === 'mcap' || project === 'liq') && '%'} and</Typography>
+          <SelectForm defaultValue={cond}>
             {
-              highestList.map((item, key) => {
+              condList.map((item, key) => {
                 return (
                   <MenuItem
-                    onClick={() => setHighest(item.value)}
+                    onClick={() => setCond(item.value)}
                     value={item.value}
                     key={key}
-                    sx={{ backgroundColor: (item.value == highest ? '#FAF0CB' : 'unset') }}
+                    sx={{ backgroundColor: (item.value == cond ? '#FAF0CB' : 'unset') }}
                   >
                     {item.label}
                   </MenuItem>
