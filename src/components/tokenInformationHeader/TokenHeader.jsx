@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom'
+import { useWeb3React } from "@web3-react/core";
 import LogoImage from '../../images/big_logo.png'
 import M from '../../images/m_white.png'
 import Dialogue from '../../images/dialogue_ico.svg'
@@ -12,6 +13,7 @@ import {Votes} from "../common/votes";
 import {getMCap, getSymbol, getName} from '../../connection/functions'
 import {useGoogleSheet} from '../../hooks/useGoogleSheet';
 import {SHEET_ID} from "../../constants";
+import { isProjectManager } from '../../connection/functions';
 
 import {ReactComponent as Kyc} from "../../images/KYC.svg";
 import {ReactComponent as Audit} from "../../images/Audit.svg";
@@ -20,11 +22,16 @@ import {ReactComponent as Memecoin} from "../../images/Memecoin.svg";
 import {ReactComponent as TokenPrice} from "../../images/tokenPrice.svg";
 import {ReactComponent as MarketCap} from "../../images/marketCap.svg";
 import {ReactComponent as Popularity} from "../../images/popularity.svg";
+import TokenEditModal from "../modal/TokenEditModal/TokenEditModal";
 
 const TokenHeader = () => {
     const {address} = useParams()
+    const { account } = useWeb3React()
     const visitWebsite = () => console.log('visit website')
-    const {data} = useGoogleSheet(SHEET_ID, 60000)
+    const { state: { data } } = useGoogleSheet(SHEET_ID, 60000)
+    const [isTokenEditModal, setIsTokenEditModal] = useState(false)
+    const [checkProjectManager, setCheckProjectManager] = useState(false)
+    const [tokenData, setTokenData] = useState({})
 
     const [kyc, setKyc] = useState('')
     const [audit, setAudit] = useState('')
@@ -60,6 +67,14 @@ const TokenHeader = () => {
     }, [address])
 
     useEffect(() => {
+        const getIsProjectManager = async () => {
+            const is_project_manager = await isProjectManager(account)
+            setCheckProjectManager(is_project_manager)
+        }
+        account && getIsProjectManager()
+    }, [account])
+
+    useEffect(() => {
         const getMarketCap = async () => {
             const mcap = await getMCap(address, price)
             console.log(mcap)
@@ -79,6 +94,7 @@ const TokenHeader = () => {
                 setUtility(row?.Utility)
                 setMemecoin(row?.Memecoin)
             }
+            if (row.Project_Address === address) setTokenData(row)
         })
     }, [data])
 
@@ -124,15 +140,17 @@ const TokenHeader = () => {
                 </Link_>
             </BadgesWrapper>
             <InfoWrapper>
-                <Link_ to='#' size={'16px'} weight={'700'} margin={'0 0 21px auto'}>
+                { checkProjectManager &&
+                <Link_ to='#' size={'16px'} weight={'700'} margin={'0 0 21px auto'} onClick={() => { setIsTokenEditModal(true); }}>
                     + edit your token information
                 </Link_>
+                }
                 <Flex justify={'center'}>
                     <HeadTitle margin={'0 auto'} size={'50px'}>{name}</HeadTitle>
                     <Flex>
                         <Image height={'29px'} src={Like}/>
                         <Text margin={'0 0 0 7px'} size={'24px'}>156’093</Text>
-                        <Votes big={true} address={address}/>
+                        <Votes big={true} address={address} />
                     </Flex>
                 </Flex>
                 <Inner>
@@ -165,6 +183,7 @@ const TokenHeader = () => {
                     </Flex>
                 </Inner>
             </InfoWrapper>
+            {isTokenEditModal && checkProjectManager && <TokenEditModal setIsOpen={setIsTokenEditModal} tokenAddress={address} tokenData={tokenData} />}
         </Wrapper>
     );
 };

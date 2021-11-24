@@ -6,7 +6,7 @@ import {SHEET_ID_BANNER} from "../../constants";
 import { useGoogleSheet } from '../../hooks/useGoogleSheet';
 
 const BlockHunt = () => {
-    const {data} = useGoogleSheet(SHEET_ID_BANNER)
+    const { state: { data } } = useGoogleSheet(SHEET_ID_BANNER)
 
     return (
         <Stack

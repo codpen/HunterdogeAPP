@@ -15,6 +15,7 @@ import { Context } from '../../hooks/context';
 
 const CheckLiguidity = () => {
   const context = useContext(Context)
+  const { state: { data } } = useGoogleSheet(SHEET_ID, 60000)
   const bnbPrice = usePrice(bscWBNBContact)
   const [getMoreInfo, setGetMoreInfo] = useState(false)
   const [spin, setSpin] = useState(false)

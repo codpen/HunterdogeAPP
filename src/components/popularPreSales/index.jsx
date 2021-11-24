@@ -27,7 +27,7 @@ const tabs = [
 ]
 
 const PopularPreSales = () => {
-  const {data} = useGoogleSheet(SHEET_ID_PRESALES)
+  const { state: { data } } = useGoogleSheet(SHEET_ID_PRESALES)
   const [partActive, setPartActive] = useState(1)
   const [openPopup, setOpenPopup] = useState(false)
 

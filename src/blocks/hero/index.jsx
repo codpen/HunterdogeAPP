@@ -110,7 +110,7 @@ const AdsToken = () => (
 const Hero = ({setIsOpen, register}) => {
     const {account} = useWeb3React()
     const state = usePrice(bscTokenContact)
-    const {data} = useGoogleSheet(SHEET_ID_BANNER)
+    const { state: { data } } = useGoogleSheet(SHEET_ID_BANNER)
     const [votes, setVotes] = useState(0)
     const [isModal, setIsModal] = useState(false)
 
