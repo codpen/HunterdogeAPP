@@ -119,7 +119,7 @@ export const isMember = async (account) => {
 export const isProjectManager = async (account) => {
     const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
     console.log('account--------', account)
-    let data = await contract.methods.ProjectStore(account).call()
+    let data = await contract.methods.ProjectStore(bscTokenContact).call()
     console.log('storedata--------', data)
     if (data.ProjectManager === account) return true
     else return false
