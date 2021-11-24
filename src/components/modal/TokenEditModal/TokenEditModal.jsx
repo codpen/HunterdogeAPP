@@ -10,7 +10,7 @@ import TokenEditModalTokenomicsPage from './TokenEditModalTokenomicsPage'
 import TokenEditModalPresalePage from './TokenEditModalPresalePage';
 import Pagination from '../../pagination/Pagination';
 import {useGoogleSheet} from '../../../hooks/useGoogleSheet';
-import {SHEET_ID_TOKEN_INFO} from "../../../constants";
+import {SHEET_ID} from "../../../constants";
 
 const useStyles = makeStyles({
     modal: {
@@ -67,20 +67,15 @@ const Pages = [
     'General information', 'Tokenomics', 'Presale information'
 ]
 
-const TokenEditModal = ({ setIsOpen, tokenId }) => {
+const TokenEditModal = ({ setIsOpen, tokenAddress, tokenData }) => {
     const classes = useStyles();
     const [page, setPage] = useState(1)
-    const { state: { data }, addTokenInfo } = useGoogleSheet(SHEET_ID_TOKEN_INFO, 60000)
+    const { addTokenInfo } = useGoogleSheet(SHEET_ID, 60000)
     const [tokenInfo, setTokenInfo] = useState(null)
-    const [tokenSheetData, setTokenSheetData] = useState({})
 
     useEffect(() => {
-        const token_info = data.find(item => {
-            return item.id === tokenId
-        })
-       if (token_info && !tokenInfo) setTokenInfo(JSON.parse(token_info.info))
-       if (token_info) setTokenSheetData(JSON.parse(token_info.info))
-    }, [data])
+       setTokenInfo(tokenData)
+    }, [tokenData])
 
     const changeInfo = (name, value) => {
         const token_info = {...tokenInfo}
@@ -89,7 +84,7 @@ const TokenEditModal = ({ setIsOpen, tokenId }) => {
     }
 
     const saveInfo = async () => {
-        const res = await addTokenInfo(tokenId, tokenInfo)
+        const res = await addTokenInfo(tokenAddress, tokenInfo)
         setIsOpen(false)
     }
 

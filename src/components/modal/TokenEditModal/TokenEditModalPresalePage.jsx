@@ -3,6 +3,7 @@ import {makeStyles} from "@material-ui/styles";
 import {Box} from "@mui/system";
 import {Typography, Grid, InputBase} from "@material-ui/core";
 import styled from 'styled-components';
+import { Checkbox } from '@mui/material';
 
 const useStyles = makeStyles({
     inputRow: {
@@ -26,19 +27,19 @@ const useStyles = makeStyles({
 });
 
 const InfoLinks = [
-    { name: 'launchpad', label: 'Launchpad' },
-    { name: 'presaleLink', label: 'Presale link' },
-    { name: 'softCap', label: 'Soft cap' },
-    { name: 'hardCap', label: 'Hard cap' },
-    { name: 'minContribution', label: 'Min contribution' },
-    { name: 'maxContribution', label: 'Max contribution' },
-    { name: 'banner', label: 'Banner link' },
-    { name: 'liquidityLock', label: 'Liquidity lock (%)' },
-    { name: 'liquidityLockPeriod', label: 'Liquidity lock period' },
-    { name: 'presalePrice', label: 'Presale price' },
-    { name: 'listingPrice', label: 'Listing price' },
-    { name: 'presaleStart', label: 'Presale start' },
-    { name: 'PresaleEnd', label: 'Presale end' }   
+    { name: 'Project_Presale_Launchpad', label: 'Launchpad' },
+    { name: 'Project_Presale_Link', label: 'Presale link' },
+    { name: 'Project_Presale_SC', label: 'Soft cap' },
+    { name: 'Project_Presale_HC', label: 'Hard cap' },
+    { name: 'Project_Presale_MinContr', label: 'Min contribution' },
+    { name: 'Project_Presale_MaxContr', label: 'Max contribution' },
+    { name: 'Project_Presale_Banner', label: 'Banner link' },
+    { name: 'Project_Presale_LiqLock', label: 'Liquidity lock (%)' },
+    { name: 'Project_Presale_LiqLockTime', label: 'Liquidity lock period' },
+    { name: 'Project_Presale_Price', label: 'Presale price' },
+    { name: 'Project_Presale_ListingPrice', label: 'Listing price' },
+    { name: 'Project_Presale_Start', label: 'Presale start' },
+    { name: 'Project_Presale_End', label: 'Presale end' }   
 ]
 
 const TokenEditModalPresalePage = ({value, changeValue}) => {
@@ -47,6 +48,7 @@ const TokenEditModalPresalePage = ({value, changeValue}) => {
     useEffect(() => {
         if (value) setData(value)
         else setData({})
+        console.log(data.has_Presale === 'TRUE', '------has')
     }, [value])
 
     const onChangeValue = (name, value) => {
@@ -61,6 +63,19 @@ const TokenEditModalPresalePage = ({value, changeValue}) => {
             <Box component='h4' sx={{fontSize: '32px', fontWeight: '700',mb: '26px', textAlign: 'center', lineHeight: '32.4px', color: '#B78300'}}>
                 3. Presale information
             </Box>
+            <PresaleCheckBox onClick={() => { onChangeValue('has_Presale', data.has_Presale === 'TRUE' ? 'FALSE': 'TRUE') }}>
+                <span>Do you have an upcoming presale?</span>
+                <Checkbox checked={data.has_Presale === 'TRUE'}
+                    sx={{
+                        root: {
+                        color: 'red',
+                        },
+                        '&.Mui-checked': {
+                        color: '#AB882E',
+                        },
+                }} />
+            </PresaleCheckBox>
+           
             <Grid container spacing={4}>
                 <Grid item xs={12} md={6}>
                     {InfoLinks.slice(0, 7).map((link, idx) => (
@@ -111,3 +126,13 @@ const TokenEditModalPresalePage = ({value, changeValue}) => {
 }
 
 export default TokenEditModalPresalePage;
+
+const PresaleCheckBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+`
