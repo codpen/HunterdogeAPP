@@ -1,9 +1,8 @@
 /* eslint-disable no-extend-native */
-import React from 'react';
+import React, { Suspense, lazy } from "react";
 import ReactDOM from 'react-dom';
 import './index.css';
 import './fonts/monsterhunter.ttf';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 import { Web3Provider } from '@ethersproject/providers';
@@ -12,7 +11,9 @@ import { createWeb3ReactRoot, Web3ReactProvider } from '@web3-react/core';
 import Web3ReactManager from './connection/Web3ReactManager.jsx'
 import { Web3ContractProvider } from './connection/web3Contract.jsx'
 import { theme } from './theme';
+import CircularProgress from '@mui/material/CircularProgress';
 
+const App = lazy(() => import("./App"));
 
 Number.prototype.toFixedDown = function (digits) {
   const re = new RegExp('(\\d+\\.\\d{' + digits + '})(\\d)'),
@@ -33,7 +34,7 @@ const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName);
 if (!!window.ethereum) {
   window.ethereum.autoRefreshOnNetworkChange = false;
 }
- 
+
 ReactDOM.render(
   <React.StrictMode>
     <Web3ReactProvider getLibrary={getLibrary}>
@@ -41,8 +42,12 @@ ReactDOM.render(
         <Web3ReactManager>
           <Web3ContractProvider>
             <ThemeProvider theme={theme}>
-              <App />
-            </ThemeProvider> 
+              <Suspense
+                fallback={<CircularProgress sx={{position: 'absolute', top: '50%', left: '50%'}} />}
+              >
+                <App />
+              </Suspense>
+            </ThemeProvider>
           </Web3ContractProvider>
         </Web3ReactManager>
       </Web3ProviderNetwork>

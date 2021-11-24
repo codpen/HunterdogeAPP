@@ -35,8 +35,6 @@ const QuickFilter = () => {
   const context = useContext(Context)
 
   const search = () => {
-    context.setOpenSearch(true)
-    // context.removeSearchOption('default')
     history.push('/allTokens')
   }
 

@@ -1,21 +1,23 @@
 import { Typography } from '@material-ui/core';
-import { Button, Stack } from '@mui/material';
+import { Button, Stack, CircularProgress } from '@mui/material';
 import { Box, width } from '@mui/system';
 
 import { ReactComponent as IconComponent } from '../../images/loupe_ico.svg';
 import logo from '../../images/hunter_logo.png';
 import SearchInput from '../searchInput'
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { getPair, getBalanceWBNB, getBalanceToken, isHoneypot, toChecksumAddress } from '../../connection/functions'
 import { useGoogleSheet } from '../../hooks/useGoogleSheet';
 import { usePrice } from '../../hooks/usePrice';
 import { SHEET_ID } from "../../constants";
 import { bscWBNBContact } from '../../connection/contracts';
+import { Context } from '../../hooks/context';
 
 const CheckLiguidity = () => {
-  const { data } = useGoogleSheet(SHEET_ID, 60000)
+  const context = useContext(Context)
   const bnbPrice = usePrice(bscWBNBContact)
   const [getMoreInfo, setGetMoreInfo] = useState(false)
+  const [spin, setSpin] = useState(false)
   const [pairAddress, setPairAddress] = useState('')
 
   const [project, setProject] = useState({
@@ -31,45 +33,53 @@ const CheckLiguidity = () => {
 
   const checkSumAddress = (addr) => {
     const callAsync = async () => {
-      if (!addr) {
-        setProject({
-          wbnb: 0,
-          token: 0,
-          price: 0,
-          symbol: '',
-          wbnb: '',
-          honey: '',
-          buy_tax: 0,
-          sell_tax: 0,
-        })
-        return false
+      setSpin(true)
+      try {
+        if (!addr) {
+          setProject({
+            wbnb: 0,
+            token: 0,
+            price: 0,
+            symbol: '',
+            wbnb: '',
+            honey: '',
+            buy_tax: 0,
+            sell_tax: 0,
+          })
+          return false
+        }
+        const address = toChecksumAddress(addr)
+
+        const pair = await getPair(address);
+        setPairAddress(pair)
+
+        project.wbnb = await getBalanceWBNB(pair);
+        project.token = await getBalanceToken(pair, address);
+
+        const honey = await isHoneypot(address)
+        project.honey = honey.is
+        project.buy_tax = honey.buy_tax
+        project.sell_tax = honey.sell_tax
+
+        fetch(`https://api.pancakeswap.info/api/v2/tokens/${address}`)
+          .then((response) => {
+            return response.json();
+          })
+          .then((res) => {
+            project.price = project.wbnb * res.data.price_BNB
+            project.name = res.data.name
+            project.symbol = res.data.symbol
+            project.totalLP = project.wbnb * bnbPrice.price
+            setProject(project)
+            setSpin(false)
+          }).catch(e => {
+            setSpin(false)
+            console.log(e)
+          });
+      } catch (e) {
+        setSpin(false)
+        console.log(e)
       }
-      const address = toChecksumAddress(addr)
-
-      const pair = await getPair(address);
-      setPairAddress(pair)
-
-      project.wbnb = await getBalanceWBNB(pair);
-      project.token = await getBalanceToken(pair, address);
-
-      const honey = await isHoneypot(address)
-      project.honey = honey.is
-      project.buy_tax = honey.buy_tax
-      project.sell_tax = honey.sell_tax
-
-      fetch(`https://api.pancakeswap.info/api/v2/tokens/${address}`)
-        .then((response) => {
-          return response.json();
-        })
-        .then((res) => {
-          project.price = project.wbnb * res.data.price_BNB
-          project.name = res.data.name
-          project.symbol = res.data.symbol
-          project.totalLP = project.wbnb * bnbPrice.price
-          setProject(project)
-        }).catch(e => {
-          console.log(e)
-        });
     }
     callAsync()
   }
@@ -247,6 +257,13 @@ const CheckLiguidity = () => {
             </Button>
         }
       </Stack>
+
+      {
+        spin &&
+        <Box sx={{ position: 'fixed', top: '0px', left: '0px', width: '100%', height: '100%', backgroundColor: '#4033117d', zIndex: 9 }}>
+          <CircularProgress sx={{ position: 'fixed', top: '50%', left: '50%' }} />
+        </Box>
+      }
     </Box>
   )
 }
