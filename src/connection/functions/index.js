@@ -116,7 +116,7 @@ export const isMember = async (account) => {
     return data
 }
 
-export const isManager = async (account) => {
+export const isProjectManager = async (account) => {
     const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
     console.log('account--------', account)
     let data = await contract.methods.ProjectStore(account).call()

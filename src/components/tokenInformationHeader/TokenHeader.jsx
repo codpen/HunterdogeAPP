@@ -13,7 +13,7 @@ import {Votes} from "../common/votes";
 import {getMCap, getSymbol, getName} from '../../connection/functions'
 import {useGoogleSheet} from '../../hooks/useGoogleSheet';
 import {SHEET_ID} from "../../constants";
-import { isManager } from '../../connection/functions';
+import { isProjectManager } from '../../connection/functions';
 
 import {ReactComponent as Kyc} from "../../images/KYC.svg";
 import {ReactComponent as Audit} from "../../images/Audit.svg";
@@ -30,7 +30,7 @@ const TokenHeader = () => {
     const visitWebsite = () => console.log('visit website')
     const { state: { data } } = useGoogleSheet(SHEET_ID, 60000)
     const [isTokenEditModal, setIsTokenEditModal] = useState(false)
-    const [checkManager, setCheckManager] = useState(false)
+    const [checkProjectManager, setCheckProjectManager] = useState(false)
     const [tokenData, setTokenData] = useState({})
 
     const [kyc, setKyc] = useState('')
@@ -67,11 +67,11 @@ const TokenHeader = () => {
     }, [address])
 
     useEffect(() => {
-        const getIsManager = async () => {
-            const is_manager = await isManager(account)
-            setCheckManager(is_manager)
+        const getIsProjectManager = async () => {
+            const is_project_manager = await isProjectManager(account)
+            setCheckProjectManager(is_project_manager)
         }
-        account && getIsManager()
+        account && getIsProjectManager()
     }, [account])
 
     useEffect(() => {
@@ -140,7 +140,7 @@ const TokenHeader = () => {
                 </Link_>
             </BadgesWrapper>
             <InfoWrapper>
-                { checkManager &&
+                { checkProjectManager &&
                 <Link_ to='#' size={'16px'} weight={'700'} margin={'0 0 21px auto'} onClick={() => { setIsTokenEditModal(true); }}>
                     + edit your token information
                 </Link_>
@@ -183,7 +183,7 @@ const TokenHeader = () => {
                     </Flex>
                 </Inner>
             </InfoWrapper>
-            {isTokenEditModal && checkManager && <TokenEditModal setIsOpen={setIsTokenEditModal} tokenAddress={address} tokenData={tokenData} />}
+            {isTokenEditModal && checkProjectManager && <TokenEditModal setIsOpen={setIsTokenEditModal} tokenAddress={address} tokenData={tokenData} />}
         </Wrapper>
     );
 };
