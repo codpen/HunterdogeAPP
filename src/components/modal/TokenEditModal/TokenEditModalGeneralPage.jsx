@@ -19,21 +19,21 @@ const useStyles = makeStyles({
 });
 
 const InfoLinks = [
-    { name: 'name', label: 'Project name' },
-    { name: 'ticker', label: 'Token ticker' },
-    { name: 'address', label: 'Contract address' },
-    { name: 'website', label: 'Website' },
-    { name: 'telegram', label: 'Telegram link' },
-    { name: 'twitter', label: 'Twitter link' },
-    { name: 'discord', label: 'Discord link' },
-    { name: 'instagram', label: 'Instagram link' },
-    { name: 'reddit', label: 'Reddit link' },
-    { name: 'medium', label: 'Medium link' },
-    { name: 'logo', label: 'Logo link' },
-    { name: 'description', label: 'Project description' },
-    { name: 'pancakeswap ', label: 'PancakeSwap link' },
-    { name: 'cmc', label: 'CMC link' },
-    { name: 'cg', label: 'CG link' },
+    { name: 'Project_Name', label: 'Project name' },
+    { name: 'Project_Symbol', label: 'Token symbol' },
+    { name: 'Project_Address', label: 'Contract address' },
+    { name: 'Project_Website', label: 'Website' },
+    { name: 'Project_Telegram', label: 'Telegram link' },
+    { name: 'Project_Twitter', label: 'Twitter link' },
+    { name: 'Project_Discord', label: 'Discord link' },
+    { name: 'Project_Instagram', label: 'Instagram link' },
+    { name: 'Project_Reddit', label: 'Reddit link' },
+    { name: 'Project_Medium', label: 'Medium link' },
+    { name: 'Project_Logo', label: 'Logo link' },
+    { name: 'Project_Description', label: 'Project description' },
+    { name: 'Project_PancakeLink ', label: 'PancakeSwap link' },
+    { name: 'Project_CMCLink', label: 'CMC link' },
+    { name: 'Project_CGLink', label: 'CG link' },
 ]
 
 const TokenEditModalGeneralPage = ({value, changeValue}) => {
@@ -79,7 +79,7 @@ const TokenEditModalGeneralPage = ({value, changeValue}) => {
                 </Grid>
                 <Grid item xs={12} md={6}>
                     {InfoLinks.slice(10, 15).map((link, idx) => (
-                        link.name != 'description' ?
+                        link.name != 'Project_Description' ?
                         (
                             <Grid container className={classes.inputRow} key={idx}>
                                 <Grid item xs={5}>

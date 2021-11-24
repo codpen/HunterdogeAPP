@@ -12,7 +12,7 @@ export const useGoogleSheet = (id, time = 30000) => {
         isLoading: true,
     })
 
-    const addTokenInfo = async (tokenId, tokenInfo) => {
+    const addTokenInfo = async (tokenAddress, tokenInfo) => {
         await doc.useServiceAccountAuth({
             client_email: CLIENT_EMAIL,
             private_key: PRIVATE_KEY,
@@ -21,18 +21,17 @@ export const useGoogleSheet = (id, time = 30000) => {
         const sheet = doc.sheetsById[id];
         const rows = await sheet.getRows();
         const row = rows.find(item => {
-            return item.id === tokenId
+            return item.Project_Address === tokenAddress
         })
         if (row) {
-            row.info = JSON.stringify(tokenInfo)
+            Object.keys(tokenInfo).forEach(key => {
+                row[key] = tokenInfo[key]
+            })            
             await row.save()
             return row
         }
         else {
-            const newRow = await sheet.addRow({
-                id: tokenId,
-                info: JSON.stringify(tokenInfo)
-            })
+            const newRow = await sheet.addRow(tokenInfo)
             return newRow
         }
     }

@@ -22,18 +22,18 @@ const useStyles = makeStyles({
 });
 
 const InfoLinks = [
-    { name: 'maxSupply', label: 'Max supply' },
-    { name: 'burnSupply', label: 'Burn supply' },
-    { name: 'presaleSupply', label: 'Pre-sale supply' },
-    { name: 'teamTokens', label: 'Team tokens (%)' },
-    { name: 'liquidityLockDate', label: 'Liquidity lock date' },
-    { name: 'launchDate', label: 'Launch date' },
-    { name: 'buyTaxes', label: 'Buy taxes (%)' },
-    { name: 'sellTaxes', label: 'Sell taxes (%)' },
-    { name: 'holderRewards', label: 'Holder rewards (%)' },
-    { name: 'rewardsCurrency', label: 'Rewards currency' },
-    { name: 'liquidityFees', label: 'Liquidity fees (%)' },
-    { name: 'marketingFees', label: 'Marketing fees (%)' }
+    { name: 'Project_Token_Max', label: 'Max supply' },
+    { name: 'Project_Token_Burn', label: 'Burn supply' },
+    { name: 'Project_Token_PreSale', label: 'Pre-sale supply' },
+    { name: 'Project_Token_Team', label: 'Team tokens (%)' },
+    { name: 'Project_Token_LiquidityLockDate', label: 'Liquidity lock date' },
+    { name: 'Project_Token_LaunchDate', label: 'Launch date' },
+    { name: 'Project_Token_BuyTax', label: 'Buy taxes (%)' },
+    { name: 'Project_Token_SellTax', label: 'Sell taxes (%)' },
+    { name: 'Project_Token_RewardFee', label: 'Holder rewards (%)' },
+    { name: 'Project_Token_RewardsCurr', label: 'Rewards currency' },
+    { name: 'Project_Token_LiqFee', label: 'Liquidity fees (%)' },
+    { name: 'Project_Token_MarketingFee', label: 'Marketing fees (%)' }
 ]
 
 const TokenEditModalTokenomicsPage = ({value, changeValue}) => {
