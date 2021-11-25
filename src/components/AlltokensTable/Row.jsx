@@ -80,10 +80,10 @@ const Row = (
                                 {data.Project_Name}
                             </Typography>
                             <Stack direction="row" sx={{gap: 2, mt: '14px'}}>
-                                {data.KYC === 'TRUE' && <Kyc/>}
-                                {data.Audit === 'TRUE' && <Audit/>}
-                                {data.Utility === 'TRUE' && <Utility/>}
-                                {data.Memecoin === 'TRUE' && <Memecoin/>}
+                                {data.Project_ISKYC === 'TRUE' && <Kyc/>}
+                                {data.Project_ISDOX === 'TRUE' && <Audit/>}
+                                {data.Project_HasUtility === 'TRUE' && <Utility/>}
+                                {data.Project_IsMemeCoin === 'TRUE' && <Memecoin/>}
                             </Stack>
                         </Stack>
                     </LinkWrapper>
@@ -95,13 +95,13 @@ const Row = (
                 </TableCell>
                 <TableCell>
                     <Typography variant="table">
-                        {new Intl.NumberFormat('en-US').format(mcap)}
+                        {new Intl.NumberFormat('en-US').format(data.Project_MarketCap)}
                     </Typography>
                 </TableCell>
                 <TableCell>
                     <Stack>
                         <Typography variant="table">
-                            {new Intl.NumberFormat('en-US').format(price)}
+                            {new Intl.NumberFormat('en-US').format(data.Project_Price)}
                         </Typography>
                         {change24h && <Flex margin={'6px 0 0 0'}>
                             <Image src={change24h.up ? arrowUp : arrowDown}/>
@@ -120,7 +120,7 @@ const Row = (
                 </TableCell>
                 <TableCell>
                     <Typography variant="table">
-                        {holders}
+                        {data.Project_Holder}
                     </Typography>
                 </TableCell>
                 <TableCell>
