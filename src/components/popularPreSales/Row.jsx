@@ -124,7 +124,7 @@ const Row = ({data, index}) => {
                     {/*    /!* {votes} *!/*/}
                     {/*</Typography>*/}
                     <Button size={'10px'} width={'70px'} height={'25px'} target="_blank" onClick={() => window.open(data.Project_Website)}>Website</Button>
-                    {!additional && <DoubleArr onClick={() => setAdditional(true)}>>></DoubleArr>}
+                    {!additional && <DoubleArr onClick={() => setAdditional(true)}>&gt;&gt;</DoubleArr>}
                     
                     {/* <Votes address={data.Project_Address}/> */}
                     {/* <More onClick={() => setIsOpen(!isOpen)}>...
@@ -175,8 +175,10 @@ const Row = ({data, index}) => {
                       <TextRow weight={500}>{data.Contract_Address}</TextRow>
                       <TextRow transform={'capitalize'} weight={500}>{data.Presale_Address}</TextRow>
                     </AddWrapper>
-                    <DoubleArr onClick={() => setAdditional(false)} rotate={'rotate(270deg)'}>>></DoubleArr>
-                  </Flex>
+                    <DoubleArr onClick={() => setAdditional(false)} rotate={'rotate(270deg)'}>&gt;&gt;</DoubleArr>
+                  </Flex>     
+                  
+                  
               </CollapseWrapper>
             </Collapse>
           </TableCell>
