@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { useWeb3React } from "@web3-react/core";
 import Card from '@material-ui/core/Card';
 import {makeStyles} from "@material-ui/styles";
 import {Box} from "@mui/system";
@@ -11,6 +12,7 @@ import TokenEditModalPresalePage from './TokenEditModalPresalePage';
 import Pagination from '../../pagination/Pagination';
 import {useGoogleSheet} from '../../../hooks/useGoogleSheet';
 import {SHEET_ID} from "../../../constants";
+
 
 const useStyles = makeStyles({
     modal: {
@@ -69,34 +71,45 @@ const Pages = [
 
 const TokenEditModal = ({ setIsOpen, tokenAddress, tokenData }) => {
     const classes = useStyles();
+    const { account } = useWeb3React()
     const [page, setPage] = useState(1)
-    const { addTokenInfo } = useGoogleSheet(SHEET_ID, 60000)
+    const { addTokenInfo } = useGoogleSheet(SHEET_ID, 120000)
     const [tokenInfo, setTokenInfo] = useState(null)
+    const [isDisableSaveBtn, setIsDisableSaveBtn] = useState(false)
 
     useEffect(() => {
-       setTokenInfo(tokenData)
+       if (tokenAddress && tokenData) setTokenInfo(tokenData)
     }, [tokenData])
 
     const changeInfo = (name, value) => {
         const token_info = {...tokenInfo}
         token_info[name] = value
-        setTokenInfo(token_info)    
+        setTokenInfo(token_info)
     }
 
     const saveInfo = async () => {
-        const res = await addTokenInfo(tokenAddress, tokenInfo)
-        setIsOpen(false)
+        setIsDisableSaveBtn(true)
+        try {
+            const res = await addTokenInfo(tokenAddress, tokenInfo, account)
+            setTokenInfo(null)
+            setIsOpen(false)
+            setIsDisableSaveBtn(false)
+        }
+        catch (err) {
+            console.log(err)
+            setIsDisableSaveBtn(false)
+        }       
     }
 
     return (
         <Card className={classes.modal}>
             <button className={classes.btnClose} onClick={() => setIsOpen(false)}>X</button>
             <Box component='h4' sx={{fontSize: '60px', mb: '26px', textAlign: 'center', lineHeight: '58px', color: '#B78300'}}>
-                EDIT YOUR TOKEN INFORMATION
+                {tokenAddress && tokenData ? 'EDIT YOUR TOKEN INFORMATION' : 'ADD NEW TOKEN'}
             </Box>
             {
                 page === 1 ?
-                <TokenEditModalGeneralPage value={tokenInfo} changeValue={changeInfo} /> :
+                <TokenEditModalGeneralPage value={tokenInfo} changeValue={changeInfo} isNew={!(tokenAddress && tokenData)} /> :
                 page === 2 ?
                 <TokenEditModalTokenomicsPage value={tokenInfo} changeValue={changeInfo} /> :
                 <TokenEditModalPresalePage value={tokenInfo} changeValue={changeInfo} />
@@ -111,14 +124,14 @@ const TokenEditModal = ({ setIsOpen, tokenAddress, tokenData }) => {
             <Box component='div' sx={{ mt: '57px', width: 257, mx: 'auto'}}>
               <Button
                 onClick={saveInfo}
-                fullWidth sx={{fontSize: 24, py: 1, height: '47px'}}>SAVE CHNAGES</Button>
+                disabled={isDisableSaveBtn}
+                fullWidth sx={{fontSize: 24, py: 1, height: '47px'}}>{ isDisableSaveBtn ? 'Saving...': 'SAVE CHNAGES' }</Button>
             </Box>
         </Card>
     );
 };
 
 export default TokenEditModal;
-
 
 const PaginationContainer = styled.div`
   width: 100%;

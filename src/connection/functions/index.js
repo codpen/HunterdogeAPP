@@ -116,13 +116,50 @@ export const isMember = async (account) => {
     return data
 }
 
-export const isProjectManager = async (account) => {
+export const isProjectManager = async (tokenAddress, account) => {
     const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
     console.log('account--------', account)
-    let data = await contract.methods.ProjectStore(bscTokenContact).call()
+    let data = await contract.methods.ProjectStore(tokenAddress).call()
     console.log('storedata--------', data)
     if (data.ProjectManager === account) return true
     else return false
+}
+
+export const isManager = async (account) => {
+    const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
+    let res = await contract.methods.Managers(account).call()
+    return res
+}
+
+export const addProject = async (tokenInfo, account) => {
+    const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
+    const res = await contract.methods.addProject(
+        tokenInfo.Pproject_Name ? tokenInfo.Pproject_Name : '',
+        tokenInfo.Project_Symbol ? tokenInfo.Project_Symbol : '',
+        tokenInfo.Project_Logo ? tokenInfo.Project_Logo : '',
+        tokenInfo.Project_Website ? tokenInfo.Project_Website : '',
+        tokenInfo.Project_Telegram ? tokenInfo.Project_Telegram : '',
+        tokenInfo.Project_Twitter ? tokenInfo.Project_Twitter : '',
+        tokenInfo.Project_Address ? tokenInfo.Project_Address : '',
+        tokenInfo.Project_Manager ? tokenInfo.Project_Manager : ''
+    ).send({ from: account })
+    console.log('tx res-----', res)
+    return res
+}
+
+export const editProject = async (tokenInfo, account) => {
+    const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
+    const res = await contract.methods.editProject(
+        tokenInfo.Pproject_Name ? tokenInfo.Pproject_Name : '',
+        tokenInfo.Project_Symbol ? tokenInfo.Project_Symbol : '',
+        tokenInfo.Project_Logo ? tokenInfo.Project_Logo : '',
+        tokenInfo.Project_Website ? tokenInfo.Project_Website : '',
+        tokenInfo.Project_Telegram ? tokenInfo.Project_Telegram : '',
+        tokenInfo.Project_Twitter ? tokenInfo.Project_Twitter : '',
+        tokenInfo.Project_Address ? tokenInfo.Project_Address : '',
+    ).send({ from: account })
+    console.log('tx res-----', res)
+    return res
 }
 
 export const returnMembership = async (account) => {

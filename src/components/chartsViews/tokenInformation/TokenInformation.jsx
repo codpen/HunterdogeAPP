@@ -22,7 +22,7 @@ import {SHEET_ID} from "../../../constants";
 import {useGoogleSheet} from '../../../hooks/useGoogleSheet';
 
 const TokenInformation = () => {
-    const { state: { data } } = useGoogleSheet(SHEET_ID, 60000);
+    const { state: { data } } = useGoogleSheet(SHEET_ID, 120000);
     const {address} = useParams();
     const classes = useStyles();
     const [descr, setDescr] = useState('')
