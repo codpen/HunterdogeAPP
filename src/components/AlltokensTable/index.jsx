@@ -146,7 +146,7 @@ const AllTokensTable = (isTitle) => {
                   <TableCell>Price</TableCell>
                   <TableCell>Liq / Mcap<br /> Ratio</TableCell>
                   <TableCell>holders</TableCell>
-                  <TableCell>Popularity</TableCell>
+                  <TableCell sx={{fontSize: '16px', width: '142px'}}>&Oslash; holder<br/>growth per day</TableCell>
                   <TableCell sx={{ textAlign: 'left' }}>Votes</TableCell>
                 </TableRow>
               </TableHead>
@@ -164,10 +164,10 @@ const AllTokensTable = (isTitle) => {
         <Stack direction="row" justifyContent="space-between" sx={{ mt: 3, px: 2 }}>
           <CheckboxShow perPage={perPage} handleCheck={setPerPage} />
           <Pagination start={currentData.currentPage} end={currentData.endPage} pageHandler={setPage} page={page} />
-          <Button variant="transparent" sx={{ ml: '380px' }}
+          {/* <Button variant="transparent" sx={{ ml: '380px' }}
             onClick={() => backToTop()}>
             go back top
-          </Button>
+          </Button> */}
         </Stack>
       </Box>
     </Stack>
