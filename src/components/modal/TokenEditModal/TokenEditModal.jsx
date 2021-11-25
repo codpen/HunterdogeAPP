@@ -125,7 +125,7 @@ const TokenEditModal = ({ setIsOpen, tokenAddress, tokenData }) => {
               <Button
                 onClick={saveInfo}
                 disabled={isDisableSaveBtn}
-                fullWidth sx={{fontSize: 24, py: 1, height: '47px'}}>{ isDisableSaveBtn ? 'Saving...': 'SAVE CHNAGES' }</Button>
+                fullWidth sx={{fontSize: 24, py: 1, height: '47px'}}>{ isDisableSaveBtn ? 'Saving...': 'Save Changes' }</Button>
             </Box>
         </Card>
     );
