@@ -43,7 +43,7 @@ const AllTokensTable = (isTitle) => {
   tabs = [...tabs, { label: "All time", close: false }]
 
   const [value, setValue] = useState(0)
-  const { state: { data } } = useGoogleSheet(SHEET_ID, 60000)
+  const { state: { data } } = useGoogleSheet(SHEET_ID, 120000)
   const [partActive, setPartActive] = useState(1)
   //checkbox and pagination button
   const [perPage, setPerPage] = useState(25)

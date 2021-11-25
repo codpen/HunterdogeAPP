@@ -28,7 +28,7 @@ const TokenHeader = () => {
     const {address} = useParams()
     const { account } = useWeb3React()
     const visitWebsite = () => console.log('visit website')
-    const { state: { data } } = useGoogleSheet(SHEET_ID, 60000)
+    const { state: { data } } = useGoogleSheet(SHEET_ID, 120000)
     const [isTokenEditModal, setIsTokenEditModal] = useState(false)
     const [checkProjectManager, setCheckProjectManager] = useState(false)
     const [tokenData, setTokenData] = useState({})

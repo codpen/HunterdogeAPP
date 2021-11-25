@@ -131,7 +131,7 @@ export const isManager = async (account) => {
     return res
 }
 
-export const addProject = async (tokenInfo) => {
+export const addProject = async (tokenInfo, account) => {
     const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
     const res = await contract.methods.addProject(
         tokenInfo.Pproject_Name ? tokenInfo.Pproject_Name : '',
@@ -142,7 +142,22 @@ export const addProject = async (tokenInfo) => {
         tokenInfo.Project_Twitter ? tokenInfo.Project_Twitter : '',
         tokenInfo.Project_Address ? tokenInfo.Project_Address : '',
         tokenInfo.Project_Manager ? tokenInfo.Project_Manager : ''
-    ).send()
+    ).send({ from: account })
+    console.log('tx res-----', res)
+    return res
+}
+
+export const editProject = async (tokenInfo, account) => {
+    const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
+    const res = await contract.methods.editProject(
+        tokenInfo.Pproject_Name ? tokenInfo.Pproject_Name : '',
+        tokenInfo.Project_Symbol ? tokenInfo.Project_Symbol : '',
+        tokenInfo.Project_Logo ? tokenInfo.Project_Logo : '',
+        tokenInfo.Project_Website ? tokenInfo.Project_Website : '',
+        tokenInfo.Project_Telegram ? tokenInfo.Project_Telegram : '',
+        tokenInfo.Project_Twitter ? tokenInfo.Project_Twitter : '',
+        tokenInfo.Project_Address ? tokenInfo.Project_Address : '',
+    ).send({ from: account })
     console.log('tx res-----', res)
     return res
 }

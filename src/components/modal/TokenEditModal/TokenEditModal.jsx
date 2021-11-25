@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { useWeb3React } from "@web3-react/core";
 import Card from '@material-ui/core/Card';
 import {makeStyles} from "@material-ui/styles";
 import {Box} from "@mui/system";
@@ -11,6 +12,7 @@ import TokenEditModalPresalePage from './TokenEditModalPresalePage';
 import Pagination from '../../pagination/Pagination';
 import {useGoogleSheet} from '../../../hooks/useGoogleSheet';
 import {SHEET_ID} from "../../../constants";
+
 
 const useStyles = makeStyles({
     modal: {
@@ -69,8 +71,9 @@ const Pages = [
 
 const TokenEditModal = ({ setIsOpen, tokenAddress, tokenData }) => {
     const classes = useStyles();
+    const { account } = useWeb3React()
     const [page, setPage] = useState(1)
-    const { addTokenInfo } = useGoogleSheet(SHEET_ID, 60000)
+    const { addTokenInfo } = useGoogleSheet(SHEET_ID, 120000)
     const [tokenInfo, setTokenInfo] = useState(null)
     const [isDisableSaveBtn, setIsDisableSaveBtn] = useState(false)
 
@@ -87,7 +90,7 @@ const TokenEditModal = ({ setIsOpen, tokenAddress, tokenData }) => {
     const saveInfo = async () => {
         setIsDisableSaveBtn(true)
         try {
-            const res = await addTokenInfo(tokenAddress, tokenInfo)
+            const res = await addTokenInfo(tokenAddress, tokenInfo, account)
             setTokenInfo(null)
             setIsOpen(false)
             setIsDisableSaveBtn(false)
