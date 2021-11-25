@@ -28,7 +28,7 @@ const TokenHeader = () => {
     const {address} = useParams()
     const { account } = useWeb3React()
     const visitWebsite = () => console.log('visit website')
-    const { state: { data } } = useGoogleSheet(SHEET_ID, 60000)
+    const { state: { data } } = useGoogleSheet(SHEET_ID, 120000)
     const [isTokenEditModal, setIsTokenEditModal] = useState(false)
     const [checkProjectManager, setCheckProjectManager] = useState(false)
     const [tokenData, setTokenData] = useState({})
@@ -68,7 +68,7 @@ const TokenHeader = () => {
 
     useEffect(() => {
         const getIsProjectManager = async () => {
-            const is_project_manager = await isProjectManager(account)
+            const is_project_manager = await isProjectManager(address, account)
             setCheckProjectManager(is_project_manager)
         }
         account && getIsProjectManager()

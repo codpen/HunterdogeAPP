@@ -11,11 +11,12 @@ import {useGoogleSheet} from '../../hooks/useGoogleSheet';
 import {Image, LinkWrapper} from "../../components/common";
 import likeDark from "../../images/like_dark.svg";
 import chart from "../../images/chart_ico.svg";
-import {getUserVotes, returnMembership} from "../../connection/functions";
+import {getUserVotes, isManager, returnMembership} from "../../connection/functions";
 import {useWeb3React} from "@web3-react/core";
 import RegisterModal from '../../components/modal/RegisterModal';
 import {usePrice} from "../../hooks/usePrice";
 import {bscTokenContact} from '../../connection/contracts'
+import TokenEditModal from "../../components/modal/TokenEditModal/TokenEditModal";
 
 const AdsToken = () => (
     <Stack direction="row"
@@ -113,16 +114,21 @@ const Hero = ({setIsOpen, register}) => {
     const { state: { data } } = useGoogleSheet(SHEET_ID_BANNER)
     const [votes, setVotes] = useState(0)
     const [isModal, setIsModal] = useState(false)
+    const [isTokenEditModal, setIsTokenEditModal] = useState(false)
+    const [checkManager, setChechManager] = useState(false)
 
     useEffect(() => {
         const call = async () => {
             const votes = await getUserVotes(account)
             setVotes(votes)
         }
-
+        const getIsManager = async () => {
+            const is_manager = await isManager(account)
+            setChechManager(is_manager)
+        }
         account && call()
+        account && getIsManager()
     }, [account])
-
 
     return (
         <Block
@@ -206,8 +212,17 @@ const Hero = ({setIsOpen, register}) => {
                         register
                     </Button>
                 )}
+                {checkManager && 
+                <Button
+                    onClick={() => setIsTokenEditModal(true)}
+                    fullWidth sx={{mt: 1.5}}>
+                    add your token
+                </Button>
+                }
+               
             </Container>
             {isModal && <RegisterModal setIsOpen={setIsModal}/>}
+            {isTokenEditModal && <TokenEditModal setIsOpen={setIsTokenEditModal} tokenAddress={null} tokenData={null} />}
         </Block>
     )
 }
