@@ -17,7 +17,7 @@ export default function Pagination({start, end, page, pageHandler, showPageNumbe
                 <Image src={arrowLeft}/>
             </Button>
             <Count>
-                {showPageNumber ? `{page} / {end}`: ''}
+                {showPageNumber ? `${page} / ${end}`: ''}
             </Count>
             <Button disabled={page === end}  onClick={handleRight}>
                 <Image src={arrowRight}/>
