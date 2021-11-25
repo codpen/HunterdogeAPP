@@ -3,7 +3,7 @@ import  { GoogleSpreadsheet }  from 'google-spreadsheet';
 
 import {CLIENT_EMAIL, PRIVATE_KEY, SPREADSHEET_ID } from "../constants";
 
-export const useGoogleSheet = (id, time = 30000) => {
+export const useGoogleSheet = (id, time = 60000) => {
     const [state, setState] = useState({
         data: [],
         error: undefined,
@@ -18,6 +18,7 @@ export const useGoogleSheet = (id, time = 30000) => {
                     client_email: CLIENT_EMAIL,
                     private_key: PRIVATE_KEY,
                 });
+
                 // loads document properties and worksheets
                 await doc.loadInfo();
                 const sheet = doc.sheetsById[id];

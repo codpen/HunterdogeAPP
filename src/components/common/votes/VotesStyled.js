@@ -45,9 +45,8 @@ export const Input = styled.input`
 
 export const Modal = styled.div`
   position: absolute;
-  top: -9px;
-  //right: -155px;
-  right: ${({big}) => big ? '-110px' : '100px'};
+  top: ${({big}) => big ? '0' : '-9px'};
+  right: ${({big}) => big ? '200px' : '105px'};
   width: 140px;
   height: 105px;
   background: #FFFFFF;
@@ -70,11 +69,11 @@ export const Modal = styled.div`
     }
   
   @media screen and (min-width: 1800px) {
-    right: -155px;
+    right: ${({big}) => big ? '200px' : '-155px'};
       &::before {
-        left: -37px;
+        left: ${({big}) => big ? '133px' : '-37px'};
         border: 20px solid transparent;
-        border-right: 20px solid #fff;
+        ${({big}) => big ? 'border-left: 20px solid #fff;' : 'border-right: 20px solid #fff;'}
       }
   }
 `

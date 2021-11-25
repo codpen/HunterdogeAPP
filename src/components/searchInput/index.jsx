@@ -6,6 +6,7 @@ import { InputBase } from '@material-ui/core';
 
 const SearchInput = ({ placeholder, small, padding, mr, mb }) => {
   const [value, setValue] = useState('')
+
   return(
     <Fragment>
       <InputBase

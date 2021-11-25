@@ -18,9 +18,19 @@ import { CheckPopup } from '../checkPopup/checkPopup';
 import arrowDown from "../../images/arrow-down.svg";
 import {marketCap} from "../../utils/marketCap";
 import {changeFormatter} from "../../utils/changeFormatter";
+import {useWeb3React} from "@web3-react/core";
+import {Badges} from "../common/badges/Badges";
+
+const tokenData = [
+    {key: 'Project_ISKYC', text: 'KYC verified', image: <Kyc/>},
+    {key: 'Project_ISDOX', text: 'Audited token', image: <Audit/>},
+    {key: 'Project_HasUtility', text: 'Usecase token', image: <Utility/>},
+    {key: 'Project_IsMemeCoin', text: 'Meme token', image: <Memecoin/>}]
 
 const Row = ({data, index}) => {
-    const {votes, error, isLoading} = useVotesPerProject(data.Project_Address)
+    const {chainId} = useWeb3React()
+
+    // const {votes, error, isLoading} = useVotesPerProject(data.Project_Address)
     const [price, setPrice] = useState(0)
     const [mcap, setMCap] = useState(0)
     const [isOpen, setIsOpen] = useState(false)
@@ -75,18 +85,20 @@ const Row = ({data, index}) => {
                             {data.Project_Name}
                         </Typography>
                         <Stack direction="row" sx={{gap: 2, mt: '14px'}}>
-                            {data.KYC === 'TRUE' && 
-                                <Kyc/>
-                            }
-                            {data.Audit === 'TRUE' && 
-                                <Audit/>
-                            }
-                            {data.Utility === 'TRUE' && 
-                                <Utility/>
-                            }
-                            {data.Memecoin === 'TRUE' && 
-                                <Memecoin/>
-                            }
+                            {/*{data.KYC === 'TRUE' && */}
+                            {/*    <Kyc/>*/}
+                            {/*}*/}
+                            {/*{data.Audit === 'TRUE' && */}
+                            {/*    <Audit/>*/}
+                            {/*}*/}
+                            {/*{data.Utility === 'TRUE' && */}
+                            {/*    <Utility/>*/}
+                            {/*}*/}
+                            {/*{data.Memecoin === 'TRUE' && */}
+                            {/*    <Memecoin/>*/}
+                            {/*}*/}
+                            {data && tokenData.map(((el, idx) => data[el.key] === 'TRUE' &&
+                                <Badges key={idx * 10 * 2} children={el.image} text={el.text}/>))}
                             
                         </Stack>
                     </Stack>
@@ -107,7 +119,7 @@ const Row = ({data, index}) => {
                     <Typography variant="table">
                         ${new Intl.NumberFormat('en-US').format(price)}
                     </Typography>
-                    {change24h && <Flex margin={'6px 0 0 0'}>
+                    {change24h && <Flex margin={'6px 0 0 0'} justify={'evenly'}>
                         <Image src={change24h.up ? arrowUp : arrowDown}/>
                         <Changes24 up={change24h.up}>{change24h.text}</Changes24>
                     </Flex>}
@@ -116,7 +128,7 @@ const Row = ({data, index}) => {
             <TableCell>
                 <Stack direction="row" alignItems="center">
                     <Typography variant="table" sx={{width: '50px'}}>
-                        {votes}
+                        {/*{votes}*/}
                     </Typography>
                     <Votes address={data.Project_Address}/>
                     <More onClick={() => setIsOpen(!isOpen)}>...

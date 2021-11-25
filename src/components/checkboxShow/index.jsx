@@ -21,7 +21,7 @@ const CheckboxShow = ({handler}) => {
         handler(100)
     };
     return (
-        <Stack direction="row" alignItems="center">
+        <Stack direction="row" alignItems="center" sx={{mr: 30}}>
             <Typography sx={{mr: 3}}>
                 Show
             </Typography>
@@ -32,6 +32,9 @@ const CheckboxShow = ({handler}) => {
                 '&.Mui-checked': {
                     color: '#AB882E',
                 },
+                svg: {
+                    fill: '#AB882E',
+                }
             }}/>} label="25"/>
             <FormControlLabel  control={<Checkbox onChange={handleChange2} checked={checked[1]} sx={{
                 root: {
@@ -40,6 +43,10 @@ const CheckboxShow = ({handler}) => {
                 '&.Mui-checked': {
                     color: '#AB882E',
                 },
+                svg: {
+                    fill: '#AB882E',
+                }
+
             }}/>} label="50"/>
             <FormControlLabel control={<Checkbox onChange={handleChange3} checked={checked[2]} sx={{
                 root: {
@@ -48,6 +55,9 @@ const CheckboxShow = ({handler}) => {
                 '&.Mui-checked': {
                     color: '#AB882E',
                 },
+                svg: {
+                    fill: '#AB882E',
+                }
             }}/>} label="100"/>
             <Typography>
                 per page

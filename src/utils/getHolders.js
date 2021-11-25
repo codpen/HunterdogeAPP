@@ -1,7 +1,6 @@
 
 const url = "https://graphql.bitquery.io/";
 export const getHolders = async (address) => {
-    let date = new Date();
     let a = new Date(	"2020-06-08");
     let b = new Date();
 
@@ -41,5 +40,13 @@ export const getHolders = async (address) => {
             query
         })
     };
-    return await fetch(url, opts)
+
+    try {
+        return await fetch(url, opts)
+            .then(res => res.json())
+            .then(res => res.data.ethereum.transfers[0].sender_count)
+    } catch (e) {
+        console.warn(e)
+    }
+
 }

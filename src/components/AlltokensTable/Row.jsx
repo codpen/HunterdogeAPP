@@ -6,29 +6,55 @@ import {ReactComponent as Kyc} from "../../images/KYC.svg";
 import {ReactComponent as Audit} from "../../images/Audit.svg";
 import {ReactComponent as Utility} from "../../images/Utility.svg";
 import {ReactComponent as Memecoin} from "../../images/Memecoin.svg";
+
 import arrowUp from "../../images/arrow-up.svg";
 import arrowDown from "../../images/arrow-down.svg";
-import {Changes24, Flex, Image, LinkWrapper, More} from "../common";
+import { Changes24, Flex, Image, LinkWrapper, More} from "../common";
 import {useVotesPerProject} from "../../hooks/useVotesPerProject";
 import {Votes} from "../common/votes";
-import {getMCap, getSymbol} from '../../connection/functions'
+import {getMCap, getSymbol, getVotesPerProject} from '../../connection/functions'
 import {useHolders} from "../../hooks/useHolders";
 import {getHolders} from "../../utils/getHolders";
 import {marketCap} from "../../utils/marketCap";
 import {changeFormatter} from "../../utils/changeFormatter";
+import {getHolderPerDay} from "../../utils/getHolderPerDay";
+import {useWeb3React} from "@web3-react/core";
+import {Badges} from "../common/badges/Badges";
+
+const tokenData = [
+    {key: 'Project_ISKYC', text: 'KYC verified', image: <Kyc/>},
+    {key: 'Project_ISDOX', text: 'Audited token', image: <Audit/>},
+    {key: 'Project_HasUtility', text: 'Usecase token', image: <Utility/>},
+    {key: 'Project_IsMemeCoin', text: 'Meme token', image: <Memecoin/>}]
 
 const Row = (
     {
         data, index
     }
     ) => {
-        const {votes, error, isLoading} = useVotesPerProject(data.Project_Address)
+        const {chainId} = useWeb3React()
+        // const {votes, error, isLoading} = useVotesPerProject(data.Project_Address)
         // const holders = useHolders(data.Project_Address)
         const [price, setPrice] = useState(0)
         const [holders, setHolders] = useState(0)
+        const [holdersPerDay, setHoldersPerDay] = useState(0)
         const [mcap, setMCap] = useState(0)
         const [symbol, setSymbol] = useState('')
         const [change24h, setChange24h] = useState()
+
+        useEffect(() => {
+            if (chainId === 56) {
+                if (data.Project_Address) {
+                    const call = async () => {
+                        const res = await getVotesPerProject(data.Project_Address)
+                        console.log('votes', res)
+                    }
+                    call()
+                }
+            } else {
+                console.warn('Please connect your wallet to Binance Smart Chain network')
+            }
+        }, [data.Project_Address])
 
         useEffect(() => {
             marketCap(data.Project_Symbol)
@@ -38,10 +64,14 @@ const Row = (
 
 
         useEffect(() => {
-            getHolders(data.Project_Address)
-                .then(res => res.json())
-                .then(res => setHolders(res.data.ethereum.transfers[0].sender_count))
-        }, [])
+            if (data) {
+                getHolders(data.Project_Address)
+                    .then(res => setHolders(res))
+
+                getHolderPerDay(data.Project_Address)
+                    .then(res => setHoldersPerDay(`+ ${res}`))
+            }
+        }, [data])
 
         useEffect(() => {
             const fetchSheet = async () => {
@@ -80,10 +110,13 @@ const Row = (
                                 {data.Project_Name}
                             </Typography>
                             <Stack direction="row" sx={{gap: 2, mt: '14px'}}>
-                                {data.KYC === 'TRUE' && <Kyc/>}
-                                {data.Audit === 'TRUE' && <Audit/>}
-                                {data.Utility === 'TRUE' && <Utility/>}
-                                {data.Memecoin === 'TRUE' && <Memecoin/>}
+                                {/*{data.KYC === 'TRUE' && <Kyc/>}*/}
+                                {/*{data.Audit === 'TRUE' && <Audit/>}*/}
+                                {/*{data.Utility === 'TRUE' && <Utility/>}*/}
+                                {/*{data.Memecoin === 'TRUE' && <Memecoin/>}*/}
+                                {/*{data.KYC === 'TRUE' &&*/}
+                                {data && tokenData.map(((el, idx) => data[el.key] === 'TRUE' &&
+                                    <Badges key={idx * 10 * 2} children={el.image} text={el.text}/>))}
                             </Stack>
                         </Stack>
                     </LinkWrapper>
@@ -103,7 +136,7 @@ const Row = (
                         <Typography variant="table">
                             {new Intl.NumberFormat('en-US').format(price)}
                         </Typography>
-                        {change24h && <Flex margin={'6px 0 0 0'}>
+                        {change24h && <Flex margin={'6px 0 0 0'} justify={'evenly'}>
                             <Image src={change24h.up ? arrowUp : arrowDown}/>
                             <Changes24 up={change24h.up}>{change24h.text}</Changes24>
                         </Flex>}
@@ -111,11 +144,11 @@ const Row = (
                 </TableCell>
 
                 <TableCell>
-                    <Typography variant="h6">
+                    {/* <Typography variant="h6">
                         HIGH
-                    </Typography>
-                    <Typography variant="h6" sx={{fontSize: 16, fontWeight: 600}}>
-                        -
+                    </Typography> */}
+                    <Typography variant="h6" sx={{fontSize: 16, fontWeight: 600, color: "#16DF42"}}>
+                        0.89
                     </Typography>
                 </TableCell>
                 <TableCell>
@@ -124,14 +157,15 @@ const Row = (
                     </Typography>
                 </TableCell>
                 <TableCell>
-                    <Typography variant="table" sx={{textTransform: 'capitalize'}}>
-                        -
+                    <Typography variant="table">
+                        {holdersPerDay}
                     </Typography>
                 </TableCell>
                 <TableCell>
                     <Stack direction="row" alignItems="center">
                         <Typography variant="table" sx={{width: '50px'}}>
-                            {votes}
+                            {/*{votes}*/}
+                            0
                         </Typography>
                         <Votes address={data.Project_Address}/>
                         <More>...</More>
@@ -143,3 +177,6 @@ const Row = (
 ;
 
 export default Row;
+
+
+

@@ -4,7 +4,7 @@ const TabsStyled = ({setPartActive, partActive, data}) => (
   <Part>
       {data.map((item, index) => {
           return (
-              <Tab className={partActive === index + 1 ? 'active' : ''} onClick={() => setPartActive(index + 1)}>
+              <Tab key={index * 19} className={partActive === index + 1 ? 'active' : ''} onClick={() => setPartActive(index + 1)}>
                   <span>{item}</span>
               </Tab>
           )
@@ -33,7 +33,7 @@ const Tab = styled.div`
     &:hover {
       border: 1px solid #B78300;
       border-bottom: 1px solid rgba(183, 131, 0, 0.5);
-      font-weight: 800
+      font-weight: 800;
       & span{
         font-weight: 800;
       }

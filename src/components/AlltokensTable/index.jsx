@@ -24,6 +24,7 @@ import Row from "./Row";
 import {Link} from "react-router-dom";
 import TabsStyled from '../Tabs/Tabs';
 import {paginate} from "../pagination/paginate";
+import GoTop from '../GoTop';
 
 const tabs = [
     "All time"
@@ -96,10 +97,10 @@ const AllTokensTable = () => {
                                 <TableCell sx={{textAlign: 'left'}}>name</TableCell>
                                 <TableCell>Ticker</TableCell>
                                 <TableCell>MCAP</TableCell>
-                                <TableCell>Price</TableCell>
+                                <TableCell sx={{width: '145px'}}>Price</TableCell>
                                 <TableCell>Liq / Mcap<br/> Ratio</TableCell>
                                 <TableCell>holders</TableCell>
-                                <TableCell>Popularity</TableCell>
+                                <TableCell sx={{fontSize: '16px', width: '142px'}}>&Oslash; holder<br/>growth per day</TableCell>
                                 <TableCell sx={{textAlign: 'left'}}>Votes</TableCell>
                             </TableRow>
                         </TableHead>
@@ -108,19 +109,20 @@ const AllTokensTable = () => {
                 {data.map((row, index) => <Row key={index} index={index} data={row}/>)}
             </TabPanel> */}
                             <TabPanel value={value} index={0}>
-                                {newData.map((row, index) => <Row key={index} index={index} data={row}/>)}
+                                {newData.map((row, index) => <Row key={index * 24} index={index} data={row}/>)}
                             </TabPanel>
                         </TableBody>
                     </Table>
                 </TableContainer>
             </Box>
-            <Stack direction="row" justifyContent="space-between" sx={{mt: 3, px: 2}}>
+            <Stack direction="row" justifyContent="start" sx={{mt: 3, px: 2}}>
                 <CheckboxShow handler={setPerPage}/>
                 <Pagination start={currentPage} end={endPage} pageHandler={setPage} page={page}/>
-                <Button variant="transparent" sx={{ml: '380px'}}
+                {/* <GoTop/> */}
+                {/* <Button variant="transparent" sx={{ml: '380px'}}
                         onClick={() => backToTop()}>
                     go back top
-                </Button>
+                </Button> */}
             </Stack>
         </Box>
     )

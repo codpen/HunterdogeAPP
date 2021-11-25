@@ -81,14 +81,14 @@ const PopularTokens = () => {
                         </TableHead>
                         <TableBody>
                             <TabPanel value={value} index={0}>
-                                {data.map((row, index) => <Row key={index} index={index} data={row}/>)}
+                                {data.map((row, index) => <Row key={index * 10} index={index} data={row}/>)}
                             </TabPanel>
                             
                             <TabPanel value={value} index={1}>
-                                {filterWeek.map((row, index) => <Row key={index} index={index} data={row}/>)}
+                                {filterWeek.map((row, index) => <Row key={index * 11} index={index} data={row}/>)}
                             </TabPanel>
                             <TabPanel value={value} index={2}>
-                                {filterOneDay.map((row, index) => <Row key={index} index={index} data={row}/>)}
+                                {filterOneDay.map((row, index) => <Row key={index * 9} index={index} data={row}/>)}
                             </TabPanel>
                         </TableBody>
                     </Table>

@@ -20,6 +20,8 @@ import Bow from './images/bow_bg.svg';
 import {useWeb3React} from "@web3-react/core";
 import { isMember } from './connection/functions';
 import {marketCap} from "./utils/marketCap";
+import NewMenu from "./blocks/menu/newMenu/newMenu";
+import MobileMenu from './blocks/menu/mobileMenu/MobileMenu';
 
 const App = () => {
     const {account} = useWeb3React()
@@ -38,11 +40,13 @@ const App = () => {
     return (
         <Router>
             <Main>
+                <MobileMenu/>
                 <Header/>
                 <Hero setIsOpen={setIsOpen} register={register}/>
                 { isOpen && <Modal setIsOpen={setIsOpen}/> }
                 <Pages>
-                    <Menu/>
+                    {/*<Menu/>*/}
+                    <NewMenu/>
                     <Switch>
                         <Route path="/" exact>
                             <HomePage/>

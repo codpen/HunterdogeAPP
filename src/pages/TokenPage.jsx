@@ -12,6 +12,8 @@ import TokenHeader from "../components/tokenInformationHeader/TokenHeader";
 import {Button, Flex} from "../components/common/index";
 import PopularPreSales from "../components/popularPreSales";
 import TabsStyled from '../components/Tabs/Tabs';
+import LeaveComment from '../components/LeaveComment';
+import GoTop from '../components/GoTop';
 
 const tabs = [
   "chart & stats",
@@ -38,12 +40,15 @@ const TokenPage = () => {
     return (
         <Block>
             <Container>
-                <Button onClick={() => history.goBack()} size={'20px'} height={'47px'} width={'104px'} margin={'0 0 27px 0'}>{'< BACK'}</Button>
+                <Button onClick={() => history.goBack()} size={'20px'} height={'30px'} width={'162px'} weight={700} margin={'0 0 27px 0'}>{'<< GO BACK'}</Button>
                 <TokenHeader/>
                 <TabsStyled setPartActive={setPartActive} partActive={partActive} data={tabs}/>
                 {partActive === 1 ? <LiveChart/> : partActive === 2 ? <TokenInformation/> : isPresale}
-                {/* <Comments/> */}
+                <Comments/>
+                <LeaveComment/>
+                 {/*<Comments/>*/}
                 <PopularPreSales/>
+                <GoTop scrollStepInPx="100" delayInMs="10.50"/>
             </Container>
         </Block>
     );

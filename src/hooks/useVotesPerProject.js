@@ -12,13 +12,13 @@ export const useVotesPerProject = (address) => {
         const call = async () => {
             try {
                 const votes = await getVotesPerProject(address)
-                setState((state) => ({...state, votes, isLoading: true}))
+                setState((state) => ({...state, votes, isLoading: false}))
             } catch (error) {
-                setState((state) => ({...state, error: error, isLoading: true}))
+                setState((state) => ({...state, error: error, isLoading: false}))
             }
         }
         call()
-    }, [])
+    }, [address])
 
     return state;
 }

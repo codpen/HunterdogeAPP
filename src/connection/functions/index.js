@@ -15,11 +15,16 @@ export const getUserVotes = async (account) => {
 
 export const getVotesPerProject = async (address) => {
     const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
-    const isActive = await contract.methods.isActive(address).call()
-    if (isActive) {
-        return await contract.methods.getVotesPerProject(address).call()
-    } else {
-        throw new Error('The project is not registered');
+
+
+    try {
+        const isActive = await contract.methods.isActive(address).call()
+        if (isActive) {
+            console.log('active', address)
+            return await contract.methods.getVotesPerProject(address).call()
+        }
+    } catch (e) {
+        console.warn('error', e)
     }
 }
 
@@ -162,6 +167,6 @@ export const getName = async (address) => {
             .call()
         return symbol
     } catch (error) {
-        return ''
+        return ""
     }
 }

@@ -7,6 +7,7 @@ import PopularPreSales from '../components/popularPreSales';
 import PromotedPreSales from '../components/promotedPresales';
 import SearchOrFilter from '../components/searchOrFilter';
 import News from '../components/promotedPresales/news';
+import GoTop from '../components/GoTop';
 
 const AllTokens = () => {
   return(
@@ -26,7 +27,7 @@ const AllTokens = () => {
         <AllTokensTable/>
         <Stack direction="row" alignItems="center" sx={{gap: 8}}>
           <PopularPreSales/>
-          <News/>
+          {/* <News/> */}
         </Stack>
       </Stack>
     //   {/* <Stack>

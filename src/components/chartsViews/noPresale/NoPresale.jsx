@@ -9,7 +9,7 @@ import ConnectMetaMask from "../../../connection/ConnectMetaMask";
 const useStyles = makeStyles({
     root: {},
     content: {
-        maxWidth: '1420px',
+        maxWidth: '1039px',
         height: '762px',
         background: '#FFFFFF',
         boxShadow: '5px 5px 0px rgba(0, 0, 0, 0.1)',
