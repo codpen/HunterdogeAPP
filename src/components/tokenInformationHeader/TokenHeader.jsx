@@ -68,7 +68,7 @@ const TokenHeader = () => {
 
     useEffect(() => {
         const getIsProjectManager = async () => {
-            const is_project_manager = await isProjectManager(account)
+            const is_project_manager = await isProjectManager(address, account)
             setCheckProjectManager(is_project_manager)
         }
         account && getIsProjectManager()

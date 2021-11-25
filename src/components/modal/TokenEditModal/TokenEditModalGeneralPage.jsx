@@ -36,7 +36,7 @@ const InfoLinks = [
     { name: 'Project_CGLink', label: 'CG link' },
 ]
 
-const TokenEditModalGeneralPage = ({value, changeValue}) => {
+const TokenEditModalGeneralPage = ({value, changeValue, isNew}) => {
     const classes = useStyles();
     const [data, setData] = useState({})
 
@@ -60,7 +60,8 @@ const TokenEditModalGeneralPage = ({value, changeValue}) => {
 
             <Grid container spacing={4}>
                 <Grid item xs={12} md={6}>
-                    {InfoLinks.slice(0, 10).map((link, idx) => (
+                    {(!isNew ? InfoLinks.slice(0, 10) : [...InfoLinks.slice(0, 3), { name: 'Project_Manager', label: 'Manager Address' }, ...InfoLinks.slice(3, 10)])
+                        .map((link, idx) => (
                         <Grid container className={classes.inputRow} key={idx}>
                             <Grid item xs={5}>
                                 <label>{link.label}</label>

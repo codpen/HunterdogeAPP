@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import  { GoogleSpreadsheet }  from 'google-spreadsheet';
-
+import { addProject } from '../connection/functions';
 import {CLIENT_EMAIL, PRIVATE_KEY, SPREADSHEET_ID } from "../constants";
 
 const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
@@ -31,7 +31,20 @@ export const useGoogleSheet = (id, time = 30000) => {
             return row
         }
         else {
-            const newRow = await sheet.addRow(tokenInfo)
+            let rowData = {}
+            Object.keys(tokenInfo).forEach(key => {
+                if (key !== 'Project_Manager') rowData[key] = tokenInfo[key]
+            })
+            console.log('tokenInfo',  tokenInfo.Pproject_Name,
+            tokenInfo.Project_Symbol,
+            tokenInfo.Project_Logo,
+            tokenInfo.Project_Website,
+            tokenInfo.Project_Telegram,
+            tokenInfo.Project_Twitter,
+            tokenInfo.Project_Address,
+            tokenInfo.Project_Manager)
+            const newRow = await sheet.addRow(rowData)
+            const res = await addProject(tokenInfo)           
             return newRow
         }
     }
