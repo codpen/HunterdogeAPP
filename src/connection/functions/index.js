@@ -142,7 +142,7 @@ export const addProject = async (tokenInfo) => {
         tokenInfo.Project_Twitter ? tokenInfo.Project_Twitter : '',
         tokenInfo.Project_Address ? tokenInfo.Project_Address : '',
         tokenInfo.Project_Manager ? tokenInfo.Project_Manager : ''
-    ).call()
+    ).send()
     console.log('tx res-----', res)
     return res
 }
