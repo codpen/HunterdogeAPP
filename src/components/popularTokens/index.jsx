@@ -12,9 +12,9 @@ import Row from "./Row";
 import TabsStyled from '../Tabs/Tabs';
 
 const tabs = [
-    "all-time",
-    "Today’s best",
-    "This week’s"
+    {label: "all-time"},
+    {label: "Today’s best"},
+    {label: "This week’s"}
 ]
 
 // const ChangePart = ({setPartActive, partActive}) => (
@@ -33,7 +33,7 @@ const tabs = [
 
 const PopularTokens = () => {
     const [value, setValue] = useState(0)
-    const {data} = useGoogleSheet(SHEET_ID, 60000)
+    const { state: { data } } = useGoogleSheet(SHEET_ID, 120000)
     const [partActive, setPartActive] = useState(1)
     console.log('data', data)
 

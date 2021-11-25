@@ -2,9 +2,9 @@ import * as React from 'react';
 import arrowLeft from '../../images/left.png';
 import arrowRight from '../../images/right.png';
 import styled from "styled-components";
-import {Image} from "../common";
+import { Image } from "../common";
 
-export default function Pagination({start, end, page, pageHandler, ...rest}) {
+export default function Pagination({start, end, page, pageHandler, showPageNumber = true, ...rest}) {
     const handleLeft = () => {
         pageHandler((page) => page - 1)
     }
@@ -17,7 +17,7 @@ export default function Pagination({start, end, page, pageHandler, ...rest}) {
                 <Image src={arrowLeft}/>
             </Button>
             <Count>
-                {start} / {end}
+                {showPageNumber ? `${page} / ${end}`: ''}
             </Count>
             <Button disabled={page === end}  onClick={handleRight}>
                 <Image src={arrowRight}/>

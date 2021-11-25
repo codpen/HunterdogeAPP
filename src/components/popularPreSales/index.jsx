@@ -24,32 +24,48 @@ import {paginate} from "../pagination/paginate";
 
 
 const tabs = [
-    "upcoming",
-    "Ended"
-]
+    {label: "upcoming"},
+    {label: "Ended"}
+  ]
+
+// const PopularPreSales = () => {
+//     const {data} = useGoogleSheet(SHEET_ID_PRESALES)
+//     const [partActive, setPartActive] = useState(1)
+//     const [openPopup, setOpenPopup] = useState(false)
+//     const [page, setPage] = useState(1)
+//     // console.log(window.innerWidth)
+
+//     const handleInfo = () => {
+//         setOpenPopup(true)
+//         setTimeout(function () {
+//             setOpenPopup(false)
+//         }, 5000);
+//     }
+
+
+//     const currentTime = Date.now()
+
 
 const PopularPreSales = () => {
-    const {data} = useGoogleSheet(SHEET_ID_PRESALES)
-    const [partActive, setPartActive] = useState(1)
-    const [openPopup, setOpenPopup] = useState(false)
-    const [page, setPage] = useState(1)
-    // console.log(window.innerWidth)
+  const { state: { data } } = useGoogleSheet(SHEET_ID_PRESALES)
+  const [partActive, setPartActive] = useState(1)
+  const [openPopup, setOpenPopup] = useState(false)
+  const [page, setPage] = useState(1)
 
-    const handleInfo = () => {
-        setOpenPopup(true)
-        setTimeout(function () {
-            setOpenPopup(false)
-        }, 5000);
-    }
+  console.log(window.innerWidth)
+  
+  const handleInfo = () => {
+    setOpenPopup(true)
+    setTimeout(function() {
+      setOpenPopup(false)
+    }, 5000);
+  }
+  const currentTime = Math.round(new Date() / 1000)
+  const filterUpcoming = data?.filter(({Liq_Lock_Time}) => Liq_Lock_Time >= currentTime)
+  const filterEnded = data?.filter(({Liq_Lock_Time}) => Liq_Lock_Time <= currentTime)
 
-
-    const currentTime = Date.now()
-    // const currentTime = Math.round(new Date() / 1000)
-    // const filterUpcoming = data?.filter(({Liq_Lock_Time}) => +Liq_Lock_Time >= currentTime)
-    // const filterEnded = data?.filter(({Liq_Lock_Time}) => +Liq_Lock_Time <= currentTime)
-
-    const filterUpcoming = data?.filter(({Project_Start_Time}) => +Project_Start_Time * 1000 >= currentTime)
-    const filterEnded  = data?.filter(({Project_Start_Time}) => +Project_Start_Time * 1000 <= currentTime)
+    // const filterUpcoming = data?.filter(({Project_Start_Time}) => +Project_Start_Time * 1000 >= currentTime)
+    // const filterEnded  = data?.filter(({Project_Start_Time}) => +Project_Start_Time * 1000 <= currentTime)
 
     //paginate
     const paginateData = partActive === 1 ? filterUpcoming : filterEnded

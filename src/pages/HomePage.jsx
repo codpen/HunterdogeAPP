@@ -18,6 +18,7 @@ import Footer from '../blocks/footer';
 import GoTop from '../components/GoTop';
 
 const HomePage = () => {
+
   return (
     // <>
     // <Stack direction="row" alignItems="start"
@@ -43,10 +44,10 @@ const HomePage = () => {
           width: '1037px',
           justifyContent: 'center'
         }}>
-        {/*<Stack direction="row">*/}
-        {/*  <CheckLiguidity/>*/}
-        {/*  <QuickFilter/>*/}
-        {/*</Stack>*/}
+        <Stack direction="row" >
+         <CheckLiguidity/>
+         <QuickFilter/>
+        </Stack>
         <PopularTokens/>
         <PopularPreSales/>
         <GoTop scrollStepInPx="100" delayInMs="10.50"/>

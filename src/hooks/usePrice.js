@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 
-export const usePrice = (time = 30000) => {
+export const usePrice = (address, time = 30000) => {
     const [state, setState] = useState({price: '0'})
 
     useEffect(() => {
         const fetchSheet = async () => {
             try {
-                await fetch('https://api.pancakeswap.info/api/v2/tokens/0xa27895467940fE37E461046870Db5235B5977103')
+                await fetch(`https://api.pancakeswap.info/api/v2/tokens/${address}`)
                     .then((response) => {
                         return response.json();
                     })

@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
 import './App.css';
@@ -17,26 +17,26 @@ import Menu from './blocks/menu';
 import Paws from './images/paws_bg.svg';
 import Loupe from './images/loupe_bg.svg';
 import Bow from './images/bow_bg.svg';
-import {useWeb3React} from "@web3-react/core";
+import { useWeb3React } from "@web3-react/core";
 import { isMember } from './connection/functions';
 import {marketCap} from "./utils/marketCap";
 import NewMenu from "./blocks/menu/newMenu/newMenu";
 import MobileMenu from './blocks/menu/mobileMenu/MobileMenu';
+import { ContextProvider } from './hooks/context';
 
 const App = () => {
-    const {account} = useWeb3React()
+    const { account } = useWeb3React()
     const [isOpen, setIsOpen] = useState(false)
     const [register, setRegister] = useState(false)
 
     useEffect(() => {
         const getIsMember = async () => {
             const member = await isMember(account)
-            console.log('member',member)
+            console.log('member', member)
             setRegister(member)
         }
         account && getIsMember()
-    },[account])
-
+    }, [account])
     return (
         <Router>
             <Main>

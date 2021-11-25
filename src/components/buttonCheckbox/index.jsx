@@ -1,10 +1,11 @@
 import { Button } from "@mui/material"
 
 
-const ButtonCheckbox = ({children, mr, active, width}) => {
+const ButtonCheckbox = ({children, mr, active, width, setActive}) => {
   return (
     <Button
       fullWidth
+      onClick={()=>{setActive(!active)}}
       sx={{
         textTransform: 'capitalize',
         border: active? '2px solid #B78300' : 'none',

@@ -16,7 +16,7 @@ import {useGoogleSheet} from '../../../hooks/useGoogleSheet';
 import {Title, Value} from "../upcomingPreSale/PreSaleStyled";
 
 const TokenInformation = () => {
-    const {data} = useGoogleSheet(SHEET_ID, 60000);
+    const { state: { data } } = useGoogleSheet(SHEET_ID, 120000);
     const {address} = useParams();
     const [descr, setDescr] = useState('')
 

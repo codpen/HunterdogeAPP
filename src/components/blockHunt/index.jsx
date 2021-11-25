@@ -6,7 +6,7 @@ import {SHEET_ID_BANNER} from "../../constants";
 import { useGoogleSheet } from '../../hooks/useGoogleSheet';
 
 const BlockHunt = () => {
-    const {data} = useGoogleSheet(SHEET_ID_BANNER)
+    const { state: { data } } = useGoogleSheet(SHEET_ID_BANNER)
 
     return (
         <Stack
@@ -24,7 +24,7 @@ const BlockHunt = () => {
                 data.map((banner, index) => {
                     if(index <= 2) {
                         return (
-                            <Link key={index * 12} target="_blank" href={banner.Link_Website}>
+                            <Link key={index} target="_blank" href={banner.Link_Website}>
                                 <Banner url={banner.Link_Banner}/>
                             </Link>
                             

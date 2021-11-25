@@ -10,6 +10,7 @@ import News from '../components/promotedPresales/news';
 import GoTop from '../components/GoTop';
 
 const AllTokens = () => {
+  
   return(
     // <Stack direction="row" alignItems="start"
     // sx={{
@@ -23,7 +24,7 @@ const AllTokens = () => {
     // >
     //   <Menu/>
       <Stack sx={{ml: '60px'}}>
-        {/*<SearchOrFilter/>*/}
+        <SearchOrFilter/>
         <AllTokensTable/>
         <Stack direction="row" alignItems="center" sx={{gap: 8}}>
           <PopularPreSales/>

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom'
+import { useWeb3React } from "@web3-react/core";
 import LogoImage from '../../images/big_logo.png'
 import M from '../../images/m_white.png'
 import Lizard from '../../images/lizard_ico.svg'
@@ -33,11 +34,24 @@ import {ReactComponent as Kyc1} from "../../images/KYC_ns.svg";
 import {ReactComponent as Audit1} from "../../images/Audit_ns.svg";
 import {ReactComponent as Utility1} from "../../images/Utility_ns.svg";
 import {ReactComponent as Memecoin1} from "../../images/Memecoin_ns.svg";
+import { isProjectManager } from '../../connection/functions';
+
+// import {ReactComponent as Audit} from "../../images/Audit.svg";
+// import {ReactComponent as Utility} from "../../images/Utility.svg";
+// import {ReactComponent as Memecoin} from "../../images/Memecoin.svg";
+// import {ReactComponent as TokenPrice} from "../../images/tokenPrice.svg";
+// import {ReactComponent as MarketCap} from "../../images/marketCap.svg";
+// import {ReactComponent as Popularity} from "../../images/popularity.svg";
+import TokenEditModal from "../modal/TokenEditModal/TokenEditModal";
 
 const TokenHeader = () => {
     const {address} = useParams()
+    const { account } = useWeb3React()
     const visitWebsite = () => console.log('visit website')
-    const {data} = useGoogleSheet(SHEET_ID, 60000)
+    const { state: { data } } = useGoogleSheet(SHEET_ID, 120000)
+    const [isTokenEditModal, setIsTokenEditModal] = useState(false)
+    const [checkProjectManager, setCheckProjectManager] = useState(false)
+    const [tokenData, setTokenData] = useState({})
 
     const [kyc, setKyc] = useState('')
     const [audit, setAudit] = useState('')
@@ -76,6 +90,14 @@ const TokenHeader = () => {
     }, [address])
 
     useEffect(() => {
+        const getIsProjectManager = async () => {
+            const is_project_manager = await isProjectManager(address, account)
+            setCheckProjectManager(is_project_manager)
+        }
+        account && getIsProjectManager()
+    }, [account])
+
+    useEffect(() => {
         const getMarketCap = async () => {
             const mcap = await getMCap(address, price)
             console.log(mcap)
@@ -95,6 +117,7 @@ const TokenHeader = () => {
                 setUtility(row?.Project_HasUtility)
                 setMemecoin(row?.Project_IsMemeCoin)
             }
+            if (row.Project_Address === address) setTokenData(row)
         })
     }, [data])
 
@@ -168,12 +191,17 @@ const TokenHeader = () => {
                     <TextPopup color="rgba(171, 136, 46, 0.7)" fw={700} lh={'15px'}>Connect the manager wallet first in order to edit token information.</TextPopup>
                     </Popup>}
                 </Text>
+                { checkProjectManager &&
+                <Link_ to='#' size={'16px'} weight={'700'} margin={'0 0 21px auto'} onClick={() => { setIsTokenEditModal(true); }}>
+                    + edit your token information
+                </Link_>
+                }
                 <Flex justify={'center'}>
                     <HeadTitle margin={'0 auto 0 10px'} size={'50px'}>{name}</HeadTitle>
                     <Flex>
                         <Image height={'29px'} src={Like}/>
                         <Text margin={'0 0 0 7px'} size={'24px'}>156’093</Text>
-                        <Votes big={true} address={address}/>
+                        <Votes big={true} address={address} />
                     </Flex>
                 </Flex>
                 <Inner>
@@ -231,6 +259,7 @@ const TokenHeader = () => {
                     </Flex>
                 </Inner>
             </InfoWrapper>
+            {isTokenEditModal && checkProjectManager && <TokenEditModal setIsOpen={setIsTokenEditModal} tokenAddress={address} tokenData={tokenData} />}
         </Wrapper>
     );
 };

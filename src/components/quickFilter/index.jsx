@@ -1,65 +1,125 @@
 import { FormControl, MenuItem, Select, TextField, Typography } from '@material-ui/core';
-import {  Button, InputAdornment, InputBase, Stack, IconButton, InputLabel } from '@mui/material';
+import { Button, InputAdornment, InputBase, Stack, IconButton, InputLabel } from '@mui/material';
+import { useContext, useEffect, useState } from 'react';
 
 
 import { ReactComponent as IconSelect } from '../../images/select_ico.svg';
 import ButtonCheckbox from '../buttonCheckbox';
 import SelectForm from '../selectForm';
+import { Context } from '../../hooks/context';
+
+import { useHistory } from "react-router-dom";
+
+const marketCap = [
+  { value: 'mcap', label: 'Market Cap' },
+  { value: 'price', label: 'Price ' },
+  { value: 'liq', label: 'Liq./Mcap-Ratio' },
+  { value: 'holder', label: 'Holders' },
+  { value: 'vote', label: 'Votes' },
+]
+const highestFirst = [
+  { value: 'high', label: 'Highest first' },
+  { value: 'low', label: 'Lowest first' },
+]
 
 const QuickFilter = () => {
-  const search = () => console.log('search')
-  return(
+  const history = useHistory()
+
+  const [filter, setFilter] = useState('vote')
+  const [sort, setSort] = useState('high')
+  const [securityAudit, setSecurityAudit] = useState(false)
+  const [doxxedTeam, setDoxxedTeam] = useState(false)
+  const [useCase, setUseCase] = useState(false)
+  const [memeCoin, setMemeCoin] = useState(false)
+
+  const context = useContext(Context)
+
+  const search = () => {
+    history.push('/allTokens')
+  }
+
+  // useEffect(()=>{
+  //   context.setSearchOption({
+  //     id: 'default',
+  //     filter: filter,
+  //     sort: sort,
+  //     securityAudit: securityAudit,
+  //     doxxedTeam: doxxedTeam,
+  //     useCase: useCase,
+  //     memeCoin: memeCoin,
+  //   })
+  // }, [filter, sort, securityAudit, doxxedTeam, useCase, memeCoin])
+
+  return (
     <Stack
       sx={{
         padding: '18px 25px 22px 27px',
         width: '355px',
-        backgroundColor: '#FFDA01',
+        backgroundColor: '#FAF0CB',
         borderRadius: '25px',
         boxShadow: '5px 5px 0px rgba(0, 0, 0, 0.1)',
         textAlign: 'center',
       }}
     >
-      <Typography variant='h3' sx={{mb: '13px'}}>
+      <Typography variant='h3' sx={{ mb: '13px' }}>
         Quick Filter
       </Typography>
-      <Stack direction="row" gap="13px">
-        <SelectForm label="Filter tokens by:">
-          <MenuItem value="">
-            Market Cap
-          </MenuItem>
-          <MenuItem value={10}>1.Market Cap</MenuItem>
-          <MenuItem value={20}>2.Market Cap</MenuItem>
-          <MenuItem value={30}>3.Market Cap</MenuItem>
-        </SelectForm>
-        <SelectForm label="Sort tokens by:">
-          <MenuItem value="">
-            Highest first
-          </MenuItem>
-          <MenuItem value={10}>1.Highest first</MenuItem>
-          <MenuItem value={20}>2.Highest first</MenuItem>
-          <MenuItem value={30}>3.Highest first</MenuItem>
+      <Stack sx={{ mt: '12px', mx: 'auto' }}>
+        <SelectForm label="Filter tokens by:" defaultValue={filter}>
+          {
+            marketCap.map((item, key) => {
+              return (
+                <MenuItem
+                  onClick={() => setFilter(item.value)}
+                  value={item.value}
+                  key={key}
+                  sx={{ backgroundColor: (item.value == filter ? '#FAF0CB' : 'unset') }}
+                >
+                  {item.label}
+                </MenuItem>
+              )
+            })
+          }
         </SelectForm>
       </Stack>
-      <Typography variant='body1' sx={{mb: '10px', mt: '18px', textAlign: 'start'}}>
+      <Stack sx={{ mt: '12px', mx: 'auto' }}>
+        <SelectForm label="Sort tokens by:" defaultValue={sort}>
+          {
+            highestFirst.map((item, key) => {
+              return (
+                <MenuItem
+                  onClick={() => setSort(item.value)}
+                  value={item.value}
+                  key={key}
+                  sx={{ backgroundColor: (item.value == sort ? '#FAF0CB' : 'unset') }}
+                >
+                  {item.label}
+                </MenuItem>
+              )
+            })
+          }
+        </SelectForm>
+      </Stack>
+      <Typography variant='body1' sx={{ mb: '10px', mt: '20px', textAlign: 'center' }}>
         Show only tokens with:
       </Typography>
-      <Stack direction="row" sx={{mb: '14px',}}>
-        <ButtonCheckbox  mr='15px' active >
+      <Stack direction="row" sx={{ mb: '14px', }}>
+        <ButtonCheckbox mr='15px' active={securityAudit ? true : false} setActive={setSecurityAudit}>
           Security Audit
         </ButtonCheckbox>
-        <ButtonCheckbox>
+        <ButtonCheckbox active={doxxedTeam ? true : false} setActive={setDoxxedTeam}>
           Doxxed Team
         </ButtonCheckbox>
       </Stack>
-      <ButtonCheckbox
-        width={'145px'}
-      >
-        High Liquidity
-      </ButtonCheckbox>
-      <Typography sx={{ fontSize: 12, fontWeight: 400, textAlign: 'start', mt: '5px', ml: 4}}>
-        Mcap Ratio
-      </Typography>
-      <Button onClick={() => search()} sx={{width: '96px', mt: '12px', mx: 'auto'}}>
+      <Stack direction="row" sx={{ mb: '14px', }}>
+        <ButtonCheckbox mr='15px' active={useCase ? true : false} setActive={setUseCase}>
+          Use Case
+        </ButtonCheckbox>
+        <ButtonCheckbox active={memeCoin ? true : false} setActive={setMemeCoin}>
+          Memecoin
+        </ButtonCheckbox>
+      </Stack>
+      <Button onClick={() => search()} sx={{ mt: '12px', mx: 'auto' }}>
         SEARCH
       </Button>
     </Stack>
