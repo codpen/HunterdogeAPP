@@ -6,32 +6,40 @@ import {ExtraSmall, Input, Modal} from "./VotesStyled";
 
 
 export const Votes = ({address, big = false}) => {
-    const {account} = useWeb3React()
+    const {account, chainId} = useWeb3React()
     const [votes, setVotes] = useState(0)
     const [activeBtn, setActiveBtn] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
 
     const voteFor = (x) => {
-        if (votes > 0) {
-            upVoteProject(votes * x, account, address)
-            setActiveBtn(false)
-            setIsOpen(false)
+        if (chainId === 56) {
+            if (votes > 0) {
+                upVoteProject(votes * x, account, address)
+                setActiveBtn(false)
+                setIsOpen(false)
+            }
+        } else {
+            console.warn('Please connect your wallet to Binance Smart Chain network')
         }
     }
 
     const voteAgainst = () => {
-        if (votes > 0) {
-            downVoteProject(votes, account, address)
-            setActiveBtn(false)
-            setIsOpen(false)
+        if (chainId === 56) {
+            if (votes > 0) {
+                downVoteProject(votes, account, address)
+                setActiveBtn(false)
+                setIsOpen(false)
+            }
+        } else {
+            console.warn('Please connect your wallet to Binance Smart Chain network')
         }
     }
 
     const activeInput = () => {
         setActiveBtn(!activeBtn)
         setIsOpen(false)
-
     }
+
     return (<VoteWrapper big={big}>
             {activeBtn && <Input big={big}
                                  placeholder='enter number of the votes'

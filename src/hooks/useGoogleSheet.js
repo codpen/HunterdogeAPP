@@ -49,6 +49,7 @@ export const useGoogleSheet = (id, time = 30000) => {
                     client_email: CLIENT_EMAIL,
                     private_key: PRIVATE_KEY,
                 });
+
                 // loads document properties and worksheets
                 await doc.loadInfo();
                 const sheet = doc.sheetsById[id];

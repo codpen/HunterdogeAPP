@@ -1,8 +1,8 @@
 
 const url = "https://graphql.bitquery.io/";
-export const getHolders = async (address) => {
-    let a = new Date(	"2020-06-08");
-    let b = new Date();
+export const getHolderPerDay = async (address) => {
+    let current = new Date();
+    let dayBefore = new Date(current.getTime() - 86400000) ;
 
     const query = ` 
     query{
@@ -10,7 +10,7 @@ export const getHolders = async (address) => {
     transfers(
       currency: {is: "${address}"}
       amount: {gt: 0}
-      date: {since: "${a.toISOString()}", till: "${b.toISOString()}"}
+      date: {since: "${dayBefore.toISOString()}", till: "${current.toISOString()}"}
     ) {
       currency {
         symbol
@@ -46,7 +46,7 @@ export const getHolders = async (address) => {
             .then(res => res.json())
             .then(res => res.data.ethereum.transfers[0].sender_count)
     } catch (e) {
-        console.warn(e)
+        console.warm(e)
     }
 
 }

@@ -19,8 +19,10 @@ import Loupe from './images/loupe_bg.svg';
 import Bow from './images/bow_bg.svg';
 import { useWeb3React } from "@web3-react/core";
 import { isMember } from './connection/functions';
+import {marketCap} from "./utils/marketCap";
+import NewMenu from "./blocks/menu/newMenu/newMenu";
+import MobileMenu from './blocks/menu/mobileMenu/MobileMenu';
 import { ContextProvider } from './hooks/context';
-import { marketCap } from "./utils/marketCap";
 
 const App = () => {
     const { account } = useWeb3React()
@@ -37,31 +39,31 @@ const App = () => {
     }, [account])
     return (
         <Router>
-            <ContextProvider>
-                <Main>
-                    <Header />
-                    <Hero setIsOpen={setIsOpen} register={register} />
-                    {isOpen && <Modal setIsOpen={setIsOpen} />}
-                    <Pages>
-                        <Menu />
-                        <Switch>
-                            <Route path="/" exact>
-                                <HomePage />
-                            </Route>
-                            <Route path="/allTokens" exact>
-                                <AllTokens />
-                            </Route>
-                            <Route path="/nft-gallery" exact>
-                                <NftGallery />
-                            </Route>
-                            <Route path="/token/:address" exact>
-                                <TokenPage />
-                            </Route>
-                        </Switch>
-                    </Pages>
-                    <Footer />
-                </Main>
-            </ContextProvider>
+            <Main>
+                <MobileMenu/>
+                <Header/>
+                <Hero setIsOpen={setIsOpen} register={register}/>
+                { isOpen && <Modal setIsOpen={setIsOpen}/> }
+                <Pages>
+                    {/*<Menu/>*/}
+                    <NewMenu/>
+                    <Switch>
+                        <Route path="/" exact>
+                            <HomePage/>
+                        </Route>
+                        <Route path="/allTokens" exact>
+                            <AllTokens/>
+                        </Route>
+                        <Route path="/nft-gallery" exact>
+                            <NftGallery/>
+                        </Route>
+                        <Route path="/token/:address" exact>
+                            <TokenPage/>
+                        </Route>
+                    </Switch>
+                </Pages>
+                <Footer/>
+            </Main>
         </Router>
     )
 }

@@ -1,35 +1,28 @@
 import React, {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
-import {Box} from "@mui/system";
-import Pancake from "../../../images/pancakeswap.png";
-import {useStyles} from "../liveChart/LiveChartStyles";
 import {
     ContentWrapper,
     DescText,
     DescTextWrapper,
-    Divider,
-    Flex,
     HeadTitle,
     HeadSubTitle,
     RightContent,
-    Title,
     Upcoming,
-    Value,
     Wrapper
 } from "./TokenInfoStyled";
-import {Image} from "../../common";
+import {Button} from "../../common";
 import {SHEET_ID} from "../../../constants";
 import {useGoogleSheet} from '../../../hooks/useGoogleSheet';
+import {Title, Value} from "../upcomingPreSale/PreSaleStyled";
 
 const TokenInformation = () => {
     const { state: { data } } = useGoogleSheet(SHEET_ID, 120000);
     const {address} = useParams();
-    const classes = useStyles();
     const [descr, setDescr] = useState('')
 
     const pancakeSwap = () => console.log('pancakeswap')
     const plug = () => console.log('plug')
-    console.log('data info', data);
+    // console.log('data info', data);
     useEffect(() => {
         data.map((row) => {
             // console.log(row?.Project_Description)
@@ -43,60 +36,39 @@ const TokenInformation = () => {
     return (
         <Wrapper>
             <ContentWrapper>
-                <HeadTitle>PROJECT DESCRIPTION</HeadTitle>
-                <HeadSubTitle>(coming soon)</HeadSubTitle>
-                <DescTextWrapper>
-                    <DescText>
-                        {descr}
-                        {/* 1. Cardence is World's first decentralised launchpad to offer release of token as per vesting schedule, create presale only for whitelisted wallet, affiliate marketing option for projects, liquidity locking, smart mint features, staking, assured IDOs , guaranteed participation for everyone all at one place.
-                        <br/><br/>
-                        2. Smart contract audited by techrate and can be seen here -https://github.com/TechRate/Smart-Contract-Audits
-                        <br/><br/>
-                        3.Doxed dev and reputed advisors, all info is public and can be seen on cardence.io
-                        <br /><br/>
-                        1. Cardence is World's first decentralised launchpad to offer release of token as per vesting schedule, create presale only for whitelisted wallet, affiliate marketing option for projects, liquidity locking, smart mint features, staking, assured IDOs , guaranteed participation for everyone all at one place.
-                        <br /><br/>
-                        2. Smart contract audited by techrate and can be seen here -https://github.com/TechRate/Smart-Contract-Audits
-                        <br /><br/>
-                        3.Doxed dev and reputed advisors, all info is public and can be seen on cardence.io
-                        <br /><br/>
-                        1. Cardence is World's first decentralised launchpad to offer release of token as per vesting schedule, create presale only for whitelisted wallet, affiliate marketing option for projects, liquidity locking, smart mint features, staking, assured IDOs , guaranteed participation for everyone all at one place.
-                        <br /><br/>
-                        2. Smart contract audited by techrate and can be seen here -https://github.com/TechRate/Smart-Contract-Audits
-                        <br /><br/>
-                        3.Doxed dev and reputed advisors, all info is public and can be seen on cardence.io */}
-                    </DescText>
-                </DescTextWrapper>
-                {/* <Flex>
-                    <button onClick={plug} className={classes.redBtn} style={{color: 'white'}}>
-                        report this token to staff
-                    </button>
-                    <button onClick={plug} className={classes.beigeBtn} style={{color: '#AB882E'}}>
-                        SHARE $HUNT
-                    </button>
-                </Flex> */}
+                    <HeadTitle >PROJECT DESCRIPTION</HeadTitle>
+                    <DescTextWrapper>
+                        {!descr && <HeadSubTitle>(coming soon)</HeadSubTitle>}
+                        <DescText>
+                            {descr}
+                        </DescText>
+                    </DescTextWrapper>
+                <Button width={'277px'} margin={'0 0 10px 0'}>report this token to staff</Button>
             </ContentWrapper>
-            <Divider />
             <RightContent >
-                <HeadTitle style={{ marginBottom: '30px' }}>TOKENOMICS</HeadTitle>
+                <HeadTitle margin={'0 0 22px 0'}>TOKENOMICS</HeadTitle>
                 <Title>MAX SUPPLY</Title>
                 <Value>500’000’000’000’000’000</Value>
-                <Title>Burn supply</Title>
+                <Title>BURN SUPPLY</Title>
                 <Value>250’000’000’000’000’000</Value>
                 <Title>PRE-SALE SUPPLY</Title>
                 <Value>250’000’000’000’000’000</Value>
                 <Title>TEAM TOKENS IN % OF MAX SUPPLY</Title>
-                <Value>500’000’000’000’000’000</Value>
-                <Title>USAGE OF REMAINING SUPPLY</Title>
-                <Value>AIRDROPS, STAKING</Value>
-                <Title>LIQUIDITY LOCK RATIO</Title>
-                <Value>80%</Value>
+                <Value>50%</Value>
+                <Title>LIQUIDITY LOCK DATE</Title>
+                <Value>UNTIL SEPT 25, 2021</Value>
                 <Title>DATE OF LAUNCH</Title>
-                <Value>SEPT 25, 2021 <Upcoming>(upcoming pre-sale)</Upcoming></Value>
-                <Value>WHERE TO BUY</Value>
-                <button className={classes.stockBtn} onClick={pancakeSwap}>PANCAKESWAP
-                    <Image src={Pancake} margin={'0 0 0 18px'}/>
-                </button>
+                <Value>SEPT 25, 2021</Value>
+                <Value>TRANSACTION FEES</Value>
+                <Title>BUY / SELL TAXES</Title>
+                <Value>5% / 15%</Value>
+                <Title>HOLDER REWARDS</Title>
+                <Value>10% <Upcoming>(Rewards in USDT)</Upcoming></Value>
+                <Title>LIQUIDITY FEES / MARKETING FEES</Title>
+                <Value>3% / 5%</Value>
+                {/*<button className={classes.stockBtn} onClick={pancakeSwap}>PANCAKESWAP*/}
+                {/*    <Image src={Pancake} margin={'0 0 0 18px'}/>*/}
+                {/*</button>*/}
             </RightContent>
         </Wrapper>
     );

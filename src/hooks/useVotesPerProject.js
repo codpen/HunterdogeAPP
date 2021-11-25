@@ -18,7 +18,7 @@ export const useVotesPerProject = (address) => {
             }
         }
         call()
-    }, [])
+    }, [address])
 
     return state;
 }

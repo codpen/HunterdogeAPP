@@ -51,7 +51,7 @@ const Tab = styled.div`
     &:hover {
       border: 1px solid #B78300;
       border-bottom: 1px solid rgba(183, 131, 0, 0.5);
-      font-weight: 800
+      font-weight: 800;
       & span{
         font-weight: 800;
       }

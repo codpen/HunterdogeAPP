@@ -15,6 +15,7 @@ import Paws from '../images/paws_bg.svg';
 import Loupe from '../images/loupe_bg.svg';
 import Bow from '../images/bow_bg.svg';
 import Footer from '../blocks/footer';
+import GoTop from '../components/GoTop';
 
 const HomePage = () => {
 
@@ -33,7 +34,7 @@ const HomePage = () => {
     //   >
         
     //   <Menu/>
-
+      
       <Box
         sx={{
           mx: '65px',
@@ -49,6 +50,7 @@ const HomePage = () => {
         </Stack>
         <PopularTokens/>
         <PopularPreSales/>
+        <GoTop scrollStepInPx="100" delayInMs="10.50"/>
       </Box>
 
     //   <Stack>

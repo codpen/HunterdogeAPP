@@ -117,7 +117,7 @@ export const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  text-align: center;
   
 
   span {
@@ -129,11 +129,11 @@ export const Card = styled.div`
     color: #B78300;
     margin-bottom: 9px;
   }
-
-  p {
+`
+export const CardInfo = styled.p`
     width: 176px;
     height: 42px;
-    background: ${({color}) => color || 'transparent'};
+    background: ${({color}) => color || '#FAF0CB'};
     border-radius: 25px;
     border: 2px solid rgba(183, 131, 0, 0.5);
     box-shadow: 1px 3px 0 rgba(0, 0, 0, 0.1);
@@ -141,17 +141,18 @@ export const Card = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-
+    margin-top: ${({mt}) => mt || 'auto'};
     padding: 11px 0;
     font-style: normal;
     font-weight: bold;
     font-size: 20px;
     line-height: 20px;
     color: #B78300;
-  }
+
 `
 
 export const Text = styled.p`
+  position: relative;
   font-family: Raleway;
   font-style: normal;
   font-weight: ${({weight}) => weight || '600'};
@@ -159,12 +160,84 @@ export const Text = styled.p`
   line-height: ${({size}) => size || '18px'};
   margin: ${({margin}) => margin || '0'};
   text-transform: uppercase;
-  color: #AB882E;
+  color: ${({color}) => color || '#AB882E'};
+  cursor: ${({cursor}) => cursor};
 `
 export const IcoWrapper = styled.div` 
   width: 72.13px;
-  height: 72.13px;
+  /* height: 72.13px; */
+  height: ${({height}) => height || '72.13px'};
   /* border-radius: 50%; */
   display: flex;
-  margin-bottom: ${({mb}) => mb || '22px'};
+  margin-top: ${({mt}) => mt || 0};
+  margin-bottom: 22px;
+`
+
+export const WrapperBadges = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 15px 0 0 0;
+  padding: 0 25px;
+  height: 112px;
+    & svg:nth-child(odd) {
+      margin-right: 20px;
+      margin-bottom: 20px;
+    }
+`
+
+export const SocialWrapper = styled.div`
+  width: 209px;
+  height: 30px;
+
+  display: flex;
+  justify-content: space-between;
+`
+
+export const LinkStyled = styled.a`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background: rgba(171, 136, 46, 0.5);
+  border-radius: 40.4097px;
+    &:hover {
+      background-color: rgba(171, 136, 46, 0.8);
+    }
+`
+
+export const Popup = styled.div`
+  position: absolute;
+  width: ${({width}) => width ? width : '462px' };
+  height: ${({height}) => height ? height : '97px' };
+  left: ${({left}) => left ? left : '170px' };
+  top: -30px;
+  padding: 17px 19px 17px 32px;
+  background: #FFF599;
+  border: 3px solid #FAF0CB;
+  box-sizing: border-box;
+  text-align: start;
+  box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  z-index: 3;
+    &::before {
+      content: ''; 
+      position: absolute;
+      top: 15px;
+      left: -39px;
+      border: 15px solid transparent;
+      border-right: 25px solid #FFF599;
+    }
+`
+
+export const TextPopup = styled.div`
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: ${({fw}) => fw ? fw : 800 };
+  font-size: 15px;
+  line-height: ${({lh}) => lh ? lh : '22px' };
+  color: ${({color}) => color ? color : '#AB882E'};
+  margin-bottom: ${({mb}) => mb ? mb : 0};
+  text-transform: capitalize;
 `

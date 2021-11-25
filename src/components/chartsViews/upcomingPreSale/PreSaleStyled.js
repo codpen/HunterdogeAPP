@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   background: #FFFFFF;
   box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.1);
   border-radius: 25px;
-  padding: 30px 5px 25px 52px;
+  padding: ${({padding}) => padding || '30px 5px 25px 52px'};
 `
 
 export const Flex = styled.div`
@@ -30,7 +30,7 @@ export const Title = styled.p`
   font-size: 15.57px;
   line-height: 15px;
   text-transform: uppercase;
-  color: #B78300;
+  color: #B78300;    
 `
 
 export const Value = styled.p`
@@ -159,13 +159,6 @@ export const SocialWrapper = styled.div`
 export const ContentWrapper = styled.div`
   display: flex;
   margin-top: 18px;
-  //@media (min-width: 1600px) {
-  //  margin-right: 61px;
-  //}
-  //
-  //@media (max-width: 1600px) {
-  //  width: 60%;
-  //}
 `
 
 export const ParticipationWrapper = styled.div`

@@ -20,16 +20,17 @@ const useStyles = makeStyles({
         zIndex: 100,
         position: "absolute",
         top: '10%',
-        left: '100%',
+        left: '50%',
         right: 0,
         margin: '0 auto',
         padding: '66px 160px 52px',
         width: '926px',
-        height: '663px',
+        height: '639px',
         background: '#FFF',
         border: '6px solid  #AB882E',
         boxSizing: 'border-box',
         borderRadius: '60px',
+        transform: 'translateX(-50%)'
     },
     btn: {
         fontSize: '10px',
@@ -57,14 +58,14 @@ const useStyles = makeStyles({
     }
 });
 
-const ContactModal = ({ setIsOpen }) => {
+const ReportTokenModal = ({ setIsOpen }) => {
     const classes = useStyles();
 
     function sendMail() {
       var link = "mailto:info@hunterdoge.com"
     + "?cc="
     + "&subject=" + escape("Information")
-    + "&body=" + escape(`${document.getElementById('Message').value} \n My e-mail: ${document.getElementById('Email').value}`);
+    + "&body=" + escape(`${document.getElementById('Message').value}`)
     
     window.location.href = link;
     }
@@ -74,7 +75,7 @@ const ContactModal = ({ setIsOpen }) => {
             <button className={classes.btnClose} onClick={() => setIsOpen(false)}>X</button>
             <div className={classes.wrapper}>
                 <Box component='h4' sx={{fontSize: '60px', mb: '26px', textAlign: 'center', lineHeight: '58px', color: '#000000'}}>
-                    contact us
+                  report this token
                 </Box>
                 <Typography sx={{fontSize: '25px', textAlign: 'center', lineHeight: '25px', mb: '24px', textTransform: 'uppercase', color: '#000000'}}>
                     Please leave your message below.
@@ -84,10 +85,6 @@ const ContactModal = ({ setIsOpen }) => {
                     id="Message"
                     />
                 </label>
-                <Typography sx={{fontSize: '25px', textAlign: 'center', lineHeight: '25px', mb: '14px', mt:'34px', textTransform: 'uppercase', color: '#000000'}}>
-                    your e-mail
-                </Typography>
-                <InputEmail id="Email" />
             </div>
             <Box component='div' sx={{ mt: '38px', width: 257, mx: 'auto'}}>
               <Button
@@ -98,12 +95,12 @@ const ContactModal = ({ setIsOpen }) => {
     );
 };
 
-export default ContactModal;
+export default ReportTokenModal;
 
 
 const InputMessage = styled.textarea`
   width: 604px;
-  height: 206px;
+  height: 311px;
   padding: 15px;
   background: #FFF599;
   border: 2.72138px solid #9F7E04;
