@@ -70,17 +70,19 @@ const AllTokensTable = (isTitle) => {
         if (option.securityAudit && option.securityAudit.toString().toLowerCase() != item.Project_ISKYC.toLowerCase()) return false;
         if (option.doxxedTeam && option.doxxedTeam.toString().toLowerCase() != item.Project_ISDOX.toLowerCase()) return false;
         if (option.useCase && option.useCase.toString().toLowerCase() != item.Project_HasUtility.toLowerCase()) return false;
-        if (option.project == 'vote') {
-          if(option.cond === 'high') {
-            return getVotesPerProject(projectAddress) >= option.value
+        if(option.project) {
+          if (option.project == 'vote') {
+            if(option.cond === 'high') {
+              return getVotesPerProject(projectAddress) >= option.value
+            } else {
+              return getVotesPerProject(projectAddress) <= option.value
+            }
           } else {
-            return getVotesPerProject(projectAddress) <= option.value
-          }
-        } else {
-          if(option.cond === 'high') {
-            return item[fieldMap[option.field]] >= option.value
-          } else {
-            return item[fieldMap[option.field]] <= option.value
+            if(option.cond === 'high') {
+              return item[fieldMap[option.field]] >= option.value
+            } else {
+              return item[fieldMap[option.field]] <= option.value
+            }
           }
         }
         return true
@@ -140,13 +142,13 @@ const AllTokensTable = (isTitle) => {
               <TableHead>
                 <TableRow>
                   <TableCell>#Rank</TableCell>
-                  <TableCell sx={{ textAlign: 'left' }}>name</TableCell>
+                  <TableCell sx={{ textAlign: 'left' }}>Name</TableCell>
                   <TableCell>Ticker</TableCell>
                   <TableCell>MCAP</TableCell>
                   <TableCell>Price</TableCell>
                   <TableCell>Liq / Mcap<br /> Ratio</TableCell>
-                  <TableCell>holders</TableCell>
-                  <TableCell>Popularity</TableCell>
+                  <TableCell>Holders</TableCell>
+                  <TableCell>Ø Holder growth per day</TableCell>
                   <TableCell sx={{ textAlign: 'left' }}>Votes</TableCell>
                 </TableRow>
               </TableHead>
