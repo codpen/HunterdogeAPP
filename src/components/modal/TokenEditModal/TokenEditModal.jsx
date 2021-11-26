@@ -1,18 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import { useWeb3React } from "@web3-react/core";
 import Card from '@material-ui/core/Card';
 import {makeStyles} from "@material-ui/styles";
 import {Box} from "@mui/system";
 import Button from "@material-ui/core/Button";
 import styled from 'styled-components';
-
+import { GoogleSheetContext } from '../../../contexts/GoogleSheetProvider';
 import TokenEditModalGeneralPage from './TokenEditModalGeneralPage';
 import TokenEditModalTokenomicsPage from './TokenEditModalTokenomicsPage'
 import TokenEditModalPresalePage from './TokenEditModalPresalePage';
 import Pagination from '../../pagination/Pagination';
-import {useGoogleSheet} from '../../../hooks/useGoogleSheet';
-import {SHEET_ID} from "../../../constants";
-
 
 const useStyles = makeStyles({
     modal: {
@@ -73,7 +70,7 @@ const TokenEditModal = ({ setIsOpen, tokenAddress, tokenData }) => {
     const classes = useStyles();
     const { account } = useWeb3React()
     const [page, setPage] = useState(1)
-    const { addTokenInfo } = useGoogleSheet(SHEET_ID, 120000)
+    const { addTokenInfo } = useContext(GoogleSheetContext)
     const [tokenInfo, setTokenInfo] = useState(null)
     const [isDisableSaveBtn, setIsDisableSaveBtn] = useState(false)
 

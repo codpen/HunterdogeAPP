@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {useParams} from 'react-router-dom';
 import {
     ContentWrapper,
@@ -11,12 +11,11 @@ import {
     Wrapper
 } from "./TokenInfoStyled";
 import {Button} from "../../common";
-import {SHEET_ID} from "../../../constants";
-import {useGoogleSheet} from '../../../hooks/useGoogleSheet';
 import {Title, Value} from "../upcomingPreSale/PreSaleStyled";
+import { GoogleSheetContext } from '../../../contexts/GoogleSheetProvider';
 
 const TokenInformation = () => {
-    const { state: { data } } = useGoogleSheet(SHEET_ID, 120000);
+    const { data } = useContext(GoogleSheetContext);
     const {address} = useParams();
     const [descr, setDescr] = useState('')
 

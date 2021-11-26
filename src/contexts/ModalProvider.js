@@ -1,6 +1,6 @@
 import React, { useState, createContext } from 'react'
 
-const Context = createContext({
+export const ModalContext = createContext({
     openModal: false,
     setOpenModal: () => { },
     openSearch: false,
@@ -10,7 +10,7 @@ const Context = createContext({
     removeSearchOption: () => {}
 })
 
-const ContextProvider = ({ children }) => {
+const ModalContextProvider = ({ children }) => {
     const [openModal, setOpenModalValue] = useState(false)
     const [openSearch, setOpenSearchValue] = useState(true)
     const [searchOption, setSearchOptionValue] = useState([])
@@ -58,10 +58,10 @@ const ContextProvider = ({ children }) => {
     /*eslint-enable */
 
     return (
-        <Context.Provider value={contextState}>
+        <ModalContext.Provider value={contextState}>
             {children}
-        </Context.Provider>
+        </ModalContext.Provider>
     )
 }
 
-export { Context, ContextProvider }
+export default ModalContextProvider;

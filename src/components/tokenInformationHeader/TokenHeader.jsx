@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {useParams} from 'react-router-dom'
 import { useWeb3React } from "@web3-react/core";
 import LogoImage from '../../images/big_logo.png'
@@ -21,7 +21,7 @@ import {BadgesWrapper, Card, HeadTitle, InfoWrapper, Inner, Label, Substrate, Te
 import {Button, Flex, Image, LinkWrapper, Link_} from '../common'
 import {Votes} from "../common/votes";
 import {getMCap, getSymbol, getName} from '../../connection/functions'
-import {useGoogleSheet} from '../../hooks/useGoogleSheet';
+import { GoogleSheetContext } from '../../contexts/GoogleSheetProvider';
 import {SHEET_ID} from "../../constants";
 import Telegram from "../../images/table/telegram.svg";
 import Twitter from "../../images/table/twitter.svg";
@@ -48,7 +48,7 @@ const TokenHeader = () => {
     const {address} = useParams()
     const { account } = useWeb3React()
     const visitWebsite = () => console.log('visit website')
-    const { state: { data } } = useGoogleSheet(SHEET_ID, 120000)
+    const { data } = useContext(GoogleSheetContext)
     const [isTokenEditModal, setIsTokenEditModal] = useState(false)
     const [checkProjectManager, setCheckProjectManager] = useState(false)
     const [tokenData, setTokenData] = useState({})

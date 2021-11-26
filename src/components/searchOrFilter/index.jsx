@@ -1,15 +1,11 @@
 import { useContext, useState } from 'react';
 import { Box, width } from '@mui/system';
 import { Button, Stack, Input, MenuItem, Typography } from '@mui/material';
-
 import hunterdogeSearch from '../../images/hunterdoge_search.png';
-
 import SearchInput from '../searchInput';
 import SelectForm from '../selectForm';
 import ButtonCheckbox from '../buttonCheckbox';
-
-import { Context } from '../../hooks/context';
-
+import { ModalContext } from '../../contexts/ModalProvider';
 
 const marketCap = [
   { value: 'mcap', label: 'Market Cap' },
@@ -36,8 +32,7 @@ const condList = [
 ]
 
 const SearchOrFilter = () => {
-  const context = useContext(Context)
-
+  const context = useContext(ModalContext)
   const [search, setSearch] = useState('')
   const [field, setField] = useState('vote')
   const [direct, setDirect] = useState('desc')

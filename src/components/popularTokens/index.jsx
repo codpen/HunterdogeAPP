@@ -1,8 +1,9 @@
+import React, { useContext } from 'react';
 import {Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@material-ui/core';
 import {Box} from '@mui/system';
 
 import {Link} from 'react-router-dom';
-import {useGoogleSheet} from '../../hooks/useGoogleSheet';
+import { GoogleSheetContext } from '../../contexts/GoogleSheetProvider';
 import hunterdoge from '../../images/hunterdoge.png';
 
 import {useState} from 'react';
@@ -33,9 +34,8 @@ const tabs = [
 
 const PopularTokens = () => {
     const [value, setValue] = useState(0)
-    const { state: { data } } = useGoogleSheet(SHEET_ID, 120000)
+    const { data } = useContext(GoogleSheetContext)
     const [partActive, setPartActive] = useState(1)
-    console.log('data', data)
 
     const filterOneDay = data?.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (24 * 60 * 60 * 1000))
     const filterWeek = data?.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (7 * 24 * 60 * 60 * 1000))
