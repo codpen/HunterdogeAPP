@@ -11,13 +11,14 @@ export const useGoogleSheet = (id, time = 30000) => {
     })
 
     useEffect(() => {
+        const authorize = async () => {
+            await doc.useServiceAccountAuth({
+                client_email: CLIENT_EMAIL,
+                private_key: PRIVATE_KEY,
+            });
+        }
         const fetchSheet = async () => {
             try {
-                await doc.useServiceAccountAuth({
-                    client_email: CLIENT_EMAIL,
-                    private_key: PRIVATE_KEY,
-                });
-
                 // loads document properties and worksheets
                 await doc.loadInfo();
                 const sheet = doc.sheetsById[id];
@@ -27,19 +28,20 @@ export const useGoogleSheet = (id, time = 30000) => {
                 setState({data: [], error: e, isLoading: false})
             }
         };
-        let timer;
-        if (id) {
-            fetchSheet()
-            if (time) {
-                timer = setInterval(() => {
-                    fetchSheet()
-                }, time)
+        authorize().then(() => {
+            let timer;
+            if (id) {
+                fetchSheet()
+                if (time) {
+                    timer = setInterval(() => {
+                        fetchSheet()
+                    }, time)
+                }
+            } else {
+                setState({error: 'You need to set id'})
             }
-        } else {
-            setState({error: 'You need to set id'})
-        }
-
-        return () => clearInterval(timer)
+            return () => clearInterval(timer)
+        });
     }, [id])
 
     return state;

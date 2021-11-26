@@ -48,12 +48,14 @@ const GoogleSheetContextProvider = (props) => {
     }
 
     useEffect(() => {
+        const authorize = async () => {
+            await doc.useServiceAccountAuth({
+                client_email: CLIENT_EMAIL,
+                private_key: PRIVATE_KEY,
+            });
+        }
         const fetchSheet = async () => {
             try {
-                await doc.useServiceAccountAuth({
-                    client_email: CLIENT_EMAIL,
-                    private_key: PRIVATE_KEY,
-                });
                 // loads document properties and worksheets
                 await doc.loadInfo();
                 const sheet = doc.sheetsById[id];
@@ -65,20 +67,22 @@ const GoogleSheetContextProvider = (props) => {
                 setState({error: e, isLoading: false})
             }
         };
-        let timer;
-        if (id) {
-            fetchSheet()
-            if (time) {
-                timer = setInterval(() => {
-                    fetchSheet()
-                }, time)
+        authorize().then(() => {
+            let timer;
+            if (id) {
+                fetchSheet()
+                if (time) {
+                    timer = setInterval(() => {
+                        fetchSheet()
+                    }, time)
+                }
+            } else {
+                setState({error: 'You need to set id'})
             }
-        } else {
-            setState({error: 'You need to set id'})
-        }
-
-        return () => clearInterval(timer)
-    },[id])
+            return () => clearInterval(timer)
+        });
+       
+    }, [id])
 
     return (
         <GoogleSheetContext.Provider value={{ data, addTokenInfo }}>
