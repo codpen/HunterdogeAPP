@@ -6,7 +6,7 @@ import {SHEET_ID_BANNER} from "../../constants";
 import { useGoogleSheet } from '../../hooks/useGoogleSheet';
 
 const BlockHunt = () => {
-    const { state: { data } } = useGoogleSheet(SHEET_ID_BANNER)
+    const { data } = useGoogleSheet(SHEET_ID_BANNER)
 
     return (
         <Stack
@@ -20,7 +20,7 @@ const BlockHunt = () => {
               flexShrink: 0,
             justifyContent: 'space-around',
           }}>
-            {data[0] ? (
+            {data.length > 0 ? (
                 data.map((banner, index) => {
                     if(index <= 2) {
                         return (

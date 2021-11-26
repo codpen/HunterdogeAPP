@@ -13,7 +13,6 @@ import {
 import { Box } from '@mui/system';
 import info from '../../images/info_ico.svg';
 
-import { useGoogleSheet } from '../../hooks/useGoogleSheet';
 import React, { useContext, useEffect, useState } from 'react';
 import TabPanel from '../TabPanel'
 import Pagination from '../pagination/Pagination';
@@ -24,7 +23,8 @@ import { Link } from "react-router-dom";
 import TabsStyled from '../Tabs/Tabs';
 import { paginate } from "../pagination/paginate";
 
-import { Context } from '../../hooks/context';
+import { ModalContext } from '../../contexts/ModalProvider'
+import { GoogleSheetContext } from '../../contexts/GoogleSheetProvider';
 import { filter } from 'cheerio/lib/api/traversing';
 import { data } from 'cheerio/lib/api/attributes';
 
@@ -38,7 +38,7 @@ const fieldMap = {
 }
 
 const AllTokensTable = (isTitle) => {
-  const context = useContext(Context)
+  const context = useContext(ModalContext)
   const [currentData, setCurrentData] = useState({ newData: [], currentPage: 0, endPage: 0 })
 
   let tabs = []
@@ -49,7 +49,7 @@ const AllTokensTable = (isTitle) => {
   tabs = [...tabs, { label: "All time", close: false }]
 
   const [value, setValue] = useState(0)
-  const { state: { data } } = useGoogleSheet(SHEET_ID, 120000)
+  const { data } = useContext(GoogleSheetContext)
   const [partActive, setPartActive] = useState(1)
   //checkbox and pagination button
   const [perPage, setPerPage] = useState(25)
@@ -148,7 +148,7 @@ const AllTokensTable = (isTitle) => {
                   <TableCell>Price</TableCell>
                   <TableCell>Liq / Mcap<br /> Ratio</TableCell>
                   <TableCell>Holders</TableCell>
-                  <TableCell>Ø Holder growth per day</TableCell>
+                  <TableCell sx={{fontSize: '16px', width: '142px'}}>&Oslash; Holder<br/>growth per day</TableCell>
                   <TableCell sx={{ textAlign: 'left' }}>Votes</TableCell>
                 </TableRow>
               </TableHead>
@@ -166,10 +166,10 @@ const AllTokensTable = (isTitle) => {
         <Stack direction="row" justifyContent="space-between" sx={{ mt: 3, px: 2 }}>
           <CheckboxShow perPage={perPage} handleCheck={setPerPage} />
           <Pagination start={currentData.currentPage} end={currentData.endPage} pageHandler={setPage} page={page} />
-          <Button variant="transparent" sx={{ ml: '380px' }}
+          {/* <Button variant="transparent" sx={{ ml: '380px' }}
             onClick={() => backToTop()}>
             go back top
-          </Button>
+          </Button> */}
         </Stack>
       </Box>
     </Stack>

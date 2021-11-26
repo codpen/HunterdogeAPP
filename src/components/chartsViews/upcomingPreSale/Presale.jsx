@@ -1,48 +1,28 @@
 import React from 'react';
+import {HeadTitle, RightContent,} from "../tokenInformation/TokenInfoStyled";
 import {
-    Divider,
-    HeadTitle,
-    RightContent,
-
-} from "../tokenInformation/TokenInfoStyled";
-import Instagram from "../../../images/socialBg/instagram.svg";
-import Reddit from "../../../images/socialBg/reddit.svg";
-import Medium from "../../../images/socialBg/medium.svg";
-import Telegram from "../../../images/socialBg/telegram.svg";
-import Twitter from "../../../images/socialBg/twitter.svg";
-import {
-    ContentWrapper,
-    SocialWrapper,
-    Value,
-    Title,
-    ActionButton,
-    ActionGoal,
-    ActionTitle,
-    ActionWrapper,
     Banner,
     BannerWrapper,
     Block,
+    ContentWrapper,
     Flex,
     ParticipationButton,
     ParticipationWrapper,
     PerBnb,
-    LinkStyled,
-    Wrapper,
-    Text
+    Text,
+    Title,
+    Value,
+    Wrapper
 } from './PreSaleStyled'
 
-import {Link} from "react-router-dom";
 import {Button} from "../../common";
 
 const PreSale = () => {
-
-    const website = () => console.log('website')
-    const bscScan = () => console.log('bscScan')
     const participationLink = () => console.log('participationLink')
 
     return (
         <Wrapper>
-            <HeadTitle size={'30px'}>Presale information</HeadTitle>
+            <HeadTitle align={'center'} size={'30px'}>Presale information</HeadTitle>
             <ContentWrapper>
                 <BannerWrapper>
                     <Banner>
@@ -58,7 +38,7 @@ const PreSale = () => {
                         <Button width={'277px'}>report this token to staff</Button>
                     </Flex>
                 </BannerWrapper>
-                <RightContent>
+                <RightContent width={'400px'}>
                     <Title>token name</Title>
                     <Value>DotPad</Value>
                     <Title>token ticker</Title>

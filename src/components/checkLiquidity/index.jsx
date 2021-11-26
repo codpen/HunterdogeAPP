@@ -1,21 +1,17 @@
 import { Typography } from '@material-ui/core';
 import { Button, Stack, CircularProgress } from '@mui/material';
 import { Box, width } from '@mui/system';
-
-import { ReactComponent as IconComponent } from '../../images/loupe_ico.svg';
-import logo from '../../images/hunter_logo.png';
 import SearchInput from '../searchInput'
 import { useContext, useEffect, useState } from 'react';
 import { getPair, getBalanceWBNB, getBalanceToken, isHoneypot, toChecksumAddress } from '../../connection/functions'
-import { useGoogleSheet } from '../../hooks/useGoogleSheet';
+import { GoogleSheetContext } from '../../contexts/GoogleSheetProvider';
 import { usePrice } from '../../hooks/usePrice';
-import { SHEET_ID } from "../../constants";
 import { bscWBNBContact } from '../../connection/contracts';
-import { Context } from '../../hooks/context';
+import { ModalContext } from '../../contexts/ModalProvider';
 
 const CheckLiguidity = () => {
-  const context = useContext(Context)
-  const { state: { data } } = useGoogleSheet(SHEET_ID, 120000)
+  const context = useContext(ModalContext)
+  const { data } = useContext(GoogleSheetContext)
   const bnbPrice = usePrice(bscWBNBContact)
   const [getMoreInfo, setGetMoreInfo] = useState(false)
   const [spin, setSpin] = useState(false)

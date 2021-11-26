@@ -14,7 +14,10 @@ const Menu = () => {
   return(
     <Box
       sx={{
-        position: 'relative',
+        position: 'sticky',
+        top: '1em',
+        zIndex: 2,
+        paddingTop: '2em',
         width: '348px',
         height: '100%',
         backgroundColor: '#FAF0CB',
@@ -40,7 +43,7 @@ const Menu = () => {
           NFT GALLERY
         </Button>
         <a href="https://t.me/huntersground" target="_blank">
-          <Button variant="large" sx={{mb: 3}}>
+          <Button variant="large" sx={{mb: 3, lineHeight: '25px', height: 71}}>
             telegram shill bot
           </Button>
         </a>

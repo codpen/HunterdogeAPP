@@ -1,109 +1,139 @@
-import {makeStyles} from "@material-ui/styles";
+import styled from "styled-components";
 
-export const useStyles = makeStyles({
-    root: {
-        maxWidth: '1420px',
-        background: '#FFFFFF',
-        boxShadow: '5px 5px 0px rgba(0, 0, 0, 0.1)',
-        border: '3px solid #FFF3D4',
-        borderRadius: '25px',
-        borderTopLeftRadius: 0,
-        padding: '35px',
-        flexWrap: 'nowrap',
-    },
-    title: {
-        fontSize: '15.57px',
-        lineHeight: '15px',
-        fontWeight: '400',
-        marginTop: '24px',
-        textTransform: 'uppercase'
-    },
-    subTitle: {
-        fontSize: '19px',
-        lineHeight: '19px',
-        fontWeight: '800',
-        marginTop: '10px'
-    },
-    imgContainer: {
-        maxWidth: '828px',
-        width: '100%',
-        marginRight: '48px',
-    },
-    good: {
-        textAlign: 'center',
-        backgroundColor: '#CDFEC5',
-        color: '#4EC505',
-        padding: '5px 0',
-        height: '28px',
-        width: '64px',
-        fontSize: '19px',
-        borderRadius: '9px',
-        marginTop: '6px',
-    },
-    tabs: {
-        width: '177px',
-        height: '28px',
-        background: '#FFFBE2',
-        borderRadius: '9px',
-        padding: '8px 9px',
-        color: '#B78300',
-        fontSize: '12px',
-        lineHeight: '11px',
-        boxShadow: '2px 2px 0px rgb(0 0 0 / 10%)',
-        marginLeft: '42px',
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  max-width: 1039px;
+  background: #FFFFFF;
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  padding: 62px 21px 25px 30px;
+`
 
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    liveChartTitle: {fontSize: '21px', fontWeight: '800', lineHeight: '21px', marginRight: '22px'},
-    liveChartSubTitle: {fontSize: '21px', fontWeight: '300', fontStyle: 'italic', lineHeight: '21px'},
-    stats: {fontSize: '21px', fontWeight: '800', lineHeight: '21px', marginBottom: '11px'},
-    stockBtn: {
-        height: '46px',
-        padding: '6px 13px',
-        border: 'none',
-        background: '#FFFBE2',
-        borderRadius: '11px',
-        color: '#B78300',
-        fontWeight: '800',
-        fontSize: '18px',
-        boxShadow: '2px 2px 0px rgb(0 0 0 / 10%)',
-        cursor: 'pointer',
+export const ChartWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  height: auto;
+  width: 100%;
+`
+export const LiveChartTitle = styled.p`
+  font-family: Raleway,sans-serif;
+  font-size: 21px;
+  font-weight: 800;
+  color: #B78300;
+  line-height: 21px; 
+  margin-right: 22px;
+`
 
-        display: 'flex',
-        alignItems: 'center',
-    },
-    wrapperBtn: {
-        flexWrap: 'wrap',
-        gap: '7px',
-        marginTop: '10px',
-        maxWidth: '440px'
-    },
-    redBtn: {
-        width: '209px',
-        height: '29px',
-        background: '#EE7541',
-        borderRadius: '20px',
-        boxShadow: '4px 4px 0px rgb(0 0 0 / 10%)',
-        border: 'none',
-        cursor: 'pointer'
-    },
-    beigeBtn: {
-        marginLeft: '14px',
-        width: '158px',
-        height: '29px',
-        background: '#FFFBE2',
-        borderRadius: '20px',
-        boxShadow: '4px 4px 0px rgb(0 0 0 / 10%)',
-        border: 'none',
-        cursor: 'pointer'
-    },
-    divider: {
-        width: '2px',
-        height: '592px',
-        backgroundColor: '#FFFBE2',
-        marginRight: '29px',
-        marginTop: '23px'
+export const LiveChartSubtitle = styled.p`
+  font-family: Raleway,sans-serif;
+  font-size: 21px;
+  font-weight: 300;
+  color: #B78300;
+  line-height: 21px; 
+  font-style: italic;
+`
+
+export const Title = styled.p`
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: ${({weight}) => weight || '400'};;
+  font-size: ${({size}) => size || '15.57px'};
+  line-height: ${({size}) => size || '15px'};
+  color: #B78300;
+  margin: ${({margin}) => margin || '0 0 5px 0'};
+`
+
+export const Value = styled.p`
+  margin: ${({margin}) => margin || '0 0 19px 0'};
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: ${({weight}) => weight || '700'};
+  font-size: ${({size}) => size || '16px'};
+  line-height: ${({size}) => size || '15.7px'};
+  color: #B78300;
+`
+
+export const Changes24 = styled.p`
+  font-family: Raleway;
+  color: ${({up}) => up ? '#32C130' : '#FF0000'};
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 11.8px;
+  margin: ${({margin}) => margin || '5px 0 0 20px'};
+`;
+
+export const Good = styled.h5`
+  color: #4EC505;
+  font-family: ArmagedaWide, sans-serif;
+  text-transform: uppercase;
+  font-size: 19px;
+  line-height: 18.6px;
+  margin-left: 17px;
+`;
+
+export const LinkWrapper = styled.a`
+  height: 22px;
+  border: 0.7px solid #B78300;
+  box-shadow: 1.8px 1.8px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 9px;
+  padding: 4px 5px;
+  display: flex;
+  align-items: center;
+  
+  p {
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 13px;
+    line-height: 13px;
+    text-transform: uppercase;
+    color: #B78300;
+    margin-right: 7px;
+  }
+`;
+
+export const Tab = styled.div`
+  width: 129px;
+  height: 19px;
+  background: transparent;
+  box-shadow: 1.8px 1.8px 0 rgba(0, 0, 0, 0.1);
+  border: 0.7px solid #B78300;
+  box-sizing: border-box;
+  border-radius: 9px;
+  
+  margin-top: 10px;
+
+  font-family: Raleway, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 9px;
+  line-height: 9px;
+  text-transform: uppercase;
+  color: #B78300;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  p:first-child {
+    position: relative;
+    padding: 0 10px;
+    
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 1px;
+      height: 19px;
+      background-color: #B78300;
+      transform: translateY(-5px);
     }
-});
+  }
+  
+  p:last-child {
+    padding: 0 10px;
+  }
+`;

@@ -48,7 +48,6 @@ const TokenEditModalPresalePage = ({value, changeValue}) => {
     useEffect(() => {
         if (value) setData(value)
         else setData({})
-        console.log(data.has_Presale === 'TRUE', '------has')
     }, [value])
 
     const onChangeValue = (name, value) => {

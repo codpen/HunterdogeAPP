@@ -3,12 +3,13 @@ import {Link} from "react-router-dom";
 
 export const LinkWrapper = styled(Link)`
   text-decoration: none;
+  width: 100%;
 `
 export const Link_ = styled(Link)`
   text-decoration: none;
   font-family: Raleway;
   font-weight: 700;
-  color: #AB882E;
+  color: #B78300;
   font-size: ${({size}) => size || '30px'};
   line-height: ${({size}) => size || '30px'};
   margin: ${({margin}) => margin || '0'};
@@ -16,14 +17,13 @@ export const Link_ = styled(Link)`
   transition: 0.4s;
 
   &:hover {
-    color: #d5b562;
+    color: #AB882E;
   }
 `
 
-
 export const Text = styled.h3`
   font-family: Raleway;
-  font-weight: 700;
+  font-weight: ${({weight}) => weight || 700};
   font-size: ${({size}) => size || '30px'};
   line-height: ${({size}) => size || '30px'};
   margin: ${({margin}) => margin || '0'};
@@ -33,7 +33,7 @@ export const Text = styled.h3`
 export const Button = styled.button`
   width: ${({width}) => width || '100%'};
   height: ${({height}) => height || '36px'};
-  border: none;
+  border: ${({border}) => border || 'none'};
   cursor: pointer;
   background: ${({bg}) => bg || '#B78300'};
   box-sizing: border-box;
@@ -44,7 +44,7 @@ export const Button = styled.button`
 
   font-family: Raleway;
   font-style: normal;
-  font-weight: ${({weight}) => weight || '500'};
+  font-weight: ${({weight}) => weight || '700'};
 
   text-align: center;
   text-transform: uppercase;
@@ -205,4 +205,5 @@ export const Changes24 = styled.p`
   font-weight: bold;
   font-size: 12px;
   line-height: 11.8px;
+  margin-left: 8px;
 `;

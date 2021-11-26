@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {Button, Stack, Typography} from "@mui/material";
 import {Box} from "@mui/system";
 import styled from 'styled-components'
@@ -7,7 +7,7 @@ import logo from '../../images/hunter_logo.png';
 import ConnectMetaMask from '../../connection/ConnectMetaMask';
 
 import {SHEET_ID_BANNER} from "../../constants";
-import {useGoogleSheet} from '../../hooks/useGoogleSheet';
+import { GoogleSheetContext } from '../../contexts/GoogleSheetProvider';
 import {Image, LinkWrapper} from "../../components/common";
 import likeDark from "../../images/like_dark.svg";
 import chart from "../../images/chart_ico.svg";
@@ -111,7 +111,7 @@ const AdsToken = () => (
 const Hero = ({setIsOpen, register}) => {
     const {account} = useWeb3React()
     const state = usePrice(bscTokenContact)
-    const { state: { data } } = useGoogleSheet(SHEET_ID_BANNER)
+    const { data } = useContext(GoogleSheetContext)
     const [votes, setVotes] = useState(0)
     const [isModal, setIsModal] = useState(false)
     const [isTokenEditModal, setIsTokenEditModal] = useState(false)

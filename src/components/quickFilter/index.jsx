@@ -6,7 +6,7 @@ import { useContext, useEffect, useState } from 'react';
 import { ReactComponent as IconSelect } from '../../images/select_ico.svg';
 import ButtonCheckbox from '../buttonCheckbox';
 import SelectForm from '../selectForm';
-import { Context } from '../../hooks/context';
+import { ModalContext } from '../../contexts/ModalProvider';
 
 import { useHistory } from "react-router-dom";
 
@@ -32,7 +32,7 @@ const QuickFilter = () => {
   const [useCase, setUseCase] = useState(false)
   const [memeCoin, setMemeCoin] = useState(false)
 
-  const context = useContext(Context)
+  const context = useContext(ModalContext)
 
   const search = () => {
     history.push('/allTokens')

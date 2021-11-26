@@ -15,7 +15,7 @@ import Dx from "../../images/table/dx.svg";
 import { TableBody, TableHead } from '@mui/material';
 
 const Row = ({data, index}) => {
-    const {votes, error, isLoading} = useVotesPerProject(data.Project_Address)
+    // const {votes, error, isLoading} = useVotesPerProject(data.Project_Address)
     const [additional, setAdditional] = useState(false) 
 
     const mL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -33,21 +33,22 @@ const Row = ({data, index}) => {
     const yyyyLock = convertedDateLock.getFullYear()
     const timeFormatLock = convertedDateLock.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });
 
+    const linkAddress = data.Project_Address || data.Presale_Address
     return (
       <>
         <TableRow>
             <TableCell component="th" scope="row" style={{ width: '140px'}}>
                 <Stack direction="row" alignItems="center" >
-                    <Typography variant="h6" sx={{mr:'36px'}}>
+                    <Typography variant="h6" sx={{mr:'25px'}}>
                         {index+1}.
                     </Typography>
                     <Box component="img" src={data.Project_Logo} sx={{width: '66px'}}/>
                 </Stack>
             </TableCell>
             <TableCell style={{ padding: '6px 0px 6px 6px', width: '140px'}}>
-                <LinkWrapper to={`/token/${data.Project_Address}`}>
+                <LinkWrapper to={`/token/${linkAddress}`}>
                 <Stack sx={{textAlign: 'left'}}>
-                    <Typography variant="h5">
+                    <Typography variant="h5" sx={{fontSize: '15px'}}>
                         {data.Project_Name}
                     </Typography>
                     {/* <Typography variant="body2"
@@ -69,57 +70,59 @@ const Row = ({data, index}) => {
                 </LinkWrapper>
             </TableCell>
             <TableCell style={{ padding: '6px 6px'}}>
-                <Typography variant="h6" sx={{fontWeight: 900}}>
+                <Typography variant="h5" sx={{fontWeight: 900, fontSize: '15px'}}>
                     {data.Project_Symbol}
                 </Typography>
             </TableCell>
-            <TableCell style={{ padding: '6px 6px'}}>
+            <TableCell style={{ padding: '6px 20px 6px 15px', width: '160px'}}>
                 <Stack direction="row" justifyContent="space-between">
-                    <Typography variant="body1">
+                    <Typography variant="body1" sx={{fontSize: '15px'}}>
                         SOFT 
                     </Typography>
-                    <Typography variant="body1" sx={{fontWeight: 500}}>
+                    <Typography variant="body1" sx={{fontWeight: 500, fontSize: '14px'}}>
                         {data.Soft_Cap} BNB
                     </Typography>
                 </Stack>
                 <Stack direction="row" justifyContent="space-between">
-                    <Typography variant="body1">
+                    <Typography variant="body1" sx={{fontSize: '15px'}}>
                         HARD
                     </Typography>
-                    <Typography variant="body1" sx={{fontWeight: 500}}>
+                    <Typography variant="body1" sx={{fontWeight: 500, fontSize: '14px'}}>
                         {data.Hard_Cap} BNB
                     </Typography>
                 </Stack>
             </TableCell>
-            <TableCell style={{ padding: '6px 6px'}}>
+            <TableCell style={{ padding: '6px 10px 6px 6px', width: '170px'}}>
                 <Stack direction="row" justifyContent="space-between">
-                    <Typography variant="body1">
+                    <Typography variant="body1" sx={{fontSize: '15px'}}>
                         MIN.
                     </Typography>
-                    <Typography variant="body1" sx={{fontWeight: 500}}>
+                    <Typography variant="body1" sx={{fontWeight: 500, fontSize: '14px'}}>
                         {data.Min_Contribution} BNB
                     </Typography>
                 </Stack>
                 <Stack direction="row" justifyContent="space-between">
-                    <Typography variant="body1">
+                    <Typography variant="body1" sx={{fontSize: '15px'}}>
                         MAX.
                     </Typography>
-                    <Typography variant="body1" sx={{fontWeight: 500}}>
+                    <Typography variant="body1" sx={{fontWeight: 500, fontSize: '14px'}}>
                         {data.Max_Contribution} BNB
                     </Typography>
                 </Stack>
             </TableCell>
-            <TableCell style={{ padding: '6px', width: '140px'}}>
-                <Stack direction="row" alignItems="center">
-                      <SocialWrapper>
-                        <LinkStyled href={`https://bscscan.com/address/${data.Contract_Address}`} target="_blank"><Image src={Bsc} width={'22px'}/></LinkStyled>
-                        <LinkStyled href={data.Project_Telegram} target="_blank"><Image src={Telegram} width={'18px'}/></LinkStyled>
-                        <LinkStyled href={data.Project_Twitter} target="_blank"><Image src={Twitter} width={'19px'}/></LinkStyled>
-                        <LinkStyled href={data.Presale_Link} target="_blank"><Image src={Dx} width={'22px'}/></LinkStyled>
-                    </SocialWrapper>
-                    <Typography variant="table" sx={{width: '50px'}}>
-                        {/* {votes} */}
-                    </Typography>
+            <TableCell style={{ padding: '6px 16px 6px 6px'}}>
+                <SocialWrapper>
+                    <LinkStyled href={`https://bscscan.com/address/${data.Contract_Address}`} target="_blank"><Image src={Bsc} width={'22px'}/></LinkStyled>
+                    <LinkStyled href={data.Project_Telegram} target="_blank"><Image src={Telegram} width={'18px'}/></LinkStyled>
+                    <LinkStyled href={data.Project_Twitter} target="_blank"><Image src={Twitter} width={'19px'}/></LinkStyled>
+                    <LinkStyled href={data.Presale_Link} target="_blank"><Image src={Dx} width={'22px'}/></LinkStyled>
+                </SocialWrapper>
+            </TableCell>
+            <TableCell style={{ padding: '6px', width: '100px'}}>
+                <Stack direction="row" alignItems="center" sx={{width: '100px'}}>
+                    {/*<Typography variant="table" sx={{width: '50px'}}>*/}
+                    {/*    /!* {votes} *!/*/}
+                    {/*</Typography>*/}
                     <Button size={'10px'} width={'70px'} height={'25px'} target="_blank" onClick={() => window.open(data.Project_Website)}>Website</Button>
                     {!additional && <DoubleArr onClick={() => setAdditional(true)}>&gt;&gt;</DoubleArr>}
                     
@@ -133,7 +136,7 @@ const Row = ({data, index}) => {
             
         </TableRow>
         <TableRow sx={{ background: 'rgba(250, 239, 195, 0.25)'}}>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
             <Collapse in={additional}>
               <CollapseWrapper style={{ height: '48px' }}>
                   <TextRow style={{ fontWeight: 900, fontSize: '17px' }}>START</TextRow>
@@ -258,7 +261,10 @@ const AddWrapper = styled.div`
 
 const CollapseWrapper = styled.div`
   display: flex;
-  padding: 12px 0 8px 60px;
+  padding: 12px 0 8px 20px;
   justify-content: space-between;
+    @media screen and (min-width: 1800px) {
+      
+    }
 
 `

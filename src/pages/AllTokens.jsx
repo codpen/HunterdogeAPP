@@ -7,6 +7,7 @@ import PopularPreSales from '../components/popularPreSales';
 import PromotedPreSales from '../components/promotedPresales';
 import SearchOrFilter from '../components/searchOrFilter';
 import News from '../components/promotedPresales/news';
+import GoTop from '../components/GoTop';
 
 const AllTokens = () => {
   

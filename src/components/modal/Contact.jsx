@@ -61,10 +61,10 @@ const ContactModal = ({ setIsOpen }) => {
     const classes = useStyles();
 
     function sendMail() {
-      var link = "info@hunterdoge.com"
+      var link = "mailto:info@hunterdoge.com"
     + "?cc="
     + "&subject=" + escape("Information")
-    + "&body=" + escape(`${document.getElementById('Message').value} \n My e-mail: ${document.getElementById('Email').value}`)
+    + "&body=" + escape(`${document.getElementById('Message').value} \n My e-mail: ${document.getElementById('Email').value}`);
     
     window.location.href = link;
     }
