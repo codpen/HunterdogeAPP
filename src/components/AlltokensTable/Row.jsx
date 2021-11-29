@@ -133,17 +133,17 @@ const Row = (
             </TableCell>
             <TableCell>
                 <Typography variant="table">
-                    {new Intl.NumberFormat('en-US').format(mcap)}
+                    ${new Intl.NumberFormat('en-US').format(mcap)}
                 </Typography>
             </TableCell>
             <TableCell>
                 <Stack>
                     <Typography variant="table">
-                        {new Intl.NumberFormat('en-US').format(price)}
+                        ${new Intl.NumberFormat('en-US').format(price)}
                     </Typography>
                     {change24h !== 0 && <Flex margin={'6px 0 0 0'} justify={'evenly'}>
                         <Image src={change24h > 0 ? arrowUp : arrowDown} />
-                        <Changes24 up={change24h}>{change24h}</Changes24>
+                        <Changes24 up={change24h}>{change24h}%</Changes24>
                     </Flex>}
                 </Stack>
             </TableCell>
@@ -153,7 +153,7 @@ const Row = (
                         HIGH
                     </Typography> */}
                 <Typography variant="h6" sx={{ fontSize: 16, fontWeight: 600, color: "#16DF42" }}>
-                    {new Intl.NumberFormat('en-US').format(ratio)}
+                    {new Intl.NumberFormat('en-US').format(ratio)}%
                 </Typography>
             </TableCell>
             <TableCell>
