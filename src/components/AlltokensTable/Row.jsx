@@ -97,7 +97,7 @@ const Row = (
             const pair = await getPair(address);
 
             const wbnb = await getBalanceWBNB(pair);
-            setRatio(wbnb * bnbPrice.price / mcap)
+            setRatio(wbnb * bnbPrice.price / mcap * 100)
         }
     }, [bnbPrice.price, mcap])
 
