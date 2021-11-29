@@ -56,11 +56,6 @@ const Row = (
             }
         }, [data.Project_Address])
 
-        useEffect(() => {
-            marketCap(data.Project_Symbol)
-                .then((res) => changeFormatter(res.percent_change_24h))
-                .then((res) => setChange24h(res))
-        }, [])
 
 
         useEffect(() => {
