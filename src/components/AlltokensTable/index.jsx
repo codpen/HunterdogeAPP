@@ -66,19 +66,21 @@ const AllTokensTable = (isTitle) => {
       result = result.filter(item => {
         let projectAddress = toChecksumAddress(item?.Project_Address)
         if (address && projectAddress !== address) return false;
+
         if (option.memeCoin && option.memeCoin.toString().toLowerCase() != item.Project_IsMemeCoin.toLowerCase()) return false;
         if (option.securityAudit && option.securityAudit.toString().toLowerCase() != item.Project_ISKYC.toLowerCase()) return false;
         if (option.doxxedTeam && option.doxxedTeam.toString().toLowerCase() != item.Project_ISDOX.toLowerCase()) return false;
         if (option.useCase && option.useCase.toString().toLowerCase() != item.Project_HasUtility.toLowerCase()) return false;
-        if(option.project) {
+
+        if (option.project) {
           if (option.project == 'vote') {
-            if(option.cond === 'high') {
+            if (option.cond === 'high') {
               return getVotesPerProject(projectAddress) >= option.value
             } else {
               return getVotesPerProject(projectAddress) <= option.value
             }
           } else {
-            if(option.cond === 'high') {
+            if (option.cond === 'high') {
               return item[fieldMap[option.field]] >= option.value
             } else {
               return item[fieldMap[option.field]] <= option.value
@@ -89,7 +91,7 @@ const AllTokensTable = (isTitle) => {
       })
       result.sort((a, b) => {
         let order = 1;
-        if(option.field === 'vote' && a.Project_Address && b.Project_Address) {
+        if (option.field === 'vote' && a.Project_Address && b.Project_Address) {
           order = getVotesPerProject(a.Project_Address) - getVotesPerProject(b.Project_Address)
         } else {
           order = a[fieldMap[option.field]] - b[fieldMap[option.field]]
@@ -148,7 +150,7 @@ const AllTokensTable = (isTitle) => {
                   <TableCell>Price</TableCell>
                   <TableCell>Liq / Mcap<br /> Ratio</TableCell>
                   <TableCell>Holders</TableCell>
-                  <TableCell sx={{fontSize: '16px', width: '142px'}}>&Oslash; Holder<br/>growth per day</TableCell>
+                  <TableCell sx={{ fontSize: '16px', width: '142px' }}>&Oslash; Holder<br />growth per day</TableCell>
                   <TableCell sx={{ textAlign: 'left' }}>Votes</TableCell>
                 </TableRow>
               </TableHead>

@@ -16,7 +16,7 @@ import {Votes} from "../common/votes";
 import {getMCap} from '../../connection/functions'
 import { CheckPopup } from '../checkPopup/checkPopup';
 import arrowDown from "../../images/arrow-down.svg";
-import {marketCap} from "../../utils/marketCap";
+import {getPrice24H} from "../../utils/getPrice24H";
 import {changeFormatter} from "../../utils/changeFormatter";
 import {useWeb3React} from "@web3-react/core";
 import {Badges} from "../common/badges/Badges";
