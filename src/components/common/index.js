@@ -199,7 +199,7 @@ export const Image = styled.img.attrs(props => ({
 `;
 
 export const Changes24 = styled.p`
-  color: ${({up}) => up ? '#32C130' : '#FF0000'};
+  color: ${({up}) => up > 0 ? '#32C130' : '#FF0000'};
   font-family: Raleway;
   font-style: normal;
   font-weight: bold;
