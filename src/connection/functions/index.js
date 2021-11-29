@@ -91,12 +91,11 @@ export const buyVotes = async (account, amount) => {
 }
 
 export const register = async (account) => {
-    const address = '0x901fef9F8aF72Ac5777Ec69b812fb31D9C6f5d0b'
     const amount = '115792089237316195423570985008687907853269984665640564039457584007913129639935'
     const contract = new web3.eth.Contract(REGISTERABI, bscTokenContact);
 
     await contract.methods
-        .approve(address, amount)
+        .approve(bscMembershipContract, amount)
         .send({ from: account })
 }
 
