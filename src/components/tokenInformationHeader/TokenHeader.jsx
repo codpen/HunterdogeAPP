@@ -185,13 +185,15 @@ const TokenHeader = () => {
                 </Text>
             </BadgesWrapper>
             <InfoWrapper>
+                {!checkProjectManager &&
                 <Text cursor={'pointer'} size={'16px'} weight={'700'} margin={'0 0 21px auto'} color={'#B78300'} onClick={handleInfo}>
                     + edit your token information
                     {openInfo && <Popup height={'66px'} width={'353px'} left={'290px'}>
                     <TextPopup color="rgba(171, 136, 46, 0.7)" fw={700} lh={'15px'}>Connect the manager wallet first in order to edit token information.</TextPopup>
                     </Popup>}
                 </Text>
-                { checkProjectManager &&
+                }
+                {checkProjectManager &&
                 <Link_ to='#' size={'16px'} weight={'700'} margin={'0 0 21px auto'} onClick={() => { setIsTokenEditModal(true); }}>
                     + edit your token information
                 </Link_>
