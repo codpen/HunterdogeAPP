@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export const usePrice = (address, time = 30000) => {
-    const [state, setState] = useState({price: '0'})
+    const [state, setState] = useState({price: '0', name: '', symbol: ''})
 
     useEffect(() => {
         const fetchSheet = async () => {
@@ -11,7 +11,7 @@ export const usePrice = (address, time = 30000) => {
                         return response.json();
                     })
                     .then((data) => {
-                        setState({price: data.data.price})
+                        setState({price: data.data.price, name: data.data.name, symbol: data.data.symbol})
                     });
             } catch (e) {
                 console.warn(e)

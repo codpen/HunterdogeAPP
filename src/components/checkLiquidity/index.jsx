@@ -63,7 +63,7 @@ const CheckLiguidity = () => {
             return response.json();
           })
           .then((res) => {
-            project.price = project.wbnb * res.data.price_BNB
+            project.price = res.data.price
             project.name = res.data.name
             project.symbol = res.data.symbol
             project.totalLP = project.wbnb * bnbPrice.price
@@ -257,7 +257,7 @@ const CheckLiguidity = () => {
 
       {
         spin &&
-        <Box sx={{ position: 'fixed', top: '0px', left: '0px', width: '100%', height: '100%', backgroundColor: '#4033117d', zIndex: 9 }}>
+        <Box sx={{ position: 'fixed', top: '0px', left: '0px', width: '100%', height: '100%', backgroundColor: '#4033117d', zIndex: 999 }}>
           <CircularProgress sx={{ position: 'fixed', top: '50%', left: '50%' }} />
         </Box>
       }

@@ -41,13 +41,16 @@ const Row = (
         const [mcap, setMCap] = useState(0)
         const [symbol, setSymbol] = useState('')
         const [change24h, setChange24h] = useState()
+        const [votes, setVotes] = useState(0)
 
         useEffect(() => {
+            debugger
             if (chainId === 56) {
                 if (data.Project_Address) {
                     const call = async () => {
                         const res = await getVotesPerProject(data.Project_Address)
                         console.log('votes', res)
+                        setVotes(parseInt(res[0]) + parseInt(res[1]) + parseInt(res[2]))
                     }
                     call()
                 }
@@ -61,10 +64,10 @@ const Row = (
         useEffect(() => {
             if (data) {
                 getHolders(data.Project_Address)
-                    .then(res => setHolders(res))
+                    .then(res => res && setHolders(res))
 
                 getHolderPerDay(data.Project_Address)
-                    .then(res => setHoldersPerDay(`+ ${res}`))
+                    .then(res => res && setHoldersPerDay(`+ ${res}`))
             }
         }, [data])
 
@@ -75,15 +78,17 @@ const Row = (
                         .then((response) => {
                             return response.json();
                         })
-                        .then((data) => {
-                            setPrice((+data.data.price).toFixed(4))
-
+                        .then(async (res) => {
+                            setPrice((+res.data.price).toFixed(4))
+                            
+                            setSymbol(res.data.symbol)
+                            let marketcap = await getMCap(data.Project_Address, res.data.price)
+                            console.log(marketcap)
+                            setMCap(marketcap)
                         });
                 } catch (e) {
                     console.warn(e)
                 }
-                const symbol = await getSymbol(data.Project_Address)
-                setSymbol(symbol)
             };
             fetchSheet()
         }, [data])
@@ -120,13 +125,13 @@ const Row = (
                 </TableCell>
                 <TableCell>
                     <Typography variant="table">
-                        {new Intl.NumberFormat('en-US').format(data.Project_MarketCap)}
+                        {new Intl.NumberFormat('en-US').format(mcap)}
                     </Typography>
                 </TableCell>
                 <TableCell>
                     <Stack>
                         <Typography variant="table">
-                            {new Intl.NumberFormat('en-US').format(data.Project_Price)}
+                            {new Intl.NumberFormat('en-US').format(price)}
                         </Typography>
                         {change24h && <Flex margin={'6px 0 0 0'} justify={'evenly'}>
                             <Image src={change24h.up ? arrowUp : arrowDown}/>
@@ -145,7 +150,7 @@ const Row = (
                 </TableCell>
                 <TableCell>
                     <Typography variant="table">
-                        {data.Project_Holder}
+                        {holders}
                     </Typography>
                 </TableCell>
                 <TableCell>
@@ -156,8 +161,7 @@ const Row = (
                 <TableCell>
                     <Stack direction="row" alignItems="center">
                         <Typography variant="table" sx={{width: '50px'}}>
-                            {/*{votes}*/}
-                            0
+                            {votes}
                         </Typography>
                         <Votes address={data.Project_Address}/>
                         <More>...</More>
