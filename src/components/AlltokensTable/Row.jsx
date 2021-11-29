@@ -49,7 +49,11 @@ const Row = (
                     const call = async () => {
                         const res = await getVotesPerProject(data.Project_Address)
                         console.log('votes', res)
-                        setVotes(parseInt(res[0]) + parseInt(res[1]) + parseInt(res[2]))
+                        try {
+                            setVotes(parseInt(res[0]) + parseInt(res[1]) + parseInt(res[2]))
+                        } catch (e) {
+                            console.log(e)
+                        }
                     }
                     call()
                 }
