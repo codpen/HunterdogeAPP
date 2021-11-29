@@ -44,7 +44,6 @@ const Row = (
         const [votes, setVotes] = useState(0)
 
         useEffect(() => {
-            debugger
             if (chainId === 56) {
                 if (data.Project_Address) {
                     const call = async () => {
