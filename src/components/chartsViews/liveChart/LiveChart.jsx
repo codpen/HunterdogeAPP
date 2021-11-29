@@ -14,7 +14,7 @@ import {
 import { getMCap, getSymbol } from '../../../connection/functions'
  import {Flex} from "../upcomingPreSale/PreSaleStyled";
  import {HeadTitle, RightContent} from "../tokenInformation/TokenInfoStyled";
- import {marketCap} from "../../../utils/marketCap";
+ import {getPrice24H} from "../../../utils/getPrice24H";
  import {changeFormatter} from "../../../utils/changeFormatter";
  import {Button, Image} from "../../common";
 import ReportTokenModal from '../../modal/ReportToken';

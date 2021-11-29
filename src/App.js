@@ -20,7 +20,7 @@ import { isMember } from './connection/functions';
 import NewMenu from "./blocks/menu/newMenu/newMenu";
 import MobileMenu from './blocks/menu/mobileMenu/MobileMenu';
 import ModalContextProvider from './contexts/ModalProvider';
-import { marketCap } from "./utils/marketCap";
+import { getPrice24H } from "./utils/getPrice24H";
 import GoogleSheetContextProvider from './contexts/GoogleSheetProvider';
 
 const App = () => {
