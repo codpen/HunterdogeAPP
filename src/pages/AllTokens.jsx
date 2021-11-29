@@ -1,15 +1,24 @@
+import React, { useState, useEffect } from 'react'
 import { Stack} from '@mui/material';
-import { Box, width } from '@mui/system';
-
-import Menu from '../blocks/menu';
 import AllTokensTable from '../components/AlltokensTable';
 import PopularPreSales from '../components/popularPreSales';
 import PromotedPreSales from '../components/promotedPresales';
 import SearchOrFilter from '../components/searchOrFilter';
 import News from '../components/promotedPresales/news';
 import GoTop from '../components/GoTop';
+import { isMember } from '../connection/functions';
+import { useWeb3React } from "@web3-react/core";
 
 const AllTokens = () => {
+  const { account } = useWeb3React()
+  const [checkMember, setCheckMember] = useState(false)
+  useEffect(() => {
+    const getIsMember = async () => {
+      const is_member = await isMember(account)
+      setCheckMember(is_member) 
+    }
+    account && getIsMember()
+  }, [account])
   
   return(
     // <Stack direction="row" alignItems="start"
@@ -24,7 +33,7 @@ const AllTokens = () => {
     // >
     //   <Menu/>
       <Stack sx={{ml: '60px'}}>
-        <SearchOrFilter/>
+        {checkMember && <SearchOrFilter/>}
         <AllTokensTable/>
         <Stack direction="row" alignItems="center" sx={{gap: 8}}>
           <PopularPreSales/>

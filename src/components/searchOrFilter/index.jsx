@@ -71,7 +71,7 @@ const SearchOrFilter = () => {
         // textAlign: 'start'
       }}>
       <Box component='h2' sx={{ fontSize: '44px', ml: 2 }}>
-        Search or field your tokens
+        Search or filter your tokens
       </Box>
       <Box
         sx={{
