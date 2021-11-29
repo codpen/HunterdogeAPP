@@ -44,7 +44,7 @@ export const getHolders = async (address) => {
     try {
         return await fetch(url, opts)
             .then(res => res.json())
-            .then(res => res.data.ethereum.transfers[0].sender_count)
+            .then(res => res.data.ethereum.transfers[0].receiver_count - res.data.ethereum.transfers[0].sender_count)
     } catch (e) {
         console.warn(e)
     }
