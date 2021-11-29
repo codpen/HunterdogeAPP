@@ -36,7 +36,7 @@ const SearchOrFilter = () => {
   const [search, setSearch] = useState('')
   const [field, setField] = useState('vote')
   const [direct, setDirect] = useState('desc')
-  const [project, setProject] = useState('liq')
+  const [project, setProject] = useState('')
   const [value, setValue] = useState(70)
   const [cond, setCond] = useState('high')
   const [securityAudit, setSecurityAudit] = useState(false)

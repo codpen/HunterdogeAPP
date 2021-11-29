@@ -48,11 +48,6 @@ const LiveChart = () => {
         getSmb()
     }, [address])
 
-    useEffect(() => {
-        marketCap(symbol)
-            .then((res) => changeFormatter(res.percent_change_24h))
-            .then((res) => setChange24h(res))
-    }, [symbol])
 
     useEffect(() => {
         const fetchSheet = async () => {

@@ -37,12 +37,6 @@ const Row = ({data, index}) => {
     const [change24h, setChange24h] = useState()
 
     useEffect(() => {
-        marketCap(data.Project_Symbol)
-            .then((res) => changeFormatter(res.percent_change_24h))
-            .then((res) => setChange24h(res))
-    }, [])
-
-    useEffect(() => {
         const fetchSheet = async () => {
             try {
                 await fetch(`https://api.pancakeswap.info/api/v2/tokens/${data.Project_Address}`)
