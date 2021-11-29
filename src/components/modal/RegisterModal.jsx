@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import Card from '@material-ui/core/Card';
+import { Button, ButtonGroup,Stack} from '@mui/material';
 import {makeStyles} from "@material-ui/styles";
 import {Box} from "@mui/system";
 import {Typography} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import {isMember, register, membership, membershipCosts} from "../../connection/functions";
 import {useWeb3React} from "@web3-react/core";
 
@@ -71,9 +71,16 @@ const RegisterModal = ({ setIsOpen }) => {
     const {account, chainId} = useWeb3React()
     const classes = useStyles();
 
-    const buy = async () => {
+    const approve = async () => {
         if (account) {
             await register(account)
+        } else {
+            alert('You need to connect wallet')
+        }
+    }
+
+    const buy = async () => {
+        if (account) {
             await membership(account)
         } else {
             alert('You need to connect wallet')
@@ -106,11 +113,14 @@ const RegisterModal = ({ setIsOpen }) => {
                     {cost} $HD
                 </Typography>
             </div>
-            <Box component='div' sx={{ mt: '57px', width: 257, mx: 'auto'}}>
-              <Button
-                onClick={buy}
-              fullWidth sx={{fontSize: 24, py: 1, height: '47px'}}>Buy now</Button>
-            </Box>
+            <ButtonGroup disableElevation variant="center" sx={{ mt: '20px',textAlign: 'center', ml: '200px' }}>
+                <Button onClick={approve}
+                               fullWidth sx={{fontSize: 24, py: 1, width: '200px', height: '47px'}}>Approve
+                </Button>
+                <Button onClick={buy}
+                        fullWidth sx={{fontSize: 24, py: 1,width: '200px', height: '47px'}}>Buy
+                </Button>
+            </ButtonGroup >
         </Card>
     );
 };

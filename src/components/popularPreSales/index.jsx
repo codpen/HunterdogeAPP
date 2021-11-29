@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import {
     Button,
     Stack,
@@ -51,26 +51,22 @@ const PopularPreSales = () => {
   const [partActive, setPartActive] = useState(1)
   const [openPopup, setOpenPopup] = useState(false)
   const [page, setPage] = useState(1)
-
-  console.log(window.innerWidth)
-  
   const handleInfo = () => {
     setOpenPopup(true)
     setTimeout(function() {
       setOpenPopup(false)
     }, 5000);
   }
-  const currentTime = Math.round(new Date() / 1000)
-  const filterUpcoming = data?.filter(({Liq_Lock_Time}) => Liq_Lock_Time >= currentTime)
-  const filterEnded = data?.filter(({Liq_Lock_Time}) => Liq_Lock_Time <= currentTime)
-
-    // const filterUpcoming = data?.filter(({Project_Start_Time}) => +Project_Start_Time * 1000 >= currentTime)
-    // const filterEnded  = data?.filter(({Project_Start_Time}) => +Project_Start_Time * 1000 <= currentTime)
-
-    //paginate
-    const paginateData = partActive === 1 ? filterUpcoming : filterEnded
-    const res = paginate(paginateData.length, page, 10, paginateData.reverse())
-    const {newData, currentPage, endPage, startIndex} = res
+//   const filterUpcoming = data?.filter(({Liq_Lock_Time}) => Liq_Lock_Time >= currentTime)
+//   const filterEnded = data?.filter(({Liq_Lock_Time}) => Liq_Lock_Time <= currentTime)
+    const {newData, currentPage, endPage, startIndex} = useMemo(() => {
+        const currentTime = Math.round(new Date() / 1000)
+        const filterUpcoming = data.filter(({Project_Start_Time}) => Project_Start_Time >= currentTime)
+        const filterEnded  = data.filter(({Project_Start_Time}) => Project_Start_Time <= currentTime)
+        //paginate
+        const paginateData = partActive === 1 ? filterUpcoming : filterEnded
+        return paginate(paginateData.length, page, 10, paginateData.reverse())
+    }, [partActive, page, data])
 
     return (
         <Box sx={{mt: '55px', width: '1039px', textAlign: 'center'}}>
