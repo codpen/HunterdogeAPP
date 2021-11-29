@@ -189,6 +189,7 @@ export const getMCap = async (address, price) => {
         const mcap = (total / 10 ** decimals) * price
         return mcap
     } catch (error) {
+        console.log(error)
         return 0
     }
 }
@@ -244,7 +245,7 @@ export const getBalanceWBNB = async (address) => {
 
 export const getBalanceToken = async (address, token) => {
     try {
-        const contract = new web3.eth.Contract(ERC20ABI, token)
+        const contract = new web3.eth.Contract(PAIRABI, token)
         let decimals_local = await contract.methods.decimals().call()
         let balance = await contract.methods.balanceOf(address).call()
         return (balance / 10**decimals_local)

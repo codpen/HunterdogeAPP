@@ -46,7 +46,7 @@ export const getHolderPerDay = async (address) => {
             .then(res => res.json())
             .then(res => res.data.ethereum.transfers[0].sender_count)
     } catch (e) {
-        console.warm(e)
+        console.warn(e)
     }
 
 }
