@@ -62,6 +62,21 @@ export const upVoteProject = async (vote, account, address) => {
     }
 }
 
+export const medVoteProject = async (vote, account, address) => {
+    const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
+
+    try {
+        const isActive = await contract.methods.isActive(address).call()
+        if (isActive) {
+            await contract.methods
+                .medVoteProject(vote, address)
+                .send({ from: account })
+        }
+    } catch (e) {
+        alert('The project is not registered');
+    }
+}
+
 export const buyVotes = async (account, amount) => {
     const contract = new web3.eth.Contract(ABIMAIN, bscMembershipContract);
 
