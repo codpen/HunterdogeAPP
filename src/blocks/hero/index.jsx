@@ -135,7 +135,6 @@ const Hero = ({setIsOpen, register}) => {
             call()
         }
         else setCheckManager(false)
-        console.log('------', account)
     }, [account])
 
     return (

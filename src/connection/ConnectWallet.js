@@ -27,7 +27,6 @@ export default function ConnectWallet() {
             // deactivate()
         }
         if (error) alert('Change network to Binance Smart Chain Network')
-        console.log('status--------', status)
     }, [status, error])
 
     return (

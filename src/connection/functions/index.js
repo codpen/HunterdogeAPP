@@ -24,7 +24,6 @@ export const getVotesPerProject = async (address) => {
     try {
         const isActive = await contract.methods.isActive(address).call()
         if (isActive) {
-            console.log('active', address)
             return await contract.methods.getVotesPerProject(address).call()
         }
     } catch (e) {
@@ -67,6 +66,7 @@ export const medVoteProject = async (vote, account, address) => {
 
     try {
         const isActive = await contract.methods.isActive(address).call()
+
         if (isActive) {
             await contract.methods
                 .medVoteProject(vote, address)
