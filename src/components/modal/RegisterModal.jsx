@@ -6,6 +6,7 @@ import {Box} from "@mui/system";
 import {Typography} from "@material-ui/core";
 import {isMember, register, membership, membershipCosts} from "../../connection/functions";
 import {useWeb3React} from "@web3-react/core";
+import { useWallet } from "@binance-chain/bsc-use-wallet";
 
 const useStyles = makeStyles({
 
@@ -68,7 +69,8 @@ const useStyles = makeStyles({
 
 const RegisterModal = ({ setIsOpen }) => {
     const [cost, setCost] = useState('0')
-    const {account, chainId} = useWeb3React()
+    // const {account, chainId} = useWeb3React()
+    const { account, chainId } = useWallet();
     const classes = useStyles();
 
     const approve = async () => {

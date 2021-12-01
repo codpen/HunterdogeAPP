@@ -8,6 +8,7 @@ import Comments from "../components/comments/";
 import TokenInformation from "../components/chartsViews/tokenInformation/TokenInformation";
 import PreSale from "../components/chartsViews/upcomingPreSale/Presale";
 import { useWeb3React } from "@web3-react/core";
+import { useWallet } from "@binance-chain/bsc-use-wallet";
 import TokenHeader from "../components/tokenInformationHeader/TokenHeader";
 import { Button, Flex } from "../components/common/index";
 import PopularPreSales from "../components/popularPreSales";
@@ -31,14 +32,14 @@ const TokenPage = () => {
   let history = useHistory();
   const { data } = useContext(GoogleSheetContext)
   const {address} = useParams()
-  const { account } = useWeb3React()
+  // const { account } = useWeb3React()
+  const { account, chainId } = useWallet();
   const [partActive, setPartActive] = useState(1)
   const [tokenData, setTokenData] = useState({})
   const [tabs, setTabs] = useState([
     { label: "chart & stats" },
     { label: "token information" }
   ])
-
   const isPresale = account ? <PreSale tokenData={tokenData} /> : <NoPresaleView />
   
   useEffect(() => {

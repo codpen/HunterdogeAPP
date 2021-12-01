@@ -1,8 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 import Web3 from 'web3'
-import { useWeb3React } from '@web3-react/core'
 import { useWeb3React as useWeb3ReactCore } from '@web3-react/core'
-
+import { useWallet } from "@binance-chain/bsc-use-wallet";
 import { getAlternativeProvider } from './getAlternativeProvider'
 // import{ contractsBSC, contractsETH, abiBSC, abiETH } from '../constants/contracts/index.ts'
 
@@ -42,8 +41,8 @@ const EChainId = {
 
 // eslint-disable-next-line react/prop-types
 export const Web3ContractProvider = ({ children, /* account */ }) => {
-  const { activate, account } = useWeb3React()
-  const { chainId } = useActiveWeb3React()
+  // const { activate, account } = useWeb3React()
+  const { account, chainId } = useWallet();
 
   function useActiveWeb3React() {
     const context = useWeb3ReactCore()

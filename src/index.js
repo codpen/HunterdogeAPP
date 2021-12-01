@@ -7,11 +7,14 @@ import reportWebVitals from './reportWebVitals';
 import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 import { Web3Provider } from '@ethersproject/providers';
 import { createWeb3ReactRoot, Web3ReactProvider } from '@web3-react/core';
-
-import Web3ReactManager from './connection/Web3ReactManager.jsx'
+import { ThemeProvider as WalletModalThemeProvider } from 'styled-components'
 import { Web3ContractProvider } from './connection/web3Contract.jsx'
 import { theme } from './theme';
 import CircularProgress from '@mui/material/CircularProgress';
+import { ResetCSS, ModalProvider as WalletModalProvider, light } from "@pancakeswap-libs/uikit";
+import * as bsc from "@binance-chain/bsc-use-wallet";
+import Web3 from 'web3'
+import Web3ReactManager from "./connection/Web3ReactManager";
 
 const App = lazy(() => import("./App"));
 
@@ -31,25 +34,38 @@ function getLibrary(provider) {
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName);
 
-if (!!window.ethereum) {
-  window.ethereum.autoRefreshOnNetworkChange = false;
-}
+// if (!!window.ethereum) {
+//   window.ethereum.autoRefreshOnNetworkChange = false;
+// }
 
 ReactDOM.render(
   <React.StrictMode>
     <Web3ReactProvider getLibrary={getLibrary}>
       <Web3ProviderNetwork getLibrary={getLibrary}>
-        <Web3ReactManager>
-          <Web3ContractProvider>
-            <ThemeProvider theme={theme}>
-              <Suspense
-                fallback={<CircularProgress sx={{position: 'absolute', top: '50%', left: '50%'}} />}
-              >
-                <App />
-              </Suspense>
-            </ThemeProvider>
-          </Web3ContractProvider>
-        </Web3ReactManager>
+        <bsc.UseWalletProvider
+          chainId={56}
+          connectors={{
+            walletconnect: { rpcUrl: "https://bsc-dataseed.binance.org" },
+            bsc,
+          }}
+        >
+          <Web3ReactManager>
+            <Web3ContractProvider>
+              <ThemeProvider theme={theme}>
+                <WalletModalThemeProvider theme={light}>
+                  <ResetCSS />
+                  <WalletModalProvider>
+                      <Suspense
+                        fallback={<CircularProgress sx={{position: 'absolute', top: '50%', left: '50%'}} />}
+                      >
+                        <App />
+                      </Suspense>
+                  </WalletModalProvider>
+                </WalletModalThemeProvider>
+              </ThemeProvider>
+            </Web3ContractProvider>
+          </Web3ReactManager>
+        </bsc.UseWalletProvider>
       </Web3ProviderNetwork>
     </Web3ReactProvider>
   </React.StrictMode>,
