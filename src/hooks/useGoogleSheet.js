@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import  { GoogleSpreadsheet }  from 'google-spreadsheet';
 import {CLIENT_EMAIL, PRIVATE_KEY, SPREADSHEET_ID } from "../constants";
 
-export const useGoogleSheet = (id, time = 30000) => {
+export const useGoogleSheet = (id, time = 120000) => {
     const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
     const [state, setState] = useState({
         data: [],
@@ -25,7 +25,7 @@ export const useGoogleSheet = (id, time = 30000) => {
                 const rows = await sheet.getRows();
                 setState({data: [...rows], error: undefined, isLoading: false})
             } catch (e) {
-                setState({data: [], error: e, isLoading: false})
+                setState({data: [...state.data], error: e, isLoading: false})
             }
         };
         authorize().then(() => {

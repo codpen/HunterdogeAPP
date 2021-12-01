@@ -63,7 +63,6 @@ const GoogleSheetContextProvider = (props) => {
                 setData([...rows])
                 setState({error: undefined, isLoading: false})
             } catch (e) {
-                setData([])
                 setState({error: e, isLoading: false})
             }
         };

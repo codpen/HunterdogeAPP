@@ -8,6 +8,7 @@ import ConnectMetaMask from '../../connection/ConnectMetaMask';
 
 import {SHEET_ID_BANNER} from "../../constants";
 import { GoogleSheetContext } from '../../contexts/GoogleSheetProvider';
+import { useGoogleSheet } from '../../hooks/useGoogleSheet';
 import {Image, LinkWrapper} from "../../components/common";
 import likeDark from "../../images/like_dark.svg";
 import chart from "../../images/chart_ico.svg";
@@ -111,7 +112,8 @@ const AdsToken = () => (
 const Hero = ({setIsOpen, register}) => {
     const {account} = useWeb3React()
     const state = usePrice(bscTokenContact)
-    const { data } = useContext(GoogleSheetContext)
+    // const { data } = useContext(GoogleSheetContext)
+    const { data } = useGoogleSheet(SHEET_ID_BANNER)
     const [votes, setVotes] = useState(0)
     const [isModal, setIsModal] = useState(false)
     const [isTokenEditModal, setIsTokenEditModal] = useState(false)
