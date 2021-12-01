@@ -2,11 +2,13 @@ import React, {useState} from "react";
 import {downVoteProject, upVoteProject, medVoteProject} from "../../../connection/functions";
 import {Button, ButtonGreen, ButtonRed, ButtonYellow, VoteWrapper} from "../index";
 import {useWeb3React} from "@web3-react/core";
+import { useWallet } from "@binance-chain/bsc-use-wallet";
 import {ExtraSmall, Input, Modal} from "./VotesStyled";
 
 
 export const Votes = ({address, big = false}) => {
-    const {account, chainId} = useWeb3React()
+    // const {account, chainId} = useWeb3React()
+    const { account, chainId } = useWallet();
     const [votes, setVotes] = useState(0)
     const [activeBtn, setActiveBtn] = useState(false)
     const [isOpen, setIsOpen] = useState(false)

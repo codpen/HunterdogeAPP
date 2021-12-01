@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {useParams} from 'react-router-dom'
 import { useWeb3React } from "@web3-react/core";
 import { useWallet } from "@binance-chain/bsc-use-wallet";
@@ -22,7 +22,7 @@ import {BadgesWrapper, Card, HeadTitle, InfoWrapper, Inner, Label, Substrate, Te
 import {Button, Flex, Image, LinkWrapper, Link_} from '../common'
 import {Votes} from "../common/votes";
 import {getMCap, getSymbol, getName, getVotesPerProject} from '../../connection/functions'
-
+import { GoogleSheetContext } from '../../contexts/GoogleSheetProvider';
 import Telegram from "../../images/table/telegram.svg";
 import Twitter from "../../images/table/twitter.svg";
 import Instagram from "../../images/insta.svg";
@@ -49,23 +49,18 @@ const TokenHeader = ({tokenData = {}}) => {
     const {address} = useParams()
     // const { account } = useWeb3React()
     const { account, chainId } = useWallet();
-    const visitWebsite = () => console.log('visit website')
     const { data } = useContext(GoogleSheetContext)
     const [isTokenEditModal, setIsTokenEditModal] = useState(false)
     const [checkProjectManager, setCheckProjectManager] = useState(false)
-
     const [price, setPrice] = useState(0)
     const [mcap, setMCap] = useState(0)
     const [symbol, setSymbol] = useState('')
     const [name, setName] = useState('')
     const [votes, setVotes] = useState(0)
-
     const [openBadges, setOpenBadges] = useState(false)
     const [openInfo, setOpenInfo] = useState(false)
-
     const [holdersPerDay, setHoldersPerDay] = useState(0)
 
-    
     const visitWebsite = () => {
         if(tokenData.Project_Website) {
             window.location.href = tokenData.Project_Website

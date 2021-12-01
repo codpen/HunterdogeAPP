@@ -1,10 +1,11 @@
 import {useState} from "react";
 import {useWeb3React} from "@web3-react/core";
+import { useWallet } from "@binance-chain/bsc-use-wallet";
 import styled from "styled-components";
 
 export const CheckPopup = ({setIsOpen, big = false}) => {
-  const {account} = useWeb3React()
-  
+  // const {account} = useWeb3React()
+  const { account, chainId } = useWallet();
 
   return (
     <Modal big={big}>
