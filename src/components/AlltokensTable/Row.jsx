@@ -67,7 +67,7 @@ const Row = (
     const [timer, setTimer] = useState(0)
 
     const callTimer = (address) => {
-        if(timer) {
+        if (timer) {
             clearInterval(timer)
         }
         let handle = setInterval(() => {
@@ -107,7 +107,7 @@ const Row = (
                     })
                     .then(async (res) => {
                         setPrice((+res.data.price))
-                        
+
                         setChange24h(((res.data.price_BNB / price24H - 1) * 100).toFixed(4))
 
                         setSymbol(res.data.symbol)
@@ -127,7 +127,7 @@ const Row = (
             const pair = await getPair(address);
 
             const wbnb = await getBalanceWBNB(pair);
-            if(mcap > 0) {
+            if (mcap > 0) {
                 setRatio(wbnb * bnbPrice.price / mcap * 100)
             }
         }
@@ -135,7 +135,21 @@ const Row = (
 
     return (
         <TableRow>
-            <TableCell component="th" scope="row">
+            <TableCell component="th" scope="row" sx={{ display: 'flex', alignItems: 'center' }}>
+                {data.has_Presale === 'TRUE' && <Stack
+                    direction="row"
+                    alignItems="center"
+                    sx={{
+                        transform: 'rotate(270deg)',
+                        position: 'absolute',
+                        backgroundColor: '#CB5DCD',
+                        color: '#FFF',
+                        width: 'max-content',
+                        height: 'fit-content',
+                        padding: '4px',
+                        borderRadius: '5px',
+                    }}
+                >Pre-Sale</Stack>}
                 <Stack direction="row" alignItems="center">
                     <Typography variant="h6" sx={{ mr: '36px' }}>
                         {index + 1}.

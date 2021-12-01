@@ -49,8 +49,6 @@ const TokenHeader = ({tokenData = {}}) => {
     const {address} = useParams()
     // const { account } = useWeb3React()
     const { account, chainId } = useWallet();
-    const visitWebsite = () => console.log('visit website')
-    const { data } = useContext(GoogleSheetContext)
     const [isTokenEditModal, setIsTokenEditModal] = useState(false)
     const [checkProjectManager, setCheckProjectManager] = useState(false)
 
