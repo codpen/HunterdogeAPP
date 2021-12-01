@@ -147,9 +147,9 @@ const TokenHeader = ({tokenData = {}}) => {
                     </Button>
                 </LinkWrapper>
                 <Flex margin={'20px 0 19px 0'}>
-                    <Image src={M}/>
-                    <Image src={Lizard}/>
-                    <Image src={Pancakeswap}/>
+                    {tokenData.Project_CMCLink && <Image src={M}/>}
+                    {tokenData.Project_CGLink && <Image src={Lizard}/>}
+                    {tokenData.Project_PancakeLink && <Image src={Pancakeswap}/>}
                 </Flex>
                 <HeadTitle size={'22px'}>earned badges</HeadTitle>
                 <WrapperBadges>
@@ -251,7 +251,7 @@ const TokenHeader = ({tokenData = {}}) => {
                         <Card>
                             <IcoWrapper><Image src={TokenPrice}/></IcoWrapper>
                             <span>token price</span>
-                            <CardInfo mt={'20px'}>${new Intl.NumberFormat('en-US').format(price)}</CardInfo>
+                            <CardInfo mt={'20px'}>${Number(price)}</CardInfo>
                         </Card>
                         <Card>
                             <IcoWrapper mt={'-16px'} height={'88px'}><Image src={MarketCap}/></IcoWrapper>

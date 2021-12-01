@@ -62,6 +62,18 @@ const Row = (
     const [change24h, setChange24h] = useState(0)
     const [votes, setVotes] = useState(0)
     const [ratio, setRatio] = useState(0)
+    const [timer, setTimer] = useState(0)
+
+    const callTimer = (address) => {
+        if(timer) {
+            clearInterval(timer)
+        }
+        let handle = setInterval(() => {
+            getHolderPerDay(address)
+                .then(res => res && setHoldersPerDay(`+ ${res}`))
+        }, 3000000);
+        setTimer(handle)
+    }
 
     useEffect(async () => {
         if (data && data.Project_Address) {
@@ -78,6 +90,7 @@ const Row = (
             }
             getHolders(address)
                 .then(res => res && setHolders(res))
+            callTimer(address)
 
             getHolderPerDay(address)
                 .then(res => res && setHoldersPerDay(`+ ${res}`))
@@ -176,7 +189,7 @@ const Row = (
             <TableCell>
                 <Stack>
                     <Typography variant="table">
-                        ${new Intl.NumberFormat('en-US').format(price.toFixed(6))}
+                        ${Number(price.toFixed(18))}
                     </Typography>
                     {change24h !== 0 && isNaN(change24h) === false && <Flex margin={'6px 0 0 0'} justify={'evenly'}>
                         <Image src={change24h > 0 ? arrowUp : arrowDown} />
