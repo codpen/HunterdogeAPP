@@ -14,11 +14,12 @@ import likeDark from "../../images/like_dark.svg";
 import chart from "../../images/chart_ico.svg";
 import {getUserVotes, isManager, returnMembership} from "../../connection/functions";
 import {useWeb3React} from "@web3-react/core";
+import { useWallet } from "@binance-chain/bsc-use-wallet";
 import RegisterModal from '../../components/modal/RegisterModal';
 import {usePrice} from "../../hooks/usePrice";
 import {bscTokenContact} from '../../connection/contracts'
 import TokenEditModal from "../../components/modal/TokenEditModal/TokenEditModal";
-
+import ConnectWallet from '../../connection/ConnectWallet';
 const AdsToken = () => (
     <Stack direction="row"
            sx={{
@@ -110,14 +111,15 @@ const AdsToken = () => (
 )
 
 const Hero = ({setIsOpen, register}) => {
-    const {account} = useWeb3React()
+    // const {account} = useWeb3React()
+    const { account, chainId } = useWallet();
     const state = usePrice(bscTokenContact)
     // const { data } = useContext(GoogleSheetContext)
     const { data } = useGoogleSheet(SHEET_ID_BANNER)
     const [votes, setVotes] = useState(0)
     const [isModal, setIsModal] = useState(false)
     const [isTokenEditModal, setIsTokenEditModal] = useState(false)
-    const [checkManager, setChechManager] = useState(false)
+    const [checkManager, setCheckManager] = useState(false)
 
     useEffect(() => {
         const call = async () => {
@@ -126,10 +128,14 @@ const Hero = ({setIsOpen, register}) => {
         }
         const getIsManager = async () => {
             const is_manager = await isManager(account)
-            setChechManager(is_manager)
+            setCheckManager(is_manager)
         }
-        account && call()
-        account && getIsManager()
+        if (account) {
+            getIsManager()
+            call()
+        }
+        else setCheckManager(false)
+        console.log('------', account)
     }, [account])
 
     return (
@@ -191,8 +197,8 @@ const Hero = ({setIsOpen, register}) => {
 
 
             <Container>
-                <ConnectMetaMask setIsOpen={setIsOpen}/>
-
+                {/* <ConnectMetaMask setIsOpen={setIsOpen}/> */}
+                <ConnectWallet />
                 {register ? (
                     <>
                         <Button

@@ -16,6 +16,7 @@ import Paws from './images/paws_bg.svg';
 import Loupe from './images/loupe_bg.svg';
 import Bow from './images/bow_bg.svg';
 import { useWeb3React } from "@web3-react/core";
+import { useWallet } from "@binance-chain/bsc-use-wallet";
 import { isMember } from './connection/functions';
 import NewMenu from "./blocks/menu/newMenu/newMenu";
 import MobileMenu from './blocks/menu/mobileMenu/MobileMenu';
@@ -24,7 +25,8 @@ import { getPrice24H } from "./utils/getPrice24H";
 import GoogleSheetContextProvider from './contexts/GoogleSheetProvider';
 
 const App = () => {
-    const { account } = useWeb3React()
+    // const { account } = useWeb3React()
+    const { account, chainId } = useWallet();
     const [isOpen, setIsOpen] = useState(false)
     const [register, setRegister] = useState(false)
 
