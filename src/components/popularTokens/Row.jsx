@@ -19,6 +19,7 @@ import arrowDown from "../../images/arrow-down.svg";
 import {getPrice24H} from "../../utils/getPrice24H";
 import {changeFormatter} from "../../utils/changeFormatter";
 import {useWeb3React} from "@web3-react/core";
+import { useWallet } from "@binance-chain/bsc-use-wallet";
 import {Badges} from "../common/badges/Badges";
 
 const tokenData = [
@@ -28,8 +29,8 @@ const tokenData = [
     {key: 'Project_IsMemeCoin', text: 'Meme token', image: <Memecoin/>}]
 
 const Row = ({data, index}) => {
-    const {chainId} = useWeb3React()
-
+    // const {chainId} = useWeb3React()
+    const { account, chainId } = useWallet();
     // const {votes, error, isLoading} = useVotesPerProject(data.Project_Address)
     const [price, setPrice] = useState(0)
     const [mcap, setMCap] = useState(0)

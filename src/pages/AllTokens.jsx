@@ -8,16 +8,19 @@ import News from '../components/promotedPresales/news';
 import GoTop from '../components/GoTop';
 import { isMember } from '../connection/functions';
 import { useWeb3React } from "@web3-react/core";
+import { useWallet } from "@binance-chain/bsc-use-wallet";
 
 const AllTokens = () => {
-  const { account } = useWeb3React()
+  // const { account } = useWeb3React()
+  const { account, chainId } = useWallet();
   const [checkMember, setCheckMember] = useState(false)
   useEffect(() => {
     const getIsMember = async () => {
       const is_member = await isMember(account)
       setCheckMember(is_member) 
     }
-    account && getIsMember()
+    if (account) getIsMember()
+    else setCheckMember(false)
   }, [account])
   
   return(

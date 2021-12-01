@@ -1,6 +1,7 @@
 import React from 'react';
 import {buyVotes} from "../../connection/functions";
 import {useWeb3React} from "@web3-react/core";
+import { useWallet } from "@binance-chain/bsc-use-wallet";
 import {Button, Flex, Image} from "../common";
 import {CloseButton, ImageWrapper, ModalCard, Text, Title, VotesWrapper, Wrapper} from "./StyledModal";
 import assets from '../../images/cryptoAsset.svg'
@@ -17,8 +18,8 @@ const data = [
 ]
 
 const Modal = ({ setIsOpen }) => {
-    const {account} = useWeb3React()
-
+    // const {account} = useWeb3React()
+    const { account, chainId } = useWallet();
     const buy = (votes) => {
         if (account) {
             buyVotes(account, votes)

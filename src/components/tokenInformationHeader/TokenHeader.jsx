@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom'
 import { useWeb3React } from "@web3-react/core";
+import { useWallet } from "@binance-chain/bsc-use-wallet";
 import LogoImage from '../../images/big_logo.png'
 import M from '../../images/m_white.png'
 import Lizard from '../../images/lizard_ico.svg'
@@ -46,7 +47,10 @@ import { getHolderPerDay } from '../../utils/getHolderPerDay';
 
 const TokenHeader = ({tokenData = {}}) => {
     const {address} = useParams()
-    const { account } = useWeb3React()
+    // const { account } = useWeb3React()
+    const { account, chainId } = useWallet();
+    const visitWebsite = () => console.log('visit website')
+    const { data } = useContext(GoogleSheetContext)
     const [isTokenEditModal, setIsTokenEditModal] = useState(false)
     const [checkProjectManager, setCheckProjectManager] = useState(false)
 
@@ -106,7 +110,8 @@ const TokenHeader = ({tokenData = {}}) => {
             const is_project_manager = await isProjectManager(address, account)
             setCheckProjectManager(is_project_manager)
         }
-        account && getIsProjectManager()
+        if (account) getIsProjectManager()
+        else setCheckProjectManager(false)
     }, [account])
 
     useEffect(() => {

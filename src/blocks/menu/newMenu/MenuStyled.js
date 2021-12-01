@@ -21,7 +21,7 @@ export const Wrapper = styled.div`
   padding: 62px 21px 21px 21px;
   text-align: center;
   flex-shrink: 0;
-  z-index: 100;
+  z-index: 10;
 
   @media screen and (max-width: 1649px) {
     width: 220px;

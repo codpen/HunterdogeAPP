@@ -1,5 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react';
 import { useWeb3React } from "@web3-react/core";
+import { useWallet } from "@binance-chain/bsc-use-wallet";
 import Card from '@material-ui/core/Card';
 import {makeStyles} from "@material-ui/styles";
 import {Box} from "@mui/system";
@@ -68,7 +69,8 @@ const Pages = [
 
 const TokenEditModal = ({ setIsOpen, tokenAddress, tokenData }) => {
     const classes = useStyles();
-    const { account } = useWeb3React()
+    // const { account } = useWeb3React()
+    const { account, chainId } = useWallet();
     const [page, setPage] = useState(1)
     const { addTokenInfo } = useContext(GoogleSheetContext)
     const [tokenInfo, setTokenInfo] = useState(null)
