@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Link, useHistory} from 'react-router-dom'
+import React, { useState, useContext, useEffect } from 'react';
+import { Link, useHistory, useParams } from 'react-router-dom'
 import styled from "styled-components";
 
 import NoPresaleView from "../components/chartsViews/noPresale/NoPresale";
@@ -7,19 +7,15 @@ import LiveChart from "../components/chartsViews/liveChart/LiveChart";
 import Comments from "../components/comments/";
 import TokenInformation from "../components/chartsViews/tokenInformation/TokenInformation";
 import PreSale from "../components/chartsViews/upcomingPreSale/Presale";
-import {useWeb3React} from "@web3-react/core";
+import { useWeb3React } from "@web3-react/core";
 import TokenHeader from "../components/tokenInformationHeader/TokenHeader";
-import {Button, Flex} from "../components/common/index";
+import { Button, Flex } from "../components/common/index";
 import PopularPreSales from "../components/popularPreSales";
 import TabsStyled from '../components/Tabs/Tabs';
 import LeaveComment from '../components/LeaveComment';
 import GoTop from '../components/GoTop';
+import { GoogleSheetContext } from '../contexts/GoogleSheetProvider';
 
-const tabs = [
-  {label: "chart & stats"},
-  {label: "token information"},
-  {label: `upcoming pre-sale`}
-]
 
 // const ChangePart = ({setPartActive, partActive}) => (
 //     <Part>
@@ -32,27 +28,50 @@ const tabs = [
 // )
 // <Index />
 const TokenPage = () => {
-    let history = useHistory();
-    const {account} = useWeb3React()
-    const [partActive, setPartActive] = useState(1)
+  let history = useHistory();
+  const { data } = useContext(GoogleSheetContext)
+  const {address} = useParams()
+  const { account } = useWeb3React()
+  const [partActive, setPartActive] = useState(1)
+  const [tokenData, setTokenData] = useState({})
+  const [tabs, setTabs] = useState([
+    { label: "chart & stats" },
+    { label: "token information" }
+  ])
 
-    const isPresale = account ? <PreSale/> : <NoPresaleView/>
+  const isPresale = account ? <PreSale tokenData={tokenData} /> : <NoPresaleView />
+  
+  useEffect(() => {
+    data.map((row) => {
 
-    return (
-        <Block>
-            <Container>
-                <Button onClick={() => history.goBack()} size={'20px'} height={'30px'} width={'162px'} weight={700} margin={'0 0 27px 0'}>{'<< GO BACK'}</Button>
-                <TokenHeader/>
-                <TabsStyled setPartActive={setPartActive} partActive={partActive} data={tabs}/>
-                {partActive === 1 ? <LiveChart/> : partActive === 2 ? <TokenInformation/> : isPresale}
-                <Comments/>
-                <LeaveComment/>
-                 {/*<Comments/>*/}
-                <PopularPreSales/>
-                <GoTop scrollStepInPx="100" delayInMs="10.50"/>
-            </Container>
-        </Block>
-    );
+      if (row?.Project_Address?.toLowerCase() === address.toLowerCase()) {
+        setTokenData(row)
+        
+        if(row?.has_Presale === 'TRUE') {
+          setTabs([
+            { label: "chart & stats" },
+            { label: "token information" },
+            { label: `upcoming pre-sale` }
+          ])
+        }
+      }
+    })
+  }, [data])
+
+  return (
+    <Block>
+      <Container>
+        <Button onClick={() => history.goBack()} size={'20px'} height={'30px'} width={'162px'} weight={700} margin={'0 0 27px 0'}>{'<< GO BACK'}</Button>
+        <TokenHeader tokenData={tokenData} />
+        <TabsStyled setPartActive={setPartActive} partActive={partActive} data={tabs} />
+        {partActive === 1 ? <LiveChart tokenData={tokenData} /> : partActive === 2 ? <TokenInformation tokenData={tokenData} /> : isPresale}
+        <LeaveComment />
+        {/*<Comments/>*/}
+        <PopularPreSales />
+        <GoTop scrollStepInPx="100" delayInMs="10.50" />
+      </Container>
+    </Block>
+  );
 };
 
 export default TokenPage;

@@ -1,5 +1,6 @@
 import React from 'react';
 import {HeadTitle, RightContent,} from "../tokenInformation/TokenInfoStyled";
+import { useParams } from 'react-router-dom'
 import {
     Banner,
     BannerWrapper,
@@ -17,8 +18,11 @@ import {
 
 import {Button} from "../../common";
 
-const PreSale = () => {
-    const participationLink = () => console.log('participationLink')
+const PreSale = ({tokenData={}}) => {
+    const participationLink = () => {
+        window.location.href = tokenData.Project_Presale_Link
+    }
+    const {address} = useParams()
 
     return (
         <Wrapper>
@@ -40,56 +44,56 @@ const PreSale = () => {
                 </BannerWrapper>
                 <RightContent width={'400px'}>
                     <Title>token name</Title>
-                    <Value>DotPad</Value>
+                    <Value>{tokenData.Project_Name}</Value>
                     <Title>token ticker</Title>
-                    <Value>DPad</Value>
+                    <Value>{tokenData.Project_Symbol}</Value>
                     <Title>Launchpad</Title>
-                    <Value>DxSale</Value>
+                    <Value>{tokenData.Project_Presale_Launchpad}</Value>
                     <Title>contract address</Title>
-                    <Value size={'15px'}>0xa27895467940fe37e461046870db5235b5977103</Value>
+                    <Value size={'15px'}>{address}</Value>
                     <Flex>
                         <Block>
                             <Title>soft cap</Title>
-                            <Value>150 bnb</Value>
+                            <Value>{tokenData.Project_Presale_SC}</Value>
                         </Block>
                         <Block margin={'0 0 0 129px'}>
                             <Title>hard cap</Title>
-                            <Value>300 bnb</Value>
+                            <Value>{tokenData.Project_Presale_HC}</Value>
                         </Block>
                     </Flex>
                     <Flex>
                         <Block>
                             <Title>min contribution</Title>
-                            <Value>0.05 bnb</Value>
+                            <Value>{tokenData.Project_Presale_MinContr}</Value>
                         </Block>
                         <Block margin={'0 0 0 53px'}>
                             <Title>max contribution</Title>
-                            <Value>2.00 bnb</Value>
+                            <Value>{tokenData.Project_Presale_MaxContr}</Value>
                         </Block>
                     </Flex>
                     <Flex>
                         <Block>
                             <Title>LIQUIDITY LOCK RATIO</Title>
-                            <Value>80%</Value>
+                            <Value>{tokenData.Project_Presale_LiqLock}</Value>
                         </Block>
                         <Block margin={'0 0 0 38px'}>
                             <Title>LIQUIDITY LOCK period</Title>
-                            <Value>12 months</Value>
+                            <Value>{tokenData.Project_Presale_LiqLockTime}</Value>
                         </Block>
                     </Flex>
                     <Flex content={'space-between'}>
                         <Block>
                             <Title>presale price <PerBnb>per 1 BNB</PerBnb></Title>
-                            <Value>6’000’000’000’000</Value>
+                            <Value>{tokenData.Project_Presale_Price}</Value>
                         </Block>
                         <Block>
                             <Title>listing price <PerBnb>per 1 BNB</PerBnb></Title>
-                            <Value>4’500’000’000’000</Value>
+                            <Value>{tokenData.Project_Presale_ListingPrice}</Value>
                         </Block>
                     </Flex>
                     <ParticipationWrapper>
                         <Title>participation link</Title>
-                        <ParticipationButton onClick={participationLink}>dxsale<span>Dx</span></ParticipationButton>
+                        <ParticipationButton disabled={!tokenData.Project_Presale_Link} onClick={participationLink}>dxsale<span>Dx</span></ParticipationButton>
                     </ParticipationWrapper>
                 </RightContent>
             </ContentWrapper>

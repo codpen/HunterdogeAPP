@@ -53,6 +53,11 @@ export const Button = styled.button`
 
   transition: hover 0.5s;
 
+  &:disabled {
+    cursor: not-allowed;
+    background: #E7D4A4 !important;
+  }
+
   &:hover {
     background-color: #d5b562
   }

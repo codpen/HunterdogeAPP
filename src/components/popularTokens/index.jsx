@@ -13,9 +13,9 @@ import Row from "./Row";
 import TabsStyled from '../Tabs/Tabs';
 
 const tabs = [
-    {label: "all-time"},
-    {label: "Today’s best"},
-    {label: "This week’s"}
+    {label: "all-time"}
+    // {label: "Today’s best"},
+    // {label: "This week’s"}
 ]
 
 // const ChangePart = ({setPartActive, partActive}) => (
