@@ -13,7 +13,7 @@ import arrowUp from "../../images/arrow-up.svg";
 import {Changes24, Flex, Image, LinkWrapper, More} from "../common";
 import {useVotesPerProject} from "../../hooks/useVotesPerProject";
 import {Votes} from "../common/votes";
-import {getMCap} from '../../connection/functions'
+import {getMCap, getVotesPerProject} from '../../connection/functions'
 import { CheckPopup } from '../checkPopup/checkPopup';
 import arrowDown from "../../images/arrow-down.svg";
 import {getPrice24H} from "../../utils/getPrice24H";
@@ -35,6 +35,7 @@ const Row = ({data, index}) => {
     const [mcap, setMCap] = useState(0)
     const [isOpen, setIsOpen] = useState(false)
     const [change24h, setChange24h] = useState()
+    const [votes, setVotes] = useState(0)
 
     useEffect(() => {
         const fetchSheet = async () => {
@@ -48,6 +49,12 @@ const Row = ({data, index}) => {
                     });
             } catch (e) {
                 console.warn(e)
+            }
+            const res = await getVotesPerProject(data.Project_Address)
+            try {
+                setVotes(parseInt(res[0]) + parseInt(res[1]) + parseInt(res[2]))
+            } catch (e) {
+                console.log(e)
             }
         };
         fetchSheet()
@@ -122,7 +129,7 @@ const Row = ({data, index}) => {
             <TableCell>
                 <Stack direction="row" alignItems="center">
                     <Typography variant="table" sx={{width: '50px'}}>
-                        {/*{votes}*/}
+                        {votes}
                     </Typography>
                     <Votes address={data.Project_Address}/>
                     <More onClick={() => setIsOpen(!isOpen)}>...

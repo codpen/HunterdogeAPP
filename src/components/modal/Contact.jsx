@@ -19,13 +19,13 @@ const useStyles = makeStyles({
     modal: {
         zIndex: 100,
         position: "absolute",
-        top: '10%',
-        left: '100%',
+        top: '0%',
+        left: '250%',
         right: 0,
         margin: '0 auto',
-        padding: '66px 160px 52px',
-        width: '926px',
-        height: '663px',
+        padding: '66px 0px 52px',
+        width: '700px',
+        height: '600px',
         background: '#FFF',
         border: '6px solid  #AB882E',
         boxSizing: 'border-box',
@@ -102,14 +102,15 @@ export default ContactModal;
 
 
 const InputMessage = styled.textarea`
-  width: 604px;
-  height: 206px;
+  width: 550px;
+  height: 150px;
   padding: 15px;
   background: #FFF599;
   border: 2.72138px solid #9F7E04;
   box-sizing: border-box;
   border-radius: 27.2138px;
   font-size: 16px;
+  resize: none;
 `
 const InputEmail = styled.input`
   width: 446px;

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom'
 import { useWeb3React } from "@web3-react/core";
 import LogoImage from '../../images/big_logo.png'
@@ -20,9 +20,8 @@ import bnbLogo from '../../images/bnb-logo.svg'
 import {BadgesWrapper, Card, HeadTitle, InfoWrapper, Inner, Label, Substrate, Text, Wrapper, IcoWrapper, WrapperBadges, SocialWrapper, LinkStyled, Popup, TextPopup, CardInfo} from './TokeHeaderStyled'
 import {Button, Flex, Image, LinkWrapper, Link_} from '../common'
 import {Votes} from "../common/votes";
-import {getMCap, getSymbol, getName} from '../../connection/functions'
-import { GoogleSheetContext } from '../../contexts/GoogleSheetProvider';
-import {SHEET_ID} from "../../constants";
+import {getMCap, getSymbol, getName, getVotesPerProject} from '../../connection/functions'
+
 import Telegram from "../../images/table/telegram.svg";
 import Twitter from "../../images/table/twitter.svg";
 import Instagram from "../../images/insta.svg";
@@ -43,29 +42,31 @@ import { isProjectManager } from '../../connection/functions';
 // import {ReactComponent as MarketCap} from "../../images/marketCap.svg";
 // import {ReactComponent as Popularity} from "../../images/popularity.svg";
 import TokenEditModal from "../modal/TokenEditModal/TokenEditModal";
+import { getHolderPerDay } from '../../utils/getHolderPerDay';
 
-const TokenHeader = () => {
+const TokenHeader = ({tokenData = {}}) => {
     const {address} = useParams()
     const { account } = useWeb3React()
-    const visitWebsite = () => console.log('visit website')
-    const { data } = useContext(GoogleSheetContext)
     const [isTokenEditModal, setIsTokenEditModal] = useState(false)
     const [checkProjectManager, setCheckProjectManager] = useState(false)
-    const [tokenData, setTokenData] = useState({})
-
-    const [kyc, setKyc] = useState('')
-    const [audit, setAudit] = useState('')
-    const [utility, setUtility] = useState('')
-    const [memecoin, setMemecoin] = useState('')
 
     const [price, setPrice] = useState(0)
     const [mcap, setMCap] = useState(0)
     const [symbol, setSymbol] = useState('')
     const [name, setName] = useState('')
-    const [logo, setLogo] = useState('')
+    const [votes, setVotes] = useState(0)
 
     const [openBadges, setOpenBadges] = useState(false)
     const [openInfo, setOpenInfo] = useState(false)
+
+    const [holdersPerDay, setHoldersPerDay] = useState(0)
+
+    
+    const visitWebsite = () => {
+        if(tokenData.Project_Website) {
+            window.location.href = tokenData.Project_Website
+        }
+    }
 
     useEffect(() => {
         const fetchSheet = async () => {
@@ -81,6 +82,17 @@ const TokenHeader = () => {
             } catch (e) {
                 console.warn(e)
             }
+            
+            const res = await getVotesPerProject(address)
+            try {
+                setVotes(parseInt(res[0]) + parseInt(res[1]) + parseInt(res[2]))
+            } catch (e) {
+                console.log(e)
+            }
+            
+            getHolderPerDay(address)
+                .then(res => res && setHoldersPerDay(`+ ${res}`))
+
             const symbol = await getSymbol(address)
             setSymbol(symbol)
             const name = await getName(address)
@@ -106,21 +118,6 @@ const TokenHeader = () => {
         getMarketCap()
     }, [price])
 
-    useEffect(() => {
-        data.map((row) => {
-            console.log('row?.KYC', row?.KYC)
-            if (row?.Project_Address?.toLowerCase() === address.toLowerCase()) {
-                console.log(row?.Project_Logo)
-                setLogo(row?.Project_Logo)
-                setKyc(row?.Project_ISKYC)
-                setAudit(row?.Project_ISDOX)
-                setUtility(row?.Project_HasUtility)
-                setMemecoin(row?.Project_IsMemeCoin)
-            }
-            if (row.Project_Address === address) setTokenData(row)
-        })
-    }, [data])
-
 
     const handleBadges = () => {
         setOpenBadges(true)
@@ -136,14 +133,16 @@ const TokenHeader = () => {
         }, 5000);
       }
 
-    const bscScan = () => console.log('bscScan');
+    const bscScan = () => {
+        window.location.href = `https://bscscan.com/address/${address}`
+    };
 
     return (
         <Wrapper>
             <BadgesWrapper>
-                <Image src={logo.length < 1 ? LogoImage : logo} height={'162px'} margin={'14px 0 21px 0'}/>
-                <LinkWrapper to='#'>
-                    <Button weight={'700'} height='29px' onClick={visitWebsite}>
+                <Image src={tokenData.Project_Logo < 1 ? LogoImage : tokenData.Project_Logo} height={'162px'} margin={'14px 0 21px 0'}/>
+                <LinkWrapper to='#' disabled={!tokenData.Project_Website}>
+                    <Button weight={'700'} height='29px' disabled={!tokenData.Project_Website} onClick={visitWebsite}>
                         visit website
                     </Button>
                 </LinkWrapper>
@@ -154,19 +153,19 @@ const TokenHeader = () => {
                 </Flex>
                 <HeadTitle size={'22px'}>earned badges</HeadTitle>
                 <WrapperBadges>
-                    {kyc === 'TRUE' && 
+                    {tokenData.Project_ISKYC === 'TRUE' && 
                     //    <Image src={Kyc}/>
                         <Kyc1/>
                     }
-                    {audit === 'TRUE' && 
+                    {tokenData.Project_ISDOX === 'TRUE' && 
                         <Audit1/>
                         // <Image src={Audit}/>
                     }
-                    {utility === 'TRUE' && 
+                    {tokenData.Project_HasUtility === 'TRUE' && 
                         // <Image src={Utility}/>
                         <Utility1/>
                     }
-                    {memecoin === 'TRUE' && 
+                    {tokenData.Project_IsMemeCoin === 'TRUE' && 
                         // <Image src={Memecoin}/>
                         <Memecoin1/>
                     }           
@@ -202,7 +201,7 @@ const TokenHeader = () => {
                     <HeadTitle margin={'0 auto 0 10px'} size={'50px'}>{name}</HeadTitle>
                     <Flex>
                         <Image height={'29px'} src={Like}/>
-                        <Text margin={'0 0 0 7px'} size={'24px'}>156’093</Text>
+                        <Text margin={'0 0 0 7px'} size={'24px'}>{votes}</Text>
                         <Votes big={true} address={address} />
                     </Flex>
                 </Flex>
@@ -216,25 +215,31 @@ const TokenHeader = () => {
                             <Flex>
                                 <Text>BSC</Text>
                                 <Image src={bnbLogo} margin={'0 0 0 7px'}/>
-                                <Button onClick={bscScan} bg={'rgba(255, 218, 1, 0.33)'} color={'#B78300'} weight={700} margin={'0 79px 0 29px'} width={'116px'} border={'1.3px solid rgba(183, 131, 0, 0.5)'}>BSC-SCAN</Button>
+                                <Button disabled={!address} onClick={bscScan} bg={'rgba(255, 218, 1, 0.33)'} color={'#B78300'} weight={700} margin={'0 79px 0 29px'} width={'116px'} border={'1.3px solid rgba(183, 131, 0, 0.5)'}>BSC-SCAN</Button>
                                 <SocialWrapper>
                                     <LinkStyled
-                                    // href={`https://bscscan.com/address/${data.Contract_Address}`}
+                                    href={tokenData.Project_Telegram}
+                                    disabled={!tokenData.Project_Telegram}
                                     target="_blank"><Image src={Telegram} width={'19px'}/></LinkStyled>
                                     <LinkStyled
-                                    // href={data.Project_Telegram}
+                                    href={tokenData.Project_Twitter}
+                                    disabled={!tokenData.Project_Twitter}
                                     target="_blank"><Image src={Twitter} width={'18px'}/></LinkStyled>
                                     <LinkStyled
-                                    // href={data.Project_Twitter}
+                                    href={tokenData.Project_Instagram}
+                                    disabled={!tokenData.Project_Instagram}
                                     target="_blank"><Image src={Instagram} width={'18px'}/></LinkStyled>
                                     <LinkStyled 
-                                    // href={data.Presale_Link}
+                                    href={tokenData.Project_Reddit}
+                                    disabled={!tokenData.Project_Reddit}
                                     target="_blank"><Image src={Reddit} width={'19px'}/></LinkStyled>
                                     <LinkStyled 
-                                    // href={data.Presale_Link}
+                                    href={tokenData.Project_Medium}
+                                    disabled={!tokenData.Project_Medium}
                                     target="_blank"><Image src={Medium} width={'19px'}/></LinkStyled>
                                     <LinkStyled 
-                                    // href={data.Presale_Link}
+                                    href={tokenData.Project_Discord}
+                                    disabled={!tokenData.Project_Discord}
                                     target="_blank"><Image src={Discord} width={'22px'}/></LinkStyled>
                                 </SocialWrapper>
                             </Flex>
@@ -256,7 +261,7 @@ const TokenHeader = () => {
                         <Card color={'rgba(255, 218, 1, 0.25)'}>
                             <IcoWrapper><Image src={Popularity}/></IcoWrapper>
                             <span>Ø Holder growth <br/> per day</span>
-                            <CardInfo>+38.98</CardInfo>
+                            <CardInfo>{holdersPerDay}</CardInfo>
                         </Card>
                     </Flex>
                 </Inner>

@@ -12,7 +12,7 @@ import arrowDown from "../../images/arrow-down.svg";
 import { Changes24, Flex, Image, LinkWrapper, More } from "../common";
 import { useVotesPerProject } from "../../hooks/useVotesPerProject";
 import { Votes } from "../common/votes";
-import { getBalanceWBNB, getMCap, getPair, getSymbol, getVotesPerProject, toChecksumAddress } from '../../connection/functions'
+import { getBalanceWBNB, getMCap, getPair, getVotesPerProject, toChecksumAddress } from '../../connection/functions'
 import { useHolders } from "../../hooks/useHolders";
 import { getHolders } from "../../utils/getHolders";
 import { getPrice24H } from "../../utils/getPrice24H";
@@ -22,12 +22,27 @@ import { useWeb3React } from "@web3-react/core";
 import { Badges } from "../common/badges/Badges";
 import { usePrice } from '../../hooks/usePrice';
 import { bscWBNBContact } from '../../connection/contracts';
+import { styled } from '@mui/material/styles';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 
 const tokenData = [
     { key: 'Project_ISKYC', text: 'KYC verified', image: <Kyc /> },
     { key: 'Project_ISDOX', text: 'Audited token', image: <Audit /> },
     { key: 'Project_HasUtility', text: 'Usecase token', image: <Utility /> },
     { key: 'Project_IsMemeCoin', text: 'Meme token', image: <Memecoin /> }]
+
+const HtmlTooltip = styled(({ className, ...props }) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+        backgroundColor: '#FFF599',
+        color: 'rgba(0, 0, 0, 0.87)',
+        maxWidth: 220,
+        fontSize: theme.typography.pxToRem(12),
+        border: '1px solid #dadde9',
+        borderRadius: '20px'
+    },
+}));
 
 const Row = (
     {
@@ -76,8 +91,8 @@ const Row = (
                         return response.json();
                     })
                     .then(async (res) => {
-                        setPrice((+res.data.price).toFixed(4))
-                        console.log(res.data.price_BNB, price24H)
+                        setPrice((+res.data.price))
+                        
                         setChange24h(((res.data.price_BNB / price24H - 1) * 100).toFixed(4))
 
                         setSymbol(res.data.symbol)
@@ -97,7 +112,9 @@ const Row = (
             const pair = await getPair(address);
 
             const wbnb = await getBalanceWBNB(pair);
-            setRatio(wbnb * bnbPrice.price / mcap * 100)
+            if(mcap > 0) {
+                setRatio(wbnb * bnbPrice.price / mcap * 100)
+            }
         }
     }, [bnbPrice.price, mcap])
 
@@ -108,7 +125,7 @@ const Row = (
                     <Typography variant="h6" sx={{ mr: '36px' }}>
                         {index + 1}.
                     </Typography>
-                    <Box component="img" src={logo} sx={{ width: '66px' }} />
+                    <Box component="img" src={data.Project_Logo} sx={{ width: '66px' }} />
                 </Stack>
             </TableCell>
             <TableCell style={{ textAlign: 'left' }}>
@@ -118,10 +135,30 @@ const Row = (
                             {data.Project_Name}
                         </Typography>
                         <Stack direction="row" sx={{ gap: 2, mt: '14px' }}>
-                            {data.Project_ISKYC === 'TRUE' && <Kyc />}
-                            {data.Project_ISDOX === 'TRUE' && <Audit />}
-                            {data.Project_HasUtility === 'TRUE' && <Utility />}
-                            {data.Project_IsMemeCoin === 'TRUE' && <Memecoin />}
+                            {
+                                data.Project_ISKYC === 'TRUE' &&
+                                <HtmlTooltip title={<React.Fragment><Typography>KYC verified</Typography></React.Fragment>}>
+                                    <Kyc />
+                                </HtmlTooltip>
+                            }
+                            {
+                                data.Project_ISDOX === 'TRUE' &&
+                                <HtmlTooltip title={<React.Fragment><Typography>Audited token</Typography></React.Fragment>}>
+                                    <Audit />
+                                </HtmlTooltip>
+                            }
+                            {
+                                data.Project_HasUtility === 'TRUE' &&
+                                <HtmlTooltip title={<React.Fragment><Typography>Usecase token</Typography></React.Fragment>}>
+                                    <Utility />
+                                </HtmlTooltip>
+                            }
+                            {
+                                data.Project_IsMemeCoin === 'TRUE' &&
+                                <HtmlTooltip title={<React.Fragment><Typography>Meme token</Typography></React.Fragment>}>
+                                    <Memecoin />
+                                </HtmlTooltip>
+                            }
                         </Stack>
                     </Stack>
                 </LinkWrapper>
@@ -139,9 +176,9 @@ const Row = (
             <TableCell>
                 <Stack>
                     <Typography variant="table">
-                        ${new Intl.NumberFormat('en-US').format(price)}
+                        ${new Intl.NumberFormat('en-US').format(price.toFixed(6))}
                     </Typography>
-                    {change24h !== 0 && <Flex margin={'6px 0 0 0'} justify={'evenly'}>
+                    {change24h !== 0 && isNaN(change24h) === false && <Flex margin={'6px 0 0 0'} justify={'evenly'}>
                         <Image src={change24h > 0 ? arrowUp : arrowDown} />
                         <Changes24 up={change24h}>{change24h}%</Changes24>
                     </Flex>}

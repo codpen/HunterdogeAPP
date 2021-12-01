@@ -202,6 +202,12 @@ export const LinkStyled = styled.a`
   height: 30px;
   background: rgba(171, 136, 46, 0.5);
   border-radius: 40.4097px;
+  
+    &[disabled] {
+      cursor: not-allowed;
+      background: #E7D4A4 !important;
+    }
+
     &:hover {
       background-color: rgba(171, 136, 46, 0.8);
     }

@@ -210,6 +210,12 @@ export const ParticipationButton = styled.button`
     text-align: center;
     text-transform: capitalize;
   }
+  
+  &[disabled] {
+    cursor: not-allowed;
+    background: #E7D4A4 !important;
+  }
+
 `
 
 export const PerBnb = styled.span`

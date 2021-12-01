@@ -159,7 +159,7 @@ const AllTokensTable = (isTitle) => {
                     {data.map((row, index) => <Row key={index} index={index} data={row}/>)}
                 </TabPanel> */}
                 <TabPanel value={value} index={0}>
-                  {currentData.newData.map((row, index) => <Row key={index} index={index} data={row} />)}
+                  {currentData.newData.map((row, index) => <Row key={index} index={index} data={row}  />)}
                 </TabPanel>
               </TableBody>
             </Table>
