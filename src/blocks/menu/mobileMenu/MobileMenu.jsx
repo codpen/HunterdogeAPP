@@ -3,6 +3,8 @@ import {Button, Flex, Image, LinkWrapper, Text} from "../../../components/common
 import logo from '../../../images/hunter_logo.png';
 import chart from '../../../images/mobile/chart_ico.svg';
 import {Wrapp, WrappedButton, Title, Wrapper} from "./MobileMenuStyled";
+import ConnectWallet from '../../../connection/ConnectWallet';
+import menuIcon from '../../../images/mobile/button_menu.svg';
 
 const MobileMenu = () => {
     const [open, setOpen] = useState(false)
@@ -10,7 +12,6 @@ const MobileMenu = () => {
     return (
         <>
             <Wrapper>
-                <Wrapp>
                 <div>
                     <Flex>
                         <Image src={logo} width={'25px'} height={'25px'}/>
@@ -25,8 +26,12 @@ const MobileMenu = () => {
                     </Flex>
                     
                 </div>
-                </Wrapp>
-                
+                <div>
+                    <ConnectWallet />
+                </div>
+                <div>
+                    <Image src={menuIcon} width={'30px'} height={'30px'}/>
+                </div>
             </Wrapper>
         </>
 

@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import {Box} from "@mui/system";
 import Stack from "@mui/material/Stack";
 // import {styled} from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import styled from 'styled-components'
 
 import BlockHunt from '../../components/blockHunt'
@@ -45,6 +46,7 @@ const Block = styled.div`
   display: flex;
   justify-content: space-around /* background: linear-gradient(270deg, rgba(136, 109, 40, 0.5) 3.52%, #886D28 18.73%, #886D28 82.08%, rgba(136, 109, 40, 0.5) 98.54%);
     box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1); */
+
 `;
 
 const BlockOverflow = styled.div`

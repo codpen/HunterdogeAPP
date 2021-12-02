@@ -69,7 +69,7 @@ const PopularPreSales = () => {
     }, [partActive, page, data])
 
     return (
-        <Box sx={{mt: '55px', width: '1039px', textAlign: 'center'}}>
+        <Box sx={{mt: '55px', width: '100%', textAlign: 'center'}}>
             <Stack direction="row" alignItems="center" justifyContent="center" sx={{mb: 3}}>
                 <Box component='h2' sx={{fontSize: '60px', mr: 4}}>
                     Most popular pre-sales
@@ -99,7 +99,7 @@ const PopularPreSales = () => {
                             <TableRow>
                                 <TableCell style={{textAlign: 'left'}}>#Rank</TableCell>
                                 <TableCell sx={{textAlign: 'left'}}
-                                           style={{textAlign: 'left', paddingLeft: '0'}}>name</TableCell>
+                                        style={{textAlign: 'left', paddingLeft: '0'}}>name</TableCell>
                                 <TableCell>Ticker</TableCell>
                                 <TableCell sx={{textAlign: 'center'}}>Caps</TableCell>
                                 <TableCell sx={{textAlign: 'center'}}>Limits</TableCell>

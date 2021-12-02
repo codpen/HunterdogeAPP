@@ -1,16 +1,15 @@
 import React, { useContext } from 'react';
 import {Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@material-ui/core';
 import {Box} from '@mui/system';
-
 import {Link} from 'react-router-dom';
 import { GoogleSheetContext } from '../../contexts/GoogleSheetProvider';
 import hunterdoge from '../../images/hunterdoge.png';
-
 import {useState} from 'react';
 import TabPanel from '../TabPanel';
 import {SHEET_ID} from "../../constants";
 import Row from "./Row";
 import TabsStyled from '../Tabs/Tabs';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const tabs = [
     {label: "all-time"}
@@ -33,6 +32,7 @@ const tabs = [
 // )
 
 const PopularTokens = () => {
+    const mobileMatches = useMediaQuery('(min-width:600px)');
     const [value, setValue] = useState(0)
     const { data } = useContext(GoogleSheetContext)
     const [partActive, setPartActive] = useState(1)
@@ -44,22 +44,23 @@ const PopularTokens = () => {
     }
 
     return (
-        <Box sx={{mt: '20px', width: '100%', textAlign: 'center', position: 'relative'}}>
+        <Box sx={{mt: '30px', width: '100%', textAlign: 'center', position: 'relative'}}>
+            {mobileMatches &&
             <Box component="img" src={hunterdoge}
-                 sx={{
-                     position: 'absolute',
-                     right: 0,
-                     top: '2%'
-                 }}
+                sx={{
+                    position: 'absolute',
+                    right: 0,
+                    top: '2%'
+                }}
             />
-            <Box component='h2' sx={{fontSize: '60px', mb: 3}}>
+            }
+            
+            <Box component='h2' sx={{fontSize: mobileMatches ? '60px': '30px', mb: 3}}>
                 Most popular Tokens
             </Box>
             <TabsStyled setPartActive={setPartActive} partActive={partActive} data={tabs}/>
             <Box
                 sx={{
-                    // height: '544px',
-                    // overflow: 'hidden',
                     backgroundColor: '#ffffff',
                     borderRadius: '25px',
                     borderTopLeftRadius: 0,
@@ -83,7 +84,6 @@ const PopularTokens = () => {
                             <TabPanel value={value} index={0}>
                                 {data.map((row, index) => <Row key={index * 10} index={index} data={row}/>)}
                             </TabPanel>
-                            
                             <TabPanel value={value} index={1}>
                                 {filterWeek.map((row, index) => <Row key={index * 11} index={index} data={row}/>)}
                             </TabPanel>

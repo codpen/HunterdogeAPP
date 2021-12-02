@@ -23,12 +23,14 @@ import MobileMenu from './blocks/menu/mobileMenu/MobileMenu';
 import ModalContextProvider from './contexts/ModalProvider';
 import { getPrice24H } from "./utils/getPrice24H";
 import GoogleSheetContextProvider from './contexts/GoogleSheetProvider';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const App = () => {
     // const { account } = useWeb3React()
     const { account, chainId } = useWallet();
     const [isOpen, setIsOpen] = useState(false)
     const [register, setRegister] = useState(false)
+    const mobileMatches = useMediaQuery('(min-width:600px)');
 
     useEffect(() => {
         const getIsMember = async () => {
@@ -43,13 +45,13 @@ const App = () => {
             <ModalContextProvider>
                 <GoogleSheetContextProvider>
                     <Main>
-                        <MobileMenu/>
-                        <Header />
-                        <Hero setIsOpen={setIsOpen} register={register} />
+                        {!mobileMatches && <MobileMenu/>}
+                        {mobileMatches && <Header />}
+                        {mobileMatches && <Hero setIsOpen={setIsOpen} register={register} />}
                         {isOpen && <Modal setIsOpen={setIsOpen} />}
                         <Pages>
-                            {/*<Menu/>*/}
-                            <NewMenu/>
+                            {/* <Menu/> */}
+                            {mobileMatches && <NewMenu/>}
                             <Switch>
                                 <Route path="/" exact>
                                     <HomePage />
@@ -79,15 +81,18 @@ const Main = styled.div`
     position: relative;
     margin: auto;
     max-width: 1920px;
+    overflow: hidden;
 `
 
 const Pages = styled.div`
     display: flex;
     margin-top: 34px;
-    padding-left: 44px;
+    padding-left: 0;
     background-image: url(${Paws}), url(${Loupe}), url(${Bow});
     background-repeat: no-repeat;
     // backgroundSize:'100% 100%', 
-    background-position: top 130px left 330px, top 130px right 340px, top 950px left 315px;       
-      
+    background-position: top 130px left 330px, top 130px right 340px, top 950px left 315px;  
+    @media screen and (min-width: 600px) {
+        padding-left: 44px;
+    }     
 `
