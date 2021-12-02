@@ -19,10 +19,10 @@ const data = [
 
 const Modal = ({ setIsOpen }) => {
     // const {account} = useWeb3React()
-    const { account, chainId } = useWallet();
+    const { account, chainId, ethereum } = useWallet();
     const buy = (votes) => {
         if (account) {
-            buyVotes(account, votes)
+            buyVotes(ethereum, account, votes)
         } else {
             alert('You need to connect wallet')
         }

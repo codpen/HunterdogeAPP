@@ -70,12 +70,12 @@ const useStyles = makeStyles({
 const RegisterModal = ({ setIsOpen }) => {
     const [cost, setCost] = useState('0')
     // const {account, chainId} = useWeb3React()
-    const { account, chainId } = useWallet();
+    const { account, chainId, ethereum } = useWallet();
     const classes = useStyles();
 
     const approve = async () => {
         if (account) {
-            await register(account)
+            await register(ethereum, account)
         } else {
             alert('You need to connect wallet')
         }
@@ -83,7 +83,7 @@ const RegisterModal = ({ setIsOpen }) => {
 
     const buy = async () => {
         if (account) {
-            await membership(account)
+            await membership(ethereum, account)
         } else {
             alert('You need to connect wallet')
         }

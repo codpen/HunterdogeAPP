@@ -21,14 +21,8 @@ export default function ConnectWallet() {
     );
 
     useEffect(() => {
-        if (status === 'connected') {
-            // activate(injected);
-        }
-        if (status === 'disconnected') {
-            // deactivate()
-        }
-        if (error) alert('Change network to Binance Smart Chain Network')
-    }, [status, error])
+        connect("injected");
+    }, [chainId])
 
     return (
         <div>

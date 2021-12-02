@@ -70,7 +70,7 @@ const Pages = [
 const TokenEditModal = ({ setIsOpen, tokenAddress, tokenData }) => {
     const classes = useStyles();
     // const { account } = useWeb3React()
-    const { account, chainId } = useWallet();
+    const { account, chainId, ethereum } = useWallet();
     const [page, setPage] = useState(1)
     const { addTokenInfo } = useContext(GoogleSheetContext)
     const [tokenInfo, setTokenInfo] = useState(null)
@@ -89,7 +89,7 @@ const TokenEditModal = ({ setIsOpen, tokenAddress, tokenData }) => {
     const saveInfo = async () => {
         setIsDisableSaveBtn(true)
         try {
-            const res = await addTokenInfo(tokenAddress, tokenInfo, account)
+            const res = await addTokenInfo(tokenAddress, tokenInfo, account, ethereum)
             setTokenInfo(null)
             setIsOpen(false)
             setIsDisableSaveBtn(false)
