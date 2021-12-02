@@ -35,7 +35,7 @@ const Dashboard = ({ token }) => {
                 isComingSoon &&
                 <Stack
                     component='div'
-                    sx={{ position: 'absolute', width: '100%', height: '100%', zIndex: 1, backdropFilter: 'blur(3px)' }}
+                    sx={{ position: 'absolute', width: '100%', height: '466px', zIndex: 1, backdropFilter: 'blur(3px)' }}
                 >
                     <Box component='h2' sx={{ fontSize: '60px', m: 'auto' }}>
                         Coming Soon.
@@ -47,11 +47,12 @@ const Dashboard = ({ token }) => {
     );
 }
 
-const LiveChart = ({tokenData={}}) => {
+const LiveChart = ({ tokenData = {} }) => {
     const { address } = useParams()
     const [symbol, setSymbol] = useState('')
     const [price, setPrice] = useState(0)
     const [totalLP, setTotalLP] = useState(0)
+    const [wbnb, setWBNB] = useState(0)
     const [mcap, setMCap] = useState(0)
     const [ratio, setRatio] = useState(0)
     const [change24h, setChange24h] = useState()
@@ -78,16 +79,17 @@ const LiveChart = ({tokenData={}}) => {
 
     useEffect(async () => {
         const pair = await getPair(address);
-    
+
         const wbnb = await getBalanceWBNB(pair);
+        setWBNB(wbnb)
         setTotalLP(wbnb * bnbPrice.price)
-        if(mcap > 0) {
+        if (mcap > 0) {
             setRatio(wbnb * bnbPrice.price / mcap * 100)
         }
     }, [bnbPrice])
 
     useEffect(async () => {
-        if(price > 0) {
+        if (price > 0) {
             const mcap = await getMCap(address, price)
             setMCap(mcap)
         }
@@ -116,27 +118,29 @@ const LiveChart = ({tokenData={}}) => {
                 <Flex>
                     <Flex direction={'column'}>
                         <Title>Total liquidity</Title>
-                        <Value>{totalLP}</Value>
+                        <Value>${new Intl.NumberFormat('en-US').format(totalLP.toFixed(4))}</Value>
                     </Flex>
                     <Flex direction={'column'} margin={'0 0 0 64px'}>
                         <Title>Liquidity / Mcap ratio</Title>
                         <Flex>
-                            <Value>{ratio}</Value>
+                            <Value>${new Intl.NumberFormat('en-US').format(ratio.toFixed(4))}</Value>
                             {/*<Good>good</Good>*/}
                         </Flex>
                     </Flex>
                 </Flex>
-                {[0, 1].map((el, idx) => <Flex key={idx * 23} content={'space-between'}>
+                {[0].map((el, idx) => <Flex key={idx * 23} content={'space-between'}>
                     <Flex direction={'column'}>
                         <Title size={'12px'}>Pc v2 | {symbol}/BNB LP Holdings</Title>
                         <Flex>
-                            <Value size={'12px'}>- BNB</Value>
+                            <Value size={'12px'}>
+                                {wbnb ? new Intl.NumberFormat('en-US').format(wbnb) : '-'} BNB ( ${new Intl.NumberFormat('en-US').format(totalLP.toFixed(4))} )
+                            </Value>
                             {/*<Changes24 up={true}>($1’313’078)</Changes24>*/}
                         </Flex>
                     </Flex>
                     <Tab>
-                        <p>CHART</p>
-                        <p>LP-HOLDERS</p>
+                        <LinkWrapper disable={true} href={`https://bscscan.com/token/${bscWBNBContact}?a=${address}#tokenAnalytics`}>CHART</LinkWrapper>
+                        <LinkWrapper disable={true} href={`https://bscscan.com/token/${address}#balances`}>LP-HOLDERS</LinkWrapper>
                     </Tab>
                 </Flex>)}
                 {/* <Title size={'12px'}>Liquidity changes since start</Title>

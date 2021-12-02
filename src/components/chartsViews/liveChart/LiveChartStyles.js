@@ -76,8 +76,9 @@ export const Good = styled.h5`
 
 export const LinkWrapper = styled.a`
   height: 22px;
-  border: 0.7px solid #B78300;
-  box-shadow: 1.8px 1.8px 0 rgba(0, 0, 0, 0.1);
+  color: ${({disable}) => disable ? 'unset' : ''};
+  border: ${({disable}) => disable ? 'unset' : '0.7px solid #B78300'};
+  box-shadow: ${({disable}) => disable ? 'unset' : '1.8px 1.8px 0 rgba(0, 0, 0, 0.1)'};
   border-radius: 9px;
   padding: 4px 5px;
   display: flex;

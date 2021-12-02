@@ -3,7 +3,7 @@ import {useWeb3React} from "@web3-react/core";
 import { useWallet } from "@binance-chain/bsc-use-wallet";
 import styled from "styled-components";
 
-export const CheckPopup = ({setIsOpen, big = false}) => {
+export const CheckPopup = ({setIsOpen, big = false, item={}}) => {
   // const {account} = useWeb3React()
   const { account, chainId } = useWallet();
 
@@ -12,9 +12,9 @@ export const CheckPopup = ({setIsOpen, big = false}) => {
       <CloseButton onClick={() => {
         console.log('WTF');
       }}>X</CloseButton>
-             <CheckLink>Check Profile</CheckLink>
-             <CheckLink>Check Website</CheckLink>
-             <CheckLink>Check Pre-sale</CheckLink>
+             {item.Project_Address && <CheckLink href={`/token/${item.Project_Address}`}>Check Profile</CheckLink>}
+             {item.Project_Website && <CheckLink href={item.Project_Website}>Check Website</CheckLink>}
+             {item.Project_Presale_Link && <CheckLink href={item.Project_Presale_Link}>Check Pre-sale</CheckLink>}
     </Modal>
   )
 }
@@ -99,6 +99,8 @@ const CheckLink = styled.a`
   line-height: 15px;
   text-align: center;
   color: rgba(171, 136, 46, 0.7);
+  padding: 0px 5px;
+  
   &:hover {
     color: #AB882E;
   }
