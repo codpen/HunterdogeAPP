@@ -8,7 +8,7 @@ import {ExtraSmall, Input, Modal} from "./VotesStyled";
 
 export const Votes = ({address, big = false}) => {
     // const {account, chainId} = useWeb3React()
-    const { account, chainId } = useWallet();
+    const { account, chainId, ethereum } = useWallet();
     const [votes, setVotes] = useState(0)
     const [activeBtn, setActiveBtn] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
@@ -16,7 +16,7 @@ export const Votes = ({address, big = false}) => {
     const voteUp = () => {
         if (chainId === 56) {
             if (votes > 0) {
-                upVoteProject(votes, account, address)
+                upVoteProject(ethereum, votes, account, address)
                 setActiveBtn(false)
                 setIsOpen(false)
             }
@@ -28,7 +28,7 @@ export const Votes = ({address, big = false}) => {
     const voteMed = () => {
         if (chainId === 56) {
             if (votes > 0) {
-                medVoteProject(votes, account, address)
+                medVoteProject(ethereum, votes, account, address)
                 setActiveBtn(false)
                 setIsOpen(false)
             }
@@ -40,7 +40,7 @@ export const Votes = ({address, big = false}) => {
     const voteAgainst = () => {
         if (chainId === 56) {
             if (votes > 0) {
-                downVoteProject(votes, account, address)
+                downVoteProject(ethereum, votes, account, address)
                 setActiveBtn(false)
                 setIsOpen(false)
             }

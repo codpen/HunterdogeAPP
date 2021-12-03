@@ -8,6 +8,7 @@ import { GoogleSheetContext } from '../../contexts/GoogleSheetProvider';
 import { usePrice } from '../../hooks/usePrice';
 import { bscWBNBContact } from '../../connection/contracts';
 import { ModalContext } from '../../contexts/ModalProvider';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const CheckLiguidity = () => {
   const context = useContext(ModalContext)
@@ -16,6 +17,7 @@ const CheckLiguidity = () => {
   const [getMoreInfo, setGetMoreInfo] = useState(false)
   const [spin, setSpin] = useState(false)
   const [pairAddress, setPairAddress] = useState('')
+  const mobileMatches = useMediaQuery('(min-width:600px)');
 
   const [project, setProject] = useState({
     wbnb: 0,
@@ -106,12 +108,12 @@ const CheckLiguidity = () => {
   return (
     <Box
       sx={{
-        width: '612px',
+        width: !mobileMatches ? 'auto': '612px',
         backgroundColor: '#FAF0CB',
         borderRadius: '25px',
         boxShadow: '5px 5px 0px rgba(0, 0, 0, 0.1)',
         textAlign: 'center',
-        mr: 7,
+        mx: !mobileMatches ? '10px': '0',
         py: '19px',
         px: '20px'
       }}

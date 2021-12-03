@@ -2,11 +2,6 @@ import styled from "styled-components";
 import {Button, Image, Link_} from "../../../components/common";
 import bg from "../../../images/mobile/bg_menu.png";
 
-export const Wrapp = styled.div`
-  display: flex;
-  padding: 5px 13px 0 5px;
-`
-
 export const Wrapper = styled.div`
   position: fixed;
   top: 0;
@@ -14,16 +9,13 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 55px;
   display: flex;
-  /* align-items: center; */
+  justify-content: space-between;
   background-image: url(${bg});
+  background-size: cover;
   background-repeat: no-repeat;
-  /* padding: 62px 21px 21px 21px; */
   text-align: center;
-  z-index: 100;
-
-  @media screen and (min-width: 600px) {
-    display: none
-  }
+  z-index: 20;
+  padding: 5px 13px 0 5px;
 `
 
 export const Title = styled.h1`

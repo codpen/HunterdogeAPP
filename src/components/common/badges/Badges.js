@@ -37,7 +37,7 @@ export const BadgePopup = styled.div`
     color: #AB882E;
     top: 6px;
     right: -117px;
-    z-index: 100;
+    z-index: 20;
     text-transform: none;
     transition: opacity 0.3s ease-in-out;
     

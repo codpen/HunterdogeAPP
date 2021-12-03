@@ -19,8 +19,6 @@ export const getUserVotes = async (account) => {
 
 export const getVotesPerProject = async (address) => {
     const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
-
-
     try {
         const isActive = await contract.methods.isActive(address).call()
         if (isActive) {
@@ -31,8 +29,9 @@ export const getVotesPerProject = async (address) => {
     }
 }
 
-export const downVoteProject = async (vote, account, address) => {
-    const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
+export const downVoteProject = async (ethereum, vote, account, address) => {
+    const web3_ = new Web3(ethereum)
+    const contract = new web3_.eth.Contract(PROJECTABI, bscProjectContact);
 
     try {
         const isActive = await contract.methods.isActive(address).call()
@@ -46,8 +45,9 @@ export const downVoteProject = async (vote, account, address) => {
     }
 }
 
-export const upVoteProject = async (vote, account, address) => {
-    const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
+export const upVoteProject = async (ethereum, vote, account, address) => {
+    const web3_ = new Web3(ethereum)
+    const contract = new web3_.eth.Contract(PROJECTABI, bscProjectContact);
 
     try {
         const isActive = await contract.methods.isActive(address).call()
@@ -61,8 +61,9 @@ export const upVoteProject = async (vote, account, address) => {
     }
 }
 
-export const medVoteProject = async (vote, account, address) => {
-    const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
+export const medVoteProject = async (ethereum, vote, account, address) => {
+    const web3_ = new Web3(ethereum)
+    const contract = new web3_.eth.Contract(PROJECTABI, bscProjectContact);
 
     try {
         const isActive = await contract.methods.isActive(address).call()
@@ -77,8 +78,9 @@ export const medVoteProject = async (vote, account, address) => {
     }
 }
 
-export const buyVotes = async (account, amount) => {
-    const contract = new web3.eth.Contract(ABIMAIN, bscMembershipContract);
+export const buyVotes = async (ethereum, account, amount) => {
+    const web3_ = new Web3(ethereum)
+    const contract = new web3_.eth.Contract(ABIMAIN, bscMembershipContract);
 
     await contract.methods.buyVotes(amount)
         .send({ from: account })
@@ -90,17 +92,19 @@ export const buyVotes = async (account, amount) => {
         })
 }
 
-export const register = async (account) => {
+export const register = async (ethereum, account) => {
+    const web3_ = new Web3(ethereum)
     const amount = '115792089237316195423570985008687907853269984665640564039457584007913129639935'
-    const contract = new web3.eth.Contract(REGISTERABI, bscTokenContact);
+    const contract = new web3_.eth.Contract(REGISTERABI, bscTokenContact);
 
     await contract.methods
         .approve(bscMembershipContract, amount)
         .send({ from: account })
 }
 
-export const membership = async (account) => {
-    const contract = new web3.eth.Contract(ABIMAIN, bscMembershipContract);
+export const membership = async (ethereum, account) => {
+    const web3_ = new Web3(ethereum)
+    const contract = new web3_.eth.Contract(ABIMAIN, bscMembershipContract);
 
     await contract.methods
         .getMembership()
@@ -148,8 +152,9 @@ export const isManager = async (account) => {
     return res
 }
 
-export const addProject = async (tokenInfo, account) => {
-    const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
+export const addProject = async (ethereum, tokenInfo, account) => {
+    const web3_ = new Web3(ethereum)
+    const contract = new web3_.eth.Contract(PROJECTABI, bscProjectContact);
     const res = await contract.methods.addProject(
         tokenInfo.Pproject_Name ? tokenInfo.Pproject_Name : '',
         tokenInfo.Project_Symbol ? tokenInfo.Project_Symbol : '',
@@ -164,8 +169,9 @@ export const addProject = async (tokenInfo, account) => {
     return res
 }
 
-export const editProject = async (tokenInfo, account) => {
-    const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
+export const editProject = async (ethereum, tokenInfo, account) => {
+    const web3_ = new Web3(ethereum)
+    const contract = new web3_.eth.Contract(PROJECTABI, bscProjectContact);
     const res = await contract.methods.editProject(
         tokenInfo.Pproject_Name ? tokenInfo.Pproject_Name : '',
         tokenInfo.Project_Symbol ? tokenInfo.Project_Symbol : '',
@@ -179,8 +185,9 @@ export const editProject = async (tokenInfo, account) => {
     return res
 }
 
-export const returnMembership = async (account) => {
-    const contract = new web3.eth.Contract(ABIMAIN, bscMembershipContract);
+export const returnMembership = async (ethereum, account) => {
+    const web3_ = new Web3(ethereum)
+    const contract = new web3_.eth.Contract(ABIMAIN, bscMembershipContract);
 
     await contract.methods
         .returnMembership()
