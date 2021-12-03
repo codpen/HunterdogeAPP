@@ -49,8 +49,10 @@ ReactDOM.render(
             bsc,
           }}
         >
-          <Web3ReactManager>
-            <Web3ContractProvider>
+
+          {/* <Web3ReactManager>
+            <Web3ContractProvider> */}
+
               <ThemeProvider theme={theme}>
                 <WalletModalThemeProvider theme={light}>
                   <ResetCSS />
@@ -63,8 +65,10 @@ ReactDOM.render(
                   </WalletModalProvider>
                 </WalletModalThemeProvider>
               </ThemeProvider>
+{/* 
             </Web3ContractProvider>
-          </Web3ReactManager>
+          </Web3ReactManager> */}
+
         </bsc.UseWalletProvider>
       </Web3ProviderNetwork>
     </Web3ReactProvider>

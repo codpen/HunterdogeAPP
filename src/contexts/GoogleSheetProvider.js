@@ -17,7 +17,7 @@ const GoogleSheetContextProvider = (props) => {
         error: undefined,
         isLoading: true,
     })
-    const addTokenInfo = async (tokenAddress, tokenInfo, account) => {
+    const addTokenInfo = async (tokenAddress, tokenInfo, account, ethereum) => {
         await doc.useServiceAccountAuth({
             client_email: CLIENT_EMAIL,
             private_key: PRIVATE_KEY,
@@ -33,7 +33,7 @@ const GoogleSheetContextProvider = (props) => {
                 if (key !== 'Project_Manager')  row[key] = tokenInfo[key]
             })            
             await row.save()
-            const res = await editProject(tokenInfo, account) 
+            const res = await editProject(ethereum, tokenInfo, account) 
             return row
         }
         else {
@@ -42,7 +42,7 @@ const GoogleSheetContextProvider = (props) => {
                 if (key !== 'Project_Manager') rowData[key] = tokenInfo[key]
             })          
             const newRow = await sheet.addRow(rowData)
-            const res = await addProject(tokenInfo, account)    
+            const res = await addProject(ethereum, tokenInfo, account)    
             return newRow
         }
     }

@@ -10,6 +10,7 @@ import PopularPreSales from '../components/popularPreSales';
 import Menu from '../blocks/menu';
 import CheckLiguidity from '../components/checkLiquidity';
 import QuickFilter from '../components/quickFilter';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import Paws from '../images/paws_bg.svg';
 import Loupe from '../images/loupe_bg.svg';
@@ -18,6 +19,7 @@ import Footer from '../blocks/footer';
 import GoTop from '../components/GoTop';
 
 const HomePage = () => {
+  const mobileMatches = useMediaQuery('(min-width:600px)');
 
   return (
     // <>
@@ -37,16 +39,19 @@ const HomePage = () => {
       
       <Box
         sx={{
-          mx: '65px',
-          // mr: '64px',
+          mx: !mobileMatches ? '0px': '65px',
+          mt: !mobileMatches ? '60px': '0',
           display: 'flex',
           flexWrap: 'wrap',
-          width: '1037px',
+          width: !mobileMatches ? '100%': '1037px',
           justifyContent: 'center'
         }}>
-        <Stack direction="row" >
-         <CheckLiguidity/>
-         <QuickFilter/>
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          spacing={6}
+        >
+          <CheckLiguidity/>
+          <QuickFilter/>
         </Stack>
         <PopularTokens/>
         <PopularPreSales/>

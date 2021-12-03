@@ -112,7 +112,7 @@ const AdsToken = () => (
 
 const Hero = ({setIsOpen, register}) => {
     // const {account} = useWeb3React()
-    const { account, chainId } = useWallet();
+    const { account, ethereum } = useWallet();
     const state = usePrice(bscTokenContact)
     // const { data } = useContext(GoogleSheetContext)
     const { data } = useGoogleSheet(SHEET_ID_BANNER)
@@ -201,7 +201,7 @@ const Hero = ({setIsOpen, register}) => {
                 {register ? (
                     <>
                         <Button
-                            onClick={() => returnMembership(account)}
+                            onClick={() => returnMembership(ethereum, account)}
                             fullWidth sx={{mt: 1.5}}>
                             unregister
                         </Button>
