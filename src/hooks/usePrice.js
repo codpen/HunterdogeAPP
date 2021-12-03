@@ -25,7 +25,7 @@ export const usePrice = (address, time = 30000) => {
                 }, time)
             }
         return () => clearInterval(timer)
-    },[])
+    },[address])
 
     return state;
 }

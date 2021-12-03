@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useWallet } from "@binance-chain/bsc-use-wallet";
 import { useWalletModal } from "@pancakeswap-libs/uikit";
-import { useWeb3React } from "@web3-react/core";
 import { InjectedConnector } from '@web3-react/injected-connector'
 import {Button} from "@mui/material";
 
@@ -10,7 +9,6 @@ export const injected = new InjectedConnector({
 })
 
 export default function ConnectWallet() {
-    const { active, account: web3Account, activate, deactivate } = useWeb3React()
     const { account, connect, reset, status, chainId, error } = useWallet();
     
     const { onPresentConnectModal, onPresentAccountModal } = useWalletModal(
@@ -42,7 +40,7 @@ export default function ConnectWallet() {
                             {'Connect Wallet'}
                         </Button>
                     }
-                    <a href="javascript:void(0);" className="headIndiBTN"></a> 
+                    <a href="#!" className="headIndiBTN"></a> 
                 </div>
             </div>
         </header>

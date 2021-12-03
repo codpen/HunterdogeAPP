@@ -89,16 +89,6 @@ const AllTokensTable = (isTitle) => {
         }
         return true
       })
-      result.sort((a, b) => {
-        let order = 1;
-        if (option.field === 'vote' && a.Project_Address && b.Project_Address) {
-          order = getVotesPerProject(a.Project_Address) - getVotesPerProject(b.Project_Address)
-        } else {
-          order = a[fieldMap[option.field]] - b[fieldMap[option.field]]
-        }
-
-        return order * direct
-      })
     }
 
     return result

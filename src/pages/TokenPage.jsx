@@ -44,7 +44,6 @@ const TokenPage = () => {
   
   useEffect(() => {
     data.map((row) => {
-
       if (row?.Project_Address?.toLowerCase() === address.toLowerCase()) {
         setTokenData(row)
         
@@ -56,8 +55,9 @@ const TokenPage = () => {
           ])
         }
       }
+      return row
     })
-  }, [data])
+  }, [data, address])
 
   return (
     <Block>
