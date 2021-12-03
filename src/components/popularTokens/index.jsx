@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import {Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@material-ui/core';
 import {Box} from '@mui/system';
 import {Link} from 'react-router-dom';
@@ -12,9 +12,9 @@ import TabsStyled from '../Tabs/Tabs';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const tabs = [
-    {label: "all-time"}
-    // {label: "Today’s best"},
-    // {label: "This week’s"}
+    {label: "all-time"},
+    {label: "Today’s best"},
+    {label: "This week’s"}
 ]
 
 // const ChangePart = ({setPartActive, partActive}) => (
@@ -37,8 +37,20 @@ const PopularTokens = () => {
     const { data } = useContext(GoogleSheetContext)
     const [partActive, setPartActive] = useState(1)
 
-    const filterOneDay = data?.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (24 * 60 * 60 * 1000))
-    const filterWeek = data?.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (7 * 24 * 60 * 60 * 1000))
+    const {filterOneDay, filterWeek} = useMemo(() => {
+        const getWeekNumber = (date) => {
+            date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+            date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay()||7));
+            var yearStart = new Date(Date.UTC(date.getUTCFullYear(),0,1));
+            var weekNo = Math.ceil(( ( (date - yearStart) / 86400000) + 1)/7);
+            return weekNo;
+        }
+        
+        const filterOneDay = data.filter(({Project_Token_LaunchDate}) => Date.parse(Project_Token_LaunchDate) >= new Date() - (24 * 60 * 60 * 1000))
+        const filterWeek = data.filter(({Project_Token_LaunchDate}) => Date.parse(Project_Token_LaunchDate) >= new Date() - (7 * 24 * 60 * 60 * 1000))
+        return { filterOneDay, filterWeek }
+    }, [data])
+
     const handleChange = (event, newValue) => {
         setValue(newValue)
     }
@@ -65,37 +77,34 @@ const PopularTokens = () => {
                     borderRadius: '25px',
                     borderTopLeftRadius: 0,
                     boxShadow: '5px 5px 0px rgba(0, 0, 0, 0.1)',
-                    border: '3px solid #FFF3D4'
+                    border: '3px solid #FFF3D4',
+                    overflow: 'hidden'
                 }}
             >
                 <TableContainer sx={{overflow: 'visible'}}>
-                    <Table>
+                    <Table responsive>
                         <TableHead>
                             <TableRow>
-                                <TableCell>#Rank</TableCell>
-                                <TableCell sx={{textAlign: 'left'}}>name</TableCell>
-                                <TableCell>Ticker</TableCell>
-                                <TableCell>MCAP</TableCell>
-                                <TableCell>Price</TableCell>
-                                <TableCell sx={{textAlign: 'left'}}>Votes</TableCell>
+                                {mobileMatches && <TableCell>#Rank</TableCell>}
+                                <TableCell sx={{textAlign: 'left', fontSize: mobileMatches? '20px': '10px'}}>name</TableCell>
+                                <TableCell sx={{fontSize: mobileMatches? '20px': '10px'}}>Ticker</TableCell>
+                                <TableCell sx={{fontSize: mobileMatches? '20px': '10px'}}>MCAP</TableCell>
+                                <TableCell sx={{fontSize: mobileMatches? '20px': '10px'}}>Price</TableCell>
+                                <TableCell sx={{textAlign: 'left', fontSize: mobileMatches? '20px': '10px'}}>Votes</TableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody>
+                        <TableBody sx={{overflow: 'hidden'}}>
                             <TabPanel value={value} index={0}>
-                                {data.map((row, index) => <Row key={index * 10} index={index} data={row}/>)}
-                            </TabPanel>
-                            <TabPanel value={value} index={1}>
-                                {filterWeek.map((row, index) => <Row key={index * 11} index={index} data={row}/>)}
-                            </TabPanel>
-                            <TabPanel value={value} index={2}>
-                                {filterOneDay.map((row, index) => <Row key={index * 9} index={index} data={row}/>)}
+                                {partActive === 1 && data.map((row, index) => <Row key={index * 10} index={index} data={row}/>)}
+                                {partActive === 2 && filterOneDay.map((row, index) => <Row key={index * 9} index={index} data={row}/>)}
+                                {partActive === 3 && filterWeek.map((row, index) => <Row key={index * 11} index={index} data={row}/>)}
                             </TabPanel>
                         </TableBody>
                     </Table>
                 </TableContainer>
             </Box>
             <Button component={Link} to="/allTokens"
-                    sx={{mt: 5, minWidth: '187px'}}
+                sx={{mt: 5, minWidth: '187px'}}
             >
                 see all tokens
             </Button>

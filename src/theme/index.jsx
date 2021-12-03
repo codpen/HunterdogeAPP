@@ -77,22 +77,31 @@ export const theme = createTheme({
         }
       }
     },
+    MuiTableRow : {
+      styleOverrides: {
+        root: {
+          borderBottom: '3px solid #FAF0CB',
+        },
+        head: {
+        }
+      }
+    },
     MuiTableCell: {
       styleOverrides: {
         root: {
           fontStyle: 'normal',
           textTransform: 'uppercase',
-          borderBottom: '3px solid #FAF0CB',
-          padding: '6px 16px',
-          textAlign: 'center'
+          padding: '0.4rem 0.2rem',
+          textAlign: 'center',
+          fontSize: '0.8rem',
+          borderBottom: 'none'
         },
         head: {
           fontFamily: 'MonsterHunter',
-          fontSize: 26,
+          fontSize: '1rem',
           fontWeight: 400,
-          padding: '14px 16px',
+          padding: '0.4rem 0.2rem',
           color: '#AB882E',
-          
         }
       }
     },

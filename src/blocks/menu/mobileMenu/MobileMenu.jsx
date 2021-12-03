@@ -30,11 +30,10 @@ const MobileMenu = () => {
                     <ConnectWallet />
                 </div>
                 <div>
-                    <Image src={menuIcon} width={'30px'} height={'30px'}/>
+                    <Image src={menuIcon} width={'24px'} height={'24px'}/>
                 </div>
             </Wrapper>
         </>
-
     );
 };
 
