@@ -43,7 +43,7 @@ const Tab = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 163.24px;
+    width: 6.5rem;
     height: 38px;
     background: rgba(183, 131, 0, 0.1);;
     border-radius: 25px 25px 0 0;
@@ -78,7 +78,7 @@ const Tab = styled.div`
     font-family: Raleway;
     font-style: normal;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 0.8rem;
     line-height: 98.1%;
     text-transform: uppercase;
     color: #B78300;
