@@ -1,33 +1,37 @@
 import styled from "styled-components";
 import close from '../../images/close_ico.svg';
 import { Box } from '@mui/system';
+import { useMediaQuery } from "@material-ui/core";
 
-const TabsStyled = ({ setPartActive, partActive, data, closeTab }) => (
-  <Part>
-    {data.map((item, index) => {
-      return (
-        <Tab key={index} className={(item.id ? item.id === partActive : partActive === index + 1) ? 'active' : ''} onClick={() => setPartActive(item.id ? item.id : index + 1)}>
-          <span>{item.label}</span>
-          {
-            item.close 
-            ?
-            <Box component="img"
-              src={close}
-              onClick={() => closeTab(item.id)}
-              sx={{
-                position: 'absolute',
-                right: '5px',
-                top: '10px'
-              }}
-            />
-            :
-            false
-          }
-        </Tab>
-      )
-    })}
-  </Part>
-)
+const TabsStyled = ({ setPartActive, partActive, data, closeTab }) => {
+  const mobileMatches = useMediaQuery('(max-width:600px)');
+  return (
+    <Part>
+      {data.map((item, index) => {
+        return (
+          <Tab key={index} isMobile={mobileMatches} className={(item.id ? item.id === partActive : partActive === index + 1) ? 'active' : ''} onClick={() => setPartActive(item.id ? item.id : index + 1)}>
+            <span>{item.label}</span>
+            {
+              item.close
+                ?
+                <Box component="img"
+                  src={close}
+                  onClick={() => closeTab(item.id)}
+                  sx={{
+                    position: 'absolute',
+                    right: '5px',
+                    top: '10px'
+                  }}
+                />
+                :
+                false
+            }
+          </Tab>
+        )
+      })}
+    </Part>
+  )
+}
 
 export default TabsStyled;
 
@@ -45,8 +49,8 @@ const Tab = styled.div`
     align-items: center;
     width: 85px;
     height: 20px;
-    background: rgba(183, 131, 0, 0.1);;
-    border-radius: 25px 25px 0 0;
+    background: ${({ isMobile }) => isMobile ? 'rgba(183, 131, 0, 0.24)' : 'rgba(183, 131, 0, 0.1)'};
+    border-radius: 15px 15px 0 0;
     cursor: pointer;
     &:hover {
       border: 1px solid #B78300;
@@ -62,10 +66,10 @@ const Tab = styled.div`
     }
     &.active {
         box-shadow: 5px 0px 0px rgba(0, 0, 0, 0.1);
-        background: #FFF;
+        background: ${({ isMobile }) => isMobile ? '#FFF8CC' : '#FFF'};
         height: 30px;
         border: 3px solid #FAF0CB;
-        border-bottom: 1px solid #FFF;
+        border-bottom: 1px solid ${({ isMobile }) => isMobile ? '#FFF8CC' : '#FFF'};
         transform: translateY(4px);
     }
     &.active > span {

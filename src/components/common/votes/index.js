@@ -6,7 +6,7 @@ import { useWallet } from "@binance-chain/bsc-use-wallet";
 import {ExtraSmall, Input, Modal} from "./VotesStyled";
 
 
-export const Votes = ({address, big = false}) => {
+export const Votes = ({address, big = false, height, size}) => {
     // const {account, chainId} = useWeb3React()
     const { account, chainId, ethereum } = useWallet();
     const [votes, setVotes] = useState(0)
@@ -66,8 +66,9 @@ export const Votes = ({address, big = false}) => {
                 <ButtonRed onClick={voteAgainst}>vote <ExtraSmall> x </ExtraSmall> -1</ButtonRed>
             </Modal>}
             <Button margin={big && '0 0 0 auto'}
-                    width='79px'
-                    height={activeBtn ? '28px' : ''}
+                    width={'79px'}
+                    size={size || false}
+                    height={activeBtn ? (height || '28px') : (height || '')}
                     onClick={activeInput}>Vote</Button>
         </VoteWrapper>
     )
