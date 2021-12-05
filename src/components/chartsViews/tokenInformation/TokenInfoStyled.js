@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   max-width: 1039px;
-  background: #FFFFFF;
+  background: ${({ isMobile }) => isMobile ? '#FFF8CC' : '#FFF'};
   box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.1);
   border-radius: 25px;
   padding: 37px 10px 17px 38px;

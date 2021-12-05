@@ -4,10 +4,10 @@ export const Wrapper = styled.div`
   display: ${({isMobile}) => isMobile ? 'block' : 'flex'};
   justify-content: space-between;
   max-width: 1039px;
-  background: #FFFFFF;
+  background: ${({ isMobile }) => isMobile ? '#FFF8CC' : '#FFFFFF'};
   box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.1);
   border-radius: 25px;
-  padding: 62px 21px 25px 30px;
+  padding: ${({isMobile}) => isMobile ? '20px 10px 10px 10px' : '62px 21px 25px 30px'};
 `
 
 export const ChartWrapper = styled.div`
@@ -19,20 +19,20 @@ export const ChartWrapper = styled.div`
 `
 export const LiveChartTitle = styled.p`
   font-family: Raleway,sans-serif;
-  font-size: 21px;
   font-weight: 800;
   color: #B78300;
-  line-height: 21px; 
   margin-right: 22px;
+  font-size: ${({size}) => size || '21px'};
+  line-height: ${({size}) => size || '21px'};
 `
 
 export const LiveChartSubtitle = styled.p`
   font-family: Raleway,sans-serif;
-  font-size: 21px;
   font-weight: 300;
   color: #B78300;
-  line-height: 21px; 
   font-style: italic;
+  font-size: ${({size}) => size || '21px'};
+  line-height: ${({size}) => size || '21px'};
 `
 
 export const Title = styled.p`

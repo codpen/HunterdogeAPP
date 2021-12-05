@@ -36,14 +36,14 @@ const Dashboard = ({ token }) => {
                 isComingSoon &&
                 <Stack
                     component='div'
-                    sx={{ position: 'absolute', width: '100%', height: (mobileMatches ? 'calc(100vw - 30px)' : '466px'), zIndex: 1, backdropFilter: 'blur(3px)' }}
+                    sx={{ position: 'absolute', width: '100%', height: (mobileMatches ? `${(window.innerWidth - 50)}px` : '466px'), zIndex: 1, backdropFilter: 'blur(3px)' }}
                 >
-                    <Box component='h2' sx={{ fontSize: '60px', m: 'auto' }}>
+                    <Box component='h2' sx={{ fontSize: '60px', m: 'auto', textAlign: 'center' }}>
                         Coming Soon.
                     </Box>
                 </Stack>
             }
-            <AdvancedChart widgetProps={{ "theme": "dark", symbol: query + "USD", height: (mobileMatches ? 'calc(100vw - 30px)' : '466px') }} />
+            <AdvancedChart widgetProps={{ "theme": "dark", symbol: query + "USD", height: (mobileMatches ? `${(window.innerWidth - 50)}px` : '466px') }} />
         </Stack>
     );
 }
@@ -100,29 +100,42 @@ const LiveChart = ({ tokenData = {} }) => {
         <Wrapper isMobile={mobileMatches}>
             <ChartWrapper>
                 <Flex margin={'0 0 5px 0'}>
-                    <LiveChartTitle>LIVE CHART</LiveChartTitle>
-                    <LiveChartSubtitle>PAIR {symbol} - BNB</LiveChartSubtitle>
+                    <LiveChartTitle size={'14px'}>LIVE CHART</LiveChartTitle>
+                    <LiveChartSubtitle size={'14px'}>PAIR {symbol} - BNB</LiveChartSubtitle>
                 </Flex>
                 <Dashboard token={symbol} />
-                <Button onClick={() => setIsModal(true)} margin={'25px 0 0 0'} width={'277px'}>report this token to staff</Button>
+                <Button onClick={() => setIsModal(true)} size={'14px'} margin={'20px auto'} width={'277px'} height={ mobileMatches && '25px'}>report this token to staff</Button>
             </ChartWrapper>
-            <RightContent margin={'0 0 0 31px'}>
-                <HeadTitle margin={'0 0 31px 0'} align={'center'} size={'30px'}>statistics</HeadTitle>
-                <Title>Max supply</Title>
-                <Value>{tokenData?.Project_Token_Max}</Value>
-                <Title>Market cap</Title>
-                <Value>${new Intl.NumberFormat('en-US').format(mcap)}</Value>
-                <Title>Current price in USD</Title>
-                <Flex>
-                    <Value>${new Intl.NumberFormat('en-US').format(price.toFixed(4))}</Value>
-                    {change24h && <Changes24 up={change24h.up}>{change24h.text}</Changes24>}
-                </Flex>
-                <Flex>
-                    <Flex direction={'column'}>
+            <RightContent width={mobileMatches && '100%'} margin={mobileMatches ? '20px 0' : '0 0 0 31px'}>
+                <HeadTitle margin={'0 0 31px 0'} align={'center'} size={'18px'}>statistics</HeadTitle>
+                <Stack sx={{ display: 'flex', flexDirection: (mobileMatches ? 'row' : 'column'), justifyContent: 'space-between' }}>
+                    <Title>Max supply</Title>
+                    <Value>{new Intl.NumberFormat('en-US').format(tokenData?.Project_Token_Max)}</Value>
+                </Stack>
+                <Stack sx={{ display: 'flex', flexDirection: (mobileMatches ? 'row' : 'column'), justifyContent: 'space-between' }}>
+                    <Title>Market cap</Title>
+                    <Value>${new Intl.NumberFormat('en-US').format(mcap)}</Value>
+                </Stack>
+                <Stack sx={{ display: 'flex', flexDirection: (mobileMatches ? 'row' : 'column'), justifyContent: 'space-between' }}>
+                    <Title>Current price in USD</Title>
+                    <Flex>
+                        <Value>${new Intl.NumberFormat('en-US').format(price.toFixed(4))}</Value>
+                        {change24h && <Changes24 up={change24h.up}>{change24h.text}</Changes24>}
+                    </Flex>
+                </Stack>
+                <Flex direction={mobileMatches && 'column'}>
+                    <Flex
+                        content={mobileMatches && 'space-between'}
+                        style={{ width: (mobileMatches ? '100%' : '') }}
+                        direction={mobileMatches ? 'row' : 'column'}>
                         <Title>Total liquidity</Title>
                         <Value>${new Intl.NumberFormat('en-US').format(totalLP.toFixed(4))}</Value>
                     </Flex>
-                    <Flex direction={'column'} margin={'0 0 0 64px'}>
+                    <Flex
+                        content={mobileMatches && 'space-between'}
+                        style={{ width: (mobileMatches ? '100%' : '') }}
+                        direction={mobileMatches ? 'row' : 'column'}
+                        margin={mobileMatches ? '0' : '0 0 0 64px'}>
                         <Title>Liquidity / Mcap ratio</Title>
                         <Flex>
                             <Value>${new Intl.NumberFormat('en-US').format(ratio.toFixed(4))}</Value>
@@ -130,11 +143,11 @@ const LiveChart = ({ tokenData = {} }) => {
                         </Flex>
                     </Flex>
                 </Flex>
-                {[0].map((el, idx) => <Flex key={idx * 23} content={'space-between'}>
+                {[0].map((el, idx) => <Flex key={idx * 23} content={'space-between'} direction={mobileMatches && 'column'}>
                     <Flex direction={'column'}>
                         <Title size={'12px'}>Pc v2 | {symbol}/BNB LP Holdings</Title>
                         <Flex>
-                            <Value size={'12px'}>
+                            <Value size={'12px'} margin={mobileMatches && '0'}>
                                 {wbnb ? new Intl.NumberFormat('en-US').format(wbnb) : '-'} BNB ( ${new Intl.NumberFormat('en-US').format(totalLP.toFixed(4))} )
                             </Value>
                             {/*<Changes24 up={true}>($1’313’078)</Changes24>*/}

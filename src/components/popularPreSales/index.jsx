@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from 'react';
+import React, { useState, useMemo } from 'react';
 import {
     Button,
     Stack,
@@ -11,22 +11,22 @@ import {
     Typography
 } from '@material-ui/core';
 import styled from "styled-components";
-import {Box} from '@mui/system';
+import { Box } from '@mui/system';
 import logo from '../../images/hunter_logo.png';
-import {ButtonGreen, ButtonRed, ButtonYellow, More, VoteWrapper} from '../common'
-import {SHEET_ID_PRESALES} from "../../constants";
-import {useGoogleSheet} from '../../hooks/useGoogleSheet';
+import { ButtonGreen, ButtonRed, ButtonYellow, More, VoteWrapper } from '../common'
+import { SHEET_ID_PRESALES } from "../../constants";
+import { useGoogleSheet } from '../../hooks/useGoogleSheet';
 import Row from "./Row";
 import TabsStyled from '../Tabs/Tabs';
 import info from '../../images/info_ico.svg';
 import Pagination from "../pagination/Pagination";
-import {paginate} from "../pagination/paginate";
+import { paginate } from "../pagination/paginate";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const tabs = [
-    {label: "upcoming"},
-    {label: "Ended"}
-  ]
+    { label: "upcoming" },
+    { label: "Ended" }
+]
 
 // const PopularPreSales = () => {
 //     const {data} = useGoogleSheet(SHEET_ID_PRESALES)
@@ -47,32 +47,32 @@ const tabs = [
 
 
 const PopularPreSales = () => {
-  const mobileMatches = useMediaQuery('(min-width:600px)');
-  const { data } = useGoogleSheet(SHEET_ID_PRESALES)
-  const [partActive, setPartActive] = useState(1)
-  const [openPopup, setOpenPopup] = useState(false)
-  const [page, setPage] = useState(1)
-  const handleInfo = () => {
-    setOpenPopup(true)
-    setTimeout(function() {
-      setOpenPopup(false)
-    }, 5000);
-  }
-//   const filterUpcoming = data?.filter(({Liq_Lock_Time}) => Liq_Lock_Time >= currentTime)
-//   const filterEnded = data?.filter(({Liq_Lock_Time}) => Liq_Lock_Time <= currentTime)
-    const {newData, currentPage, endPage, startIndex} = useMemo(() => {
+    const mobileMatches = useMediaQuery('(min-width:600px)');
+    const { data } = useGoogleSheet(SHEET_ID_PRESALES)
+    const [partActive, setPartActive] = useState(1)
+    const [openPopup, setOpenPopup] = useState(false)
+    const [page, setPage] = useState(1)
+    const handleInfo = () => {
+        setOpenPopup(true)
+        setTimeout(function () {
+            setOpenPopup(false)
+        }, 5000);
+    }
+    //   const filterUpcoming = data?.filter(({Liq_Lock_Time}) => Liq_Lock_Time >= currentTime)
+    //   const filterEnded = data?.filter(({Liq_Lock_Time}) => Liq_Lock_Time <= currentTime)
+    const { newData, currentPage, endPage, startIndex } = useMemo(() => {
         const currentTime = Math.round(new Date() / 1000)
-        const filterUpcoming = data.filter(({Project_Start_Time}) => Project_Start_Time >= currentTime)
-        const filterEnded  = data.filter(({Project_Start_Time}) => Project_Start_Time <= currentTime)
+        const filterUpcoming = data.filter(({ Project_Start_Time }) => Project_Start_Time >= currentTime)
+        const filterEnded = data.filter(({ Project_Start_Time }) => Project_Start_Time <= currentTime)
         //paginate
         const paginateData = partActive === 1 ? filterUpcoming : filterEnded
         return paginate(paginateData.length, page, 10, paginateData.reverse())
     }, [partActive, page, data])
 
     return (
-        <Box sx={{mt: '55px', width: '100%', textAlign: 'center'}}>
-            <Stack direction="row" alignItems="center" justifyContent="center" sx={{mb: 3}}>
-                <Box component='h2' sx={{fontSize: mobileMatches? '60px': '25px', mr: mobileMatches? 4: 0}}>
+        <Box sx={{ mt: '55px', width: '100%', textAlign: 'center' }}>
+            <Stack direction="row" alignItems="center" justifyContent="center" sx={{ mb: 3 }}>
+                <Box component='h2' sx={{ fontSize: mobileMatches ? '60px' : '25px', mr: mobileMatches ? 4 : 0 }}>
                     Most popular pre-sales
                 </Box>
                 <Info onClick={handleInfo}>i
@@ -84,10 +84,10 @@ const PopularPreSales = () => {
                     </Popup>}
                 </Info>
             </Stack>
-            <TabsStyled setPartActive={setPartActive} partActive={partActive} data={tabs}/>
+            <TabsStyled setPartActive={setPartActive} partActive={partActive} data={tabs} />
             <Box
                 sx={{
-                    backgroundColor: '#ffffff',
+                    backgroundColor: (mobileMatches ? '#FFF' : '#FFF8CC'),
                     borderRadius: '25px',
                     borderTopLeftRadius: 0,
                     boxShadow: '5px 5px 0px rgba(0, 0, 0, 0.1)',
@@ -95,29 +95,29 @@ const PopularPreSales = () => {
                     overflow: 'hidden'
                 }}
             >
-                <TableContainer sx={{overflow: 'visible'}}>
+                <TableContainer sx={{ overflow: 'visible' }}>
                     <Table>
                         <TableHead>
                             <TableRow>
-                                {mobileMatches && <TableCell style={{textAlign: 'left'}}>#Rank</TableCell>}
-                                <TableCell sx={{textAlign: 'left', fontSize: mobileMatches? '20px': '10px', paddingLeft: '0'}}>name</TableCell>
-                                <TableCell sx={{fontSize: mobileMatches? '20px': '10px'}}>Ticker</TableCell>
-                                <TableCell sx={{textAlign: 'center', fontSize: mobileMatches? '20px': '10px'}}>Caps</TableCell>
-                                <TableCell sx={{textAlign: 'center', fontSize: mobileMatches? '20px': '10px'}}>Limits</TableCell>
-                                {mobileMatches &&<TableCell sx={{textAlign: 'left', fontSize: mobileMatches? '20px': '10px'}}></TableCell>}
-                                <TableCell sx={{textAlign: 'left', fontSize: mobileMatches? '20px': '10px'}}></TableCell>
+                                {mobileMatches && <TableCell style={{ textAlign: 'left' }}>#Rank</TableCell>}
+                                <TableCell sx={{ textAlign: 'left', fontSize: mobileMatches ? '20px' : '10px', paddingLeft: '0' }}>name</TableCell>
+                                <TableCell sx={{ fontSize: mobileMatches ? '20px' : '10px' }}>Ticker</TableCell>
+                                <TableCell sx={{ textAlign: 'center', fontSize: mobileMatches ? '20px' : '10px' }}>Caps</TableCell>
+                                <TableCell sx={{ textAlign: 'center', fontSize: mobileMatches ? '20px' : '10px' }}>Limits</TableCell>
+                                {mobileMatches && <TableCell sx={{ textAlign: 'left', fontSize: mobileMatches ? '20px' : '10px' }}></TableCell>}
+                                <TableCell sx={{ textAlign: 'left', fontSize: mobileMatches ? '20px' : '10px' }}></TableCell>
                             </TableRow>
                         </TableHead>
                         {partActive === 1 ? <TableBody>
-                            {newData?.map((row, index) => <Row key={index} index={startIndex + index} data={row}/>)}
+                            {newData?.map((row, index) => <Row key={index} index={startIndex + index} data={row} />)}
                         </TableBody> : <TableBody>
-                            {newData?.map((row, index) => <Row key={index} index={startIndex + index} data={row}/>)}
+                            {newData?.map((row, index) => <Row key={index} index={startIndex + index} data={row} />)}
                         </TableBody>
                         }
                     </Table>
                 </TableContainer>
             </Box>
-            <Pagination style={{marginTop: '23px'}} start={currentPage} end={endPage} pageHandler={setPage} page={page}/>
+            <Pagination style={{ marginTop: '23px' }} start={currentPage} end={endPage} pageHandler={setPage} page={page} />
             {/*<Button sx={{mt: 5, minWidth: '187px'}}>*/}
             {/*  see all pre-sales*/}
             {/*</Button>*/}
@@ -155,11 +155,11 @@ const Popup = styled.div`
 const TextPopup = styled.div`
   font-family: Raleway;
   font-style: normal;
-  font-weight: ${({fw}) => fw ? fw : 800};
+  font-weight: ${({ fw }) => fw ? fw : 800};
   font-size: 15px;
   line-height: 15px;
-  color: ${({color}) => color ? color : '#AB882E'};
-  margin-bottom: ${({mb}) => mb ? mb : 0};
+  color: ${({ color }) => color ? color : '#AB882E'};
+  margin-bottom: ${({ mb }) => mb ? mb : 0};
 `
 
 const Info = styled.div`
