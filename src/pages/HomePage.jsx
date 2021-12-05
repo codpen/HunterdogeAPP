@@ -55,7 +55,7 @@ const HomePage = () => {
         </Stack>
         <PopularTokens/>
         <PopularPreSales/>
-        <GoTop scrollStepInPx="100" delayInMs="10.50"/>
+        {mobileMatches && <GoTop scrollStepInPx="100" delayInMs="10.50"/>}
       </Box>
 
     //   <Stack>

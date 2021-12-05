@@ -7,36 +7,35 @@ import {useVotesPerProject} from "../../hooks/useVotesPerProject";
 import styled from "styled-components";
 import {Votes} from "../common/votes";
 import { CheckPopup } from '../checkPopup/checkPopup';
-
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Bsc from "../../images/table/bscscan.svg";
 import Telegram from "../../images/table/telegram.svg";
 import Twitter from "../../images/table/twitter.svg";
 import Dx from "../../images/table/dx.svg";
 import { TableBody, TableHead } from '@mui/material';
+import { mobileVendor } from 'react-device-detect';
 
 const Row = ({data, index}) => {
     // const {votes, error, isLoading} = useVotesPerProject(data.Project_Address)
     const [additional, setAdditional] = useState(false) 
-
+    const mobileMatches = useMediaQuery('(min-width:600px)');
     const mL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-
     const convertedDateStart = new Date(data.Project_Start_Time *1000)
     const ddStart = convertedDateStart.getDate()
     const mmStart = convertedDateStart.getMonth()
     const yyyyStart = convertedDateStart.getFullYear()
- 
     const timeFormatStart = convertedDateStart.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });
-
     const convertedDateLock = new Date(data.Liq_Lock_Time *1000)
     const ddLock = convertedDateLock.getDate()
     const mmLock = convertedDateLock.getMonth()
     const yyyyLock = convertedDateLock.getFullYear()
     const timeFormatLock = convertedDateLock.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });
-
     const linkAddress = data.Project_Address || data.Presale_Address
+
     return (
       <>
         <TableRow>
+            {mobileMatches &&
             <TableCell component="th" scope="row" style={{ width: '140px'}}>
                 <Stack direction="row" alignItems="center" >
                     <Typography variant="h6" sx={{mr:'25px'}}>
@@ -45,11 +44,15 @@ const Row = ({data, index}) => {
                     <Box component="img" src={data.Project_Logo} sx={{width: '66px'}}/>
                 </Stack>
             </TableCell>
-            <TableCell style={{ padding: '6px 0px 6px 6px', width: '140px'}}>
-                <LinkWrapper to={`/token/${linkAddress}`}>
+            }
+
+            <TableCell>
+              <LinkWrapper to={`/token/${linkAddress}`} style={{display:'flex', alignItems:'center'}}>
+                {!mobileMatches && <Box component="img" src={data.Project_Logo} sx={{ width:'20px', height:'20px', marginRight:'4px' }} />}
                 <Stack sx={{textAlign: 'left'}}>
-                    <Typography variant="h5" sx={{fontSize: '15px'}}>
-                        {data.Project_Name}
+                    <Typography  variant="h5" sx={{display:'flex'}}>
+                      {mobileMatches && data.Project_Name}
+                      {!mobileMatches && <small style={{fontSize:'0.4rem'}}>{data.Project_Name}</small>}  
                     </Typography>
                     {/* <Typography variant="body2"
                                 sx={{
@@ -67,50 +70,58 @@ const Row = ({data, index}) => {
                         Start Time: {time} - {dayStart} - {mL[monthStart - 1]}
                     </Typography> */}
                 </Stack>
-                </LinkWrapper>
+              </LinkWrapper>
             </TableCell>
-            <TableCell style={{ padding: '6px 6px'}}>
-                <Typography variant="h5" sx={{fontWeight: 900, fontSize: '15px'}}>
-                    {data.Project_Symbol}
+
+            <TableCell>
+                <Typography variant="h5" sx={{fontWeight: 900, fontSize: '15px', display:'flex', justifyContent:'center'}}>
+                  {mobileMatches && data.Project_Symbol}
+                  {!mobileMatches &&
+                      <small style={{fontSize:'0.4rem'}}>{data.Project_Symbol}</small>
+                  }  
                 </Typography>
             </TableCell>
-            <TableCell style={{ padding: '6px 20px 6px 15px', width: '160px'}}>
+            
+            <TableCell sx={{padding: '2px 4px'}}>
                 <Stack direction="row" justifyContent="space-between">
-                    <Typography variant="body1" sx={{fontSize: '15px'}}>
+                    <Typography variant="body1" sx={{fontSize: mobileMatches? '15px': '0.4rem'}}>
                         SOFT 
                     </Typography>
-                    <Typography variant="body1" sx={{fontWeight: 500, fontSize: '14px'}}>
+                    <Typography variant="body1" sx={{fontWeight: 500, fontSize: mobileMatches? '14px': '0.4rem'}}>
                         {data.Soft_Cap} BNB
                     </Typography>
                 </Stack>
                 <Stack direction="row" justifyContent="space-between">
-                    <Typography variant="body1" sx={{fontSize: '15px'}}>
+                    <Typography variant="body1" sx={{fontSize: mobileMatches? '15px': '0.4rem'}}>
                         HARD
                     </Typography>
-                    <Typography variant="body1" sx={{fontWeight: 500, fontSize: '14px'}}>
+                    <Typography variant="body1" sx={{fontWeight: 500, fontSize: mobileMatches? '14px': '0.4rem'}}>
                         {data.Hard_Cap} BNB
                     </Typography>
                 </Stack>
             </TableCell>
-            <TableCell style={{ padding: '6px 10px 6px 6px', width: '170px'}}>
+
+            <TableCell sx={{padding: '2px 4px'}}>
                 <Stack direction="row" justifyContent="space-between">
-                    <Typography variant="body1" sx={{fontSize: '15px'}}>
+                    <Typography variant="body1" sx={{fontSize: mobileMatches? '15px': '0.4rem'}}>
                         MIN.
                     </Typography>
-                    <Typography variant="body1" sx={{fontWeight: 500, fontSize: '14px'}}>
+                    <Typography variant="body1" sx={{fontWeight: 500, fontSize: mobileMatches? '14px': '0.4rem'}}>
                         {data.Min_Contribution} BNB
                     </Typography>
                 </Stack>
                 <Stack direction="row" justifyContent="space-between">
-                    <Typography variant="body1" sx={{fontSize: '15px'}}>
+                    <Typography variant="body1" sx={{fontSize: mobileMatches? '15px': '0.4rem'}}>
                         MAX.
                     </Typography>
-                    <Typography variant="body1" sx={{fontWeight: 500, fontSize: '14px'}}>
+                    <Typography variant="body1" sx={{fontWeight: 500, fontSize: mobileMatches? '14px': '0.4rem'}}>
                         {data.Max_Contribution} BNB
                     </Typography>
                 </Stack>
             </TableCell>
-            <TableCell style={{ padding: '6px 16px 6px 6px'}}>
+
+            {mobileMatches && 
+            <TableCell>
                 <SocialWrapper>
                     <LinkStyled href={`https://bscscan.com/address/${data.Contract_Address}`} target="_blank"><Image src={Bsc} width={'22px'}/></LinkStyled>
                     <LinkStyled href={data.Project_Telegram} target="_blank"><Image src={Telegram} width={'18px'}/></LinkStyled>
@@ -118,12 +129,14 @@ const Row = ({data, index}) => {
                     <LinkStyled href={data.Presale_Link} target="_blank"><Image src={Dx} width={'22px'}/></LinkStyled>
                 </SocialWrapper>
             </TableCell>
-            <TableCell style={{ padding: '6px', width: '100px'}}>
-                <Stack direction="row" alignItems="center" sx={{width: '100px'}}>
+            }
+           
+            <TableCell style={{ padding: mobileMatches? '6px': '0 2px'}}>
+                <Stack direction="row" alignItems="center">
                     {/*<Typography variant="table" sx={{width: '50px'}}>*/}
                     {/*    /!* {votes} *!/*/}
                     {/*</Typography>*/}
-                    <Button size={'10px'} width={'70px'} height={'25px'} target="_blank" onClick={() => window.open(data.Project_Website)}>Website</Button>
+                    {mobileMatches && <Button size={'10px'} width={'70px'} height={'25px'} target="_blank" onClick={() => window.open(data.Project_Website)}>Website</Button>}
                     {!additional && <DoubleArr onClick={() => setAdditional(true)}>&gt;&gt;</DoubleArr>}
                     
                     {/* <Votes address={data.Project_Address}/> */}
@@ -131,36 +144,36 @@ const Row = ({data, index}) => {
                         {isOpen && <CheckPopup setIsOpen={setIsOpen}/>}
                     </More> */}
                 </Stack>
-                
             </TableCell>
-            
         </TableRow>
+        { additional &&
         <TableRow sx={{ background: 'rgba(250, 239, 195, 0.25)'}}>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colspan={mobileMatches? 7: 5}>
             <Collapse in={additional}>
-              <CollapseWrapper style={{ height: '48px' }}>
-                  <TextRow style={{ fontWeight: 900, fontSize: '17px' }}>START</TextRow>
-                  
-                  <Flex style={{ marginLeft: '-45px'}}>
+              <CollapseWrapper style={{ marginLeft: mobileMatches? '0': '-20px', flexDirection: mobileMatches? 'row': 'column' }}>
+                  {mobileMatches && <TextRow style={{fontWeight: 900}} size={mobileMatches? '17px': '0.5rem'}>START</TextRow>}
+                  {mobileMatches && 
+                  <Flex style={{ marginLeft: mobileMatches? '-45px': '0',}}>
                     <AddWrapper mr={'8px'}>
-                      <TextRow color={'rgba(183, 131, 0, 0.5)'}>TIME</TextRow>
-                      <TextRow color={'rgba(183, 131, 0, 0.5)'}>DATE</TextRow>
+                      <TextRow color={'rgba(183, 131, 0, 0.5)'} size={mobileMatches? '11px': '0.5rem'}>TIME</TextRow>
+                      <TextRow color={'rgba(183, 131, 0, 0.5)'} size={mobileMatches? '11px': '0.5rem'}>DATE</TextRow>
                     </AddWrapper>
                     <AddWrapper>
-                      <TextRow weight={500}>{`${timeFormatStart} CET`}</TextRow>
-                      <TextRow transform={'capitalize'} weight={500}>
+                      <TextRow weight={500} size={mobileMatches? '11px': '0.5rem'}>{`${timeFormatStart} CET`}</TextRow>
+                      <TextRow transform={'capitalize'} weight={500} size={mobileMatches? '11px': '0.5rem'}>
                         {`${mL[mmStart]} ${ddStart}, ${yyyyStart}`}
-                        </TextRow>
+                      </TextRow>
                     </AddWrapper>
-                  </Flex>
+                  </Flex>}
+
                   <Flex>
                     <AddWrapper mr={'8px'}>
-                      <TextRow >liquidity lock</TextRow>
-                      <TextRow >locked until</TextRow>
+                      <TextRow size={mobileMatches? '11px': '0.5rem'}>liquidity lock</TextRow>
+                      <TextRow size={mobileMatches? '11px': '0.5rem'}>locked until</TextRow>
                     </AddWrapper>
                     <AddWrapper>
-                      <TextRow weight={500}>{data.Liq_Lock}%</TextRow>
-                      <TextRow transform={'capitalize'} weight={500}>
+                      <TextRow weight={500} size={mobileMatches? '11px': '0.5rem'}>{data.Liq_Lock}%</TextRow>
+                      <TextRow transform={'capitalize'} weight={500} size={mobileMatches? '11px': '0.5rem'}>
                       {`${timeFormatLock} CET - ${mL[mmLock]} ${ddLock}, ${yyyyLock}`}
                         {/* {mL[month - 1]} {day}, {year} */}
                         </TextRow>
@@ -168,24 +181,40 @@ const Row = ({data, index}) => {
                   </Flex>
                   <Flex>
                     <AddWrapper mr={'8px'}>
-                      <TextRow >contract address</TextRow>
-                      <TextRow >presale address</TextRow>
+                      <TextRow size={mobileMatches? '11px': '0.5rem'}>contract address</TextRow>
+                      <TextRow size={mobileMatches? '11px': '0.5rem'}>presale address</TextRow>
                     </AddWrapper>
                     <AddWrapper>
-                      <TextRow weight={500}>{data.Contract_Address}</TextRow>
-                      <TextRow transform={'capitalize'} weight={500}>{data.Presale_Address}</TextRow>
+                      <TextRow weight={500} size={mobileMatches? '11px': '0.5rem'}>{data.Contract_Address}</TextRow>
+                      <TextRow transform={'capitalize'} weight={500} size={mobileMatches? '11px': '0.5rem'}>{data.Presale_Address}</TextRow>
                     </AddWrapper>
+                    {mobileMatches && <DoubleArr onClick={() => setAdditional(false)} rotate={'rotate(270deg)'}>&gt;&gt;</DoubleArr>}
+                  </Flex>    
+                  {!mobileMatches &&
+                  <Flex>
+                    <div style={{display:'flex', justifyContent:'center', flex:'1', alignItems:'center'}}>
+                      <SocialWrapper style={{margin:'auto 10px'}}>
+                        <LinkStyled href={`https://bscscan.com/address/${data.Contract_Address}`} target="_blank"><Image src={Bsc} width={'22px'}/></LinkStyled>
+                        <LinkStyled href={data.Project_Telegram} target="_blank"><Image src={Telegram} width={'18px'}/></LinkStyled>
+                        <LinkStyled href={data.Project_Twitter} target="_blank"><Image src={Twitter} width={'19px'}/></LinkStyled>
+                        <LinkStyled href={data.Presale_Link} target="_blank"><Image src={Dx} width={'22px'}/></LinkStyled>
+                      </SocialWrapper>
+                      <Button size={'8px'} width={'50px'} height={'20px'} target="_blank" onClick={() => window.open(data.Project_Website)}>Website</Button>
+                    </div>
                     <DoubleArr onClick={() => setAdditional(false)} rotate={'rotate(270deg)'}>&gt;&gt;</DoubleArr>
-                  </Flex>     
-                  
-                  
+                  </Flex>
+                  }  
               </CollapseWrapper>
             </Collapse>
           </TableCell>
         </TableRow>
+        }
+      
       </>
     );
 };
+
+
 
 export default Row;
 

@@ -110,7 +110,6 @@ const Row = ({data, index}) => {
                             {/*}*/}
                             {data && tokenData.map(((el, idx) => data[el.key] === 'TRUE' &&
                                 <Badges key={idx * 10 * 2} children={el.image} text={el.text} />))}
-
                         </Stack>
                     </Stack>
                 </LinkWrapper>

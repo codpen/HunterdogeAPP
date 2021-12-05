@@ -67,7 +67,7 @@ const PopularTokens = () => {
             />
             }
             
-            <Box component='h2' sx={{fontSize: mobileMatches ? '60px': '30px', mb: 3}}>
+            <Box component='h2' sx={{fontSize: mobileMatches ? '60px': '25px', mb: 3}}>
                 Most popular Tokens
             </Box>
             <TabsStyled setPartActive={setPartActive} partActive={partActive} data={tabs}/>
