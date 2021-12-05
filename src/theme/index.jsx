@@ -93,14 +93,14 @@ export const theme = createTheme({
           textTransform: 'uppercase',
           padding: '0.4rem 0.2rem',
           textAlign: 'center',
-          fontSize: '1rem',
+          fontSize: '0.8rem',
           borderBottom: 'none'
         },
         head: {
           fontFamily: 'MonsterHunter',
           fontSize: '1rem',
           fontWeight: 400,
-          padding: '0.5rem',
+          padding: '0.4rem 0.2rem',
           color: '#AB882E',
         }
       }

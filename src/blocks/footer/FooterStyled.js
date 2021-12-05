@@ -4,27 +4,28 @@ import {Link} from "react-router-dom";
 export const FooterMain = styled.div`
   position: relative;
   z-index: 1;
-  height: 323px;
+  height: auto;
   max-width: 100vw;
   width: 100%;
   background-color: #775600;
   margin-top: 46px;
-  padding: 59px 30px 64px 30px;
+  padding: 20px 10px;
   
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 
-  @media (min-width: 1600px) {
-    padding: 59px 46px 64px 68px;
+  @media (min-width: 600px) {
+    padding: 59px 30px 64px 30px;
+    height: 323px;
   }
 `
 export const Text = styled(Link)`
   font-family: Raleway;
   font-style: normal;
   font-weight: 500;
-  font-size: 21px;
-  line-height: 21px;
+  font-size: ${({size}) => size || '21px'};;
+  line-height: ${({size}) => size || '21px'};;
   color: #FFFFFF;
   text-decoration: none;
   
@@ -43,15 +44,14 @@ export const Button = styled.button`
   font-family: Raleway;
   font-style: normal;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 12px;
   line-height: 15px;
   text-align: center;
   text-transform: uppercase;
   color: #B78300;
   padding: 10px;
-  width: 100%;
+  width: 50%;
   margin-top: 5px;
-  
   text-align: center;
   background: #FFF8CC;
   border: 2px solid #B78300;
@@ -59,7 +59,11 @@ export const Button = styled.button`
   cursor: pointer;
   box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.1);
   transition: 0.4s;
-  
+
+  @media (min-width: 600px) {
+    width: 100%;
+    font-size: 15px;
+  }
   &:hover {
     background: #d5b562;
   }
@@ -75,10 +79,14 @@ export const ImageWrapper = styled.div`
 
 export const SocialWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   height: 70px;
-  margin-top: 35px;
+  margin-top: 5px;
+  @media (min-width: 1600px) {
+    justify-content: space-between;
+    margin-top: 35px;
+  }
 `
 
 export const LinkStyled = styled.a`

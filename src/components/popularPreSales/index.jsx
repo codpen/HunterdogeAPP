@@ -21,7 +21,7 @@ import TabsStyled from '../Tabs/Tabs';
 import info from '../../images/info_ico.svg';
 import Pagination from "../pagination/Pagination";
 import {paginate} from "../pagination/paginate";
-
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const tabs = [
     {label: "upcoming"},
@@ -47,6 +47,7 @@ const tabs = [
 
 
 const PopularPreSales = () => {
+  const mobileMatches = useMediaQuery('(min-width:600px)');
   const { data } = useGoogleSheet(SHEET_ID_PRESALES)
   const [partActive, setPartActive] = useState(1)
   const [openPopup, setOpenPopup] = useState(false)
@@ -71,7 +72,7 @@ const PopularPreSales = () => {
     return (
         <Box sx={{mt: '55px', width: '100%', textAlign: 'center'}}>
             <Stack direction="row" alignItems="center" justifyContent="center" sx={{mb: 3}}>
-                <Box component='h2' sx={{fontSize: '60px', mr: 4}}>
+                <Box component='h2' sx={{fontSize: mobileMatches? '60px': '25px', mr: mobileMatches? 4: 0}}>
                     Most popular pre-sales
                 </Box>
                 <Info onClick={handleInfo}>i
@@ -90,21 +91,21 @@ const PopularPreSales = () => {
                     borderRadius: '25px',
                     borderTopLeftRadius: 0,
                     boxShadow: '5px 5px 0px rgba(0, 0, 0, 0.1)',
-                    border: '3px solid #FFF3D4'
+                    border: '3px solid #FFF3D4',
+                    overflow: 'hidden'
                 }}
             >
                 <TableContainer sx={{overflow: 'visible'}}>
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell style={{textAlign: 'left'}}>#Rank</TableCell>
-                                <TableCell sx={{textAlign: 'left'}}
-                                        style={{textAlign: 'left', paddingLeft: '0'}}>name</TableCell>
-                                <TableCell>Ticker</TableCell>
-                                <TableCell sx={{textAlign: 'center'}}>Caps</TableCell>
-                                <TableCell sx={{textAlign: 'center'}}>Limits</TableCell>
-                                <TableCell sx={{textAlign: 'left'}}></TableCell>
-                                <TableCell sx={{textAlign: 'left'}}></TableCell>
+                                {mobileMatches && <TableCell style={{textAlign: 'left'}}>#Rank</TableCell>}
+                                <TableCell sx={{textAlign: 'left', fontSize: mobileMatches? '20px': '10px', paddingLeft: '0'}}>name</TableCell>
+                                <TableCell sx={{fontSize: mobileMatches? '20px': '10px'}}>Ticker</TableCell>
+                                <TableCell sx={{textAlign: 'center', fontSize: mobileMatches? '20px': '10px'}}>Caps</TableCell>
+                                <TableCell sx={{textAlign: 'center', fontSize: mobileMatches? '20px': '10px'}}>Limits</TableCell>
+                                {mobileMatches &&<TableCell sx={{textAlign: 'left', fontSize: mobileMatches? '20px': '10px'}}></TableCell>}
+                                <TableCell sx={{textAlign: 'left', fontSize: mobileMatches? '20px': '10px'}}></TableCell>
                             </TableRow>
                         </TableHead>
                         {partActive === 1 ? <TableBody>

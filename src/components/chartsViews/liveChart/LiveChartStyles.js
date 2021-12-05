@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  display: flex;
+  display: ${({isMobile}) => isMobile ? 'block' : 'flex'};
   justify-content: space-between;
   max-width: 1039px;
   background: #FFFFFF;
@@ -38,7 +38,7 @@ export const LiveChartSubtitle = styled.p`
 export const Title = styled.p`
   font-family: Raleway;
   font-style: normal;
-  font-weight: ${({weight}) => weight || '400'};;
+  font-weight: ${({weight}) => weight || '400'};
   font-size: ${({size}) => size || '15.57px'};
   line-height: ${({size}) => size || '15px'};
   color: #B78300;

@@ -67,7 +67,7 @@ const PopularTokens = () => {
             />
             }
             
-            <Box component='h2' sx={{fontSize: mobileMatches ? '60px': '30px', mb: 3}}>
+            <Box component='h2' sx={{fontSize: mobileMatches ? '60px': '25px', mb: 3}}>
                 Most popular Tokens
             </Box>
             <TabsStyled setPartActive={setPartActive} partActive={partActive} data={tabs}/>
@@ -78,6 +78,7 @@ const PopularTokens = () => {
                     borderTopLeftRadius: 0,
                     boxShadow: '5px 5px 0px rgba(0, 0, 0, 0.1)',
                     border: '3px solid #FFF3D4',
+                    overflow: 'hidden'
                 }}
             >
                 <TableContainer sx={{overflow: 'visible'}}>
@@ -85,14 +86,14 @@ const PopularTokens = () => {
                         <TableHead>
                             <TableRow>
                                 {mobileMatches && <TableCell>#Rank</TableCell>}
-                                <TableCell sx={{textAlign: 'left'}}>name</TableCell>
-                                <TableCell>Ticker</TableCell>
-                                <TableCell>MCAP</TableCell>
-                                <TableCell>Price</TableCell>
-                                <TableCell sx={{textAlign: 'left'}}>Votes</TableCell>
+                                <TableCell sx={{textAlign: 'left', fontSize: mobileMatches? '20px': '10px'}}>name</TableCell>
+                                <TableCell sx={{fontSize: mobileMatches? '20px': '10px'}}>Ticker</TableCell>
+                                <TableCell sx={{fontSize: mobileMatches? '20px': '10px'}}>MCAP</TableCell>
+                                <TableCell sx={{fontSize: mobileMatches? '20px': '10px'}}>Price</TableCell>
+                                <TableCell sx={{textAlign: 'left', fontSize: mobileMatches? '20px': '10px'}}>Votes</TableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody>
+                        <TableBody sx={{overflow: 'hidden'}}>
                             <TabPanel value={value} index={0}>
                                 {partActive === 1 && data.map((row, index) => <Row key={index * 10} index={index} data={row}/>)}
                                 {partActive === 2 && filterOneDay.map((row, index) => <Row key={index * 9} index={index} data={row}/>)}

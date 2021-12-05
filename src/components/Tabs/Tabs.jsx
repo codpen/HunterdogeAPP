@@ -43,8 +43,8 @@ const Tab = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 6.5rem;
-    height: 38px;
+    width: 85px;
+    height: 20px;
     background: rgba(183, 131, 0, 0.1);;
     border-radius: 25px 25px 0 0;
     cursor: pointer;
@@ -60,29 +60,37 @@ const Tab = styled.div`
     &:hover > span {
         font-weight: 800;
     }
-
     &.active {
         box-shadow: 5px 0px 0px rgba(0, 0, 0, 0.1);
         background: #FFF;
-        height: 50px;
+        height: 30px;
         border: 3px solid #FAF0CB;
         border-bottom: 1px solid #FFF;
         transform: translateY(4px);
     }
-    
     &.active > span {
         font-weight: 900;
     }
+    @media screen and (min-width: 600px) {
+      width: 163.24px;
+      height: 38px;
+      &.active {
+        height: 50px;
+      }
+    }
 
     span {
-    font-family: Raleway;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 0.8rem;
-    line-height: 98.1%;
-    text-transform: uppercase;
-    color: #B78300;
-    transition: 0.4s;
-    text-align: center;
-  }
+      font-family: Raleway;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 10px;
+      line-height: 98.1%;
+      text-transform: uppercase;
+      color: #B78300;
+      transition: 0.4s;
+      text-align: center;
+      @media screen and (min-width: 600px) {
+        font-size: 16px;
+      }
+    }
 `

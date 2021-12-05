@@ -18,13 +18,14 @@ import { getPrice24H } from "../../../utils/getPrice24H";
 import { changeFormatter } from "../../../utils/changeFormatter";
 import { Button, Image } from "../../common";
 import ReportTokenModal from '../../modal/ReportToken';
-import { Stack, Box } from '@mui/material';
+import { Stack, Box, useMediaQuery } from '@mui/material';
 import { usePrice } from '../../../hooks/usePrice';
 import { bscWBNBContact } from '../../../connection/contracts';
 
 const Dashboard = ({ token }) => {
     const [query, setQuery] = useState('BNB')
     const [isComingSoon, setIsComingSoon] = useState(true)
+    const mobileMatches = useMediaQuery('(max-width:600px)');
     // console.log(query)
     useEffect(() => {
         setQuery(token)
@@ -35,19 +36,20 @@ const Dashboard = ({ token }) => {
                 isComingSoon &&
                 <Stack
                     component='div'
-                    sx={{ position: 'absolute', width: '100%', height: '466px', zIndex: 1, backdropFilter: 'blur(3px)' }}
+                    sx={{ position: 'absolute', width: '100%', height: (mobileMatches ? 'calc(100vw - 30px)' : '466px'), zIndex: 1, backdropFilter: 'blur(3px)' }}
                 >
                     <Box component='h2' sx={{ fontSize: '60px', m: 'auto' }}>
                         Coming Soon.
                     </Box>
                 </Stack>
             }
-            <AdvancedChart widgetProps={{ "theme": "dark", symbol: query + "USD", height: '466px' }} />
+            <AdvancedChart widgetProps={{ "theme": "dark", symbol: query + "USD", height: (mobileMatches ? 'calc(100vw - 30px)' : '466px') }} />
         </Stack>
     );
 }
 
 const LiveChart = ({ tokenData = {} }) => {
+    const mobileMatches = useMediaQuery('(max-width:600px)');
     const { address } = useParams()
     const [symbol, setSymbol] = useState('')
     const [price, setPrice] = useState(0)
@@ -95,7 +97,7 @@ const LiveChart = ({ tokenData = {} }) => {
         }
     }, [price])
     return (
-        <Wrapper>
+        <Wrapper isMobile={mobileMatches}>
             <ChartWrapper>
                 <Flex margin={'0 0 5px 0'}>
                     <LiveChartTitle>LIVE CHART</LiveChartTitle>

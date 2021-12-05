@@ -110,7 +110,6 @@ const Row = ({data, index}) => {
                             {/*}*/}
                             {data && tokenData.map(((el, idx) => data[el.key] === 'TRUE' &&
                                 <Badges key={idx * 10 * 2} children={el.image} text={el.text} />))}
-
                         </Stack>
                     </Stack>
                 </LinkWrapper>
@@ -128,7 +127,7 @@ const Row = ({data, index}) => {
                 <Typography variant="table">
                     {mobileMatches && <label>${new Intl.NumberFormat('en-US').format(mcap)}</label>}
                     {!mobileMatches &&
-                        <small style={{fontSize:'0.4rem'}}>${new Intl.NumberFormat('en-US').format(mcap)}</small>
+                        <small style={{fontSize:'0.5rem'}}>${new Intl.NumberFormat('en-US').format(mcap)}</small>
                     }  
                 </Typography>
             </TableCell>
@@ -137,7 +136,7 @@ const Row = ({data, index}) => {
                     <Typography variant="table">
                         {mobileMatches && <label>${new Intl.NumberFormat('en-US').format(price)}</label>}
                         {!mobileMatches &&
-                            <small style={{fontSize:'0.4rem'}}>${new Intl.NumberFormat('en-US').format(price)}</small>
+                            <small style={{fontSize:'0.5rem'}}>${new Intl.NumberFormat('en-US').format(price)}</small>
                         } 
                     </Typography>
                     {change24h && <Flex margin={'6px 0 0 0'} justify={'evenly'}>
@@ -148,8 +147,8 @@ const Row = ({data, index}) => {
             </TableCell>
             <TableCell>
                 <Stack direction="row" alignItems="center">
-                    <Typography variant="table">
-                        {votes}
+                    <Typography>
+                        <small style={{fontSize: mobileMatches? '1rem': '0.5rem'}}>{votes}</small>
                     </Typography>
                     {mobileMatches && <Votes address={data.Project_Address} />}
                     {mobileMatches && 
