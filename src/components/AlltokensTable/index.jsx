@@ -42,7 +42,6 @@ const AllTokensTable = (isTitle) => {
 	const [currentData, setCurrentData] = useState({ newData: [], currentPage: 0, endPage: 0 })
 
 	let tabs = []
-	let defaultOption = {}
 	context.searchOption.map((item, i) => {
 		tabs.push({ label: `Search ${i + 1}`, close: true, id: item.id })
 	})
@@ -54,7 +53,10 @@ const AllTokensTable = (isTitle) => {
 	//checkbox and pagination button
 	const [perPage, setPerPage] = useState(25)
 	const [page, setPage] = useState(1)
-
+	
+	useEffect(()=> {
+		setPartActive(tabs[0].id ? tabs[0].id : partActive)
+	}, [tabs])
 	// const filterOneDay = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (24*60*60*1000))
 	// const filterWeek = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (7*24*60*60*1000))
 	const filter = () => {
@@ -91,8 +93,8 @@ const AllTokensTable = (isTitle) => {
 
 			let direct = option.direct === 'asc' ? 1 : -1;
 			result = result.sort((a, b) => {
-				if(option.field === 'votes') {
-					return (((parseFloat(a.Project_Upvotes) + parseFloat(a.Project_MedVotes) + parseFloat(a.Project_Downvotes))  > (parseFloat(b.Project_Upvotes) + parseFloat(b.Project_MedVotes) + parseFloat(b.Project_Downvotes)))  ? 1 : -1) * direct
+				if (option.field === 'votes') {
+					return (((parseFloat(a.Project_Upvotes) + parseFloat(a.Project_MedVotes) + parseFloat(a.Project_Downvotes)) > (parseFloat(b.Project_Upvotes) + parseFloat(b.Project_MedVotes) + parseFloat(b.Project_Downvotes))) ? 1 : -1) * direct
 				} else {
 					return ((parseFloat(a[fieldMap[option.field]]) > parseFloat(b[fieldMap[option.field]])) ? 1 : -1) * direct
 				}
@@ -105,7 +107,6 @@ const AllTokensTable = (isTitle) => {
 		let result = filter()
 		const res = paginate(result.length, page, perPage, result)
 		setCurrentData(res)
-
 	}, [data, partActive, page, perPage])
 
 	const handleChange = (event, newValue) => {
