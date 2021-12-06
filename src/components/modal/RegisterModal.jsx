@@ -7,15 +7,14 @@ import {Typography} from "@material-ui/core";
 import {isMember, register, membership, membershipCosts} from "../../connection/functions";
 import {useWeb3React} from "@web3-react/core";
 import { useWallet } from "@binance-chain/bsc-use-wallet";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles({
-
     root: {
         width: '100vw',
         height: '100vh',
         margin: '0 auto'
     },
-
     modal: {
         zIndex: 100,
         position: "fixed",
@@ -52,8 +51,8 @@ const useStyles = makeStyles({
     },
     btnClose: {
         position: 'absolute',
-        top: '35px',
-        right: '35px',
+        top: '20px',
+        right: '20px',
         width: '68px',
         height: '51px',
         fontWeight: 'bold',
@@ -68,6 +67,7 @@ const useStyles = makeStyles({
 });
 
 const RegisterModal = ({ setIsOpen }) => {
+    const mobileMatches = useMediaQuery('(min-width:600px)');
     const [cost, setCost] = useState('0')
     // const {account, chainId} = useWeb3React()
     const { account, chainId, ethereum } = useWallet();
@@ -99,7 +99,7 @@ const RegisterModal = ({ setIsOpen }) => {
     },[account])
 
     return (
-        <Card className={classes.modal}>
+        <Card className={classes.modal} style={{width: mobileMatches? '926px': '95%'}}>
             <button className={classes.btnClose} onClick={() => setIsOpen(false)}>X</button>
             <div>
                 <Box component='h4' sx={{fontSize: '60px', mb: '26px', textAlign: 'center', lineHeight: '58px', color: '#000000'}}>
@@ -115,12 +115,12 @@ const RegisterModal = ({ setIsOpen }) => {
                     {cost} $HD
                 </Typography>
             </div>
-            <ButtonGroup disableElevation variant="center" sx={{ mt: '20px',textAlign: 'center', ml: '200px' }}>
+            <ButtonGroup disableElevation variant="center" sx={{ mt: '20px',textAlign: 'center', ml: mobileMatches? '200px': 'auto' }}>
                 <Button onClick={approve}
-                               fullWidth sx={{fontSize: 24, py: 1, width: '200px', height: '47px'}}>Approve
+                               fullWidth sx={{fontSize: 24, py: 1, width: mobileMatches? '200px': '130px', height: '47px'}}>Approve
                 </Button>
                 <Button onClick={buy}
-                        fullWidth sx={{fontSize: 24, py: 1,width: '200px', height: '47px'}}>Buy
+                        fullWidth sx={{fontSize: 24, py: 1,width: mobileMatches? '200px': '130px', height: '47px'}}>Buy
                 </Button>
             </ButtonGroup >
         </Card>
