@@ -204,6 +204,11 @@ const Row = (
             </TableCell>
             <TableCell>
                 <Stack>
+                    {/* <HtmlTooltip title={<React.Fragment><Typography>${price}</Typography></React.Fragment>}>
+                        <Typography variant="table">
+                            ${new Intl.NumberFormat('en-US').format(price.toFixed(4))}
+                        </Typography>
+                    </HtmlTooltip> */}
                     <Typography variant="table">
                         ${Number(price.toFixed(18))}
                     </Typography>

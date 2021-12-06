@@ -10,9 +10,9 @@ import { ModalContext } from '../../contexts/ModalProvider';
 const marketCap = [
   { value: 'mcap', label: 'Market Cap' },
   { value: 'price', label: 'Price' },
-  { value: 'liq', label: 'Liq./Mcap-Ratio' },
-  { value: 'holder', label: 'Holders' },
-  { value: 'vote', label: 'Votes' },
+  { value: 'ratio', label: 'Liq./Mcap-Ratio' },
+  { value: 'holders', label: 'Holders' },
+  { value: 'votes', label: 'Votes' },
 ]
 const descending = [
   { value: 'asc', label: 'Ascending' },
@@ -21,9 +21,9 @@ const descending = [
 
 const projects = [
   { value: 'mcap', label: 'Marketcap' },
-  { value: 'liq', label: 'Liq./Mcap-Ratio' },
-  { value: 'holder', label: 'Holders' },
-  { value: 'vote', label: 'Votes' },
+  { value: 'ratio', label: 'Liq./Mcap-Ratio' },
+  { value: 'holders', label: 'Holders' },
+  { value: 'votes', label: 'Votes' },
 ]
 
 const condList = [
@@ -34,7 +34,7 @@ const condList = [
 const SearchOrFilter = () => {
   const context = useContext(ModalContext)
   const [search, setSearch] = useState('')
-  const [field, setField] = useState('vote')
+  const [field, setField] = useState('votes')
   const [direct, setDirect] = useState('desc')
   const [project, setProject] = useState('')
   const [value, setValue] = useState(70)
@@ -157,10 +157,10 @@ const SearchOrFilter = () => {
                 p: '4px'
               },
               min: 0,
-              max: (project === 'mcap' || project === 'liq') ? 100 : null,
+              max: (project === 'mcap' || project === 'ratio') ? 100 : null,
               type: 'number'
             }}></Input>
-          <Typography sx={{ whiteSpace: 'nowrap' }}> {(project === 'mcap' || project === 'liq') && '%'} and</Typography>
+          <Typography sx={{ whiteSpace: 'nowrap' }}> {(project === 'mcap' || project === 'ratio') && '%'} and</Typography>
           <SelectForm defaultValue={cond}>
             {
               condList.map((item, key) => {

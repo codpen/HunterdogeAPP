@@ -10,12 +10,14 @@ import PreSale from "../components/chartsViews/upcomingPreSale/Presale";
 import { useWeb3React } from "@web3-react/core";
 import { useWallet } from "@binance-chain/bsc-use-wallet";
 import TokenHeader from "../components/tokenInformationHeader/TokenHeader";
+import TokenHeaderMobile from "../components/tokenInformationHeader/TokenHeaderMobile";
 import { Button, Flex } from "../components/common/index";
 import PopularPreSales from "../components/popularPreSales";
 import TabsStyled from '../components/Tabs/Tabs';
 import LeaveComment from '../components/LeaveComment';
 import GoTop from '../components/GoTop';
 import { GoogleSheetContext } from '../contexts/GoogleSheetProvider';
+import { useMediaQuery } from '@mui/material';
 
 
 // const ChangePart = ({setPartActive, partActive}) => (
@@ -29,57 +31,78 @@ import { GoogleSheetContext } from '../contexts/GoogleSheetProvider';
 // )
 // <Index />
 const TokenPage = () => {
-  let history = useHistory();
-  const { data } = useContext(GoogleSheetContext)
-  const {address} = useParams()
-  // const { account } = useWeb3React()
-  const { account, chainId } = useWallet();
-  const [partActive, setPartActive] = useState(1)
-  const [tokenData, setTokenData] = useState({})
-  const [tabs, setTabs] = useState([
-    { label: "chart & stats" },
-    { label: "token information" }
-  ])
-  const isPresale = account ? <PreSale tokenData={tokenData} /> : <NoPresaleView />
-  
-  useEffect(() => {
-    data.map((row) => {
+	let history = useHistory();
+	const { data } = useContext(GoogleSheetContext)
+	const { address } = useParams()
+	const mobileMatches = useMediaQuery('(max-width:600px)');
 
-      if (row?.Project_Address?.toLowerCase() === address.toLowerCase()) {
-        setTokenData(row)
-        
-        if(row?.has_Presale === 'TRUE') {
-          setTabs([
-            { label: "chart & stats" },
-            { label: "token information" },
-            { label: `upcoming pre-sale` }
-          ])
-        }
-      }
-    })
-  }, [data])
+	// const { account } = useWeb3React()
+	const { account, chainId } = useWallet();
+	const [partActive, setPartActive] = useState(1)
+	const [tokenData, setTokenData] = useState({})
+	const [tabs, setTabs] = useState([
+		{ label: "chart & stats" },
+		{ label: "token information" }
+	])
+	const isPresale = account ? <PreSale tokenData={tokenData} /> : <NoPresaleView />
 
-  return (
-    <Block>
-      <Container>
-        <Button onClick={() => history.goBack()} size={'20px'} height={'30px'} width={'162px'} weight={700} margin={'0 0 27px 0'}>{'<< GO BACK'}</Button>
-        <TokenHeader tokenData={tokenData} />
-        <TabsStyled setPartActive={setPartActive} partActive={partActive} data={tabs} />
-        {partActive === 1 ? <LiveChart tokenData={tokenData} /> : partActive === 2 ? <TokenInformation tokenData={tokenData} /> : isPresale}
-        <LeaveComment />
-        {/*<Comments/>*/}
-        <PopularPreSales />
-        <GoTop scrollStepInPx="100" delayInMs="10.50" />
-      </Container>
-    </Block>
-  );
+	useEffect(() => {
+		data.map((row) => {
+			if (row?.Project_Address?.toLowerCase() === address.toLowerCase()) {
+				setTokenData(row)
+
+				if (row?.has_Presale === 'TRUE') {
+					setTabs(state => [...state, { label: `upcoming pre-sale` }])
+				}
+			}
+			return row
+		})
+	}, [data, address])
+
+	return (
+		<Block>
+			<Container isMobile={mobileMatches}>
+				<Button
+					onClick={() => history.goBack()}
+					size={'20px'}
+					height={'30px'}
+					width={mobileMatches ? '100px' : '162px'}
+					weight={700}
+					margin={mobileMatches ? '30px 0 0 0' : '0 0 27px 0'}
+					bg={mobileMatches && 'transparent'}
+					boxShadow={mobileMatches && 'unset'}
+					color={mobileMatches && '#B78300'}
+				>{`<< ${mobileMatches ? '' : 'GO'} BACK`}</Button>
+				{mobileMatches ? <TokenHeaderMobile tokenData={tokenData} /> : <TokenHeader tokenData={tokenData} />}
+				{
+					mobileMatches &&
+					<Link_ target="_blank" href="#">
+						<Banner url={'https://i.postimg.cc/brcHXyyP/1111111111111.gif'} />
+					</Link_>
+				}
+				<TabsStyled setPartActive={setPartActive} partActive={partActive} data={tabs} />
+				{partActive === 1 ? <LiveChart tokenData={tokenData} /> : partActive === 2 ? <TokenInformation tokenData={tokenData} /> : isPresale}
+				{
+					mobileMatches
+						?
+						<Button size={'14px'} margin={'20px auto'} height={'25px'} width={'80%'}>Leave a Commnet</Button>
+						:
+						<LeaveComment />
+				}
+				{/*<Comments/>*/}
+				<PopularPreSales />
+				<GoTop scrollStepInPx="100" delayInMs="10.50" />
+			</Container>
+		</Block>
+	);
 };
 
 export default TokenPage;
 
 const Container = styled.div`
-  margin: 0 50px;
+  margin: ${({ isMobile }) => isMobile ? '0 15px' : '0px 50px'};
   max-width: 1420px;
+  text-align: center;
 `
 
 const Block = styled.div`
@@ -148,4 +171,18 @@ const Part = styled.div`
       font-weight: bold;
     }
   }
+`
+
+const Banner = styled.div`
+  width: 100%;
+  max-width: 900px;
+  height: 100px;
+  background-image: url(${({ url }) => url});
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+`
+const Link_ = styled.a`
+  display: block;
+  width: 100%;
+  max-width: 900px;;
 `

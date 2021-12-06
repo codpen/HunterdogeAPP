@@ -41,6 +41,8 @@ export const Button = styled.button`
   font-size: ${({size}) => size || '15px'};
   line-height: ${({size}) => size || '15px'};
   margin: ${({margin}) => margin || '0'};
+  position: ${({position}) => position || 'relative'};
+  right: ${({right}) => right || 'unset'};
 
   font-family: Raleway;
   font-style: normal;
@@ -48,7 +50,7 @@ export const Button = styled.button`
 
   text-align: center;
   text-transform: uppercase;
-  box-shadow: 1px 3px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: ${({boxShadow}) => boxShadow || '1px 3px 0 rgba(0, 0, 0, 0.1)'};
   color: ${({color}) => color || '#FFFFFF'};
 
   transition: hover 0.5s;

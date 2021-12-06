@@ -2,17 +2,17 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   max-width: 1040px;
-  height: 494px;
-  padding: 14px 21px 21px 21px;
+  height: ${({ isMobile }) => isMobile ? 'auto' : '494px'};
+  padding: ${({ isMobile }) => isMobile ? '0' : '14px 21px 21px 21px'};
   margin-bottom: 32px;
-  background: #FFF;
+  background: ${({ isMobile }) => isMobile ? '#FFF8CC' : '#FFF'};
   border-radius: 25px;
   display: flex;
   justify-content: space-between;
 `
 
 export const BadgesWrapper = styled.div`
-  width: 162px;
+  width: ${({ isMobile }) => isMobile ? (window.innerWidth - 30) / 4 : '162'}px;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -21,10 +21,11 @@ export const BadgesWrapper = styled.div`
 
 export const InfoWrapper = styled.div`
   max-width: 820px;
-  width: 100%;
+  width: ${({ isMobile }) => isMobile ? (window.innerWidth - 30) * 3 / 4 - 30 +'px' : '100%'};
   display: flex;
   flex-direction: column;
   margin: 0 0 27px 15px;
+  position: relative;
 `
 
 export const Inner = styled.div`
@@ -39,10 +40,10 @@ export const Inner = styled.div`
 `
 
 export const HeadTitle = styled.h3`
-  font-size: ${({size}) => size || 'inherit'};
-  line-height: ${({size}) => size || 'inherit'};
-  font-weight: ${({weight}) => weight || '400'};
-  margin: ${({margin}) => margin || '0'};
+  font-size: ${({ size }) => size || 'inherit'};
+  line-height: ${({ size }) => size || 'inherit'};
+  font-weight: ${({ weight }) => weight || '400'};
+  margin: ${({ margin }) => margin || '0'};
 `
 
 export const BadgesNotification = styled.div`
@@ -85,11 +86,11 @@ export const BadgesNotification = styled.div`
 
 export const Substrate = styled.div`
   display: flex;
-  padding: ${({padding}) => padding || '12px 22px'};
-  background: ${({bg}) => bg || '#FAF0CB'};
-  color: ${({color}) => color || '#FFFFFF'};
+  padding: ${({ padding }) => padding || '12px 22px'};
+  background: ${({ bg }) => bg || '#FAF0CB'};
+  color: ${({ color }) => color || '#FFFFFF'};
   border-radius: 25px;
-  margin: ${({margin}) => margin || '0'};
+  margin: ${({ margin }) => margin || '0'};
   box-shadow: 1px 3px 0 rgba(0, 0, 0, 0.1);
 `
 
@@ -133,7 +134,7 @@ export const Card = styled.div`
 export const CardInfo = styled.p`
     width: 176px;
     height: 42px;
-    background: ${({color}) => color || '#FAF0CB'};
+    background: ${({ color }) => color || '#FAF0CB'};
     border-radius: 25px;
     border: 2px solid rgba(183, 131, 0, 0.5);
     box-shadow: 1px 3px 0 rgba(0, 0, 0, 0.1);
@@ -141,7 +142,7 @@ export const CardInfo = styled.p`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: ${({mt}) => mt || 'auto'};
+    margin-top: ${({ mt }) => mt || 'auto'};
     padding: 11px 0;
     font-style: normal;
     font-weight: bold;
@@ -155,21 +156,21 @@ export const Text = styled.p`
   position: relative;
   font-family: Raleway;
   font-style: normal;
-  font-weight: ${({weight}) => weight || '600'};
-  font-size: ${({size}) => size || '18px'};
-  line-height: ${({size}) => size || '18px'};
-  margin: ${({margin}) => margin || '0'};
+  font-weight: ${({ weight }) => weight || '600'};
+  font-size: ${({ size }) => size || '18px'};
+  line-height: ${({ size }) => size || '18px'};
+  margin: ${({ margin }) => margin || '0'};
   text-transform: uppercase;
-  color: ${({color}) => color || '#AB882E'};
-  cursor: ${({cursor}) => cursor};
+  color: ${({ color }) => color || '#AB882E'};
+  cursor: ${({ cursor }) => cursor};
 `
 export const IcoWrapper = styled.div` 
   width: 72.13px;
   /* height: 72.13px; */
-  height: ${({height}) => height || '72.13px'};
+  height: ${({ height }) => height || '72.13px'};
   /* border-radius: 50%; */
   display: flex;
-  margin-top: ${({mt}) => mt || 0};
+  margin-top: ${({ mt }) => mt || 0};
   margin-bottom: 22px;
 `
 
@@ -177,8 +178,9 @@ export const WrapperBadges = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 15px 0 0 0;
-  padding: 0 25px;
+  flex: ${({ isMobile }) => isMobile ? '0' : '1'};
+  margin: ${({ isMobile }) => isMobile ? '10' : '15'}px 0 0 0;
+  padding:  ${({ isMobile }) => isMobile ? '0' : '0 25px'};
   height: 112px;
     & svg:nth-child(odd) {
       margin-right: 20px;
@@ -187,9 +189,9 @@ export const WrapperBadges = styled.div`
 `
 
 export const SocialWrapper = styled.div`
-  width: 209px;
-  height: 30px;
-
+  width: ${({ width }) => width || '209px'};
+  height: ${({ height }) => height || '30px'};
+  max-width: 209px;
   display: flex;
   justify-content: space-between;
 `
@@ -198,8 +200,8 @@ export const LinkStyled = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30px;
-  height: 30px;
+  width: ${({ width }) => width || '30px'};
+  height: ${({ height }) => height || '30px'};
   background: rgba(171, 136, 46, 0.5);
   border-radius: 40.4097px;
   
@@ -215,10 +217,10 @@ export const LinkStyled = styled.a`
 
 export const Popup = styled.div`
   position: absolute;
-  width: ${({width}) => width ? width : '462px' };
-  height: ${({height}) => height ? height : '97px' };
-  left: ${({left}) => left ? left : '170px' };
-  top: -30px;
+  width: ${({ width }) => width || '462px'};
+  height: ${({ height }) => height || '97px'};
+  left: ${({ left }) => left || '170px'};
+  top: ${({ isTop }) => isTop ? '50px' : '-30px'};
   padding: 17px 19px 17px 32px;
   background: #FFF599;
   border: 3px solid #FAF0CB;
@@ -227,23 +229,34 @@ export const Popup = styled.div`
   box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
   border-radius: 25px;
   z-index: 3;
-    &::before {
+  ${({ isTop }) => isTop ?
+    `&::after {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: 20px;
+      border: 15px solid transparent;
+      border-bottom: 25px solid #FFF599;
+  }`
+    :
+    `&::before {
       content: ''; 
       position: absolute;
       top: 15px;
       left: -39px;
       border: 15px solid transparent;
       border-right: 25px solid #FFF599;
-    }
+    }`
+  }
 `
 
 export const TextPopup = styled.div`
   font-family: Raleway;
   font-style: normal;
-  font-weight: ${({fw}) => fw ? fw : 800 };
+  font-weight: ${({ fw }) => fw ? fw : 800};
   font-size: 15px;
-  line-height: ${({lh}) => lh ? lh : '22px' };
-  color: ${({color}) => color ? color : '#AB882E'};
-  margin-bottom: ${({mb}) => mb ? mb : 0};
+  line-height: ${({ lh }) => lh ? lh : '22px'};
+  color: ${({ color }) => color ? color : '#AB882E'};
+  margin-bottom: ${({ mb }) => mb ? mb : 0};
   text-transform: capitalize;
 `

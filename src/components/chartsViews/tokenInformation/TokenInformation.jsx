@@ -12,12 +12,14 @@ import {
 } from "./TokenInfoStyled";
 import { Button } from "../../common";
 import { Title, Value } from "../upcomingPreSale/PreSaleStyled";
+import { useMediaQuery } from '@material-ui/core';
 
-const TokenInformation = ({tokenData = {}}) => {
+const TokenInformation = ({ tokenData = {} }) => {
     const { address } = useParams();
-    console.log(tokenData)
+    const mobileMatches = useMediaQuery('(max-width:600px)');
+
     return (
-        <Wrapper>
+        <Wrapper isMobile={mobileMatches}>
             <ContentWrapper>
                 <HeadTitle >PROJECT DESCRIPTION</HeadTitle>
                 <DescTextWrapper>
