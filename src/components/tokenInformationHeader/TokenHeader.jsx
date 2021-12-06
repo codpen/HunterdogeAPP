@@ -66,37 +66,28 @@ const TokenHeader = ({tokenData = {}}) => {
         }
     }
 
-    useEffect(() => {
-        const fetchSheet = async () => {
-            try {
-                await fetch(`https://api.pancakeswap.info/api/v2/tokens/${address}`)
-                    .then((response) => {
-                        return response.json();
-                    })
-                    .then((data) => {
-                        setPrice((+data.data.price).toFixed(4))
+    useEffect(async () => {
+        try {
+            const data = await fetch(`https://api.pancakeswap.info/api/v2/tokens/${address}`)
+            setPrice((+data.data.price).toFixed(4))
+        } catch (e) {
+            console.warn(e)
+        }
+        
+        const res = await getVotesPerProject(address)
+        try {
+            setVotes(parseInt(res[0]) + parseInt(res[1]) + parseInt(res[2]))
+        } catch (e) {
+            console.log(e)
+        }
+        
+        getHolderPerDay(address)
+            .then(res => res && setHoldersPerDay(`+ ${res}`))
 
-                    });
-            } catch (e) {
-                console.warn(e)
-            }
-            
-            const res = await getVotesPerProject(address)
-            try {
-                setVotes(parseInt(res[0]) + parseInt(res[1]) + parseInt(res[2]))
-            } catch (e) {
-                console.log(e)
-            }
-            
-            getHolderPerDay(address)
-                .then(res => res && setHoldersPerDay(`+ ${res}`))
-
-            const symbol = await getSymbol(address)
-            setSymbol(symbol)
-            const name = await getName(address)
-            setName(name)
-        };
-        fetchSheet()
+        const symbol = await getSymbol(address)
+        setSymbol(symbol)
+        const name = await getName(address)
+        setName(name)
     }, [address])
 
     useEffect(() => {

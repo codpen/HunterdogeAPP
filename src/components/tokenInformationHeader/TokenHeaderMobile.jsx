@@ -19,7 +19,7 @@ import Guard from '../../images/guard_white.svg'
 import Like from '../../images/like_ico.svg'
 import bnbLogo from '../../images/bnb-logo.svg'
 import { BadgesWrapper, Card, HeadTitle, InfoWrapper, Inner, Text, Wrapper, IcoWrapper, WrapperBadges, SocialWrapper, LinkStyled, Popup, TextPopup, CardInfo } from './TokeHeaderStyled'
-import { Button, Flex, Image, LinkWrapper, Link_ } from '../common'
+import { Button, Flex, Image } from '../common'
 import { Votes } from "../common/votes";
 import { getMCap, getSymbol, getName, getVotesPerProject } from '../../connection/functions'
 import Telegram from "../../images/table/telegram.svg";
@@ -37,7 +37,6 @@ import { isProjectManager } from '../../connection/functions';
 
 import TokenEditModal from "../modal/TokenEditModal/TokenEditModal";
 import { getHolderPerDay } from '../../utils/getHolderPerDay';
-import { Link } from '@mui/material';
 
 const TokenHeaderMobile = ({ tokenData = {} }) => {
     const { address } = useParams()
@@ -130,6 +129,10 @@ const TokenHeaderMobile = ({ tokenData = {} }) => {
         window.location.href = `https://bscscan.com/address/${address}`
     };
 
+    const handleTokenEdit = () => {
+        window.location.href = `/token/edit/${address}`
+    }
+
     return (
         <Wrapper isMobile={true}>
             <BadgesWrapper isMobile={true}>
@@ -176,9 +179,9 @@ const TokenHeaderMobile = ({ tokenData = {} }) => {
                         </Button>
                     }
                     {checkProjectManager &&
-                        <Link_ to='#' size={'16px'} weight={'700'} style={{ position: 'absolute', margin: '5px', right: '5px' }} onClick={() => { setIsTokenEditModal(true); }}>
+                        <Button right={'5px'} position={'absolute'} height={'20px'} margin={'35px 15px 0 0'} width={'60px'} size={'10px'} weight={'700'} onClick={ handleTokenEdit }>
                             edit
-                        </Link_>
+                        </Button>
                     }
                 </Flex>
                 <Flex margin={'30px 0px 0px 0px'} style={{ borderBottom: 'solid #B78300' }}>

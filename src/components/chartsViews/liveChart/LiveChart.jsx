@@ -31,7 +31,7 @@ const Dashboard = ({ token }) => {
         setQuery(token)
     }, [token])
     return (
-        <Stack component='div' sx={{ position: 'relative' }}>
+        <Stack component='div' sx={{ position: 'relative', height: (mobileMatches ? `${(window.innerWidth - 50)}px` : '466px') }}>
             {
                 isComingSoon &&
                 <Stack

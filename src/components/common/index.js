@@ -27,6 +27,7 @@ export const Text = styled.h3`
   font-size: ${({size}) => size || '30px'};
   line-height: ${({size}) => size || '30px'};
   margin: ${({margin}) => margin || '0'};
+  font-style: ${({font}) => font || 'normal'};
   text-transform: uppercase;
 `
 

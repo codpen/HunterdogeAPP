@@ -10,6 +10,7 @@ import AllTokens from './pages/AllTokens';
 import HomePage from './pages/HomePage';
 import NftGallery from './pages/NftGallary.jsx';
 import TokenPage from "./pages/TokenPage";
+import TokenEditPage from "./pages/TokenEditPage";
 import Modal from "./components/modal/Modal";
 import Menu from './blocks/menu';
 import Paws from './images/paws_bg.svg';
@@ -64,6 +65,9 @@ const App = () => {
                                 </Route>
                                 <Route path="/token/:address" exact>
                                     <TokenPage />
+                                </Route>
+                                <Route path="/token-edit/:address" exact>
+                                    <TokenEditPage />
                                 </Route>
                             </Switch>
                         </Pages>
