@@ -15,6 +15,7 @@ import { Button, Flex } from "../components/common/index";
 import PopularPreSales from "../components/popularPreSales";
 import TabsStyled from '../components/Tabs/Tabs';
 import LeaveComment from '../components/LeaveComment';
+import LeaveCommentModal from '../components/modal/LeaveCommentModal';
 import GoTop from '../components/GoTop';
 import { GoogleSheetContext } from '../contexts/GoogleSheetProvider';
 import { useMediaQuery } from '@mui/material';
@@ -45,6 +46,7 @@ const TokenPage = () => {
 		{ label: "token information" }
 	])
 	const isPresale = account ? <PreSale tokenData={tokenData} /> : <NoPresaleView />
+	const [openLeaveCommnet, setOpenLeaveCommnet] = useState(false)
 
 	useEffect(() => {
 		data.map((row) => {
@@ -69,9 +71,9 @@ const TokenPage = () => {
 					width={mobileMatches ? '100px' : '162px'}
 					weight={700}
 					margin={mobileMatches ? '30px 0 0 0' : '0 0 27px 0'}
-					bg={mobileMatches && 'transparent'}
-					boxShadow={mobileMatches && 'unset'}
-					color={mobileMatches && '#B78300'}
+					bg={mobileMatches ? 'transparent' : undefined}
+					boxShadow={mobileMatches ? 'unset' : undefined}
+					color={mobileMatches ? '#B78300' : undefined}
 				>{`<< ${mobileMatches ? '' : 'GO'} BACK`}</Button>
 				{mobileMatches ? <TokenHeaderMobile tokenData={tokenData} /> : <TokenHeader tokenData={tokenData} />}
 				{
@@ -85,10 +87,11 @@ const TokenPage = () => {
 				{
 					mobileMatches
 						?
-						<Button size={'14px'} margin={'20px auto'} height={'25px'} width={'80%'}>Leave a Commnet</Button>
+						<Button onClick={()=>{setOpenLeaveCommnet(true)}} size={'14px'} margin={'20px 10%'} height={'25px'} width={'80%'}>Leave a Commnet</Button>
 						:
 						<LeaveComment />
 				}
+				{openLeaveCommnet && <LeaveCommentModal setIsOpen={setOpenLeaveCommnet} />}
 				{/*<Comments/>*/}
 				<PopularPreSales />
 				<GoTop scrollStepInPx="100" delayInMs="10.50" />
@@ -102,7 +105,6 @@ export default TokenPage;
 const Container = styled.div`
   margin: ${({ isMobile }) => isMobile ? '0 15px' : '0px 50px'};
   max-width: 1420px;
-  text-align: center;
 `
 
 const Block = styled.div`

@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     },
     modal: {
         zIndex: 100,
-        position: "absolute",
+        position: "fixed",
         top: '10%',
         left: 0,
         right: 0,

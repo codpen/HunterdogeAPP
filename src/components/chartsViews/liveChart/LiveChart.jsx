@@ -31,7 +31,7 @@ const Dashboard = ({ token }) => {
         setQuery(token)
     }, [token])
     return (
-        <Stack component='div' sx={{ position: 'relative' }}>
+        <Stack component='div' sx={{ position: 'relative', height: (mobileMatches ? `${(window.innerWidth - 50)}px` : '466px') }}>
             {
                 isComingSoon &&
                 <Stack
@@ -104,9 +104,9 @@ const LiveChart = ({ tokenData = {} }) => {
                     <LiveChartSubtitle size={'14px'}>PAIR {symbol} - BNB</LiveChartSubtitle>
                 </Flex>
                 <Dashboard token={symbol} />
-                <Button onClick={() => setIsModal(true)} size={'14px'} margin={'20px auto'} width={'277px'} height={ mobileMatches && '25px'}>report this token to staff</Button>
+                <Button onClick={() => setIsModal(true)} size={'14px'} margin={'20px auto'} width={'277px'} height={ mobileMatches ? '25px' : undefined}>report this token to staff</Button>
             </ChartWrapper>
-            <RightContent width={mobileMatches && '100%'} margin={mobileMatches ? '20px 0' : '0 0 0 31px'}>
+            <RightContent width={mobileMatches ? '100%' : 'inherit'} margin={mobileMatches ? '20px 0' : '0 0 0 31px'}>
                 <HeadTitle margin={'0 0 31px 0'} align={'center'} size={'18px'}>statistics</HeadTitle>
                 <Stack sx={{ display: 'flex', flexDirection: (mobileMatches ? 'row' : 'column'), justifyContent: 'space-between' }}>
                     <Title>Max supply</Title>
@@ -123,16 +123,16 @@ const LiveChart = ({ tokenData = {} }) => {
                         {change24h && <Changes24 up={change24h.up}>{change24h.text}</Changes24>}
                     </Flex>
                 </Stack>
-                <Flex direction={mobileMatches && 'column'}>
+                <Flex direction={mobileMatches ? 'column' : undefined}>
                     <Flex
-                        content={mobileMatches && 'space-between'}
+                        content={mobileMatches ? 'space-between' : undefined}
                         style={{ width: (mobileMatches ? '100%' : '') }}
                         direction={mobileMatches ? 'row' : 'column'}>
                         <Title>Total liquidity</Title>
                         <Value>${new Intl.NumberFormat('en-US').format(totalLP.toFixed(4))}</Value>
                     </Flex>
                     <Flex
-                        content={mobileMatches && 'space-between'}
+                        content={mobileMatches ? 'space-between' : undefined}
                         style={{ width: (mobileMatches ? '100%' : '') }}
                         direction={mobileMatches ? 'row' : 'column'}
                         margin={mobileMatches ? '0' : '0 0 0 64px'}>
@@ -143,11 +143,11 @@ const LiveChart = ({ tokenData = {} }) => {
                         </Flex>
                     </Flex>
                 </Flex>
-                {[0].map((el, idx) => <Flex key={idx * 23} content={'space-between'} direction={mobileMatches && 'column'}>
+                {[0].map((el, idx) => <Flex key={idx * 23} content={'space-between'} direction={mobileMatches ? 'column' : undefined}>
                     <Flex direction={'column'}>
                         <Title size={'12px'}>Pc v2 | {symbol}/BNB LP Holdings</Title>
                         <Flex>
-                            <Value size={'12px'} margin={mobileMatches && '0'}>
+                            <Value size={'12px'} margin={mobileMatches ? '0' : undefined}>
                                 {wbnb ? new Intl.NumberFormat('en-US').format(wbnb) : '-'} BNB ( ${new Intl.NumberFormat('en-US').format(totalLP.toFixed(4))} )
                             </Value>
                             {/*<Changes24 up={true}>($1’313’078)</Changes24>*/}

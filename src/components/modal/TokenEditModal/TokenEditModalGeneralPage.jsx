@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 const useStyles = makeStyles({
     inputRow: {
-        display: 'fles',
+        display: 'flex',
         alignItems: 'center',
         margin: '0px',
         fontSize: '20px',
