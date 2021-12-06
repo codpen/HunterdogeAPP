@@ -2,12 +2,16 @@ import React, {useState} from 'react';
 import {Button, Flex, Image, LinkWrapper, Text} from "../../../components/common";
 import logo from '../../../images/hunter_logo.png';
 import chart from '../../../images/mobile/chart_ico.svg';
-import {Wrapp, WrappedButton, Title, Wrapper} from "./MobileMenuStyled";
+import {Wrapp, WrappedButton, Title, Wrapper, MenuModal, CloseButton} from "./MobileMenuStyled";
+import NewMenu from '../newMenu/newMenu';
 import ConnectWallet from '../../../connection/ConnectWallet';
 import menuIcon from '../../../images/mobile/button_menu.svg';
+import Modal from '@mui/material/Modal';
+import RegisterModal from '../../../components/modal/RegisterModal';
 
 const MobileMenu = () => {
     const [open, setOpen] = useState(false)
+    const [isRegister, setIsRegister] = useState(false)
 
     return (
         <>
@@ -29,10 +33,20 @@ const MobileMenu = () => {
                 <div>
                     <ConnectWallet />
                 </div>
-                <div>
+                <div onClick={() => setOpen(!open)}>
                     <Image src={menuIcon} width={'24px'} height={'24px'}/>
                 </div>
             </Wrapper>
+            <Modal
+                open={open}
+                onClose={() => setOpen(false)}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                style={{display:'flex', justifyContent:'center', padding:'20px 10px'}}
+            >
+                <NewMenu setOpen={setOpen} openRegister={() => { setIsRegister(true) }}/>
+            </Modal>
+            {isRegister && <RegisterModal setIsOpen={setIsRegister}/>}
         </>
     );
 };

@@ -59,3 +59,18 @@ export const WrappedButton = styled(Button)`
     font-size: 14px;
   }
 `
+export const MenuModal = styled.div`
+  zIndex: 100,
+  position: absolute;
+  top: 5%;
+  left: 0;
+  right: 0;
+  margin: ;0 auto;
+  padding: 80px 40px 60px 40px;
+  width: 100%;
+  background: #FFF;
+  border: 6px solid  #AB882E;
+  boxSizing: border-box;
+  border-radius: 60px;
+  color: #B78300;
+`

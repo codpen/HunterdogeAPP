@@ -3,17 +3,30 @@ import {LinkWrapper} from "../../../components/common";
 import hunterdogeShadow from '../../../images/hunterdoge_menu.png';
 import ContactModal from "../../../components/modal/Contact";
 import SearchInput from "../../../components/searchInput";
-import {Flex, ImageWrapper, Wrapp, WrappedButton, WrappedLink, Wrapper} from "./MenuStyled";
-
-const NewMenu = () => {
+import {Flex, ImageWrapper, Wrapp, WrappedButton, WrappedLink, Wrapper, CloseButton, Title} from "./MenuStyled";
+import ConnectWallet from '../../../connection/ConnectWallet';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import {Button} from "@mui/material";
+const NewMenu = (props) => {
     const [open, setOpen] = useState(false)
-
+    const mobileMatches = useMediaQuery('(min-width:600px)');
+    const onClickRegister = () => {
+        props.setOpen(false)
+        props.openRegister()
+    }
     return (
         <>
             <Wrapper>
+                {!mobileMatches && <Title>HUNTERDOGE</Title>}
                 <Wrapp>
-                    <SearchInput small mb={'28px'}/>
+                    {!mobileMatches && <CloseButton onClick={() => props.setOpen(false)}>X</CloseButton> }
+                    <SearchInput small mb={mobileMatches? '28px': '0px'}/>
                 </Wrapp>
+                {!mobileMatches && 
+                <WrappedButton onClick={onClickRegister} sx={{mt: 1.5}}>
+                    register
+                </WrappedButton>
+                }
                 <LinkWrapper to="/allTokens">
                     <WrappedButton>all tokens</WrappedButton>
                 </LinkWrapper>
@@ -30,6 +43,7 @@ const NewMenu = () => {
                 </Flex>
                 {open && <ContactModal setIsOpen={setOpen}/>}
             </Wrapper>
+            
         </>
 
     );
