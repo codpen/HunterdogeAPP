@@ -72,7 +72,11 @@ const Row = (
         }
         let handle = setInterval(() => {
             getHolderPerDay(address)
-                .then(res => res && setHoldersPerDay(`+ ${res}`))
+                .then(res => {
+                    if(res) {
+                        setHoldersPerDay(`+ ${res}`)
+                    }
+                })
         }, 3000000);
         setTimer(handle)
     }
@@ -84,6 +88,10 @@ const Row = (
                 const res = await getVotesPerProject(address)
                 try {
                     setVotes(parseInt(res[0]) + parseInt(res[1]) + parseInt(res[2]))
+                    data.Project_Upvotes = res[0]
+                    data.Project_MedVotes = res[1]
+                    data.Project_Downvotes = res[2]
+                    data.save()
                 } catch (e) {
                     console.log(e)
                 }
@@ -101,7 +109,7 @@ const Row = (
 
             try {
 
-                fetch(`https://api.pancakeswap.info/api/v2/tokens/${address}`)
+                await fetch(`https://api.pancakeswap.info/api/v2/tokens/${address}`)
                     .then((response) => {
                         return response.json();
                     })
@@ -120,6 +128,16 @@ const Row = (
             }
         }
     }, [data])
+
+    useEffect(() => {
+        if(holders) data.Project_Holder = holders;
+        if(price) data.Project_Price = price;
+        if(mcap) data.Project_MarketCap = mcap;
+        if(holdersPerDay) data.Project_HolderGrowth = holdersPerDay;
+        if(ratio) data.Project_LiqMcapRatio = ratio;
+        
+        data.save()
+    }, [holders, price, mcap, holdersPerDay, ratio])
 
     useEffect(async () => {
         if (bnbPrice.price && mcap > 0) {

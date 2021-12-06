@@ -4,33 +4,33 @@ import { Box } from '@mui/system';
 import { useMediaQuery } from "@material-ui/core";
 
 const TabsStyled = ({ setPartActive, partActive, data, closeTab }) => {
-  const mobileMatches = useMediaQuery('(max-width:600px)');
-  return (
-    <Part>
-      {data.map((item, index) => {
-        return (
-          <Tab key={index} isMobile={mobileMatches} className={(item.id ? item.id === partActive : partActive === index + 1) ? 'active' : ''} onClick={() => setPartActive(item.id ? item.id : index + 1)}>
-            <span>{item.label}</span>
-            {
-              item.close
-                ?
-                <Box component="img"
-                  src={close}
-                  onClick={() => closeTab(item.id)}
-                  sx={{
-                    position: 'absolute',
-                    right: '5px',
-                    top: '10px'
-                  }}
-                />
-                :
-                false
-            }
-          </Tab>
-        )
-      })}
-    </Part>
-  )
+	const mobileMatches = useMediaQuery('(max-width:600px)');
+	return (
+		<Part>
+			{data.map((item, index) => {
+				return (
+					<Tab key={index} isMobile={mobileMatches} className={(item.id ? item.id === partActive : partActive === index + 1) ? 'active' : ''} onClick={() => setPartActive(item.id ? item.id : index + 1)}>
+						<span>{item.label}</span>
+						{
+							item.close
+								?
+								<Box component="img"
+									src={close}
+									onClick={() => closeTab(item.id)}
+									sx={{
+										position: 'absolute',
+										right: '5px',
+										top: '10px'
+									}}
+								/>
+								:
+								false
+						}
+					</Tab>
+				)
+			})}
+		</Part>
+	)
 }
 
 export default TabsStyled;

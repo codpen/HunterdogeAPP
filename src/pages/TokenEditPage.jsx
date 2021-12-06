@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom'
 import { makeStyles } from "@material-ui/styles";
 import { Typography } from "@material-ui/core";
-import styled from 'styled-components';
 import { Checkbox, Input, Stack } from '@mui/material';
 import { Button, Text, Flex } from "../components/common/index";
 
@@ -163,13 +162,13 @@ const TokenEditPage = () => {
 	useEffect(() => {
 		data.map((row) => {
 			if (row?.Project_Address?.toLowerCase() === address.toLowerCase()) {
-				for (var i in generalInfo) {
+				for (let i in generalInfo) {
 					generalInfo[i] = row[i]
 				}
-				for (var i in tokenomics) {
+				for (let i in tokenomics) {
 					tokenomics[i] = row[i]
 				}
-				for (var i in presales) {
+				for (let i in presales) {
 					presales[i] = row[i]
 				}
 				
@@ -177,8 +176,9 @@ const TokenEditPage = () => {
 				setTokenomics(state => ({ ...state, tokenomics }))
 				setPresales(state => ({ ...state, presales }))
 			}
+			return row
 		})
-	}, [data])
+	}, [data, address])
 
 	return (
 		<Stack className={classes.root}>

@@ -34,7 +34,7 @@ const GoTop = (props) => {
   return (
       <Wrapper onClick={scrollToTop}>
         GO TO TOP
-        <DoubleArr>>></DoubleArr>
+        <DoubleArr>{`>>`}</DoubleArr>
       </Wrapper>
   );
 };
