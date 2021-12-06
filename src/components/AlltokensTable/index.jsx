@@ -43,7 +43,7 @@ const AllTokensTable = (isTitle) => {
 
 	let tabs = []
 	context.searchOption.map((item, i) => {
-		tabs.push({ label: `Search ${i + 1}`, close: true, id: item.id })
+		tabs = [...tabs, { label: `Search ${i + 1}`, close: true, id: item.id }]
 	})
 	tabs = [...tabs, { label: "All time", close: false }]
 
@@ -53,8 +53,8 @@ const AllTokensTable = (isTitle) => {
 	//checkbox and pagination button
 	const [perPage, setPerPage] = useState(25)
 	const [page, setPage] = useState(1)
-	
-	useEffect(()=> {
+
+	useEffect(() => {
 		setPartActive(tabs[0].id ? tabs[0].id : partActive)
 	}, [tabs])
 	// const filterOneDay = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (24*60*60*1000))
