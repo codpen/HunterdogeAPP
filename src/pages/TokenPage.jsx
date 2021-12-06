@@ -71,9 +71,9 @@ const TokenPage = () => {
 					width={mobileMatches ? '100px' : '162px'}
 					weight={700}
 					margin={mobileMatches ? '30px 0 0 0' : '0 0 27px 0'}
-					bg={mobileMatches && 'transparent'}
-					boxShadow={mobileMatches && 'unset'}
-					color={mobileMatches && '#B78300'}
+					bg={mobileMatches ? 'transparent' : undefined}
+					boxShadow={mobileMatches ? 'unset' : undefined}
+					color={mobileMatches ? '#B78300' : undefined}
 				>{`<< ${mobileMatches ? '' : 'GO'} BACK`}</Button>
 				{mobileMatches ? <TokenHeaderMobile tokenData={tokenData} /> : <TokenHeader tokenData={tokenData} />}
 				{
