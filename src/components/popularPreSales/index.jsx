@@ -76,13 +76,14 @@ const PopularPreSales = () => {
                     Most popular pre-sales
                 </Box>
                 <Info onClick={handleInfo}>i
-                    {openPopup && 
-                    <Popup>
-                        <TextPopup mb={'7px'}>Automated DxSale Presale Feed</TextPopup>
-                        <TextPopup color="rgba(171, 136, 46, 0.7)" fw={700}>In the table below our feed aggregates all
-                            presales listed on DxSale. We do NOT control the below listed projects. Be aware and
-                            DYOR!</TextPopup>
-                    </Popup>}
+                    {openPopup &&
+                        <Popup isMobile={mobileMatches} >
+                            <TextPopup mb={'7px'}>Automated DxSale Presale Feed</TextPopup>
+                            <TextPopup color="rgba(171, 136, 46, 0.7)" fw={700}>In the table below our feed aggregates all
+                                presales listed on DxSale. We do NOT control the below listed projects. Be aware and
+                                DYOR!</TextPopup>
+                        </Popup>
+                    }
                 </Info>
             </Stack>
             <TabsStyled setPartActive={setPartActive} partActive={partActive} data={tabs} />
@@ -130,10 +131,10 @@ export default PopularPreSales;
 
 const Popup = styled.div`
   position: absolute;
-  width: 300px;
-  height: 130px;
-  left: -300px;
-  top: -120px;
+  width: ${({ mobileMatches }) => mobileMatches ? '300px' : '250px'};
+  height: ${({ mobileMatches }) => mobileMatches ? '130px' : 'auto'};
+  left: ${({ mobileMatches }) => window.innerWidth < 1800 ? (mobileMatches ? '-300px' : '-280px') : '46px'};
+  top: ${({ mobileMatches }) => window.innerWidth < 1800 ? (mobileMatches ? '-120px' : '-130px') : '-20px'};
   padding: 17px 19px 17px 32px;
   background: #FFF599;
   border: 3px solid #FAF0CB;
@@ -152,8 +153,8 @@ const Popup = styled.div`
   &::before {
     content: '';
     position: absolute;
-    top: 90px;
-    left: 285px;
+    top: ${({ mobileMatches }) => window.innerWidth < 1800 ? (mobileMatches ? '90px' : '120px') : '15px'};
+    left: ${({ mobileMatches }) => window.innerWidth < 1800 ? (mobileMatches ? '285px' : '245px') : '-39px'};
     transform: ${() => window.innerWidth < 1800 ? 'rotate(180deg)' : 'rotate(0)'};
     border: 15px solid transparent;
     border-right: 25px solid #FFF599;

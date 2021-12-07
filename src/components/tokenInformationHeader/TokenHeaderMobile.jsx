@@ -76,7 +76,7 @@ const TokenHeaderMobile = ({ tokenData = {} }) => {
 
             const res = await getVotesPerProject(address)
             try {
-                setVotes(parseInt(res[0]) + parseInt(res[1]) + parseInt(res[2]))
+                setVotes(parseInt(res[0])*2 + parseInt(res[1]) - parseInt(res[2]))
             } catch (e) {
                 console.log(e)
             }

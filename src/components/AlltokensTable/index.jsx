@@ -55,6 +55,11 @@ const AllTokensTable = (isTitle) => {
 	
 	// const filterOneDay = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (24*60*60*1000))
 	// const filterWeek = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (7*24*60*60*1000))
+
+	const calcVotes = (item) => {
+		return parseInt(item.Project_Upvotes)*2 + parseInt(item.Project_MedVotes) - parseInt(item.Project_Downvotes)	
+	}
+
 	const filter = () => {
 		let result = [...data]
 		const option = context.searchOption.filter(e => e.id == partActive)[0]
@@ -72,9 +77,9 @@ const AllTokensTable = (isTitle) => {
 				if (option.project) {
 					if (option.project == 'vote') {
 						if (option.cond === 'high') {
-							return getVotesPerProject(projectAddress) >= option.value
+							return calcVotes(item) >= option.value
 						} else {
-							return getVotesPerProject(projectAddress) <= option.value
+							return calcVotes(item) <= option.value
 						}
 					} else {
 						if (option.cond === 'high') {
@@ -90,7 +95,7 @@ const AllTokensTable = (isTitle) => {
 			let direct = option.direct === 'asc' ? 1 : -1;
 			result = result.sort((a, b) => {
 				if (option.field === 'votes') {
-					return (((parseFloat(a.Project_Upvotes) + parseFloat(a.Project_MedVotes) + parseFloat(a.Project_Downvotes)) > (parseFloat(b.Project_Upvotes) + parseFloat(b.Project_MedVotes) + parseFloat(b.Project_Downvotes))) ? 1 : -1) * direct
+					return ((calcVotes(a) > calcVotes(b)) ? 1 : -1) * direct
 				} else {
 					return ((parseFloat(a[fieldMap[option.field]]) > parseFloat(b[fieldMap[option.field]])) ? 1 : -1) * direct
 				}

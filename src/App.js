@@ -124,7 +124,7 @@ const Wrapper = styled.div`
 `
 
 const DoubleArr = styled.div`
-    adding: 10px 10px 12px 10px;
+    padding: 5px 5px 8px 5px;
     background: #fff8cc;
     border-radius: 50%;
     border: solid;
