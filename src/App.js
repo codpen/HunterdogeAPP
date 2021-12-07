@@ -42,7 +42,7 @@ const App = () => {
         account && getIsMember()
     }, [account])
     return (
-        <Router>
+        <Router basename='/'>
             <ModalContextProvider>
                 <GoogleSheetContextProvider>
                     <Main>

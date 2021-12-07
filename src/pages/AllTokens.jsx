@@ -36,8 +36,8 @@ const AllTokens = () => {
 		// >
 		//   <Menu/>
 		<Stack sx={{ ml: '60px' }}>
-			{/* {checkMember && <SearchOrFilter />} */}
-			<SearchOrFilter />
+			{checkMember && <SearchOrFilter />}
+			{/* <SearchOrFilter /> */}
 			<AllTokensTable />
 			<Stack direction="row" alignItems="center" sx={{ gap: 8 }}>
 				<PopularPreSales />
