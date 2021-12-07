@@ -25,6 +25,7 @@ import { usePrice } from '../../hooks/usePrice';
 import { bscWBNBContact } from '../../connection/contracts';
 import { styled } from '@mui/material/styles';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const tokenData = [
     { key: 'Project_ISKYC', text: 'KYC verified', image: <Kyc /> },
@@ -45,13 +46,9 @@ const HtmlTooltip = styled(({ className, ...props }) => (
     },
 }));
 
-const Row = (
-    {
-        data, index
-    }
-) => {
+const Row = ({data, index}) => {
     const bnbPrice = usePrice(bscWBNBContact)
-
+    const mobileMatches = useMediaQuery('(min-width:600px)');
     // const { chainId } = useWeb3React()
     const { account, chainId } = useWallet();
     // const {votes, error, isLoading} = useVotesPerProject(data.Project_Address)
@@ -153,6 +150,7 @@ const Row = (
 
     return (
         <TableRow>
+            {mobileMatches &&
             <TableCell component="th" scope="row" sx={{ display: 'flex', alignItems: 'center' }}>
                 {data.has_Presale === 'TRUE' && <Stack
                     direction="row"
@@ -175,13 +173,19 @@ const Row = (
                     <Box component="img" src={data.Project_Logo} sx={{ width: '66px' }} />
                 </Stack>
             </TableCell>
-            <TableCell style={{ textAlign: 'left' }}>
+            }
+            <TableCell style={{ textAlign: 'left', display: mobileMatches? 'table-cell': 'flex', alignItems:'center' }}>
+                {!mobileMatches && <Box component="img" src={data.Project_Logo} sx={{ width:'20px', height:'20px', marginRight:'4px' }} />}
                 <LinkWrapper to={`/token/${data.Project_Address}`}>
                     <Stack>
                         <Typography variant="h5">
-                            {data.Project_Name}
+                            {mobileMatches && data.Project_Name}
+                            {!mobileMatches &&
+                                <small style={{fontSize:'0.5rem'}}>{data.Project_Name}</small>
+                            } 
                         </Typography>
-                        <Stack direction="row" sx={{ gap: 2, mt: '14px' }}>
+                        { mobileMatches && 
+                        <Stack direction="row" sx={{ gap: mobileMatches? 2: 1, mt: mobileMatches? '14px': '2px'}}>
                             {
                                 data.Project_ISKYC === 'TRUE' &&
                                 <HtmlTooltip title={<React.Fragment><Typography>KYC verified</Typography></React.Fragment>}>
@@ -207,17 +211,24 @@ const Row = (
                                 </HtmlTooltip>
                             }
                         </Stack>
+                        }
                     </Stack>
                 </LinkWrapper>
             </TableCell>
             <TableCell>
                 <Typography variant="h6" sx={{ fontWeight: 900 }}>
-                    {data.Project_Symbol}
+                    {mobileMatches && data.Project_Symbol}
+                    {!mobileMatches &&
+                        <small style={{fontSize:'0.5rem'}}>{data.Project_Symbol}</small>
+                    }  
                 </Typography>
             </TableCell>
             <TableCell>
                 <Typography variant="table">
-                    ${new Intl.NumberFormat('en-US').format(mcap)}
+                    {mobileMatches && <label>${new Intl.NumberFormat('en-US').format(mcap)}</label>}
+                    {!mobileMatches &&
+                        <small style={{fontSize:'0.5rem'}}>${new Intl.NumberFormat('en-US').format(mcap)}</small>
+                    }  
                 </Typography>
             </TableCell>
             <TableCell>
@@ -228,7 +239,10 @@ const Row = (
                         </Typography>
                     </HtmlTooltip> */}
                     <Typography variant="table">
-                        ${Number(price.toFixed(18))}
+                        {mobileMatches && <label>${Number(price.toFixed(18))}</label>}
+                        {!mobileMatches &&
+                            <small style={{fontSize:'0.5rem'}}>${Number(price.toFixed(18))}</small>
+                        } 
                     </Typography>
                     {change24h !== 0 && isNaN(change24h) === false && <Flex margin={'6px 0 0 0'} justify={'evenly'}>
                         <Image src={change24h > 0 ? arrowUp : arrowDown} />
@@ -236,25 +250,35 @@ const Row = (
                     </Flex>}
                 </Stack>
             </TableCell>
-
             <TableCell>
                 {/* <Typography variant="h6">
                         HIGH
                     </Typography> */}
                 <Typography variant="h6" sx={{ fontSize: 16, fontWeight: 600, color: "#16DF42" }}>
-                    {new Intl.NumberFormat('en-US').format(ratio)}%
+                    {mobileMatches && <label>{new Intl.NumberFormat('en-US').format(ratio)}%</label>}
+                    {!mobileMatches &&
+                        <small style={{fontSize:'0.5rem'}}>{new Intl.NumberFormat('en-US').format(ratio)}%</small>
+                    } 
                 </Typography>
             </TableCell>
             <TableCell>
                 <Typography variant="table">
-                    {holders}
+                    {mobileMatches && <label>{holders}</label>}
+                    {!mobileMatches &&
+                        <small style={{fontSize:'0.5rem'}}>{holders}</small>
+                    } 
                 </Typography>
             </TableCell>
             <TableCell>
                 <Typography variant="table">
-                    {holdersPerDay}
+                    {mobileMatches && <label>{holdersPerDay}</label>}
+                    {!mobileMatches &&
+                        <small style={{fontSize:'0.5rem'}}>{holdersPerDay}</small>
+                    } 
                 </Typography>
             </TableCell>
+           
+            {mobileMatches && 
             <TableCell>
                 <Stack direction="row" alignItems="center">
                     <Typography variant="table" sx={{ width: '50px' }}>
@@ -264,6 +288,7 @@ const Row = (
                     <More>...</More>
                 </Stack>
             </TableCell>
+            }
         </TableRow>
     )
 }

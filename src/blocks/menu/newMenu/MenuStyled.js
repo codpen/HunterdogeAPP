@@ -23,7 +23,7 @@ export const Wrapper = styled.div`
   flex-shrink: 0;
   z-index: 10;
   @media screen and (min-width: 600px) {
-    width: 348px;
+    width: 320px;
     padding: 62px 21px 21px 21px;
     height: 100%;
   }
@@ -31,8 +31,6 @@ export const Wrapper = styled.div`
 
 export const ImageWrapper = styled(Image)`
   height: 200px;
-  transform: translateX(10px);
-
   @media screen and (max-width: 1700px) {
     height: 150px;
   }

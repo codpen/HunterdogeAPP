@@ -99,7 +99,7 @@ const Footer = () => {
                 </Flex>
                 <Flex>
                     <Flex direction={'column'} items={'start'}>
-                        <Title size={'30px'}>Contact</Title>
+                        <Title size={'30px'} mtop={'-16px'}>Contact</Title>
                         <LinkFooter href="mailto:info@hunterdoge.com" target="_blank" size={'19px'}>info@hunterdoge.com</LinkFooter>
                         <Button onClick={submit}>Submit your Coin</Button>
                     </Flex>
