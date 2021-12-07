@@ -39,9 +39,9 @@ const Menu = () => {
         {/* <Button variant="large" sx={{mb: 3}}>
           All Pre-sales
         </Button> */}
-        <Button variant="large" sx={{mb: 3}} component={ Link } to="/nft-gallery">
+        {/* <Button variant="large" sx={{mb: 3}} component={ Link } to="/nft-gallery">
           NFT GALLERY
-        </Button>
+        </Button> */}
         <a href="https://t.me/huntersground" target="_blank">
           <Button variant="large" sx={{mb: 3, lineHeight: '25px', height: 71}}>
             telegram shill bot

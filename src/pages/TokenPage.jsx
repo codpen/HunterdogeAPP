@@ -86,7 +86,7 @@ const TokenPage = () => {
 				{
 					mobileMatches
 						?
-						<Button onClick={()=>{setOpenLeaveCommnet(true)}} size={'14px'} margin={'20px 10%'} height={'25px'} width={'80%'}>Leave a Commnet</Button>
+						<Button onClick={()=>{setOpenLeaveCommnet(true)}} size={'14px'} margin={'20px 10%'} height={'25px'} width={'80%'}>Leave a Comment</Button>
 						:
 						<LeaveComment />
 				}

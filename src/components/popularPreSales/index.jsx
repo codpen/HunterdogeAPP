@@ -76,7 +76,8 @@ const PopularPreSales = () => {
                     Most popular pre-sales
                 </Box>
                 <Info onClick={handleInfo}>i
-                    {openPopup && <Popup>
+                    {openPopup && 
+                    <Popup>
                         <TextPopup mb={'7px'}>Automated DxSale Presale Feed</TextPopup>
                         <TextPopup color="rgba(171, 136, 46, 0.7)" fw={700}>In the table below our feed aggregates all
                             presales listed on DxSale. We do NOT control the below listed projects. Be aware and
@@ -129,10 +130,10 @@ export default PopularPreSales;
 
 const Popup = styled.div`
   position: absolute;
-  width: 462px;
-  height: 97px;
-  left: ${() => window.innerWidth < 1800 ? '-480px' : '46px'};
-  top: ${() => window.innerWidth < 1800 ? '-100px' : '-20px'};
+  width: 300px;
+  height: 130px;
+  left: -300px;
+  top: -120px;
   padding: 17px 19px 17px 32px;
   background: #FFF599;
   border: 3px solid #FAF0CB;
@@ -141,14 +142,26 @@ const Popup = styled.div`
   box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
   border-radius: 25px;
 
+  @media (min-width: 600px) {
+    width: 462px;
+    height: 97px;
+    left: ${() => window.innerWidth < 1800 ? '-480px' : '46px'};
+    top: ${() => window.innerWidth < 1800 ? '-100px' : '-20px'};
+  }
+
   &::before {
     content: '';
     position: absolute;
-    top: ${() => window.innerWidth < 1800 ? '50px' : '15px'};
-    left: ${() => window.innerWidth < 1800 ? '455px' : '-39px'};
+    top: 90px;
+    left: 285px;
     transform: ${() => window.innerWidth < 1800 ? 'rotate(180deg)' : 'rotate(0)'};
     border: 15px solid transparent;
     border-right: 25px solid #FFF599;
+    @media (min-width: 600px) {
+        top: ${() => window.innerWidth < 1800 ? '50px' : '15px'};
+        left: ${() => window.innerWidth < 1800 ? '455px' : '-39px'};
+        transform: ${() => window.innerWidth < 1800 ? 'rotate(180deg)' : 'rotate(0)'};
+      }
   }
 `
 

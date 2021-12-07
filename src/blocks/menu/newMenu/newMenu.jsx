@@ -30,9 +30,9 @@ const NewMenu = (props) => {
                 <LinkWrapper to="/allTokens">
                     <WrappedButton>all tokens</WrappedButton>
                 </LinkWrapper>
-                <LinkWrapper to="/nft-gallery">
+                {/* <LinkWrapper to="/nft-gallery">
                     <WrappedButton to="/nft-gallery">NFT GALLERY</WrappedButton>
-                </LinkWrapper>
+                </LinkWrapper> */}
                 <a href="https://t.me/huntersground" target="_blank" style={{width: '100%'}}>
                     <WrappedButton>telegram shill bot</WrappedButton>
                 </a>
