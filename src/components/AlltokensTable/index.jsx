@@ -41,6 +41,7 @@ const AllTokensTable = (isTitle) => {
 	const context = useContext(ModalContext)
 	const [currentData, setCurrentData] = useState({ newData: [], currentPage: 0, endPage: 0 })
 
+	
 	let tabs = []
 	context.searchOption.map((item, i) => {
 		tabs = [...tabs, { label: `Search ${i + 1}`, close: true, id: item.id }]
@@ -53,10 +54,7 @@ const AllTokensTable = (isTitle) => {
 	//checkbox and pagination button
 	const [perPage, setPerPage] = useState(25)
 	const [page, setPage] = useState(1)
-
-	useEffect(() => {
-		setPartActive(tabs[0].id ? tabs[0].id : partActive)
-	}, [tabs])
+	
 	// const filterOneDay = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (24*60*60*1000))
 	// const filterWeek = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (7*24*60*60*1000))
 	const filter = () => {
