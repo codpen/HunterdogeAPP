@@ -76,6 +76,12 @@ const App = () => {
                             </Switch>
                         </Pages>
                         <Footer />
+                        <ScrollToTop showUnder={50} style={{zIndex: '999'}}>
+                            <Wrapper>
+                                {mobileMatches && `GO TO TOP`}
+                                <DoubleArr>{`>>`}</DoubleArr>
+                            </Wrapper>
+                        </ScrollToTop>
                     </Main>
                 </GoogleSheetContextProvider>
             </ModalContextProvider>
