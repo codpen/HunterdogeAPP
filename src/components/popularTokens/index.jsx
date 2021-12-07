@@ -91,6 +91,7 @@ const PopularTokens = () => {
                                 <TableCell sx={{fontSize: mobileMatches? '20px': '10px'}}>MCAP</TableCell>
                                 <TableCell sx={{fontSize: mobileMatches? '20px': '10px'}}>Price</TableCell>
                                 <TableCell sx={{textAlign: 'left', fontSize: mobileMatches? '20px': '10px'}}>Votes</TableCell>
+                                <TableCell sx={{textAlign: 'left', fontSize: mobileMatches? '20px': '10px'}}></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody sx={{overflow: 'hidden'}}>

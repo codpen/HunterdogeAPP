@@ -46,7 +46,7 @@ const HtmlTooltip = styled(({ className, ...props }) => (
     },
 }));
 
-const Row = ({data, index}) => {
+const Row = ({ data, index }) => {
     const bnbPrice = usePrice(bscWBNBContact)
     const mobileMatches = useMediaQuery('(min-width:600px)');
     // const { chainId } = useWeb3React()
@@ -70,7 +70,7 @@ const Row = ({data, index}) => {
         let handle = setInterval(() => {
             getHolderPerDay(address)
                 .then(res => {
-                    if(res) {
+                    if (res) {
                         setHoldersPerDay(`+ ${res}`)
                     }
                 })
@@ -84,7 +84,7 @@ const Row = ({data, index}) => {
             if (chainId === 56) {
                 const res = await getVotesPerProject(address)
                 try {
-                    setVotes(parseInt(res[0])*2 + parseInt(res[1]) - parseInt(res[2]))
+                    setVotes(parseInt(res[0]) * 2 + parseInt(res[1]) - parseInt(res[2]))
                     data.Project_Upvotes = res[0]
                     data.Project_MedVotes = res[1]
                     data.Project_Downvotes = res[2]
@@ -127,12 +127,12 @@ const Row = ({data, index}) => {
     }, [data])
 
     useEffect(() => {
-        if(holders) data.Project_Holder = holders;
-        if(price) data.Project_Price = price;
-        if(mcap) data.Project_MarketCap = mcap;
-        if(holdersPerDay) data.Project_HolderGrowth = holdersPerDay;
-        if(ratio) data.Project_LiqMcapRatio = ratio;
-        
+        if (holders) data.Project_Holder = holders;
+        if (price) data.Project_Price = price;
+        if (mcap) data.Project_MarketCap = mcap;
+        if (holdersPerDay) data.Project_HolderGrowth = holdersPerDay;
+        if (ratio) data.Project_LiqMcapRatio = ratio;
+
         data.save()
     }, [holders, price, mcap, holdersPerDay, ratio])
 
@@ -151,66 +151,66 @@ const Row = ({data, index}) => {
     return (
         <TableRow>
             {mobileMatches &&
-            <TableCell component="th" scope="row" sx={{ display: 'flex', alignItems: 'center' }}>
-                {data.has_Presale === 'TRUE' && <Stack
-                    direction="row"
-                    alignItems="center"
-                    sx={{
-                        transform: 'rotate(270deg)',
-                        position: 'absolute',
-                        backgroundColor: '#CB5DCD',
-                        color: '#FFF',
-                        width: 'max-content',
-                        height: 'fit-content',
-                        padding: '4px',
-                        borderRadius: '5px',
-                    }}
-                >Pre-Sale</Stack>}
-                <Stack direction="row" alignItems="center">
-                    <Typography variant="h6" sx={{ mr: '36px' }}>
-                        {index + 1}.
-                    </Typography>
-                    <Box component="img" src={data.Project_Logo} sx={{ width: '66px' }} />
-                </Stack>
-            </TableCell>
+                <TableCell component="th" scope="row" sx={{ display: 'flex', alignItems: 'center' }}>
+                    {data.has_Presale === 'TRUE' && <Stack
+                        direction="row"
+                        alignItems="center"
+                        sx={{
+                            transform: 'rotate(270deg)',
+                            position: 'absolute',
+                            backgroundColor: '#CB5DCD',
+                            color: '#FFF',
+                            width: 'max-content',
+                            height: 'fit-content',
+                            padding: '4px',
+                            borderRadius: '5px',
+                        }}
+                    >Pre-Sale</Stack>}
+                    <Stack direction="row" alignItems="center">
+                        <Typography variant="h6" sx={{ mr: '36px' }}>
+                            {index + 1}.
+                        </Typography>
+                        <Box component="img" src={data.Project_Logo} sx={{ width: '66px' }} />
+                    </Stack>
+                </TableCell>
             }
-            <TableCell style={{ textAlign: 'left', display: mobileMatches? 'table-cell': 'flex', alignItems:'center' }}>
-                {!mobileMatches && <Box component="img" src={data.Project_Logo} sx={{ width:'20px', height:'20px', marginRight:'4px' }} />}
+            <TableCell style={{ textAlign: 'left', display: mobileMatches ? 'table-cell' : 'flex', alignItems: 'center' }}>
+                {!mobileMatches && <Box component="img" src={data.Project_Logo} sx={{ width: '20px', height: '20px', marginRight: '4px' }} />}
                 <LinkWrapper to={`/token/${data.Project_Address}`}>
                     <Stack>
                         <Typography variant="h5">
                             {mobileMatches && data.Project_Name}
                             {!mobileMatches &&
-                                <small style={{fontSize:'0.5rem'}}>{data.Project_Name}</small>
-                            } 
+                                <small style={{ fontSize: '0.5rem' }}>{data.Project_Name}</small>
+                            }
                         </Typography>
-                        { mobileMatches && 
-                        <Stack direction="row" sx={{ gap: mobileMatches? 2: 1, mt: mobileMatches? '14px': '2px'}}>
-                            {
-                                data.Project_ISKYC === 'TRUE' &&
-                                <HtmlTooltip title={<React.Fragment><Typography>KYC verified</Typography></React.Fragment>}>
-                                    <Kyc />
-                                </HtmlTooltip>
-                            }
-                            {
-                                data.Project_ISDOX === 'TRUE' &&
-                                <HtmlTooltip title={<React.Fragment><Typography>Audited token</Typography></React.Fragment>}>
-                                    <Audit />
-                                </HtmlTooltip>
-                            }
-                            {
-                                data.Project_HasUtility === 'TRUE' &&
-                                <HtmlTooltip title={<React.Fragment><Typography>Usecase token</Typography></React.Fragment>}>
-                                    <Utility />
-                                </HtmlTooltip>
-                            }
-                            {
-                                data.Project_IsMemeCoin === 'TRUE' &&
-                                <HtmlTooltip title={<React.Fragment><Typography>Meme token</Typography></React.Fragment>}>
-                                    <Memecoin />
-                                </HtmlTooltip>
-                            }
-                        </Stack>
+                        {mobileMatches &&
+                            <Stack direction="row" sx={{ gap: mobileMatches ? 2 : 1, mt: mobileMatches ? '14px' : '2px' }}>
+                                {
+                                    data.Project_ISKYC === 'TRUE' &&
+                                    <HtmlTooltip title={<React.Fragment><Typography>KYC verified</Typography></React.Fragment>}>
+                                        <Kyc />
+                                    </HtmlTooltip>
+                                }
+                                {
+                                    data.Project_ISDOX === 'TRUE' &&
+                                    <HtmlTooltip title={<React.Fragment><Typography>Audited token</Typography></React.Fragment>}>
+                                        <Audit />
+                                    </HtmlTooltip>
+                                }
+                                {
+                                    data.Project_HasUtility === 'TRUE' &&
+                                    <HtmlTooltip title={<React.Fragment><Typography>Usecase token</Typography></React.Fragment>}>
+                                        <Utility />
+                                    </HtmlTooltip>
+                                }
+                                {
+                                    data.Project_IsMemeCoin === 'TRUE' &&
+                                    <HtmlTooltip title={<React.Fragment><Typography>Meme token</Typography></React.Fragment>}>
+                                        <Memecoin />
+                                    </HtmlTooltip>
+                                }
+                            </Stack>
                         }
                     </Stack>
                 </LinkWrapper>
@@ -219,16 +219,16 @@ const Row = ({data, index}) => {
                 <Typography variant="h6" sx={{ fontWeight: 900 }}>
                     {mobileMatches && data.Project_Symbol}
                     {!mobileMatches &&
-                        <small style={{fontSize:'0.5rem'}}>{data.Project_Symbol}</small>
-                    }  
+                        <small style={{ fontSize: '0.5rem' }}>{data.Project_Symbol}</small>
+                    }
                 </Typography>
             </TableCell>
             <TableCell>
                 <Typography variant="table">
                     {mobileMatches && <label>${new Intl.NumberFormat('en-US').format(mcap)}</label>}
                     {!mobileMatches &&
-                        <small style={{fontSize:'0.5rem'}}>${new Intl.NumberFormat('en-US').format(mcap)}</small>
-                    }  
+                        <small style={{ fontSize: '0.5rem' }}>${new Intl.NumberFormat('en-US').format(mcap)}</small>
+                    }
                 </Typography>
             </TableCell>
             <TableCell>
@@ -241,8 +241,8 @@ const Row = ({data, index}) => {
                     <Typography variant="table">
                         {mobileMatches && <label>${Number(price.toFixed(18))}</label>}
                         {!mobileMatches &&
-                            <small style={{fontSize:'0.5rem'}}>${Number(price.toFixed(18))}</small>
-                        } 
+                            <small style={{ fontSize: '0.5rem' }}>${Number(price.toFixed(18))}</small>
+                        }
                     </Typography>
                     {change24h !== 0 && isNaN(change24h) === false && <Flex margin={'6px 0 0 0'} justify={'evenly'}>
                         <Image src={change24h > 0 ? arrowUp : arrowDown} />
@@ -257,37 +257,41 @@ const Row = ({data, index}) => {
                 <Typography variant="h6" sx={{ fontSize: 16, fontWeight: 600, color: "#16DF42" }}>
                     {mobileMatches && <label>{new Intl.NumberFormat('en-US').format(ratio)}%</label>}
                     {!mobileMatches &&
-                        <small style={{fontSize:'0.5rem'}}>{new Intl.NumberFormat('en-US').format(ratio)}%</small>
-                    } 
+                        <small style={{ fontSize: '0.5rem' }}>{new Intl.NumberFormat('en-US').format(ratio)}%</small>
+                    }
                 </Typography>
             </TableCell>
             <TableCell>
                 <Typography variant="table">
                     {mobileMatches && <label>{holders}</label>}
                     {!mobileMatches &&
-                        <small style={{fontSize:'0.5rem'}}>{holders}</small>
-                    } 
+                        <small style={{ fontSize: '0.5rem' }}>{holders}</small>
+                    }
                 </Typography>
             </TableCell>
             <TableCell>
                 <Typography variant="table">
                     {mobileMatches && <label>{holdersPerDay}</label>}
                     {!mobileMatches &&
-                        <small style={{fontSize:'0.5rem'}}>{holdersPerDay}</small>
-                    } 
+                        <small style={{ fontSize: '0.5rem' }}>{holdersPerDay}</small>
+                    }
                 </Typography>
             </TableCell>
-           
-            {mobileMatches && 
-            <TableCell>
-                <Stack direction="row" alignItems="center">
-                    <Typography variant="table" sx={{ width: '50px' }}>
-                        {votes}
-                    </Typography>
-                    <Votes address={data.Project_Address} />
-                    <More>...</More>
-                </Stack>
-            </TableCell>
+
+            {mobileMatches &&
+                <>
+                    <TableCell>
+                        <Typography variant="table" sx={{ width: '50px' }}>
+                            {votes}
+                        </Typography>
+                    </TableCell>
+                    <TableCell>
+                        <Stack direction="row" alignItems="center">
+                            <Votes address={data.Project_Address} />
+                            <More>...</More>
+                        </Stack>
+                    </TableCell>
+                </>
             }
         </TableRow>
     )
