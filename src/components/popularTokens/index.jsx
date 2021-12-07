@@ -82,7 +82,7 @@ const PopularTokens = () => {
                 }}
             >
                 <TableContainer sx={{overflow: 'visible'}}>
-                    <Table responsive>
+                    <Table responsive='true'>
                         <TableHead>
                             <TableRow>
                                 {mobileMatches && <TableCell>#Rank</TableCell>}

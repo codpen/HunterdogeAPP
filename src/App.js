@@ -26,12 +26,14 @@ import { getPrice24H } from "./utils/getPrice24H";
 import GoogleSheetContextProvider from './contexts/GoogleSheetProvider';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ScrollToTop from 'react-scroll-up';
+import ContactModal from './components/modal/Contact';
 
 const App = () => {
     // const { account } = useWeb3React()
     const { account, chainId } = useWallet();
     const [isOpen, setIsOpen] = useState(false)
     const [register, setRegister] = useState(false)
+    const [isContact, setIsContact] = useState(false)
     const mobileMatches = useMediaQuery('(min-width:600px)');
 
     useEffect(() => {
@@ -47,13 +49,14 @@ const App = () => {
             <ModalContextProvider>
                 <GoogleSheetContextProvider>
                     <Main>
-                        {!mobileMatches && <MobileMenu />}
+                        {!mobileMatches && <MobileMenu setIsContact={setIsContact} />}
                         {mobileMatches && <Header />}
                         {mobileMatches && <Hero setIsOpen={setIsOpen} register={register} />}
                         {isOpen && <Modal setIsOpen={setIsOpen} />}
+                        {isContact && <ContactModal setIsOpen={setIsContact} />}
                         <Pages>
                             {/* <Menu/> */}
-                            {mobileMatches && <NewMenu />}
+                            {mobileMatches && <NewMenu setIsContact={setIsContact} />}
                             <Switch>
                                 <Route path="/" exact>
                                     <HomePage />

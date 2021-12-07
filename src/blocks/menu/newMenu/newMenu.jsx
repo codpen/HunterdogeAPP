@@ -8,11 +8,16 @@ import ConnectWallet from '../../../connection/ConnectWallet';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Button } from "@mui/material";
 const NewMenu = (props) => {
-    const [open, setOpen] = useState(false)
     const mobileMatches = useMediaQuery('(min-width:600px)');
     const onClickRegister = () => {
         props.setOpen(false)
         props.openRegister()
+    }
+    const onClickContact = () => {
+        if(props.setOpen) {
+            props.setOpen(false)
+        }
+        props.setIsContact(true)
     }
     return (
         <>
@@ -36,12 +41,11 @@ const NewMenu = (props) => {
                 <a onClick={() => { props.setOpen && props.setOpen(false) }} href="https://t.me/huntersground" target="_blank" style={{ width: '100%' }}>
                     <WrappedButton>telegram shill bot</WrappedButton>
                 </a>
-                <WrappedButton onClick={() => { props.setOpen && props.setOpen(false); setOpen(true) }}>contact</WrappedButton>
+                <WrappedButton onClick={onClickContact}>contact</WrappedButton>
                 <Flex>
                     <WrappedLink to={'https://t.me/hunterdogeofficial'}>+ Submit your coin</WrappedLink>
                     <ImageWrapper src={hunterdogeShadow} />
                 </Flex>
-                {open && <ContactModal setIsOpen={setOpen} />}
             </Wrapper>
 
         </>

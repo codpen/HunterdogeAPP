@@ -140,7 +140,7 @@ const AllTokensTable = (isTitle) => {
 					}}
 				>
 					<TableContainer>
-						<Table responsive>
+						<Table responsive='true'>
 							<TableHead>
 								<TableRow>
 								{mobileMatches && <TableCell>#Rank</TableCell>}
