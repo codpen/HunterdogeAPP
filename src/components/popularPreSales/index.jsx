@@ -76,7 +76,7 @@ const PopularPreSales = () => {
                     Most popular pre-sales
                 </Box>
                 <Info onClick={handleInfo}>i
-                    {openPopup && <Popup>
+                    {openPopup && <Popup isMobile={mobileMatches} >
                         <TextPopup mb={'7px'}>Automated DxSale Presale Feed</TextPopup>
                         <TextPopup color="rgba(171, 136, 46, 0.7)" fw={700}>In the table below our feed aggregates all
                             presales listed on DxSale. We do NOT control the below listed projects. Be aware and
@@ -129,10 +129,10 @@ export default PopularPreSales;
 
 const Popup = styled.div`
   position: absolute;
-  width: 462px;
-  height: 97px;
-  left: ${() => window.innerWidth < 1800 ? '-480px' : '46px'};
-  top: ${() => window.innerWidth < 1800 ? '-100px' : '-20px'};
+  width: ${({mobileMatches})=> mobileMatches ? '462px' : '250px'};
+  height: ${({mobileMatches})=> mobileMatches ? '97px' : 'auto'};
+  left: ${({mobileMatches}) => window.innerWidth < 1800 ? (mobileMatches ? '-480px' : '-280px') : '46px'};
+  top: ${({mobileMatches}) => window.innerWidth < 1800 ? (mobileMatches ? '-100px' : '-130px') : '-20px'};
   padding: 17px 19px 17px 32px;
   background: #FFF599;
   border: 3px solid #FAF0CB;
@@ -144,8 +144,8 @@ const Popup = styled.div`
   &::before {
     content: '';
     position: absolute;
-    top: ${() => window.innerWidth < 1800 ? '50px' : '15px'};
-    left: ${() => window.innerWidth < 1800 ? '455px' : '-39px'};
+    top: ${({mobileMatches}) => window.innerWidth < 1800 ? (mobileMatches ? '50px' : '120px') : '15px'};
+    left: ${({mobileMatches}) => window.innerWidth < 1800 ? (mobileMatches ? '455px' : '245px') : '-39px'};
     transform: ${() => window.innerWidth < 1800 ? 'rotate(180deg)' : 'rotate(0)'};
     border: 15px solid transparent;
     border-right: 25px solid #FFF599;

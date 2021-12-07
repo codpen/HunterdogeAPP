@@ -27,16 +27,16 @@ const NewMenu = (props) => {
                         register
                     </WrappedButton>
                 }
-                <LinkWrapper onClick={() => { props.setOpen(false) }} to="/allTokens">
+                <LinkWrapper onClick={() => { props.setOpen && props.setOpen(false) }} to="/allTokens">
                     <WrappedButton>all tokens</WrappedButton>
                 </LinkWrapper>
-                <LinkWrapper onClick={() => { props.setOpen(false) }} to="/nft-gallery">
+                <LinkWrapper onClick={() => { props.setOpen && props.setOpen(false) }} to="/nft-gallery">
                     <WrappedButton to="/nft-gallery">NFT GALLERY</WrappedButton>
                 </LinkWrapper>
-                <a onClick={() => { props.setOpen(false) }} href="https://t.me/huntersground" target="_blank" style={{ width: '100%' }}>
+                <a onClick={() => { props.setOpen && props.setOpen(false) }} href="https://t.me/huntersground" target="_blank" style={{ width: '100%' }}>
                     <WrappedButton>telegram shill bot</WrappedButton>
                 </a>
-                <WrappedButton onClick={() => { props.setOpen(false); setOpen(true) }}>contact</WrappedButton>
+                <WrappedButton onClick={() => { props.setOpen && props.setOpen(false); setOpen(true) }}>contact</WrappedButton>
                 <Flex>
                     <WrappedLink to={'https://t.me/hunterdogeofficial'}>+ Submit your coin</WrappedLink>
                     <ImageWrapper src={hunterdogeShadow} />
