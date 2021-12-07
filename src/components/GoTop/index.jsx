@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components'
+import { useMediaQuery } from '@mui/material';
 
 const GoTop = (props) => {
     const [intervalId, setIntervalId] = useState(0);
     const [thePosition, setThePosition] = useState(false);
-    
+    const mobileMatches = useMediaQuery('(max-width:600px)');
+
     const timeoutRef = useRef(null);
 
     useEffect(() => {
@@ -17,10 +19,10 @@ const GoTop = (props) => {
         });
         // window.scrollTo(0, 0);
     }, [])
-    
+
     const onScrollStep = () => {
 
-        if (window.pageYOffset === 0){
+        if (window.pageYOffset === 0) {
             clearInterval(timeoutRef.current);
         }
         window.scroll(0, window.pageYOffset - props.scrollStepInPx);
@@ -28,19 +30,23 @@ const GoTop = (props) => {
 
     const scrollToTop = () => {
         timeoutRef.current = setInterval(onScrollStep, props.delayInMs);
- 
+
     }
 
-  return (
-      <Wrapper onClick={scrollToTop}>
-        GO TO TOP
-        <DoubleArr>{`>>`}</DoubleArr>
-      </Wrapper>
-  );
+    return (
+        <Wrapper onClick={scrollToTop}>
+            {!mobileMatches && `GO TO TOP`}
+            <DoubleArr>{`>>`}</DoubleArr>
+        </Wrapper>
+    );
 };
 export default GoTop;
 
 const Wrapper = styled.div`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99;
   font-family: Raleway;
   font-style: normal;
   font-weight: bold;
@@ -62,6 +68,12 @@ const Wrapper = styled.div`
 `
 
 const DoubleArr = styled.div`
+    background: #b78300;
+    padding: 10px 10px 12px 10px;
+    border-radius: 50%;
+    color: #fffbe2;
+    margin-left: 0px;
+
     font-family: Raleway;
     font-style: normal;
     font-weight: 500;
@@ -69,7 +81,6 @@ const DoubleArr = styled.div`
     line-height: 22px;
     margin-left: 11px;
     text-align: center;
-    color: #B78300;
     cursor: pointer;
     transform: rotate(270deg);
 `
