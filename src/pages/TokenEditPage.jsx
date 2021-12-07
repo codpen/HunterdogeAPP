@@ -5,7 +5,6 @@ import { Typography } from "@material-ui/core";
 import { Checkbox, Input, Stack } from '@mui/material';
 import { Button, Text, Flex } from "../components/common/index";
 
-import GoTop from '../components/GoTop';
 import { GoogleSheetContext } from '../contexts/GoogleSheetProvider';
 
 const GeneralLinks = [
@@ -233,7 +232,6 @@ const TokenEditPage = () => {
 					)
 				}
 			</Stack>
-			<GoTop scrollStepInPx="100" delayInMs="10.50" />
 		</Stack>
 	);
 };
