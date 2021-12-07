@@ -61,9 +61,9 @@ const App = () => {
                                 <Route path="/allTokens" exact>
                                     <AllTokens />
                                 </Route>
-                                <Route path="/nft-gallery" exact>
+                                {/* <Route path="/nft-gallery" exact>
                                     <NftGallery />
-                                </Route>
+                                </Route> */}
                                 <Route path="/token/:address" exact>
                                     <TokenPage />
                                 </Route>
@@ -74,12 +74,6 @@ const App = () => {
                         </Pages>
                         <Footer />
                     </Main>
-                    <ScrollToTop showUnder={50} style={{zIndex: '999'}}>
-                        <Wrapper>
-                            {mobileMatches && `GO TO TOP`}
-                            <DoubleArr>{`>>`}</DoubleArr>
-                        </Wrapper>
-                    </ScrollToTop>
                 </GoogleSheetContextProvider>
             </ModalContextProvider>
         </Router>

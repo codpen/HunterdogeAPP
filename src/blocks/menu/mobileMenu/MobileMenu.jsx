@@ -18,8 +18,10 @@ const MobileMenu = () => {
             <Wrapper>
                 <div>
                     <Flex>
-                        <Image src={logo} width={'25px'} height={'25px'}/>
-                        <Title>HunterDoge</Title>
+                        <LinkWrapper to='/' style={{display:'flex'}}>
+                            <Image src={logo} width={'25px'} height={'25px'}/>
+                            <Title>HunterDoge</Title>
+                        </LinkWrapper>
                     </Flex>
                     <Flex justify={'start'} margin={'1px 0 0 7px!important'}>
                         <Image src={chart} width={'10px'} height={'5px'}/>

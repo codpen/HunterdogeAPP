@@ -30,9 +30,9 @@ const NewMenu = (props) => {
                 <LinkWrapper onClick={() => { props.setOpen && props.setOpen(false) }} to="/allTokens">
                     <WrappedButton>all tokens</WrappedButton>
                 </LinkWrapper>
-                <LinkWrapper onClick={() => { props.setOpen && props.setOpen(false) }} to="/nft-gallery">
+                {/* <LinkWrapper to="/nft-gallery">
                     <WrappedButton to="/nft-gallery">NFT GALLERY</WrappedButton>
-                </LinkWrapper>
+                </LinkWrapper> */}
                 <a onClick={() => { props.setOpen && props.setOpen(false) }} href="https://t.me/huntersground" target="_blank" style={{ width: '100%' }}>
                     <WrappedButton>telegram shill bot</WrappedButton>
                 </a>
