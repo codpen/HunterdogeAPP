@@ -5,7 +5,6 @@ import PopularPreSales from '../components/popularPreSales';
 import PromotedPreSales from '../components/promotedPresales';
 import SearchOrFilter from '../components/searchOrFilter';
 import News from '../components/promotedPresales/news';
-import GoTop from '../components/GoTop';
 import { isMember } from '../connection/functions';
 import { useWeb3React } from "@web3-react/core";
 import { useWallet } from "@binance-chain/bsc-use-wallet";

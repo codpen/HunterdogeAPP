@@ -16,7 +16,6 @@ import PopularPreSales from "../components/popularPreSales";
 import TabsStyled from '../components/Tabs/Tabs';
 import LeaveComment from '../components/LeaveComment';
 import LeaveCommentModal from '../components/modal/LeaveCommentModal';
-import GoTop from '../components/GoTop';
 import { GoogleSheetContext } from '../contexts/GoogleSheetProvider';
 import { useMediaQuery } from '@mui/material';
 
@@ -94,7 +93,6 @@ const TokenPage = () => {
 				{openLeaveCommnet && <LeaveCommentModal setIsOpen={setOpenLeaveCommnet} />}
 				{/*<Comments/>*/}
 				<PopularPreSales />
-				<GoTop scrollStepInPx="100" delayInMs="10.50" />
 			</Container>
 		</Block>
 	);

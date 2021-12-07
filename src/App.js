@@ -25,6 +25,7 @@ import ModalContextProvider from './contexts/ModalProvider';
 import { getPrice24H } from "./utils/getPrice24H";
 import GoogleSheetContextProvider from './contexts/GoogleSheetProvider';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import ScrollToTop from 'react-scroll-up';
 
 const App = () => {
     // const { account } = useWeb3React()
@@ -46,13 +47,13 @@ const App = () => {
             <ModalContextProvider>
                 <GoogleSheetContextProvider>
                     <Main>
-                        {!mobileMatches && <MobileMenu/>}
+                        {!mobileMatches && <MobileMenu />}
                         {mobileMatches && <Header />}
                         {mobileMatches && <Hero setIsOpen={setIsOpen} register={register} />}
                         {isOpen && <Modal setIsOpen={setIsOpen} />}
                         <Pages>
                             {/* <Menu/> */}
-                            {mobileMatches && <NewMenu/>}
+                            {mobileMatches && <NewMenu />}
                             <Switch>
                                 <Route path="/" exact>
                                     <HomePage />
@@ -73,6 +74,12 @@ const App = () => {
                         </Pages>
                         <Footer />
                     </Main>
+                    <ScrollToTop showUnder={50} style={{zIndex: '999'}}>
+                        <Wrapper>
+                            {mobileMatches && `GO TO TOP`}
+                            <DoubleArr>{`>>`}</DoubleArr>
+                        </Wrapper>
+                    </ScrollToTop>
                 </GoogleSheetContextProvider>
             </ModalContextProvider>
         </Router>
@@ -99,4 +106,42 @@ const Pages = styled.div`
     @media screen and (min-width: 600px) {
         padding-left: 44px;
     }     
+`
+
+const Wrapper = styled.div`
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 98.1%;
+  text-transform: uppercase;
+  color: #B78300;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: end;
+    &:hover {
+        color: #d5b562
+    }
+    &:hover > div {
+        color: #d5b562
+    }
+`
+
+const DoubleArr = styled.div`
+    adding: 10px 10px 12px 10px;
+    background: #fff8cc;
+    border-radius: 50%;
+    border: solid;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 22px;
+    margin-left: 11px;
+    text-align: center;
+    color: #B78300;
+    cursor: pointer;
+    transform: rotate(270deg);
 `
