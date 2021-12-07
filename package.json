@@ -51,7 +51,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "CI=false && react-scripts build && shx cp build/index.html build/404.html",
+    "build": "react-scripts build && shx cp build/index.html build/404.html",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
@@ -74,5 +74,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
   }
 }
