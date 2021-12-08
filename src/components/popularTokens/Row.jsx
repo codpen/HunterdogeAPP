@@ -55,7 +55,7 @@ const Row = ({ data, index }) => {
             }
             const res = await getVotesPerProject(data.Project_Address)
             try {
-                setVotes(parseInt(res[0]) * 2 + parseInt(res[1]) - parseInt(res[2]))
+                setVotes(parseInt(res[0]) * 2 + parseInt(res[2]) - parseInt(res[1]))
             } catch (e) {
                 console.log(e)
             }
