@@ -21,7 +21,7 @@ const Modal = ({ setIsOpen }) => {
     const { account, chainId, ethereum } = useWallet();
     const buy = (votes) => {
         if (account) {
-            register(ethereum, account)
+            approveTokens(ethereum, account)
             buyVotes(ethereum, account, votes)
         } else {
             alert('You need to connect wallet')

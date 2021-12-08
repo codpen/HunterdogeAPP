@@ -20,8 +20,10 @@ export const getUserVotes = async (account) => {
 export const getVotesPerProject = async (address) => {
     const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
     try {
-        return await contract.methods.getVotesPerProject(address).call()
-
+        const isActive = await contract.methods.isActive(address).call()
+        if (isActive) {
+            return await contract.methods.getVotesPerProject(address).call()
+        }
     } catch (e) {
         console.warn('error', e)
     }
@@ -31,10 +33,12 @@ export const downVoteProject = async (ethereum, vote, account, address) => {
     const web3_ = new Web3(ethereum)
     const contract = new web3_.eth.Contract(PROJECTABI, bscProjectContact);
     try {
-        await contract.methods
-            .downVoteProject(vote, address)
-            .send({from: account})
-
+        const isActive = await contract.methods.isActive(address).call()
+        if (isActive) {
+            await contract.methods
+                .downVoteProject(vote, address)
+                .send({ from: account })
+        }
     } catch (e) {
         alert('The project is not registered');
     }
@@ -45,10 +49,12 @@ export const upVoteProject = async (ethereum, vote, account, address) => {
     const contract = new web3_.eth.Contract(PROJECTABI, bscProjectContact);
 
     try {
-
-        await contract.methods
-            .upVoteProject(vote, address)
-            .send({from: account})
+        const isActive = await contract.methods.isActive(address).call()
+        if (isActive) {
+            await contract.methods
+                .upVoteProject(vote, address)
+                .send({ from: account })
+        }
 
     } catch (e) {
         alert('The project is not registered');
@@ -60,10 +66,12 @@ export const medVoteProject = async (ethereum, vote, account, address) => {
     const contract = new web3_.eth.Contract(PROJECTABI, bscProjectContact);
 
     try {
-        await contract.methods
-            .medVoteProject(vote, address)
-            .send({from: account})
-
+        const isActive = await contract.methods.isActive(address).call()
+        if (isActive) {
+            await contract.methods
+                .medVoteProject(vote, address)
+                .send({ from: account })
+        }
     } catch (e) {
         alert('The project is not registered');
     }
@@ -83,7 +91,7 @@ export const buyVotes = async (ethereum, account, amount) => {
         })
 }
 
-export const register = async (ethereum, account) => {
+export const approveTokens = async (ethereum, account) => {
     const web3_ = new Web3(ethereum)
     const amount = '115792089237316195423570985008687907853269984665640564039457584007913129639935'
     const contract = new web3_.eth.Contract(REGISTERABI, bscTokenContact);
