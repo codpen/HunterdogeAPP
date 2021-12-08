@@ -1,5 +1,5 @@
 import Web3 from "web3";
-import { bscMembershipContract, bscProjectContact, bscTokenContact, bscFactorContact, bscWBNBContact } from '../contracts'
+import {bscMembershipContract, bscProjectContact, bscTokenContact, bscFactorContact, bscWBNBContact} from '../contracts'
 import ABIMAIN from '../contracts/ABIMAIN.json'
 import PROJECTABI from '../contracts/PROJECTABI.json'
 import REGISTERABI from '../contracts/REGISTERABI.json'
@@ -7,7 +7,7 @@ import ERC20ABI from '../contracts/ERC20_ABI.json'
 import ABIMCAP from '../contracts/MCAP.json'
 import FACTORYABI from '../contracts/FACTORYABI.json'
 import PAIRABI from '../contracts/PAIRABI.json'
-import { networks } from "../networks";
+import {networks} from "../networks";
 
 const web3 = new Web3(Web3.givenProvider)
 
@@ -20,10 +20,8 @@ export const getUserVotes = async (account) => {
 export const getVotesPerProject = async (address) => {
     const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
     try {
-        const isActive = await contract.methods.isActive(address).call()
-        if (isActive) {
-            return await contract.methods.getVotesPerProject(address).call()
-        }
+        return await contract.methods.getVotesPerProject(address).call()
+
     } catch (e) {
         console.warn('error', e)
     }
@@ -32,14 +30,11 @@ export const getVotesPerProject = async (address) => {
 export const downVoteProject = async (ethereum, vote, account, address) => {
     const web3_ = new Web3(ethereum)
     const contract = new web3_.eth.Contract(PROJECTABI, bscProjectContact);
-
     try {
-        const isActive = await contract.methods.isActive(address).call()
-        if (isActive) {
-            await contract.methods
-                .downVoteProject(vote, address)
-                .send({ from: account })
-        }
+        await contract.methods
+            .downVoteProject(vote, address)
+            .send({from: account})
+
     } catch (e) {
         alert('The project is not registered');
     }
@@ -50,12 +45,11 @@ export const upVoteProject = async (ethereum, vote, account, address) => {
     const contract = new web3_.eth.Contract(PROJECTABI, bscProjectContact);
 
     try {
-        const isActive = await contract.methods.isActive(address).call()
-        if (isActive) {
-            await contract.methods
-                .upVoteProject(vote, address)
-                .send({ from: account })
-        }
+
+        await contract.methods
+            .upVoteProject(vote, address)
+            .send({from: account})
+
     } catch (e) {
         alert('The project is not registered');
     }
@@ -66,13 +60,10 @@ export const medVoteProject = async (ethereum, vote, account, address) => {
     const contract = new web3_.eth.Contract(PROJECTABI, bscProjectContact);
 
     try {
-        const isActive = await contract.methods.isActive(address).call()
+        await contract.methods
+            .medVoteProject(vote, address)
+            .send({from: account})
 
-        if (isActive) {
-            await contract.methods
-                .medVoteProject(vote, address)
-                .send({ from: account })
-        }
     } catch (e) {
         alert('The project is not registered');
     }
@@ -83,7 +74,7 @@ export const buyVotes = async (ethereum, account, amount) => {
     const contract = new web3_.eth.Contract(ABIMAIN, bscMembershipContract);
 
     await contract.methods.buyVotes(amount)
-        .send({ from: account })
+        .send({from: account})
         .on('receipt', function (receipt) {
             console.log('buy votes', receipt)
         })
@@ -99,7 +90,7 @@ export const register = async (ethereum, account) => {
 
     await contract.methods
         .approve(bscMembershipContract, amount)
-        .send({ from: account })
+        .send({from: account})
 }
 
 export const membership = async (ethereum, account) => {
@@ -108,7 +99,7 @@ export const membership = async (ethereum, account) => {
 
     await contract.methods
         .getMembership()
-        .send({ from: account })
+        .send({from: account})
         .on('receipt', function (receipt) {
             console.log('member', receipt)
         })
@@ -164,7 +155,7 @@ export const addProject = async (ethereum, tokenInfo, account) => {
         tokenInfo.Project_Twitter ? tokenInfo.Project_Twitter : '',
         tokenInfo.Project_Address ? tokenInfo.Project_Address : '',
         tokenInfo.Project_Manager ? tokenInfo.Project_Manager : ''
-    ).send({ from: account })
+    ).send({from: account})
     console.log('tx res-----', res)
     return res
 }
@@ -180,7 +171,7 @@ export const editProject = async (ethereum, tokenInfo, account) => {
         tokenInfo.Project_Telegram ? tokenInfo.Project_Telegram : '',
         tokenInfo.Project_Twitter ? tokenInfo.Project_Twitter : '',
         tokenInfo.Project_Address ? tokenInfo.Project_Address : '',
-    ).send({ from: account })
+    ).send({from: account})
     console.log('tx res-----', res)
     return res
 }
@@ -191,7 +182,7 @@ export const returnMembership = async (ethereum, account) => {
 
     await contract.methods
         .returnMembership()
-        .send({ from: account })
+        .send({from: account})
 }
 
 export const getMCap = async (address, price) => {
@@ -269,7 +260,7 @@ export const getBalanceToken = async (address, token) => {
         const contract = new web3.eth.Contract(PAIRABI, token)
         let decimals_local = await contract.methods.decimals().call()
         let balance = await contract.methods.balanceOf(address).call()
-        return (balance / 10**decimals_local)
+        return (balance / 10 ** decimals_local)
     } catch (error) {
         console.log(error)
         return ''
@@ -284,7 +275,7 @@ export const isHoneypot = async (address) => {
     const hWeb3 = new Web3(networks.bsc_main);
     const getBNBIn = async (address) => {
         let amountIn = maxTXAmount;
-        if(maxSell != 0) {
+        if (maxSell != 0) {
             amountIn = maxSell;
         }
         let WETH = '0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c';
@@ -300,7 +291,7 @@ export const isHoneypot = async (address) => {
                 {type: 'uint256[]', name: 'amounts'},
             ],
         }, [amountIn, path]);
-    
+
         let d = {
             to: '0x10ED43C718714eb63d5aA57B78B54704E256024E',
             from: '0x8894e0a0c962cb723c1976a4421c95949be2d4e3',
@@ -316,7 +307,7 @@ export const isHoneypot = async (address) => {
             console.log(e);
         }
     }
-    
+
     const getMaxes = async () => {
         let sig = hWeb3.eth.abi.encodeFunctionSignature({name: '_maxTxAmount', type: 'function', inputs: []});
         let d = {
@@ -330,7 +321,11 @@ export const isHoneypot = async (address) => {
             let val = await hWeb3.eth.call(d);
             maxTXAmount = hWeb3.utils.toBN(val);
         } catch (e) {
-            sig = hWeb3.eth.abi.encodeFunctionSignature({name: 'maxSellTransactionAmount', type: 'function', inputs: []});
+            sig = hWeb3.eth.abi.encodeFunctionSignature({
+                name: 'maxSellTransactionAmount',
+                type: 'function',
+                inputs: []
+            });
             let d = {
                 to: address,
                 from: '0x8894e0a0c962cb723c1976a4421c95949be2d4e3',
@@ -342,18 +337,18 @@ export const isHoneypot = async (address) => {
                 let val2 = await hWeb3.eth.call(d);
                 maxSell = hWeb3.utils.toBN(val2);
             } catch (e) {
-    
+
             }
         }
     }
     await getMaxes();
-    if(maxTXAmount != 0 || maxSell != 0) {
+    if (maxTXAmount != 0 || maxSell != 0) {
         await getBNBIn(address);
     }
 
     let encodedAddress = hWeb3.eth.abi.encodeParameter('address', address);
     let contractFuncData = '0xd66383cb';
-    let callData = contractFuncData+encodedAddress.substring(2);
+    let callData = contractFuncData + encodedAddress.substring(2);
 
     let blacklisted = {
         '0xa914f69aef900beb60ae57679c5d4bc316a2536a': 'SPAMMING SCAM',
@@ -365,15 +360,15 @@ export const isHoneypot = async (address) => {
         '0xc0834ee3f6589934dc92c63a893b4c4c0081de06': 'Due to anti-bot, Honeypot is not able to check at the moment.'
     };
 
-    if(blacklisted[address.toLowerCase()] !== undefined) {
+    if (blacklisted[address.toLowerCase()] !== undefined) {
         return {is: 'Yes', buy_tax: 0, sell_tax: 0}
     }
-    if(unableToCheck[address.toLowerCase()] !== undefined) {
+    if (unableToCheck[address.toLowerCase()] !== undefined) {
         return {is: 'Unknown', buy_tax: 0, sell_tax: 0}
     }
 
     let value = 100000000000000000;
-    if(bnbIN < value) {
+    if (bnbIN < value) {
         value = bnbIN - 1000;
     }
     const val = await hWeb3.eth.call({

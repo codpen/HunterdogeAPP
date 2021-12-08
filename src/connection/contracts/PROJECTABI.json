@@ -1,16 +1,5 @@
 [
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_memberPoolContract",
-				"type": "address"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -28,152 +17,6 @@
 		],
 		"name": "OwnershipTransferred",
 		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "Managers",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "ProjectStore",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "projectID",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bool",
-				"name": "isActive",
-				"type": "bool"
-			},
-			{
-				"internalType": "uint256",
-				"name": "upVotes",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "downVotes",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "medVotes",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "ProjectName",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "ProjectSymbol",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "ProjectLogo",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "ProjectWebsite",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "ProjectTelegram",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "ProjectTwitter",
-				"type": "string"
-			},
-			{
-				"internalType": "address",
-				"name": "ProjectAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "ProjectManager",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_projectName",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_projectSymbol",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_projectLogo",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_projectWebsite",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_projectTelegram",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_projectTwitter",
-				"type": "string"
-			},
-			{
-				"internalType": "address",
-				"name": "_projectAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_projectManager",
-				"type": "address"
-			}
-		],
-		"name": "addProject",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
 	},
 	{
 		"inputs": [
@@ -220,34 +63,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "string",
-				"name": "_projectName",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_projectSymbol",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_projectLogo",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_projectWebsite",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_projectTelegram",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_projectTwitter",
-				"type": "string"
+				"internalType": "uint256",
+				"name": "_votesCount",
+				"type": "uint256"
 			},
 			{
 				"internalType": "address",
@@ -255,7 +73,20 @@
 				"type": "address"
 			}
 		],
-		"name": "editProject",
+		"name": "medVoteProject",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "renounceOwnership",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -263,69 +94,72 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "entityList",
-		"outputs": [
-			{
 				"internalType": "address",
-				"name": "",
+				"name": "_projectAddress",
 				"type": "address"
+			},
+			{
+				"internalType": "bool",
+				"name": "_state",
+				"type": "bool"
 			}
 		],
-		"stateMutability": "view",
+		"name": "setProjectState",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "getAllActiveProjectsData",
-		"outputs": [
+		"inputs": [
 			{
-				"internalType": "uint256[]",
-				"name": "",
-				"type": "uint256[]"
-			},
-			{
-				"internalType": "string[]",
-				"name": "",
-				"type": "string[]"
-			},
-			{
-				"internalType": "string[]",
-				"name": "",
-				"type": "string[]"
-			},
-			{
-				"internalType": "string[]",
-				"name": "",
-				"type": "string[]"
-			},
-			{
-				"internalType": "string[]",
-				"name": "",
-				"type": "string[]"
-			},
-			{
-				"internalType": "string[]",
-				"name": "",
-				"type": "string[]"
-			},
-			{
-				"internalType": "string[]",
-				"name": "",
-				"type": "string[]"
-			},
-			{
-				"internalType": "address[]",
-				"name": "",
-				"type": "address[]"
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
 			}
 		],
-		"stateMutability": "view",
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
+	},
+	{
+		"stateMutability": "payable",
+		"type": "receive"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_votesCount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_projectAddress",
+				"type": "address"
+			}
+		],
+		"name": "upVoteProject",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_memberPoolContract",
+				"type": "address"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
 	},
 	{
 		"inputs": [
@@ -341,38 +175,6 @@
 				"internalType": "bool",
 				"name": "isIndeed",
 				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "requestedAddress",
-				"type": "address"
-			}
-		],
-		"name": "getProjectNameByAddress",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "isUsername",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getProjectsCount",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "entityCount",
-				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -448,17 +250,12 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "_votesCount",
-				"type": "uint256"
-			},
-			{
 				"internalType": "address",
-				"name": "_projectAddress",
+				"name": "",
 				"type": "address"
 			}
 		],
-		"name": "medVoteProject",
+		"name": "Managers",
 		"outputs": [
 			{
 				"internalType": "bool",
@@ -466,7 +263,7 @@
 				"type": "bool"
 			}
 		],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -483,69 +280,42 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "renounceOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "_projectAddress",
+				"name": "",
 				"type": "address"
-			},
+			}
+		],
+		"name": "ProjectStore",
+		"outputs": [
 			{
 				"internalType": "bool",
-				"name": "_state",
+				"name": "isActive",
 				"type": "bool"
-			}
-		],
-		"name": "setProjectState",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
+			},
 			{
 				"internalType": "uint256",
-				"name": "_votesCount",
+				"name": "upVotes",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "downVotes",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "medVotes",
 				"type": "uint256"
 			},
 			{
 				"internalType": "address",
-				"name": "_projectAddress",
+				"name": "ProjectAddress",
 				"type": "address"
 			}
 		],
-		"name": "upVoteProject",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
-	},
-	{
-		"stateMutability": "payable",
-		"type": "receive"
 	}
 ]
