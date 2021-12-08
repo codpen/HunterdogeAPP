@@ -140,7 +140,7 @@ const AllTokensTable = (isTitle) => {
 					}}
 				>
 					<TableContainer>
-						<Table responsive>
+						<Table responsive='true'>
 							<TableHead>
 								<TableRow>
 								{mobileMatches && <TableCell>#Rank</TableCell>}
@@ -152,6 +152,7 @@ const AllTokensTable = (isTitle) => {
 								<TableCell sx={{fontSize: mobileMatches? '16px': '10px' }}>Holders</TableCell>
 								<TableCell sx={{fontSize: mobileMatches? '16px': '10px' }}>&Oslash; Holder<br />growth per day</TableCell>
 								{mobileMatches && <TableCell sx={{textAlign: 'left', fontSize: mobileMatches? '16px': '10px'}}>Votes</TableCell>}
+								{mobileMatches && <TableCell sx={{textAlign: 'left', fontSize: mobileMatches? '16px': '10px'}}></TableCell>}
 								</TableRow>
 							</TableHead>
 							<TableBody>

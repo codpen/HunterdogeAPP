@@ -16,14 +16,14 @@ import { Votes } from "../common/votes";
 import { getMCap, getVotesPerProject } from '../../connection/functions'
 import { CheckPopup } from '../checkPopup/checkPopup';
 import arrowDown from "../../images/arrow-down.svg";
-import {getPrice24H} from "../../utils/getPrice24H";
-import {changeFormatter} from "../../utils/changeFormatter";
-import {useWeb3React} from "@web3-react/core";
+import { getPrice24H } from "../../utils/getPrice24H";
+import { changeFormatter } from "../../utils/changeFormatter";
+import { useWeb3React } from "@web3-react/core";
 import { useWallet } from "@binance-chain/bsc-use-wallet";
-import {Badges} from "../common/badges/Badges";
+import { Badges } from "../common/badges/Badges";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-const Row = ({data, index}) => {
+const Row = ({ data, index }) => {
     // const {chainId} = useWeb3React()
     const { account, chainId } = useWallet();
     // const {votes, error, isLoading} = useVotesPerProject(data.Project_Address)
@@ -35,10 +35,10 @@ const Row = ({data, index}) => {
     const mobileMatches = useMediaQuery('(min-width:600px)');
 
     const tokenData = [
-        { key: 'Project_ISKYC', text: 'KYC verified', image: mobileMatches? <Kyc/>: <Kyc width='12px' height='12px'/> },
-        { key: 'Project_ISDOX', text: 'Audited token', image: mobileMatches? <Audit/>: <Audit width='12px' height='12px'/> },
-        { key: 'Project_HasUtility', text: 'Usecase token', image: mobileMatches? <Utility/>: <Utility width='12px' height='12px'/> },
-        { key: 'Project_IsMemeCoin', text: 'Meme token', image: mobileMatches? <Memecoin/>: <Memecoin width='12px' height='12px'/> }]
+        { key: 'Project_ISKYC', text: 'KYC verified', image: mobileMatches ? <Kyc /> : <Kyc width='12px' height='12px' /> },
+        { key: 'Project_ISDOX', text: 'Audited token', image: mobileMatches ? <Audit /> : <Audit width='12px' height='12px' /> },
+        { key: 'Project_HasUtility', text: 'Usecase token', image: mobileMatches ? <Utility /> : <Utility width='12px' height='12px' /> },
+        { key: 'Project_IsMemeCoin', text: 'Meme token', image: mobileMatches ? <Memecoin /> : <Memecoin width='12px' height='12px' /> }]
 
     useEffect(() => {
         const fetchSheet = async () => {
@@ -55,7 +55,7 @@ const Row = ({data, index}) => {
             }
             const res = await getVotesPerProject(data.Project_Address)
             try {
-                setVotes(parseInt(res[0])*2 + parseInt(res[1]) - parseInt(res[2]))
+                setVotes(parseInt(res[0]) * 2 + parseInt(res[1]) - parseInt(res[2]))
             } catch (e) {
                 console.log(e)
             }
@@ -75,27 +75,27 @@ const Row = ({data, index}) => {
     return (
         <TableRow>
             {mobileMatches &&
-            <TableCell component="th" scope="row">
-                <Stack direction="row" alignItems="center">
-                    <Typography variant="h6" sx={{ mr: '36px' }}>
-                        {index + 1}.
-                    </Typography>
-                    <Box component="img" src={data.Project_Logo} sx={{ width: '66px' }} />
-                </Stack>
-            </TableCell>
+                <TableCell component="th" scope="row">
+                    <Stack direction="row" alignItems="center">
+                        <Typography variant="h6" sx={{ mr: '36px' }}>
+                            {index + 1}.
+                        </Typography>
+                        <Box component="img" src={data.Project_Logo} sx={{ width: '66px' }} />
+                    </Stack>
+                </TableCell>
             }
-            
-            <TableCell style={{ textAlign: 'left', display: 'flex', alignItems:'center' }}>
-                {!mobileMatches && <Box component="img" src={data.Project_Logo} sx={{ width:'20px', height:'20px', marginRight:'4px' }} />}
+
+            <TableCell style={{ textAlign: 'left', display: 'flex', alignItems: 'center' }}>
+                {!mobileMatches && <Box component="img" src={data.Project_Logo} sx={{ width: '20px', height: '20px', marginRight: '4px' }} />}
                 <LinkWrapper to={`/token/${data.Project_Address}`}>
                     <Stack>
                         <Typography>
                             {mobileMatches && data.Project_Name}
                             {!mobileMatches &&
-                                <small style={{fontSize:'0.5rem'}}>{data.Project_Name}</small>
-                            }    
+                                <small style={{ fontSize: '0.5rem' }}>{data.Project_Name}</small>
+                            }
                         </Typography>
-                        <Stack direction="row" sx={{ gap: mobileMatches? 2: 1, mt: mobileMatches? '14px': '2px'}}>
+                        <Stack direction="row" sx={{ gap: mobileMatches ? 2 : 1, mt: mobileMatches ? '14px' : '2px' }}>
                             {/*{data.KYC === 'TRUE' && */}
                             {/*    <Kyc/>*/}
                             {/*}*/}
@@ -119,16 +119,16 @@ const Row = ({data, index}) => {
                 <Typography variant="h6" sx={{ fontWeight: 900 }}>
                     {mobileMatches && data.Project_Symbol}
                     {!mobileMatches &&
-                        <small style={{fontSize:'0.5rem'}}>{data.Project_Symbol}</small>
-                    }    
+                        <small style={{ fontSize: '0.5rem' }}>{data.Project_Symbol}</small>
+                    }
                 </Typography>
             </TableCell>
             <TableCell>
                 <Typography variant="table">
                     {mobileMatches && <label>${new Intl.NumberFormat('en-US').format(mcap)}</label>}
                     {!mobileMatches &&
-                        <small style={{fontSize:'0.5rem'}}>${new Intl.NumberFormat('en-US').format(mcap)}</small>
-                    }  
+                        <small style={{ fontSize: '0.5rem' }}>${new Intl.NumberFormat('en-US').format(mcap)}</small>
+                    }
                 </Typography>
             </TableCell>
             <TableCell>
@@ -136,8 +136,8 @@ const Row = ({data, index}) => {
                     <Typography variant="table">
                         {mobileMatches && <label>${new Intl.NumberFormat('en-US').format(price)}</label>}
                         {!mobileMatches &&
-                            <small style={{fontSize:'0.5rem'}}>${new Intl.NumberFormat('en-US').format(price)}</small>
-                        } 
+                            <small style={{ fontSize: '0.5rem' }}>${new Intl.NumberFormat('en-US').format(price)}</small>
+                        }
                     </Typography>
                     {change24h && <Flex margin={'6px 0 0 0'} justify={'evenly'}>
                         <Image src={change24h.up ? arrowUp : arrowDown} />
@@ -146,15 +146,17 @@ const Row = ({data, index}) => {
                 </Stack>
             </TableCell>
             <TableCell>
+                <Typography>
+                    <small style={{ fontSize: mobileMatches ? '1rem' : '0.5rem' }}>{votes}</small>
+                </Typography>
+            </TableCell>
+            <TableCell>
                 <Stack direction="row" alignItems="center">
-                    <Typography>
-                        <small style={{fontSize: mobileMatches? '1rem': '0.5rem'}}>{votes}</small>
-                    </Typography>
                     {mobileMatches && <Votes address={data.Project_Address} />}
-                    {mobileMatches && 
-                    <More onClick={() => setIsOpen(!isOpen)}>...
-                        {isOpen && <CheckPopup item={data} setIsOpen={setIsOpen} />}
-                    </More>
+                    {mobileMatches &&
+                        <More onClick={() => setIsOpen(!isOpen)}>...
+                            {isOpen && <CheckPopup item={data} setIsOpen={setIsOpen} />}
+                        </More>
                     }
                 </Stack>
             </TableCell>

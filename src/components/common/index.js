@@ -157,7 +157,7 @@ export const VoteWrapper = styled.div`
   position: relative;
   width: ${({big}) => big ? '180px' : '91px'};
   height: ${({big}) => big ? '56px' : '100%'};
-  margin: 0 20px;
+  /*margin: 0 20px;*/
   gap: 7px;
   display: flex;
   text-align: center;
