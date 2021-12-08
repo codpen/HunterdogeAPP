@@ -1,10 +1,10 @@
-import { Box } from "@material-ui/system";
-import { Button, FormControl, MenuItem, Select, Stack, TextField, Typography } from '@material-ui/core';
+import {Box} from "@material-ui/system";
+import {Button, Stack, Typography} from '@material-ui/core';
 
 import logo from '../../images/hunter_logo.png';
 import like from '../../images/like_ico.svg';
-import { ReactComponent as IconDialogue } from '../../images/dialogue_ico.svg';
-import { ReactComponent as IconReward } from '../../images/reward_ico.svg';
+import {ReactComponent as IconDialogue} from '../../images/dialogue_ico.svg';
+import {ReactComponent as IconReward} from '../../images/reward_ico.svg';
 
 const DividerBlock = () => {
   return(

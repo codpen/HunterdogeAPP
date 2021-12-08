@@ -11,9 +11,7 @@ import Pagination from "../components/pagination/Pagination";
 const data = [nft_1, nft_2, nft_3]
 
 const NftGallery = () => {
-    //pagination button
     const [page, setPage] = useState(1)
-    //paginate
     const res = paginate(data.length, page, 9, data)
     const {newData, currentPage, endPage} = res
 

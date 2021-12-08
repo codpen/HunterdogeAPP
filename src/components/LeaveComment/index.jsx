@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import styled from 'styled-components';
 import logo from '../../images/hunter_logo.png';
-import { Button, Flex, Image, Text } from '../common';
+import {Button, Flex, Image, Text} from '../common';
 import PickModal from '../modal/PickModal';
 
 const LeaveComment = () => {

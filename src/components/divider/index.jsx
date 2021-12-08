@@ -1,4 +1,4 @@
-import { Box } from '@mui/system';
+import {Box} from '@mui/system';
 
 const Divider = ({top, color}) => {
   return (

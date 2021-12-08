@@ -1,6 +1,6 @@
 import React from 'react';
 import {HeadTitle, RightContent,} from "../tokenInformation/TokenInfoStyled";
-import { useParams } from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 import {
     Banner,
     BannerWrapper,

@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Card from '@material-ui/core/Card';
-import { Button, ButtonGroup, Stack } from '@mui/material';
-import { makeStyles } from "@material-ui/styles";
-import { Box } from "@mui/system";
-import { Typography } from "@material-ui/core";
-import { isMember, register, membership, membershipCosts } from "../../connection/functions";
-import { useWeb3React } from "@web3-react/core";
-import { useWallet } from "@binance-chain/bsc-use-wallet";
+import {Button, ButtonGroup} from '@mui/material';
+import {makeStyles} from "@material-ui/styles";
+import {Box} from "@mui/system";
+import {Typography} from "@material-ui/core";
+import {membership, membershipCosts, register} from "../../connection/functions";
+import {useWallet} from "@binance-chain/bsc-use-wallet";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles({

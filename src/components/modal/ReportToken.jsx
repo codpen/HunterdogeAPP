@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Card from '@material-ui/core/Card';
-import { makeStyles } from "@material-ui/styles";
-import { Box } from "@mui/system";
-import { Typography, useMediaQuery } from "@material-ui/core";
+import {makeStyles} from "@material-ui/styles";
+import {Box} from "@mui/system";
+import {Typography, useMediaQuery} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import { isMember, register, membership, membershipCosts } from "../../connection/functions";
-import { useWeb3React } from "@web3-react/core";
 import styled from 'styled-components'
 
 const useStyles = makeStyles({

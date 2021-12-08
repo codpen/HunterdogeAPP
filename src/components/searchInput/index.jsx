@@ -1,8 +1,8 @@
-import { IconButton } from '@mui/material';
+import {IconButton} from '@mui/material';
 
-import { ReactComponent as IconComponent } from '../../images/loupe_ico.svg';
-import React, { Fragment, useRef, useState } from 'react';
-import { InputBase } from '@material-ui/core';
+import {ReactComponent as IconComponent} from '../../images/loupe_ico.svg';
+import React, {Fragment, useRef} from 'react';
+import {InputBase} from '@material-ui/core';
 
 const SearchInput = ({ placeholder, small, padding, mr, mb, setValue }) => {
   const inp = useRef('')

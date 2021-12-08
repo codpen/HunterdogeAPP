@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
+import {useParams} from 'react-router-dom';
 import {
     ContentWrapper,
     DescText,
     DescTextWrapper,
-    HeadTitle,
     HeadSubTitle,
+    HeadTitle,
     RightContent,
     Upcoming,
     Wrapper
 } from "./TokenInfoStyled";
-import { Button } from "../../common";
-import { Title, Value } from "../upcomingPreSale/PreSaleStyled";
-import { useMediaQuery } from '@material-ui/core';
+import {Button} from "../../common";
+import {Title, Value} from "../upcomingPreSale/PreSaleStyled";
+import {useMediaQuery} from '@material-ui/core';
 
 const TokenInformation = ({ tokenData = {} }) => {
     const { address } = useParams();

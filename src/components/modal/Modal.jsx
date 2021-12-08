@@ -1,7 +1,6 @@
 import React from 'react';
 import {buyVotes, register} from "../../connection/functions";
-import {useWeb3React} from "@web3-react/core";
-import { useWallet } from "@binance-chain/bsc-use-wallet";
+import {useWallet} from "@binance-chain/bsc-use-wallet";
 import {Button, Flex, Image} from "../common";
 import {CloseButton, ImageWrapper, ModalCard, Text, Title, VotesWrapper, Wrapper} from "./StyledModal";
 import assets from '../../images/cryptoAsset.svg'

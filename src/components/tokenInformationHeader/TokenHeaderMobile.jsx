@@ -1,42 +1,37 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom'
-import { useWeb3React } from "@web3-react/core";
-import { useWallet } from "@binance-chain/bsc-use-wallet";
+import React, {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom'
+import {useWallet} from "@binance-chain/bsc-use-wallet";
 import LogoImage from '../../images/big_logo.png'
 import M from '../../images/m_white.png'
 import Lizard from '../../images/lizard_ico.svg'
 import Pancakeswap from '../../images/pancakeswap.png'
-import Kyc from '../../images/KYC_ns.svg'
-import Audit from '../../images/Audit_ns.svg'
-import Utility from '../../images/Utility_ns.svg'
-import Memecoin from '../../images/Memecoin_ns.svg'
-import TokenPrice from '../../images/tokenPrice.svg'
-import MarketCap from '../../images/marketCap.svg'
-import Popularity from '../../images/popularity.svg'
-import Dialogue from '../../images/dialogue_ico.svg'
-import Reward from '../../images/reward_ico.svg'
-import Guard from '../../images/guard_white.svg'
+import {ReactComponent as Kyc1} from '../../images/KYC_ns.svg'
+import {ReactComponent as Audit1} from '../../images/Audit_ns.svg'
+import {ReactComponent as Utility1} from '../../images/Utility_ns.svg'
+import {ReactComponent as Memecoin1} from '../../images/Memecoin_ns.svg'
 import Like from '../../images/like_ico.svg'
-import bnbLogo from '../../images/bnb-logo.svg'
-import { BadgesWrapper, Card, HeadTitle, InfoWrapper, Inner, Text, Wrapper, IcoWrapper, WrapperBadges, SocialWrapper, LinkStyled, Popup, TextPopup, CardInfo } from './TokeHeaderStyled'
-import { Button, Flex, Image } from '../common'
-import { Votes } from "../common/votes";
-import { getMCap, getSymbol, getName, getVotesPerProject } from '../../connection/functions'
+import {
+    BadgesWrapper,
+    HeadTitle,
+    InfoWrapper,
+    LinkStyled,
+    Popup,
+    SocialWrapper,
+    Text,
+    TextPopup,
+    Wrapper,
+    WrapperBadges
+} from './TokeHeaderStyled'
+import {Button, Flex, Image} from '../common'
+import {Votes} from "../common/votes";
+import {getMCap, getName, getSymbol, getVotesPerProject, isProjectManager} from '../../connection/functions'
 import Telegram from "../../images/table/telegram.svg";
 import Twitter from "../../images/table/twitter.svg";
 import Instagram from "../../images/insta.svg";
 import Reddit from "../../images/reddit.svg";
 import Medium from "../../images/medium.svg";
 import Discord from "../../images/discord.svg";
-
-import { ReactComponent as Kyc1 } from "../../images/KYC_ns.svg";
-import { ReactComponent as Audit1 } from "../../images/Audit_ns.svg";
-import { ReactComponent as Utility1 } from "../../images/Utility_ns.svg";
-import { ReactComponent as Memecoin1 } from "../../images/Memecoin_ns.svg";
-import { isProjectManager } from '../../connection/functions';
-
-import TokenEditModal from "../modal/TokenEditModal/TokenEditModal";
-import { getHolderPerDay } from '../../utils/getHolderPerDay';
+import {getHolderPerDay} from '../../utils/getHolderPerDay';
 
 const TokenHeaderMobile = ({ tokenData = {} }) => {
     const { address } = useParams()

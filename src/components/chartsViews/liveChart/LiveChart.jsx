@@ -1,26 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { AdvancedChart } from "react-tradingview-embed";
-import { useParams } from 'react-router-dom'
-import Pancake from "../../../images/pancakeswap.png";
+import React, {useEffect, useState} from 'react';
+import {AdvancedChart} from "react-tradingview-embed";
+import {useParams} from 'react-router-dom'
 import {
+    Changes24,
     ChartWrapper,
+    LinkWrapper,
     LiveChartSubtitle,
     LiveChartTitle,
-    Wrapper,
+    Tab,
     Title,
     Value,
-    Changes24, Good, Tab, LinkWrapper
+    Wrapper
 } from "./LiveChartStyles";
-import { getMCap, getSymbol, getPair, getBalanceWBNB } from '../../../connection/functions'
-import { Flex } from "../upcomingPreSale/PreSaleStyled";
-import { HeadTitle, RightContent } from "../tokenInformation/TokenInfoStyled";
-import { getPrice24H } from "../../../utils/getPrice24H";
-import { changeFormatter } from "../../../utils/changeFormatter";
-import { Button, Image } from "../../common";
+import {getBalanceWBNB, getMCap, getPair, getSymbol} from '../../../connection/functions'
+import {Flex} from "../upcomingPreSale/PreSaleStyled";
+import {HeadTitle, RightContent} from "../tokenInformation/TokenInfoStyled";
+import {Button} from "../../common";
 import ReportTokenModal from '../../modal/ReportToken';
-import { Stack, Box, useMediaQuery } from '@mui/material';
-import { usePrice } from '../../../hooks/usePrice';
-import { bscWBNBContact } from '../../../connection/contracts';
+import {Box, Stack, useMediaQuery} from '@mui/material';
+import {usePrice} from '../../../hooks/usePrice';
+import {bscWBNBContact} from '../../../connection/contracts';
 
 const Dashboard = ({ token }) => {
     const [query, setQuery] = useState('BNB')

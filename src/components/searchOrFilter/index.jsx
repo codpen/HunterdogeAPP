@@ -1,11 +1,11 @@
-import { useContext, useState } from 'react';
-import { Box, width } from '@mui/system';
-import { Button, Stack, Input, MenuItem, Typography } from '@mui/material';
+import {useContext, useState} from 'react';
+import {Box} from '@mui/system';
+import {Button, Input, MenuItem, Stack, Typography} from '@mui/material';
 import hunterdogeSearch from '../../images/hunterdoge_search.png';
 import SearchInput from '../searchInput';
 import SelectForm from '../selectForm';
 import ButtonCheckbox from '../buttonCheckbox';
-import { ModalContext } from '../../contexts/ModalProvider';
+import {ModalContext} from '../../contexts/ModalProvider';
 
 const marketCap = [
   { value: 'mcap', label: 'Market Cap' },

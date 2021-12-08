@@ -1,13 +1,13 @@
-import { Typography } from '@material-ui/core';
-import { Button, Stack, CircularProgress } from '@mui/material';
-import { Box, width } from '@mui/system';
+import {Typography} from '@material-ui/core';
+import {Button, CircularProgress, Stack} from '@mui/material';
+import {Box} from '@mui/system';
 import SearchInput from '../searchInput'
-import { useContext, useEffect, useState } from 'react';
-import { getPair, getBalanceWBNB, getBalanceToken, isHoneypot, toChecksumAddress } from '../../connection/functions'
-import { GoogleSheetContext } from '../../contexts/GoogleSheetProvider';
-import { usePrice } from '../../hooks/usePrice';
-import { bscWBNBContact } from '../../connection/contracts';
-import { ModalContext } from '../../contexts/ModalProvider';
+import {useContext, useEffect, useState} from 'react';
+import {getBalanceToken, getBalanceWBNB, getPair, isHoneypot, toChecksumAddress} from '../../connection/functions'
+import {GoogleSheetContext} from '../../contexts/GoogleSheetProvider';
+import {usePrice} from '../../hooks/usePrice';
+import {bscWBNBContact} from '../../connection/contracts';
+import {ModalContext} from '../../contexts/ModalProvider';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const CheckLiguidity = () => {

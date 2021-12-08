@@ -1,8 +1,7 @@
 import React, {useState} from "react";
-import {downVoteProject, upVoteProject, medVoteProject} from "../../../connection/functions";
+import {downVoteProject, medVoteProject, upVoteProject} from "../../../connection/functions";
 import {Button, ButtonGreen, ButtonRed, ButtonYellow, VoteWrapper} from "../index";
-import {useWeb3React} from "@web3-react/core";
-import { useWallet } from "@binance-chain/bsc-use-wallet";
+import {useWallet} from "@binance-chain/bsc-use-wallet";
 import {ExtraSmall, Input, Modal} from "./VotesStyled";
 
 

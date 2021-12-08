@@ -1,4 +1,4 @@
-import { Box, Stack, Link } from '@material-ui/core'
+import {Stack} from '@material-ui/core'
 import SvgIconStyle from '../SvgIconStyle'
 
 import medium from '../../images/social/medium.svg';

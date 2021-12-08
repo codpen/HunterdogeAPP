@@ -1,12 +1,11 @@
-import React, {useEffect, useState, useContext} from 'react';
-import { useWeb3React } from "@web3-react/core";
-import { useWallet } from "@binance-chain/bsc-use-wallet";
+import React, {useContext, useEffect, useState} from 'react';
+import {useWallet} from "@binance-chain/bsc-use-wallet";
 import Card from '@material-ui/core/Card';
 import {makeStyles} from "@material-ui/styles";
 import {Box} from "@mui/system";
 import Button from "@material-ui/core/Button";
 import styled from 'styled-components';
-import { GoogleSheetContext } from '../../../contexts/GoogleSheetProvider';
+import {GoogleSheetContext} from '../../../contexts/GoogleSheetProvider';
 import TokenEditModalGeneralPage from './TokenEditModalGeneralPage';
 import TokenEditModalTokenomicsPage from './TokenEditModalTokenomicsPage'
 import TokenEditModalPresalePage from './TokenEditModalPresalePage';

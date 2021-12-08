@@ -1,5 +1,5 @@
-import { Stack, Typography } from "@material-ui/core";
-import { FormControlLabel, Checkbox, FormGroup } from '@mui/material';
+import {Stack, Typography} from "@material-ui/core";
+import {Checkbox, FormControlLabel} from '@mui/material';
 
 const options = [25, 50, 100]
 
