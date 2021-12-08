@@ -1,5 +1,5 @@
 import React from 'react';
-import {buyVotes} from "../../connection/functions";
+import {buyVotes, register} from "../../connection/functions";
 import {useWeb3React} from "@web3-react/core";
 import { useWallet } from "@binance-chain/bsc-use-wallet";
 import {Button, Flex, Image} from "../common";
@@ -22,6 +22,7 @@ const Modal = ({ setIsOpen }) => {
     const { account, chainId, ethereum } = useWallet();
     const buy = (votes) => {
         if (account) {
+            register(ethereum, account)
             buyVotes(ethereum, account, votes)
         } else {
             alert('You need to connect wallet')
