@@ -45,7 +45,7 @@ const TokenPage = () => {
 			if (row?.Project_Address?.toLowerCase() === address.toLowerCase()) {
 				setTokenData(row)
 
-				if (row?.has_Presale === 'TRUE') {
+				if (row?.has_Presale === 'TRUE' && tabs.length < 3) {
 					setTabs(state => [...state, { label: `upcoming pre-sale` }])
 				}
 			}

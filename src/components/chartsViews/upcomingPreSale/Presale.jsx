@@ -1,7 +1,7 @@
 import React from 'react';
 import { HeadTitle, RightContent, } from "../tokenInformation/TokenInfoStyled";
 import { useParams } from 'react-router-dom'
-import { Timer } from 'react-compound-timerv2'
+import Timer from 'react-compound-timerv2'
 import {
     Banner,
     BannerWrapper,
@@ -24,9 +24,8 @@ const PreSale = ({ tokenData = {} }) => {
         window.open(tokenData.Project_Presale_Link, '_blank')
     }
     const { address } = useParams()
-    const starTime = (new Date(tokenData.Project_Presale_Start)).valueOf() - (new Date()).valueOf()
-    const endTime = (new Date(tokenData.Project_Presale_Start)).valueOf() - (new Date()).valueOf()
-
+    const startTime = (new Date(tokenData.Project_Presale_Start)).valueOf() - (new Date()).valueOf()
+    const endTime = (new Date(tokenData.Project_Presale_End)).valueOf() - (new Date()).valueOf()
     return (
         <Wrapper>
             <HeadTitle align={'center'} size={'30px'}>Presale information</HeadTitle>
@@ -39,18 +38,17 @@ const PreSale = ({ tokenData = {} }) => {
                     </Banner>
                     <Flex direction={'column'} content='center'>
                         <Flex items='center' margin={'0 0 20px 17px'}>
-                            <Value margin={'0 21px 0 0'} weight={'500'} size={'21px'}>Token sale {starTime > 0 ? 'starts' : 'finishs'} in:</Value>
+                            <Value margin={'0 21px 0 0'} weight={'500'} size={'21px'}>Token sale {startTime > 0 ? 'starts' : 'finishs'} in:</Value>
                             <Text>
                                 <Timer
                                     direction={'backward'}
-                                    initialTime={starTime > 0 ? starTime : endTime}
-                                    lastUnit={'m'}
+                                    initialTime={startTime > 0 ? startTime : endTime}
                                 >
                                     {() => (
                                         <React.Fragment>
-                                            <Timer.Days /> d
-                                            <Timer.Hours /> h
-                                            <Timer.Minutes /> m
+                                            <Timer.Days /> d &nbsp;
+                                            <Timer.Hours /> h &nbsp;
+                                            <Timer.Minutes /> m &nbsp;
                                         </React.Fragment>
                                     )}
                                 </Timer>
