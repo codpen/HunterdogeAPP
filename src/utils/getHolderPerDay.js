@@ -34,7 +34,7 @@ export const getHolderPerDay = async (address) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "X-API-KEY": "${BQUERY_KEY}"
+            "X-API-KEY": `${BQUERY_KEY}`
         },
         body: JSON.stringify({
             query
