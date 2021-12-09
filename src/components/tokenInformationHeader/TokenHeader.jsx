@@ -1,14 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom'
-import {useWallet} from "@binance-chain/bsc-use-wallet";
-import LogoImage from '../../images/big_logo.png'
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom'
+import { useWallet } from "@binance-chain/bsc-use-wallet";
+import NoLogoImage from '../../images/nologo.jpg'
 import M from '../../images/m_white.png'
 import Lizard from '../../images/lizard_ico.svg'
 import Pancakeswap from '../../images/pancakeswap.png'
-import {ReactComponent as Kyc1} from '../../images/KYC_ns.svg'
-import {ReactComponent as Audit1} from '../../images/Audit_ns.svg'
-import {ReactComponent as Utility1} from '../../images/Utility_ns.svg'
-import {ReactComponent as Memecoin1} from '../../images/Memecoin_ns.svg'
 import TokenPrice from '../../images/tokenPrice.svg'
 import MarketCap from '../../images/marketCap.svg'
 import Popularity from '../../images/popularity.svg'
@@ -40,17 +36,16 @@ import Reddit from "../../images/reddit.svg";
 import Medium from "../../images/medium.svg";
 import Discord from "../../images/discord.svg";
 
-// import {ReactComponent as Audit} from "../../images/Audit.svg";
-// import {ReactComponent as Utility} from "../../images/Utility.svg";
-// import {ReactComponent as Memecoin} from "../../images/Memecoin.svg";
-// import {ReactComponent as TokenPrice} from "../../images/tokenPrice.svg";
-// import {ReactComponent as MarketCap} from "../../images/marketCap.svg";
-// import {ReactComponent as Popularity} from "../../images/popularity.svg";
+import { ReactComponent as Kyc1 } from "../../images/KYC_ns.svg";
+import { ReactComponent as Audit1 } from "../../images/Audit_ns.svg";
+import { ReactComponent as Utility1 } from "../../images/Utility_ns.svg";
+import { ReactComponent as Memecoin1 } from "../../images/Memecoin_ns.svg";
+
 import TokenEditModal from "../modal/TokenEditModal/TokenEditModal";
 import {getHolderPerDay} from '../../utils/getHolderPerDay';
 
-const TokenHeader = ({tokenData = {}}) => {
-    const {address} = useParams()
+const TokenHeader = ({ tokenData = {} }) => {
+    const { address } = useParams()
     // const { account } = useWeb3React()
     const {account, chainId} = useWallet();
     const [isTokenEditModal, setIsTokenEditModal] = useState(false)
@@ -66,7 +61,7 @@ const TokenHeader = ({tokenData = {}}) => {
 
     const visitWebsite = () => {
         if (tokenData.Project_Website) {
-            window.location.href = tokenData.Project_Website
+            window.open(tokenData.Project_Website, '_blank');
         }
     }
 
@@ -128,23 +123,26 @@ const TokenHeader = ({tokenData = {}}) => {
     }
 
     const bscScan = () => {
-        window.location.href = `https://bscscan.com/address/${address}`
+        window.open(`https://bscscan.com/address/${address}`, '_blank')
     };
+    
+    const goToExternal = (url) => {
+        window.open(url, '_blank');
+    }
 
     return (
         <Wrapper>
             <BadgesWrapper>
-                <Image src={tokenData.Project_Logo < 1 ? LogoImage : tokenData.Project_Logo} height={'162px'}
-                       margin={'14px 0 21px 0'}/>
+                <Image src={tokenData.Project_Logo ? tokenData.Project_Logo : NoLogoImage} height={'162px'} margin={'14px 0 21px 0'} />
                 <LinkWrapper to='#' disabled={!tokenData.Project_Website}>
                     <Button weight={'700'} height='29px' disabled={!tokenData.Project_Website} onClick={visitWebsite}>
                         visit website
                     </Button>
                 </LinkWrapper>
                 <Flex margin={'20px 0 19px 0'}>
-                    {tokenData.Project_CMCLink && <Image src={M}/>}
-                    {tokenData.Project_CGLink && <Image src={Lizard}/>}
-                    {tokenData.Project_PancakeLink && <Image src={Pancakeswap}/>}
+                    {tokenData.Project_CMCLink && <Image onClick={() => { goToExternal(tokenData.Project_CMCLink) }} src={M} />}
+                    {tokenData.Project_CGLink && <Image onClick={() => { goToExternal(tokenData.Project_CGLink) }} src={Lizard} />}
+                    {tokenData.Project_PancakeLink && <Image onClick={() => { goToExternal(tokenData.Project_PancakeLink) }} src={Pancakeswap} />}
                 </Flex>
                 <HeadTitle size={'22px'}>earned badges</HeadTitle>
                 <WrapperBadges>
@@ -158,7 +156,7 @@ const TokenHeader = ({tokenData = {}}) => {
                     }
                     {tokenData.Project_HasUtility === 'TRUE' &&
                         // <Image src={Utility}/>
-                        <Utility1/>
+                        <Utility1 />
                     }
                     {tokenData.Project_IsMemeCoin === 'TRUE' &&
                         // <Image src={Memecoin}/>
@@ -200,7 +198,7 @@ const TokenHeader = ({tokenData = {}}) => {
                 <Flex justify={'center'}>
                     <HeadTitle margin={'0 auto 0 10px'} size={'50px'}>{name}</HeadTitle>
                     <Flex>
-                        <Image height={'29px'} src={Like}/>
+                        <Image height={'29px'} src={Like} />
                         <Text margin={'0 0 0 7px'} size={'24px'}>{votes}</Text>
                         <Votes big={true} address={address}/>
                     </Flex>
@@ -251,18 +249,18 @@ const TokenHeader = ({tokenData = {}}) => {
                     </Flex>
                     <Flex>
                         <Card>
-                            <IcoWrapper><Image src={TokenPrice}/></IcoWrapper>
+                            <IcoWrapper><Image src={TokenPrice} /></IcoWrapper>
                             <span>token price</span>
                             <CardInfo mt={'20px'}>${Number(price)}</CardInfo>
                         </Card>
                         <Card>
-                            <IcoWrapper mt={'-16px'} height={'88px'}><Image src={MarketCap}/></IcoWrapper>
+                            <IcoWrapper mt={'-16px'} height={'88px'}><Image src={MarketCap} /></IcoWrapper>
                             <span>market cap</span>
                             <CardInfo mt={'20px'}>${new Intl.NumberFormat('en-US').format(mcap)}</CardInfo>
                         </Card>
                         <Card color={'rgba(255, 218, 1, 0.25)'}>
-                            <IcoWrapper><Image src={Popularity}/></IcoWrapper>
-                            <span>Ø Holder growth <br/> per day</span>
+                            <IcoWrapper><Image src={Popularity} /></IcoWrapper>
+                            <span>Ø Holder growth <br /> per day</span>
                             <CardInfo>{holdersPerDay}</CardInfo>
                         </Card>
                     </Flex>

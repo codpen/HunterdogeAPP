@@ -11,13 +11,14 @@ export const Wrapper = styled.div`
   background: ${({ isMobile }) => isMobile ? '#FFF8CC' : '#FFF'};
   box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.1);
   border-radius: 25px;
-  padding: 37px 10px 17px 38px;
+  padding: ${({ isMobile }) => isMobile ? '15px 2px' : '37px 10px 17px 38px'};
+  flex-direction: ${({ isMobile }) => isMobile ? 'column' : 'inherit'};
 `
 
 export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-right: 38px;
+  margin: ${({margin}) => margin || '38px'};
 `
 
 export const RightContent = styled.div`
@@ -26,13 +27,14 @@ export const RightContent = styled.div`
   //min-width: 320px;
   //word-wrap: break-word;
   margin: ${({margin}) => margin || '0'};
+  padding-left: 20px;
 `
 
 export const DescTextWrapper = styled.div`
   min-width: 300px;
   max-width: 626px;
   width: 100%;
-  margin: 14px 0 69px 0;
+  margin: ${({margin}) => margin || '14px 0 69px 0'};
   padding: 0 15px 15px 0;
   overflow-y: auto;
 `
@@ -40,10 +42,10 @@ export const DescTextWrapper = styled.div`
 export const DescText = styled.pre`
   font-family: Raleway;
   color: #B78300;
-  font-size: 18px;
-  line-height: 18px;
+  font-size: ${({size}) => size || '18px'};
+  line-height: 1em;
   font-weight: 400;
-  height: 432px;
+  height: ${({height}) => height || '432px'};
   white-space: pre-wrap;       /* css-3 */
   white-space: -moz-pre-wrap;  /* Mozilla, с 1999 года*/
   white-space: -o-pre-wrap;    /* Opera 7 */
@@ -76,7 +78,7 @@ export const HeadTitle = styled.h4`
   font-style: normal;
   font-weight: ${({weight}) => weight || '800'};
   font-size: ${({size}) => size || '21px'};
-  line-height: 21px;
+  line-height: 1em;
   text-transform: ${({text}) => text || 'uppercase'};
   text-align: ${({align}) => align || 'left'};
   margin: ${({margin}) => margin || '0'};

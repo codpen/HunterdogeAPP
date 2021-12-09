@@ -27,8 +27,8 @@ export const Title = styled.p`
   font-family: Raleway;
   font-style: normal;
   font-weight: normal;
-  font-size: 15.57px;
-  line-height: 15px;
+  font-size: ${({size}) => size || '15px'};
+  line-height: 1em;
   text-transform: uppercase;
   color: #B78300;    
 `
@@ -39,7 +39,7 @@ export const Value = styled.p`
   font-style: normal;
   font-weight: ${({weight}) => weight || '800'};
   font-size: ${({size}) => size || '19px'};
-  line-height: ${({size}) => size || '19px'};
+  line-height: 1em;
   color: #B78300;
 `
 

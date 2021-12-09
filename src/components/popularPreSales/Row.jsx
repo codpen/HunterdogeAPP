@@ -8,6 +8,7 @@ import Bsc from "../../images/table/bscscan.svg";
 import Telegram from "../../images/table/telegram.svg";
 import Twitter from "../../images/table/twitter.svg";
 import Dx from "../../images/table/dx.svg";
+import NoLogoImage from '../../images/nologo.jpg'
 
 const Row = ({data, index}) => {
     // const {votes, error, isLoading} = useVotesPerProject(data.Project_Address)
@@ -35,14 +36,14 @@ const Row = ({data, index}) => {
                     <Typography variant="h6" sx={{mr:'25px'}}>
                         {index+1}.
                     </Typography>
-                    <Box component="img" src={data.Project_Logo} sx={{width: '66px'}}/>
+                    <Box component="img" src={data.Project_Logo || NoLogoImage} sx={{width: '66px'}}/>
                 </Stack>
             </TableCell>
             }
 
             <TableCell>
               <LinkWrapper to={`/token/${linkAddress}`} style={{display:'flex', alignItems:'center'}}>
-                {!mobileMatches && <Box component="img" src={data.Project_Logo} sx={{ width:'20px', height:'20px', marginRight:'4px' }} />}
+                {!mobileMatches && <Box component="img" src={data.Project_Logo || NoLogoImage} sx={{ width:'20px', height:'20px', marginRight:'4px' }} />}
                 <Stack sx={{textAlign: 'left'}}>
                     <Typography  variant="h5" sx={{display:'flex'}}>
                       {mobileMatches && data.Project_Name}

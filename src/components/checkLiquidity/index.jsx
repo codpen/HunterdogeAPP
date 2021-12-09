@@ -88,6 +88,10 @@ const CheckLiguidity = () => {
         callAsync()
     }
 
+  const goToDexTool = () => {
+    if (!pairAddress) return false
+    window.open(`https://www.dextools.io/app/bsc/pair-explorer/${pairAddress}`, '_blank')
+  }
 
     useEffect(() => {
         if (bnbPrice.price) {
@@ -95,11 +99,6 @@ const CheckLiguidity = () => {
             setProject(project)
         }
     }, [bnbPrice])
-
-    const goToDexTool = () => {
-        if (!pairAddress) return false
-        window.location.href = `https://www.dextools.io/app/bsc/pair-explorer/${pairAddress}`
-    }
 
     const handleGetMoreInfo = () => {
         // history.push('/token/0x04F73A09e2eb410205BE256054794fB452f0D245')

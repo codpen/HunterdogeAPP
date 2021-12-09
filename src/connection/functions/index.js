@@ -1,12 +1,12 @@
 import Web3 from "web3";
-import {bscFactorContact, bscMembershipContract, bscProjectContact, bscTokenContact, bscWBNBContact} from '../contracts'
+import { bscFactorContact, bscMembershipContract, bscProjectContact, bscTokenContact, bscWBNBContact } from '../contracts'
 import ABIMAIN from '../contracts/ABIMAIN.json'
 import PROJECTABI from '../contracts/PROJECTABI.json'
 import REGISTERABI from '../contracts/REGISTERABI.json'
 import ABIMCAP from '../contracts/MCAP.json'
 import FACTORYABI from '../contracts/FACTORYABI.json'
 import PAIRABI from '../contracts/PAIRABI.json'
-import {networks} from "../networks";
+import { networks } from "../networks";
 
 const web3 = new Web3(Web3.givenProvider)
 
@@ -35,7 +35,7 @@ export const downVoteProject = async (ethereum, vote, account, address) => {
 
         await contract.methods
             .downVoteProject(vote, address)
-            .send({from: account})
+            .send({ from: account })
     } catch (e) {
         alert('Voting failed - Ensure that you are Connected :)');
     }
@@ -48,7 +48,7 @@ export const upVoteProject = async (ethereum, vote, account, address) => {
     try {
         await contract.methods
             .upVoteProject(vote, address)
-            .send({from: account})
+            .send({ from: account })
 
     } catch (e) {
         alert('Voting failed - Ensure that you are Connected :)');
@@ -62,7 +62,7 @@ export const medVoteProject = async (ethereum, vote, account, address) => {
     try {
         await contract.methods
             .medVoteProject(vote, address)
-            .send({from: account})
+            .send({ from: account })
     } catch (e) {
         alert('Voting failed - Ensure that you are Connected :)');
     }
@@ -73,7 +73,7 @@ export const buyVotes = async (ethereum, account, amount) => {
     const contract = new web3_.eth.Contract(ABIMAIN, bscMembershipContract);
 
     await contract.methods.buyVotes(amount)
-        .send({from: account})
+        .send({ from: account })
         .on('receipt', function (receipt) {
             console.log('buy votes', receipt)
         })
@@ -89,7 +89,7 @@ export const approveTokens = async (ethereum, account) => {
 
     await contract.methods
         .approve(bscMembershipContract, amount)
-        .send({from: account})
+        .send({ from: account })
 }
 
 export const membership = async (ethereum, account) => {
@@ -98,7 +98,7 @@ export const membership = async (ethereum, account) => {
 
     await contract.methods
         .getMembership()
-        .send({from: account})
+        .send({ from: account })
         .on('receipt', function (receipt) {
             console.log('member', receipt)
         })
@@ -118,6 +118,17 @@ export const membershipCosts = async () => {
     }
 
 
+}
+
+export const votePrice = async () => {
+    const contract = new web3.eth.Contract(ABIMAIN, bscMembershipContract);
+    try {
+        const result = await contract.methods.votePrice().call()
+
+        return web3.utils.fromWei(result)
+    } catch (e) {
+        console.log('membershipCosts', e)
+    }
 }
 
 export const isMember = async (account) => {
@@ -148,7 +159,7 @@ export const returnMembership = async (ethereum, account) => {
 
     await contract.methods
         .returnMembership()
-        .send({from: account})
+        .send({ from: account })
 }
 
 export const getMCap = async (address, price) => {
@@ -250,11 +261,11 @@ export const isHoneypot = async (address) => {
             name: 'getAmountsOut',
             type: 'function',
             inputs: [
-                {type: 'uint256', name: 'amountIn'},
-                {type: 'address[]', name: 'path'},
+                { type: 'uint256', name: 'amountIn' },
+                { type: 'address[]', name: 'path' },
             ],
             outputs: [
-                {type: 'uint256[]', name: 'amounts'},
+                { type: 'uint256[]', name: 'amounts' },
             ],
         }, [amountIn, path]);
 
@@ -275,7 +286,7 @@ export const isHoneypot = async (address) => {
     }
 
     const getMaxes = async () => {
-        let sig = hWeb3.eth.abi.encodeFunctionSignature({name: '_maxTxAmount', type: 'function', inputs: []});
+        let sig = hWeb3.eth.abi.encodeFunctionSignature({ name: '_maxTxAmount', type: 'function', inputs: [] });
         let d = {
             to: address,
             from: '0x8894e0a0c962cb723c1976a4421c95949be2d4e3',
@@ -327,10 +338,10 @@ export const isHoneypot = async (address) => {
     };
 
     if (blacklisted[address.toLowerCase()] !== undefined) {
-        return {is: 'Yes', buy_tax: 0, sell_tax: 0}
+        return { is: 'Yes', buy_tax: 0, sell_tax: 0 }
     }
     if (unableToCheck[address.toLowerCase()] !== undefined) {
-        return {is: 'Unknown', buy_tax: 0, sell_tax: 0}
+        return { is: 'Unknown', buy_tax: 0, sell_tax: 0 }
     }
 
     let value = 100000000000000000;
@@ -352,7 +363,7 @@ export const isHoneypot = async (address) => {
     const buy_tax = Math.round((buyExpectedOut - buyActualOut) / buyExpectedOut * 100 * 10) / 10;
     const sell_tax = Math.round((sellExpectedOut - sellActualOut) / sellExpectedOut * 100 * 10) / 10;
 
-    return {is: 'No', buy_tax: buy_tax, sell_tax: sell_tax}
+    return { is: 'No', buy_tax: buy_tax, sell_tax: sell_tax }
 }
 
 

@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom'
 import {
     Changes24,
     ChartWrapper,
@@ -11,16 +11,16 @@ import {
     Value,
     Wrapper
 } from "./LiveChartStyles";
-import {getBalanceWBNB, getMCap, getPair, getSymbol} from '../../../connection/functions'
-import {Flex} from "../upcomingPreSale/PreSaleStyled";
-import {HeadTitle, RightContent} from "../tokenInformation/TokenInfoStyled";
-import {Button} from "../../common";
+import { getBalanceWBNB, getMCap, getPair, getSymbol } from '../../../connection/functions'
+import { Flex } from "../upcomingPreSale/PreSaleStyled";
+import { HeadTitle, RightContent } from "../tokenInformation/TokenInfoStyled";
+import { Button } from "../../common";
 import ReportTokenModal from '../../modal/ReportToken';
-import {Box, Stack, useMediaQuery} from '@mui/material';
-import {usePrice} from '../../../hooks/usePrice';
-import {bscWBNBContact} from '../../../connection/contracts';
+import { Box, Stack, useMediaQuery } from '@mui/material';
+import { usePrice } from '../../../hooks/usePrice';
+import { bscWBNBContact } from '../../../connection/contracts';
 
-const Dashboard = ({token}) => {
+const Dashboard = ({ token }) => {
     const [query, setQuery] = useState('BNB')
     const [isComingSoon, setIsComingSoon] = useState(true)
     const mobileMatches = useMediaQuery('(max-width:600px)');
@@ -30,7 +30,7 @@ const Dashboard = ({token}) => {
     }, [token])
     return (
         <Stack component='div'
-               sx={{position: 'relative', height: (mobileMatches ? `${(window.innerWidth - 50)}px` : '466px')}}>
+            sx={{ position: 'relative', height: (mobileMatches ? `${(window.innerWidth - 50)}px` : '466px') }}>
             {
                 isComingSoon &&
                 <Stack
@@ -43,7 +43,7 @@ const Dashboard = ({token}) => {
                         backdropFilter: 'blur(3px)'
                     }}
                 >
-                    <Box component='h2' sx={{fontSize: '60px', m: 'auto', textAlign: 'center'}}>
+                    <Box component='h2' sx={{ fontSize: '60px', m: 'auto', textAlign: 'center' }}>
                         Coming Soon.
                     </Box>
                 </Stack>
@@ -53,9 +53,9 @@ const Dashboard = ({token}) => {
     );
 }
 
-const LiveChart = ({tokenData = {}}) => {
+const LiveChart = ({ tokenData = {} }) => {
     const mobileMatches = useMediaQuery('(max-width:600px)');
-    const {address} = useParams()
+    const { address } = useParams()
     const [symbol, setSymbol] = useState('')
     const [price, setPrice] = useState(0)
     const [totalLP, setTotalLP] = useState(0)
@@ -106,9 +106,9 @@ const LiveChart = ({tokenData = {}}) => {
             <ChartWrapper>
                 <Flex margin={'0 0 5px 0'}>
                 </Flex>
-                <Dashboard token={symbol}/>
+                <Dashboard token={symbol} />
                 <Button onClick={() => setIsModal(true)} size={'14px'} margin={'20px auto'} width={'277px'}
-                        height={mobileMatches ? '25px' : undefined}>report this token to staff</Button>
+                    height={mobileMatches ? '25px' : undefined}>report this token to staff</Button>
             </ChartWrapper>
             <RightContent width={mobileMatches ? '100%' : 'inherit'} margin={mobileMatches ? '20px 0' : '0 0 0 31px'}>
                 <HeadTitle margin={'0 0 31px 0'} align={'center'} size={'18px'}>statistics</HeadTitle>
@@ -142,14 +142,14 @@ const LiveChart = ({tokenData = {}}) => {
                 <Flex direction={mobileMatches ? 'column' : undefined}>
                     <Flex
                         content={mobileMatches ? 'space-between' : undefined}
-                        style={{width: (mobileMatches ? '100%' : '')}}
+                        style={{ width: (mobileMatches ? '100%' : '') }}
                         direction={mobileMatches ? 'row' : 'column'}>
                         <Title>Total liquidity</Title>
                         <Value>${new Intl.NumberFormat('en-US').format(totalLP.toFixed(4))}</Value>
                     </Flex>
                     <Flex
                         content={mobileMatches ? 'space-between' : undefined}
-                        style={{width: (mobileMatches ? '100%' : '')}}
+                        style={{ width: (mobileMatches ? '100%' : '') }}
                         direction={mobileMatches ? 'row' : 'column'}
                         margin={mobileMatches ? '0' : '0 0 0 64px'}>
                         <Title>Liquidity / Mcap ratio</Title>
@@ -160,7 +160,7 @@ const LiveChart = ({tokenData = {}}) => {
                     </Flex>
                 </Flex>
                 {[0].map((el, idx) => <Flex key={idx * 23} content={'space-between'}
-                                            direction={mobileMatches ? 'column' : undefined}>
+                    direction={mobileMatches ? 'column' : undefined}>
                     <Flex direction={'column'}>
                         <Title size={'12px'}>Pc v2 | {symbol}/BNB LP Holdings</Title>
                         <Flex>
@@ -173,9 +173,11 @@ const LiveChart = ({tokenData = {}}) => {
                     </Flex>
                     <Tab>
                         <LinkWrapper disable={true}
-                                     href={`https://bscscan.com/token/${bscWBNBContact}?a=${address}#tokenAnalytics`}>CHART</LinkWrapper>
+                            target={'_blank'}
+                            href={`https://bscscan.com/token/${bscWBNBContact}?a=${address}#tokenAnalytics`}>CHART</LinkWrapper>
                         <LinkWrapper disable={true}
-                                     href={`https://bscscan.com/token/${address}#balances`}>LP-HOLDERS</LinkWrapper>
+                            target={'_blank'}
+                            href={`https://bscscan.com/token/${address}#balances`}>LP-HOLDERS</LinkWrapper>
                     </Tab>
                 </Flex>)}
                 {/* <Title size={'12px'}>Liquidity changes since start</Title>
@@ -198,7 +200,7 @@ const LiveChart = ({tokenData = {}}) => {
                     </LinkWrapper>
                 </Flex> */}
             </RightContent>
-            {isModal && <ReportTokenModal setIsOpen={setIsModal}/>}
+            {isModal && <ReportTokenModal setIsOpen={setIsModal} />}
         </Wrapper>
     );
 };

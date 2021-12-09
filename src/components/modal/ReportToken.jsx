@@ -21,13 +21,13 @@ const useStyles = makeStyles({
 		left: '50%',
 		right: 0,
 		margin: '0 auto',
-		padding: ({isMobile})=> isMobile ? '15px 5px' : '66px 160px 52px',
-		width: ({isMobile})=> isMobile ? 'calc(100vw - 20px)' : '926px',
-		height: ({isMobile})=> isMobile ? '400px' : '639px',
+		padding: ({ isMobile }) => isMobile ? '15px 5px' : '66px 160px 52px',
+		width: ({ isMobile }) => isMobile ? 'calc(100vw - 20px)' : '926px',
+		height: ({ isMobile }) => isMobile ? '400px' : '639px',
 		background: '#FFF',
 		border: '6px solid  #AB882E',
 		boxSizing: 'border-box',
-		borderRadius: ({isMobile})=> isMobile ? '40px' : '60px',
+		borderRadius: ({ isMobile }) => isMobile ? '40px' : '60px',
 		transform: 'translateX(-50%)'
 	},
 	btn: {
@@ -36,10 +36,10 @@ const useStyles = makeStyles({
 	},
 	btnClose: {
 		position: 'absolute',
-		top: ({isMobile})=> isMobile ? '10px' : '35px',
-		right: ({isMobile})=> isMobile ? '10px' : '35px',
-		width: ({isMobile})=> isMobile ? '30px' : '68px',
-		height: ({isMobile})=> isMobile ? '25px' : '51px',
+		top: ({ isMobile }) => isMobile ? '10px' : '35px',
+		right: ({ isMobile }) => isMobile ? '10px' : '35px',
+		width: ({ isMobile }) => isMobile ? '30px' : '68px',
+		height: ({ isMobile }) => isMobile ? '25px' : '51px',
 		fontWeight: 'bold',
 		fontSize: ({isMobile})=> isMobile ? '1.65em' : '2em',
 		lineHeight: ({isMobile})=> isMobile ? '1.65em' : '2em',
@@ -58,7 +58,7 @@ const useStyles = makeStyles({
 
 const ReportTokenModal = ({ setIsOpen }) => {
 	const mobileMatches = useMediaQuery('(max-width:600px)');
-	const classes = useStyles({isMobile: mobileMatches});
+	const classes = useStyles({ isMobile: mobileMatches });
 
 	function sendMail() {
 		var link = "mailto:info@hunterdoge.com"
@@ -66,7 +66,7 @@ const ReportTokenModal = ({ setIsOpen }) => {
 			+ "&subject=" + escape("Information")
 			+ "&body=" + escape(`${document.getElementById('Message').value}`)
 
-		window.location.href = link;
+		window.open(link, '_blank');
 	}
 
 	return (
@@ -99,8 +99,8 @@ export default ReportTokenModal;
 
 
 const InputMessage = styled.textarea`
-  width: ${({isMobile})=> isMobile ? 'calc(100vw - 40px)' : '604px'};
-  height: ${({isMobile})=> isMobile ? '200px' : '311px'};
+  width: ${({ isMobile }) => isMobile ? 'calc(100vw - 40px)' : '604px'};
+  height: ${({ isMobile }) => isMobile ? '200px' : '311px'};
   padding: 15px;
   background: #FFF599;
   border: 2.72138px solid #9F7E04;

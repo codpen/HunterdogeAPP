@@ -51,43 +51,49 @@ export const ImageWrapper = styled.div`
 
 export const Title = styled.h3`
   font-size: ${({size}) => size || '60px'};
-  line-height: ${({size}) => size || '60px'};
+  line-height: 1em;
   margin: ${({margin}) => margin || '0'};
   text-transform: uppercase;
 
   @media screen and (max-width: 992px) {
     font-size: 40px;
-    line-height: 40px;
+  }
+
+  @media screen and (max-width: 570px) {
+    font-size: 30px;
   }
 `
 
 export const VotesWrapper = styled.div`
-  width: 430px;
+  width: ${({width})=> width || '430px'};
   margin: 18px auto;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: ${({justify})=> justify || 'flex-end'};
 `
 
 export const Text = styled.p`
   font-family: Raleway;
   font-weight: 700;
   font-size: ${({size}) => size || '30px'};
-  line-height: ${({size}) => size || '30px'};
+  line-height: 1em;
   color: #B78300;
   margin: ${({margin}) => margin || '0'};
   text-transform: uppercase;
 
   @media screen and (max-width: 992px) {
     font-size: 22px;
-    line-height: 22px;
+  }
+
+  @media screen and (max-width: 570px) {
+    font-size: 18px;
   }
 `
 
 export const ModalCard = styled.div`
   position: relative;
   max-width: 1117px;
-  width: 75%;
+  width: ${({width})=> width || '75%'};
   height: 706px;
   background: #FFFFFF;
   border: 6px solid #FAF0CB;

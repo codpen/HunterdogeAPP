@@ -5,33 +5,34 @@ import styled from "styled-components";
 import {Image} from "../common";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-export default function Pagination({start, end, page, pageHandler, showPageNumber = true, ...rest}) {
-    const mobileMatches = useMediaQuery('(min-width:600px)');
-    const handleLeft = () => {
-        pageHandler((page) => page - 1)
-    }
-    const handleRight = () => {
-        pageHandler((page) => page + 1)
-    }
-    return (
-        <Wrapper {...rest}>
-            <Button disabled={page === 1} onClick={handleLeft}>
-                <Image src={arrowLeft} width={mobileMatches? 'auto': '16px'}/>
-            </Button>
-            <Count>
-                {showPageNumber ? `${page} / ${end}`: ''}
-            </Count>
-            <Button disabled={page === end}  onClick={handleRight}>
-                <Image src={arrowRight} width={mobileMatches? 'auto': '16px'}/>
-            </Button>
-        </Wrapper>
-    );
+export default function Pagination({ start, end, page, pageHandler, showPageNumber = true, ...rest }) {
+	const mobileMatches = useMediaQuery('(min-width:600px)');
+	const handleLeft = () => {
+		pageHandler((page) => page - 1)
+	}
+	const handleRight = () => {
+		pageHandler((page) => page + 1)
+	}
+	return (
+		<Wrapper {...rest}>
+			<Button disabled={page === 1} onClick={handleLeft}>
+				<Image src={arrowLeft} width={mobileMatches ? 'auto' : '16px'} />
+			</Button>
+			<Count>
+				{showPageNumber ? `${page} / ${end}` : ''}
+			</Count>
+			<Button disabled={page === end} onClick={handleRight}>
+				<Image src={arrowRight} width={mobileMatches ? 'auto' : '16px'} />
+			</Button>
+		</Wrapper>
+	);
 }
 
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: auto;
 `
 
 export const Button = styled.button`

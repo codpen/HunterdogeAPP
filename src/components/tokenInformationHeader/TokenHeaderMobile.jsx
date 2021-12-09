@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom'
-import {useWallet} from "@binance-chain/bsc-use-wallet";
-import LogoImage from '../../images/big_logo.png'
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom'
+import { useWallet } from "@binance-chain/bsc-use-wallet";
+import NoLogoImage from '../../images/nologo.jpg'
 import M from '../../images/m_white.png'
 import Lizard from '../../images/lizard_ico.svg'
 import Pancakeswap from '../../images/pancakeswap.png'
@@ -37,7 +37,6 @@ const TokenHeaderMobile = ({ tokenData = {} }) => {
     const { address } = useParams()
 
     const { account, chainId } = useWallet();
-    const [isTokenEditModal, setIsTokenEditModal] = useState(false)
     const [checkProjectManager, setCheckProjectManager] = useState(false)
     const [price, setPrice] = useState(0)
     const [mcap, setMCap] = useState(0)
@@ -50,7 +49,7 @@ const TokenHeaderMobile = ({ tokenData = {} }) => {
 
     const visitWebsite = () => {
         if (tokenData.Project_Website) {
-            window.location.href = tokenData.Project_Website
+            window.open(tokenData.Project_Website, '_blank');
         }
     }
 
@@ -121,27 +120,31 @@ const TokenHeaderMobile = ({ tokenData = {} }) => {
     }
 
     const bscScan = () => {
-        window.location.href = `https://bscscan.com/address/${address}`
+        window.open(`https://bscscan.com/address/${address}`, '_blank')
     };
 
     const handleTokenEdit = () => {
         window.location.href = `/token/edit/${address}`
     }
 
+    const goToExternal = (url) => {
+        window.open(url, '_blank');
+    }
+
     return (
         <Wrapper isMobile={true}>
             <BadgesWrapper isMobile={true}>
-                <Image src={tokenData.Project_Logo < 1 ? LogoImage : tokenData.Project_Logo} width={`${window.innerWidth / 4 - 10}px`} height={`${window.innerWidth / 4 - 10}px`} margin={'5px 0 8px 10px'} />
+                <Image src={tokenData.Project_Logo ? tokenData.Project_Logo : NoLogoImage} width={`${window.innerWidth / 4 - 10}px`} height={`${window.innerWidth / 4 - 10}px`} margin={'5px 0 8px 10px'} />
                 <HeadTitle size={'18x'}>{symbol}</HeadTitle>
                 <Flex margin={'10px 0'}>
-                    {tokenData.Project_CMCLink && <Image width={'32%'} src={M} />}
-                    {tokenData.Project_CGLink && <Image width={'32%'} src={Lizard} />}
-                    {tokenData.Project_PancakeLink && <Image width={'32%'} src={Pancakeswap} />}
+                    {tokenData.Project_CMCLink && <Image onClick={()=>{goToExternal(tokenData.Project_CMCLink)}} width={'32%'} src={M} />}
+                    {tokenData.Project_CGLink && <Image onClick={()=>{goToExternal(tokenData.Project_CGLink)}} width={'32%'} src={Lizard} />}
+                    {tokenData.Project_PancakeLink && <Image onClick={()=>{goToExternal(tokenData.Project_PancakeLink)}} width={'32%'} src={Pancakeswap} />}
                 </Flex>
                 <HeadTitle size={'12px'}>
                     earned badges
-                    <Button onClick={handleBadges} size={'13px'} weight={'700'} width={'13px'} height={'13px'} cursor={'pointer'}>
-                        !
+                    <Button onClick={handleBadges} size={'13px'} weight={'700'} width={'13px'} height={'13px'} cursor={'pointer'} style={{textTransform: 'lowercase', padding: '0px'}}>
+                        i
                         {openBadges && <Popup left={'40px'} width={'200px'} height={'auto'}>
                             <TextPopup mb={'7px'}>What are Badges?</TextPopup>
                             <TextPopup color="rgba(171, 136, 46, 0.7)" fw={700}>Badges are added by our staff and stand for: 1) KYC 2) Audited 3) Usecase 4) Meme Token</TextPopup>

@@ -27,8 +27,8 @@ const projects = [
 ]
 
 const condList = [
-  { value: 'high', label: 'Highest first' },
-  { value: 'low', label: 'Lowest first' },
+  { value: 'high', label: 'Higher' },
+  { value: 'low', label: 'Lower' },
 ]
 
 const SearchOrFilter = () => {

@@ -7,6 +7,8 @@ export const ModalContext = createContext({
     setOpenSearch: () => { },
     searchOption: [],
     setSearchOption: () => {},
+    isMember: {},
+    setIsMember: () => {},
     removeSearchOption: () => {}
 })
 
@@ -14,6 +16,7 @@ const ModalContextProvider = ({ children }) => {
     const [openModal, setOpenModalValue] = useState(false)
     const [openSearch, setOpenSearchValue] = useState(true)
     const [searchOption, setSearchOptionValue] = useState([])
+    const [isMember, setIsMemberValue] = useState({})
 
     /*eslint-disable */
 
@@ -38,6 +41,12 @@ const ModalContextProvider = ({ children }) => {
             ]
         })
     }
+    const setIsMember = (account, value) => {
+        setIsMemberValue(prevState => {
+            prevState[account] = value
+            return prevState
+        })
+    }
 
     const removeSearchOption = (id) => {
         const options = searchOption.filter((item)=>id != item.id)
@@ -52,6 +61,8 @@ const ModalContextProvider = ({ children }) => {
         setOpenSearch,
         searchOption,
         setSearchOption,
+        isMember,
+        setIsMember,
         removeSearchOption,
     }
 
