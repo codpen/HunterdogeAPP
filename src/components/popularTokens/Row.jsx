@@ -22,6 +22,7 @@ import { useWeb3React } from "@web3-react/core";
 import { useWallet } from "@binance-chain/bsc-use-wallet";
 import { Badges } from "../common/badges/Badges";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import NoLogoImage from '../../images/nologo.jpg'
 
 const Row = ({ data, index }) => {
     // const {chainId} = useWeb3React()
@@ -80,13 +81,13 @@ const Row = ({ data, index }) => {
                         <Typography variant="h6" sx={{ mr: '36px' }}>
                             {index + 1}.
                         </Typography>
-                        <Box component="img" src={data.Project_Logo} sx={{ width: '66px' }} />
+                        <Box component="img" src={data.Project_Logo || NoLogoImage} sx={{ width: '66px' }} />
                     </Stack>
                 </TableCell>
             }
 
             <TableCell style={{ textAlign: 'left', display: 'flex', alignItems: 'center' }}>
-                {!mobileMatches && <Box component="img" src={data.Project_Logo} sx={{ width: '20px', height: '20px', marginRight: '4px' }} />}
+                {!mobileMatches && <Box component="img" src={data.Project_Logo || NoLogoImage} sx={{ width: '20px', height: '20px', marginRight: '4px' }} />}
                 <LinkWrapper to={`/token/${data.Project_Address}`}>
                     <Stack>
                         <Typography>

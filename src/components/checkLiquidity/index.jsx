@@ -93,7 +93,7 @@ const CheckLiguidity = () => {
 
   const goToDexTool = () => {
     if (!pairAddress) return false
-    window.location.href = `https://www.dextools.io/app/bsc/pair-explorer/${pairAddress}`
+    window.open(`https://www.dextools.io/app/bsc/pair-explorer/${pairAddress}`, '_blank')
   }
 
   const handleGetMoreInfo = () => {

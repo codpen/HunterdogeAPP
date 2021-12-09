@@ -104,7 +104,7 @@ const LiveChart = ({ tokenData = {} }) => {
                     <LiveChartSubtitle size={'14px'}>PAIR {symbol} - BNB</LiveChartSubtitle>
                 </Flex>
                 <Dashboard token={symbol} />
-                <Button onClick={() => setIsModal(true)} size={'14px'} margin={'20px auto'} width={'277px'} height={ mobileMatches ? '25px' : undefined}>report this token to staff</Button>
+                <Button onClick={() => setIsModal(true)} size={'14px'} margin={'20px 0px'} width={'277px'} height={ mobileMatches ? '25px' : undefined}>report this token to staff</Button>
             </ChartWrapper>
             <RightContent width={mobileMatches ? '100%' : 'inherit'} margin={mobileMatches ? '20px 0' : '0 0 0 31px'}>
                 <HeadTitle margin={'0 0 31px 0'} align={'center'} size={'18px'}>statistics</HeadTitle>
@@ -154,8 +154,8 @@ const LiveChart = ({ tokenData = {} }) => {
                         </Flex>
                     </Flex>
                     <Tab>
-                        <LinkWrapper disable={true} href={`https://bscscan.com/token/${bscWBNBContact}?a=${address}#tokenAnalytics`}>CHART</LinkWrapper>
-                        <LinkWrapper disable={true} href={`https://bscscan.com/token/${address}#balances`}>LP-HOLDERS</LinkWrapper>
+                        <LinkWrapper disable={true} target={'_blank'} href={`https://bscscan.com/token/${bscWBNBContact}?a=${address}#tokenAnalytics`}>CHART</LinkWrapper>
+                        <LinkWrapper disable={true} target={'_blank'} href={`https://bscscan.com/token/${address}#balances`}>LP-HOLDERS</LinkWrapper>
                     </Tab>
                 </Flex>)}
                 {/* <Title size={'12px'}>Liquidity changes since start</Title>

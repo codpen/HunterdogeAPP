@@ -62,7 +62,7 @@ const App = () => {
                                     <HomePage />
                                 </Route>
                                 <Route path="/allTokens" exact>
-                                    <AllTokens />
+                                    <AllTokens register={register} />
                                 </Route>
                                 {/* <Route path="/nft-gallery" exact>
                                     <NftGallery />
@@ -75,7 +75,7 @@ const App = () => {
                                 </Route>
                             </Switch>
                         </Pages>
-                        <Footer />
+                        <Footer register={register}/>
                         <ScrollToTop showUnder={50} style={{zIndex: '999'}}>
                             <Wrapper>
                                 {mobileMatches && `GO TO TOP`}

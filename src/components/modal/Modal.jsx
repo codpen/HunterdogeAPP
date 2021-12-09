@@ -1,28 +1,46 @@
-import React from 'react';
-import {buyVotes} from "../../connection/functions";
-import {useWeb3React} from "@web3-react/core";
+import React, { useEffect, useState } from 'react';
+import { buyVotes, register, votePrice } from "../../connection/functions";
+import { useWeb3React } from "@web3-react/core";
 import { useWallet } from "@binance-chain/bsc-use-wallet";
-import {Button, Flex, Image} from "../common";
-import {CloseButton, ImageWrapper, ModalCard, Text, Title, VotesWrapper, Wrapper} from "./StyledModal";
+import { Button, Flex, Image } from "../common";
+import { CloseButton, ImageWrapper, ModalCard, Text, Title, VotesWrapper, Wrapper } from "./StyledModal";
 import assets from '../../images/cryptoAsset.svg'
+import { Typography } from '@mui/material';
+import { useMediaQuery } from '@material-ui/core';
 
 const data = [
-    {id: '222', value: '1 vote', votes: 1},
-    {id: '223', value: '5 votes', votes: 5},
-    {id: '224', value: '10 votes', votes: 10},
-    {id: '225', value: '25 votes', votes: 25},
-    {id: '226', value: '50 votes', votes: 50},
-    {id: '227', value: '100 votes', votes: 100},
-    {id: '228', value: '250 votes', votes: 250},
-    {id: '229', value: '500 votes', votes: 500},
+    { id: '222', value: '1 vote', votes: 1 },
+    { id: '223', value: '5 votes', votes: 5 },
+    { id: '224', value: '10 votes', votes: 10 },
+    { id: '225', value: '25 votes', votes: 25 },
+    { id: '226', value: '50 votes', votes: 50 },
+    { id: '227', value: '100 votes', votes: 100 },
+    { id: '228', value: '250 votes', votes: 250 },
+    { id: '229', value: '500 votes', votes: 500 },
 ]
 
 const Modal = ({ setIsOpen }) => {
     // const {account} = useWeb3React()
     const { account, chainId, ethereum } = useWallet();
-    const buy = (votes) => {
+    const [voteCost, setVoteCost] = useState(0)
+    const mobileMatches = useMediaQuery('(max-width:600px)');
+
+    useEffect(async () => {
+        const vPrice = await votePrice()
+        setVoteCost(vPrice)
+    }, [account])
+
+    const buy = async (votes) => {
         if (account) {
-            buyVotes(ethereum, account, votes)
+            await buyVotes(ethereum, account, votes)
+        } else {
+            alert('You need to connect wallet')
+        }
+    }
+
+    const approve = async () => {
+        if (account) {
+            await register(ethereum, account)
         } else {
             alert('You need to connect wallet')
         }
@@ -30,7 +48,7 @@ const Modal = ({ setIsOpen }) => {
 
     return (
         <Wrapper>
-            <ModalCard>
+            <ModalCard width={mobileMatches ? '95%' : '75%'}>
                 <CloseButton onClick={() => setIsOpen(false)}>X</CloseButton>
                 <Flex direction={'column'}>
                     <Title size={'70px'}>Buy votes</Title>
@@ -40,15 +58,19 @@ const Modal = ({ setIsOpen }) => {
                 </Flex>
                 <div>
                     {data.map((item) =>
-                        <VotesWrapper key={item.id} >
-                            <Text size={'24px'}>
+                        <VotesWrapper justify={'center'} width={mobileMatches ? '97%' : '80%'} key={item.id} >
+                            <Text size={mobileMatches ? '0.8em' :'1.2em'} style={{minWidth: (mobileMatches ? '50px' : '100px')}}>
                                 {item.value}
                             </Text>
-                            <Button size={'18px'} weight={'800'} margin={'0 0 0 61px'} width={'200px'} onClick={() => buy(item.votes)}>Buy now</Button>
+                            <Button size={mobileMatches ? '0.8em' :'1.15em'} weight={'800'} margin={'0 0 0 61px'} width={mobileMatches ? '80px' : '200px'} onClick={() => approve()} bg={'#DB3E6DCF'}>Approve</Button>
+                            <Button size={mobileMatches ? '0.8em' :'1.15em'} weight={'800'} margin={'0 0 0 61px'} width={mobileMatches ? '80px' : '200px'} onClick={() => buy(item.votes)}>Buy now</Button>
+                            <Typography variant="body2" sx={{fontSize: mobileMatches ? '0.9em' : '1.4em', ml: '10px'}}>
+                                = {Number(item.votes * voteCost)} $HD
+                            </Typography>
                         </VotesWrapper>
                     )}
                 </div>
-                <ImageWrapper><Image src={assets}/></ImageWrapper>
+                <ImageWrapper><Image src={assets} /></ImageWrapper>
             </ModalCard>
         </Wrapper>
     );

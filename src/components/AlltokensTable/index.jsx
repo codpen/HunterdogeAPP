@@ -39,7 +39,7 @@ const AllTokensTable = (isTitle) => {
 	const context = useContext(ModalContext)
 	const [currentData, setCurrentData] = useState({ newData: [], currentPage: 0, endPage: 0 })
 	const mobileMatches = useMediaQuery('(min-width:600px)');
-	
+
 	let tabs = []
 	context.searchOption.map((item, i) => {
 		tabs = [...tabs, { label: `Search ${i + 1}`, close: true, id: item.id }]
@@ -52,12 +52,12 @@ const AllTokensTable = (isTitle) => {
 	//checkbox and pagination button
 	const [perPage, setPerPage] = useState(25)
 	const [page, setPage] = useState(1)
-	
+
 	// const filterOneDay = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (24*60*60*1000))
 	// const filterWeek = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (7*24*60*60*1000))
 
 	const calcVotes = (item) => {
-		return parseInt(item.Project_Upvotes)*2 + parseInt(item.Project_MedVotes) - parseInt(item.Project_Downvotes)	
+		return parseInt(item.Project_Upvotes) * 2 + parseInt(item.Project_MedVotes) - parseInt(item.Project_Downvotes)
 	}
 
 	const filter = () => {
@@ -143,16 +143,16 @@ const AllTokensTable = (isTitle) => {
 						<Table responsive='true'>
 							<TableHead>
 								<TableRow>
-								{mobileMatches && <TableCell>#Rank</TableCell>}
-								<TableCell sx={{textAlign: 'left', fontSize: mobileMatches? '16px': '10px'}}>name</TableCell>
-								<TableCell sx={{fontSize: mobileMatches? '16px': '10px'}}>Ticker</TableCell>
-								<TableCell sx={{fontSize: mobileMatches? '16px': '10px'}}>MCAP</TableCell>
-								<TableCell sx={{fontSize: mobileMatches? '16px': '10px'}}>Price</TableCell>
-								<TableCell sx={{fontSize: mobileMatches? '16px': '10px' }}>Liq / Mcap<br /> Ratio</TableCell>
-								<TableCell sx={{fontSize: mobileMatches? '16px': '10px' }}>Holders</TableCell>
-								<TableCell sx={{fontSize: mobileMatches? '16px': '10px' }}>&Oslash; Holder<br />growth per day</TableCell>
-								{mobileMatches && <TableCell sx={{textAlign: 'left', fontSize: mobileMatches? '16px': '10px'}}>Votes</TableCell>}
-								{mobileMatches && <TableCell sx={{textAlign: 'left', fontSize: mobileMatches? '16px': '10px'}}></TableCell>}
+									{mobileMatches && <TableCell>#Rank</TableCell>}
+									<TableCell sx={{ textAlign: 'left', fontSize: mobileMatches ? '16px' : '10px' }}>name</TableCell>
+									<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>Ticker</TableCell>
+									<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>MCAP</TableCell>
+									<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>Price</TableCell>
+									<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>Liq / Mcap<br /> Ratio</TableCell>
+									<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>Holders</TableCell>
+									<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>&Oslash; Holder<br />growth per day</TableCell>
+									{mobileMatches && <TableCell sx={{ textAlign: 'left', fontSize: mobileMatches ? '16px' : '10px' }}>Votes</TableCell>}
+									{mobileMatches && <TableCell sx={{ textAlign: 'left', fontSize: mobileMatches ? '16px' : '10px' }}></TableCell>}
 								</TableRow>
 							</TableHead>
 							<TableBody>
@@ -160,16 +160,16 @@ const AllTokensTable = (isTitle) => {
 									{data.map((row, index) => <Row key={index} index={index} data={row}/>)}
 								</TabPanel> */}
 								<TabPanel value={value} index={0}>
-								{currentData.newData.map((row, index) => <Row key={index} index={index} data={row}  />)}
+									{currentData.newData.map((row, index) => <Row key={index} index={index} data={row} />)}
 								</TabPanel>
 							</TableBody>
 						</Table>
 					</TableContainer>
 				</Box>
 				<Stack direction="row" justifyContent="space-between" sx={{ mt: 3, px: 2 }}>
-				{mobileMatches &&<CheckboxShow perPage={perPage} handleCheck={setPerPage} />}
-				{!mobileMatches && <div></div>}
-				<Pagination start={currentData.currentPage} end={currentData.endPage} pageHandler={setPage} page={page} />
+					{mobileMatches && <CheckboxShow perPage={perPage} handleCheck={setPerPage} />}
+					{!mobileMatches && <div></div>}
+					<Pagination start={currentData.currentPage} end={currentData.endPage} pageHandler={setPage} page={page} />
 				</Stack>
 			</Box>
 		</Stack>

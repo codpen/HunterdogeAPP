@@ -1,9 +1,10 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {downVoteProject, upVoteProject, medVoteProject} from "../../../connection/functions";
 import {Button, ButtonGreen, ButtonRed, ButtonYellow, VoteWrapper} from "../index";
 import {useWeb3React} from "@web3-react/core";
 import { useWallet } from "@binance-chain/bsc-use-wallet";
 import {ExtraSmall, Input, Modal} from "./VotesStyled";
+import { ModalContext } from "../../../contexts/ModalProvider";
 
 
 export const Votes = ({address, big = false, height, size}) => {
@@ -12,6 +13,7 @@ export const Votes = ({address, big = false, height, size}) => {
     const [votes, setVotes] = useState(0)
     const [activeBtn, setActiveBtn] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
+    const context = useContext(ModalContext)
 
     const voteUp = () => {
         if (chainId === 56) {
@@ -49,9 +51,13 @@ export const Votes = ({address, big = false, height, size}) => {
         }
     }
 
-    const activeInput = () => {
-        setActiveBtn(!activeBtn)
-        setIsOpen(false)
+    const activeInput = async () => {
+        if(context.isMember[account]) {
+            setActiveBtn(!activeBtn)
+            setIsOpen(false)
+        } else {
+            alert('You need to register yourself first(for free)')
+        }
     }
 
     return (<VoteWrapper big={big}>

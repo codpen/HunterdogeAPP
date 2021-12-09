@@ -10,20 +10,10 @@ import { useWeb3React } from "@web3-react/core";
 import { useWallet } from "@binance-chain/bsc-use-wallet";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-const AllTokens = () => {
+const AllTokens = ({register}) => {
   const mobileMatches = useMediaQuery('(min-width:600px)');
 
   // const { account } = useWeb3React()
-  const { account, chainId } = useWallet();
-  const [checkMember, setCheckMember] = useState(false)
-  useEffect(() => {
-    const getIsMember = async () => {
-      const is_member = await isMember(account)
-      setCheckMember(is_member) 
-    }
-    if (account) getIsMember()
-    else setCheckMember(false)
-  }, [account])
   
   return(
     // <Stack direction="row" alignItems="start"
@@ -38,7 +28,7 @@ const AllTokens = () => {
     // >
     //   <Menu/>
       <Stack sx={{mx: mobileMatches? '60px': 'auto'}}>
-        {checkMember && <SearchOrFilter/>}
+        {register && <SearchOrFilter/>}
         <AllTokensTable/>
         <Stack direction="row" alignItems="center" sx={{gap: 8}}>
           <PopularPreSales/>

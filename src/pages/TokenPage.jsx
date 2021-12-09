@@ -19,6 +19,9 @@ import LeaveCommentModal from '../components/modal/LeaveCommentModal';
 import { GoogleSheetContext } from '../contexts/GoogleSheetProvider';
 import { useMediaQuery } from '@mui/material';
 
+import { SHEET_ID_BANNER } from "../constants";
+import { useGoogleSheet } from '../hooks/useGoogleSheet';
+
 
 // const ChangePart = ({setPartActive, partActive}) => (
 //     <Part>
@@ -33,6 +36,8 @@ import { useMediaQuery } from '@mui/material';
 const TokenPage = () => {
 	let history = useHistory();
 	const { data } = useContext(GoogleSheetContext)
+	const banners = useGoogleSheet(SHEET_ID_BANNER)
+	
 	const { address } = useParams()
 	const mobileMatches = useMediaQuery('(max-width:600px)');
 
@@ -77,8 +82,8 @@ const TokenPage = () => {
 				{mobileMatches ? <TokenHeaderMobile tokenData={tokenData} /> : <TokenHeader tokenData={tokenData} />}
 				{
 					mobileMatches &&
-					<Link_ target="_blank" href="#">
-						<Banner url={'https://i.postimg.cc/brcHXyyP/1111111111111.gif'} />
+					<Link_ target="_blank" href={banners.data[0]?.Link_Website}>
+						<Banner url={banners.data[0]?.Link_Banner} />
 					</Link_>
 				}
 				<TabsStyled setPartActive={setPartActive} partActive={partActive} data={tabs} />
@@ -86,7 +91,7 @@ const TokenPage = () => {
 				{
 					mobileMatches
 						?
-						<Button onClick={()=>{setOpenLeaveCommnet(true)}} size={'14px'} margin={'20px 10%'} height={'25px'} width={'80%'}>Leave a Comment</Button>
+						<Button onClick={() => { setOpenLeaveCommnet(true) }} size={'14px'} margin={'20px 10%'} height={'25px'} width={'80%'}>Leave a Comment</Button>
 						:
 						<LeaveComment />
 				}

@@ -20,7 +20,7 @@ import {Button} from "../../common";
 
 const PreSale = ({tokenData={}}) => {
     const participationLink = () => {
-        window.location.href = tokenData.Project_Presale_Link
+        window.open(tokenData.Project_Presale_Link, '_blank')
     }
     const {address} = useParams()
 
@@ -74,7 +74,7 @@ const PreSale = ({tokenData={}}) => {
                     <Flex>
                         <Block>
                             <Title>LIQUIDITY LOCK RATIO</Title>
-                            <Value>{tokenData.Project_Presale_LiqLock}</Value>
+                            <Value>{tokenData.Project_Presale_LiqLock}%</Value>
                         </Block>
                         <Block margin={'0 0 0 38px'}>
                             <Title>LIQUIDITY LOCK period</Title>

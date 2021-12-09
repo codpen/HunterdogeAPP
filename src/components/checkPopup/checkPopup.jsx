@@ -12,9 +12,9 @@ export const CheckPopup = ({setIsOpen, big = false, item={}}) => {
       <CloseButton onClick={() => {
         console.log('WTF');
       }}>X</CloseButton>
-             {item.Project_Address && <CheckLink href={`/token/${item.Project_Address}`}>Check Profile</CheckLink>}
-             {item.Project_Website && <CheckLink href={item.Project_Website}>Check Website</CheckLink>}
-             {item.Project_Presale_Link && <CheckLink href={item.Project_Presale_Link}>Check Pre-sale</CheckLink>}
+             {item.Project_Address && <CheckLink target={'_blank'} href={`/token/${item.Project_Address}`}>Check Profile</CheckLink>}
+             {item.Project_Website && <CheckLink target={'_blank'} href={item.Project_Website}>Check Website</CheckLink>}
+             {item.Project_Presale_Link && <CheckLink target={'_blank'} href={item.Project_Presale_Link}>Check Pre-sale</CheckLink>}
     </Modal>
   )
 }

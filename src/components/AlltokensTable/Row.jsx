@@ -26,6 +26,7 @@ import { bscWBNBContact } from '../../connection/contracts';
 import { styled } from '@mui/material/styles';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import NoLogoImage from '../../images/nologo.jpg'
 
 const tokenData = [
     { key: 'Project_ISKYC', text: 'KYC verified', image: <Kyc /> },
@@ -170,12 +171,12 @@ const Row = ({ data, index }) => {
                         <Typography variant="h6" sx={{ mr: '36px' }}>
                             {index + 1}.
                         </Typography>
-                        <Box component="img" src={data.Project_Logo} sx={{ width: '66px' }} />
+                        <Box component="img" src={data.Project_Logo || NoLogoImage} sx={{ width: '66px' }} />
                     </Stack>
                 </TableCell>
             }
             <TableCell style={{ textAlign: 'left', display: mobileMatches ? 'table-cell' : 'flex', alignItems: 'center' }}>
-                {!mobileMatches && <Box component="img" src={data.Project_Logo} sx={{ width: '20px', height: '20px', marginRight: '4px' }} />}
+                {!mobileMatches && <Box component="img" src={data.Project_Logo || NoLogoImage} sx={{ width: '20px', height: '20px', marginRight: '4px' }} />}
                 <LinkWrapper to={`/token/${data.Project_Address}`}>
                     <Stack>
                         <Typography variant="h5">

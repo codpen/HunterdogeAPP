@@ -43,7 +43,7 @@ const NewMenu = (props) => {
                 </a>
                 <WrappedButton onClick={onClickContact}>contact</WrappedButton>
                 <Flex>
-                    <WrappedLink to={'https://t.me/hunterdogeofficial'}>+ Submit your coin</WrappedLink>
+                    <WrappedLink to={{pathname: 'https://t.me/hunterdogeofficial'}}>+ Submit your coin</WrappedLink>
                     <ImageWrapper src={hunterdogeShadow} />
                 </Flex>
             </Wrapper>

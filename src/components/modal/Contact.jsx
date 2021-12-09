@@ -68,7 +68,7 @@ const ContactModal = ({ setIsOpen }) => {
             + "&subject=" + escape("Information")
             + "&body=" + escape(`${document.getElementById('Message').value} \n My e-mail: ${document.getElementById('Email').value}`);
 
-        window.location.href = link;
+        window.open(link, '_blank');
     }
 
     return (

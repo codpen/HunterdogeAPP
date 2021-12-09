@@ -204,6 +204,7 @@ export const Image = styled.img.attrs(props => ({
   width: ${({width}) => width};
   height: ${({height}) => height || '100%'};
   margin: ${({margin}) => margin || '0'};
+  cursor: pointer;
 `;
 
 export const Changes24 = styled.p`
