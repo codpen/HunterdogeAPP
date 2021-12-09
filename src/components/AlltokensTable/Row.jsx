@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Stack, TableCell, TableRow, Typography } from "@material-ui/core";
 import { Box } from "@mui/system";
-import logo from "../../images/hunter_logo.png";
 import { ReactComponent as Kyc } from "../../images/KYC.svg";
 import { ReactComponent as Audit } from "../../images/Audit.svg";
 import { ReactComponent as Utility } from "../../images/Utility.svg";
@@ -10,17 +9,12 @@ import { ReactComponent as Memecoin } from "../../images/Memecoin.svg";
 import arrowUp from "../../images/arrow-up.svg";
 import arrowDown from "../../images/arrow-down.svg";
 import { Changes24, Flex, Image, LinkWrapper, More } from "../common";
-import { useVotesPerProject } from "../../hooks/useVotesPerProject";
 import { Votes } from "../common/votes";
 import { getBalanceWBNB, getMCap, getPair, getVotesPerProject, toChecksumAddress } from '../../connection/functions'
-import { useHolders } from "../../hooks/useHolders";
 import { getHolders } from "../../utils/getHolders";
 import { getPrice24H } from "../../utils/getPrice24H";
-import { changeFormatter } from "../../utils/changeFormatter";
 import { getHolderPerDay } from "../../utils/getHolderPerDay";
-import { useWeb3React } from "@web3-react/core";
 import { useWallet } from "@binance-chain/bsc-use-wallet";
-import { Badges } from "../common/badges/Badges";
 import { usePrice } from '../../hooks/usePrice';
 import { bscWBNBContact } from '../../connection/contracts';
 import { styled } from '@mui/material/styles';
@@ -50,10 +44,7 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 const Row = ({ data, index }) => {
     const bnbPrice = usePrice(bscWBNBContact)
     const mobileMatches = useMediaQuery('(min-width:600px)');
-    // const { chainId } = useWeb3React()
     const { account, chainId } = useWallet();
-    // const {votes, error, isLoading} = useVotesPerProject(data.Project_Address)
-    // const holders = useHolders(data.Project_Address)
     const [price, setPrice] = useState(0)
     const [holders, setHolders] = useState(0)
     const [holdersPerDay, setHoldersPerDay] = useState(0)
@@ -186,28 +177,33 @@ const Row = ({ data, index }) => {
                             }
                         </Typography>
                         {mobileMatches &&
-                            <Stack direction="row" sx={{ gap: mobileMatches ? 2 : 1, mt: mobileMatches ? '14px' : '2px' }}>
+                            <Stack direction="row"
+                                sx={{ gap: mobileMatches ? 2 : 1, mt: mobileMatches ? '14px' : '2px' }}>
                                 {
                                     data.Project_ISKYC === 'TRUE' &&
-                                    <HtmlTooltip title={<React.Fragment><Typography>KYC verified</Typography></React.Fragment>}>
+                                    <HtmlTooltip
+                                        title={<React.Fragment><Typography>KYC verified</Typography></React.Fragment>}>
                                         <Kyc />
                                     </HtmlTooltip>
                                 }
                                 {
                                     data.Project_ISDOX === 'TRUE' &&
-                                    <HtmlTooltip title={<React.Fragment><Typography>Audited token</Typography></React.Fragment>}>
+                                    <HtmlTooltip
+                                        title={<React.Fragment><Typography>Audited token</Typography></React.Fragment>}>
                                         <Audit />
                                     </HtmlTooltip>
                                 }
                                 {
                                     data.Project_HasUtility === 'TRUE' &&
-                                    <HtmlTooltip title={<React.Fragment><Typography>Usecase token</Typography></React.Fragment>}>
+                                    <HtmlTooltip
+                                        title={<React.Fragment><Typography>Usecase token</Typography></React.Fragment>}>
                                         <Utility />
                                     </HtmlTooltip>
                                 }
                                 {
                                     data.Project_IsMemeCoin === 'TRUE' &&
-                                    <HtmlTooltip title={<React.Fragment><Typography>Meme token</Typography></React.Fragment>}>
+                                    <HtmlTooltip
+                                        title={<React.Fragment><Typography>Meme token</Typography></React.Fragment>}>
                                         <Memecoin />
                                     </HtmlTooltip>
                                 }
@@ -234,11 +230,6 @@ const Row = ({ data, index }) => {
             </TableCell>
             <TableCell>
                 <Stack>
-                    {/* <HtmlTooltip title={<React.Fragment><Typography>${price}</Typography></React.Fragment>}>
-                        <Typography variant="table">
-                            ${new Intl.NumberFormat('en-US').format(price.toFixed(4))}
-                        </Typography>
-                    </HtmlTooltip> */}
                     <Typography variant="table">
                         {mobileMatches && <label>${Number(price.toFixed(18))}</label>}
                         {!mobileMatches &&
@@ -252,9 +243,6 @@ const Row = ({ data, index }) => {
                 </Stack>
             </TableCell>
             <TableCell>
-                {/* <Typography variant="h6">
-                        HIGH
-                    </Typography> */}
                 <Typography variant="h6" sx={{ fontSize: 16, fontWeight: 600, color: "#16DF42" }}>
                     {mobileMatches && <label>{new Intl.NumberFormat('en-US').format(ratio)}%</label>}
                     {!mobileMatches &&

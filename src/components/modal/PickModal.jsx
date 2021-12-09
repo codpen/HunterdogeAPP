@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import Card from '@material-ui/core/Card';
-import { makeStyles } from "@material-ui/styles";
-import { Box } from "@mui/system";
-import { Typography } from "@material-ui/core";
+import React from 'react';
+import {makeStyles} from "@material-ui/styles";
+import {Box} from "@mui/system";
+import {Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import logo from '../../images/hunter_logo.png';
-import { useWeb3React } from "@web3-react/core";
 import styled from 'styled-components'
-import { Image } from '../common';
-import { useMediaQuery } from '@mui/material';
+import {Image} from '../common';
+import {useMediaQuery} from '@mui/material';
 
 const useStyles = makeStyles({
 

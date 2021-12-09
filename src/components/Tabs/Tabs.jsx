@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import close from '../../images/close_ico.svg';
-import { Box } from '@mui/system';
-import { useMediaQuery } from "@material-ui/core";
+import {Box} from '@mui/system';
+import {useMediaQuery} from "@material-ui/core";
 
 const TabsStyled = ({ setPartActive, partActive, data, closeTab }) => {
 	const mobileMatches = useMediaQuery('(max-width:600px)');

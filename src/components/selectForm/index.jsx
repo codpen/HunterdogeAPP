@@ -1,6 +1,6 @@
-import { FormControl, MenuItem, Select, TextField, Typography } from '@material-ui/core';
-import {  Button, InputAdornment, InputBase, Stack, IconButton, InputLabel } from '@mui/material';
-import { ReactComponent as IconSelect } from '../../images/select_ico.svg';
+import {FormControl, Select} from '@material-ui/core';
+import {InputLabel} from '@mui/material';
+import {ReactComponent as IconSelect} from '../../images/select_ico.svg';
 
 const SelectForm = ({label, children , defaultValue}) => {
   return(

@@ -1,25 +1,23 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Stack, Typography} from "@mui/material";
 import {Box} from "@mui/system";
 import styled from 'styled-components'
 
 import logo from '../../images/hunter_logo.png';
-import ConnectMetaMask from '../../connection/ConnectMetaMask';
 
 import {SHEET_ID_BANNER} from "../../constants";
-import { GoogleSheetContext } from '../../contexts/GoogleSheetProvider';
-import { useGoogleSheet } from '../../hooks/useGoogleSheet';
+import {useGoogleSheet} from '../../hooks/useGoogleSheet';
 import {Image, LinkWrapper} from "../../components/common";
 import likeDark from "../../images/like_dark.svg";
 import chart from "../../images/chart_ico.svg";
 import {getUserVotes, isManager, returnMembership} from "../../connection/functions";
-import {useWeb3React} from "@web3-react/core";
-import { useWallet } from "@binance-chain/bsc-use-wallet";
+import {useWallet} from "@binance-chain/bsc-use-wallet";
 import RegisterModal from '../../components/modal/RegisterModal';
 import {usePrice} from "../../hooks/usePrice";
 import {bscTokenContact} from '../../connection/contracts'
 import TokenEditModal from "../../components/modal/TokenEditModal/TokenEditModal";
 import ConnectWallet from '../../connection/ConnectWallet';
+
 const AdsToken = () => (
     <Stack direction="row"
            sx={{
@@ -111,11 +109,9 @@ const AdsToken = () => (
 )
 
 const Hero = ({setIsOpen, register}) => {
-    // const {account} = useWeb3React()
-    const { account, ethereum } = useWallet();
+    const {account, ethereum} = useWallet();
     const state = usePrice(bscTokenContact)
-    // const { data } = useContext(GoogleSheetContext)
-    const { data } = useGoogleSheet(SHEET_ID_BANNER)
+    const {data} = useGoogleSheet(SHEET_ID_BANNER)
     const [votes, setVotes] = useState(0)
     const [isModal, setIsModal] = useState(false)
     const [isTokenEditModal, setIsTokenEditModal] = useState(false)
@@ -133,8 +129,7 @@ const Hero = ({setIsOpen, register}) => {
         if (account) {
             getIsManager()
             call()
-        }
-        else setCheckManager(false)
+        } else setCheckManager(false)
     }, [account])
 
     return (
@@ -197,7 +192,7 @@ const Hero = ({setIsOpen, register}) => {
 
             <Container>
                 {/* <ConnectMetaMask setIsOpen={setIsOpen}/> */}
-                <ConnectWallet />
+                <ConnectWallet/>
                 {register ? (
                     <>
                         <Button
@@ -219,17 +214,17 @@ const Hero = ({setIsOpen, register}) => {
                         register
                     </Button>
                 )}
-                {checkManager && 
-                <Button
-                    onClick={() => setIsTokenEditModal(true)}
-                    fullWidth sx={{mt: 1.5}}>
-                    add your token
-                </Button>
+                {checkManager &&
+                    <Button
+                        onClick={() => setIsTokenEditModal(true)}
+                        fullWidth sx={{mt: 1.5}}>
+                        add your token
+                    </Button>
                 }
-               
+
             </Container>
             {isModal && <RegisterModal setIsOpen={setIsModal}/>}
-            {isTokenEditModal && <TokenEditModal setIsOpen={setIsTokenEditModal} tokenAddress={null} tokenData={null} />}
+            {isTokenEditModal && <TokenEditModal setIsOpen={setIsTokenEditModal} tokenAddress={null} tokenData={null}/>}
         </Block>
     )
 }

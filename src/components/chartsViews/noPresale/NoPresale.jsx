@@ -1,9 +1,8 @@
 import React from 'react';
-import {Grid, Typography} from "@material-ui/core";
+import {Grid, Link, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 import NoPresale from "../../../images/noPresale.png";
 import {Box} from "@mui/system";
-import {Link} from '@material-ui/core';
 import ConnectMetaMask from "../../../connection/ConnectMetaMask";
 
 const useStyles = makeStyles({

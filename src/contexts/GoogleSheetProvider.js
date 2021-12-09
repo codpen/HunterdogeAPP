@@ -1,6 +1,5 @@
 import React, { useState, createContext, useEffect } from "react"
 import  { GoogleSpreadsheet }  from 'google-spreadsheet';
-import { addProject, editProject } from '../connection/functions';
 import {CLIENT_EMAIL, PRIVATE_KEY, SHEET_ID, SPREADSHEET_ID } from "../constants";
 
 export const GoogleSheetContext = createContext({
@@ -33,7 +32,6 @@ const GoogleSheetContextProvider = (props) => {
                 if (key !== 'Project_Manager')  row[key] = tokenInfo[key]
             })            
             await row.save()
-            const res = await editProject(ethereum, tokenInfo, account) 
             return row
         }
         else {
@@ -42,7 +40,6 @@ const GoogleSheetContextProvider = (props) => {
                 if (key !== 'Project_Manager') rowData[key] = tokenInfo[key]
             })          
             const newRow = await sheet.addRow(rowData)
-            const res = await addProject(ethereum, tokenInfo, account)    
             return newRow
         }
     }

@@ -1,9 +1,8 @@
 import Web3 from "web3";
-import { bscMembershipContract, bscProjectContact, bscTokenContact, bscFactorContact, bscWBNBContact } from '../contracts'
+import { bscFactorContact, bscMembershipContract, bscProjectContact, bscTokenContact, bscWBNBContact } from '../contracts'
 import ABIMAIN from '../contracts/ABIMAIN.json'
 import PROJECTABI from '../contracts/PROJECTABI.json'
 import REGISTERABI from '../contracts/REGISTERABI.json'
-import ERC20ABI from '../contracts/ERC20_ABI.json'
 import ABIMCAP from '../contracts/MCAP.json'
 import FACTORYABI from '../contracts/FACTORYABI.json'
 import PAIRABI from '../contracts/PAIRABI.json'
@@ -20,8 +19,10 @@ export const getUserVotes = async (account) => {
 export const getVotesPerProject = async (address) => {
     const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
     try {
-        return await contract.methods.getVotesPerProject(address).call()
-
+        const isActive = await contract.methods.isActive(address).call()
+        if (isActive) {
+            return await contract.methods.getVotesPerProject(address).call()
+        }
     } catch (e) {
         console.warn('error', e)
     }
@@ -31,12 +32,12 @@ export const downVoteProject = async (ethereum, vote, account, address) => {
     const web3_ = new Web3(ethereum)
     const contract = new web3_.eth.Contract(PROJECTABI, bscProjectContact);
     try {
+
         await contract.methods
             .downVoteProject(vote, address)
             .send({ from: account })
-
     } catch (e) {
-        alert('The project is not registered');
+        alert('Voting failed - Ensure that you are Connected :)');
     }
 }
 
@@ -45,13 +46,12 @@ export const upVoteProject = async (ethereum, vote, account, address) => {
     const contract = new web3_.eth.Contract(PROJECTABI, bscProjectContact);
 
     try {
-
         await contract.methods
             .upVoteProject(vote, address)
             .send({ from: account })
 
     } catch (e) {
-        alert('The project is not registered');
+        alert('Voting failed - Ensure that you are Connected :)');
     }
 }
 
@@ -63,9 +63,8 @@ export const medVoteProject = async (ethereum, vote, account, address) => {
         await contract.methods
             .medVoteProject(vote, address)
             .send({ from: account })
-
     } catch (e) {
-        alert('The project is not registered');
+        alert('Voting failed - Ensure that you are Connected :)');
     }
 }
 
@@ -83,7 +82,7 @@ export const buyVotes = async (ethereum, account, amount) => {
         })
 }
 
-export const register = async (ethereum, account) => {
+export const approveTokens = async (ethereum, account) => {
     const web3_ = new Web3(ethereum)
     const amount = '115792089237316195423570985008687907853269984665640564039457584007913129639935'
     const contract = new web3_.eth.Contract(REGISTERABI, bscTokenContact);
@@ -151,39 +150,6 @@ export const isProjectManager = async (tokenAddress, account) => {
 export const isManager = async (account) => {
     const contract = new web3.eth.Contract(PROJECTABI, bscProjectContact);
     let res = await contract.methods.Managers(account).call()
-    return res
-}
-
-export const addProject = async (ethereum, tokenInfo, account) => {
-    const web3_ = new Web3(ethereum)
-    const contract = new web3_.eth.Contract(PROJECTABI, bscProjectContact);
-    const res = await contract.methods.addProject(
-        tokenInfo.Pproject_Name ? tokenInfo.Pproject_Name : '',
-        tokenInfo.Project_Symbol ? tokenInfo.Project_Symbol : '',
-        tokenInfo.Project_Logo ? tokenInfo.Project_Logo : '',
-        tokenInfo.Project_Website ? tokenInfo.Project_Website : '',
-        tokenInfo.Project_Telegram ? tokenInfo.Project_Telegram : '',
-        tokenInfo.Project_Twitter ? tokenInfo.Project_Twitter : '',
-        tokenInfo.Project_Address ? tokenInfo.Project_Address : '',
-        tokenInfo.Project_Manager ? tokenInfo.Project_Manager : ''
-    ).send({ from: account })
-    console.log('tx res-----', res)
-    return res
-}
-
-export const editProject = async (ethereum, tokenInfo, account) => {
-    const web3_ = new Web3(ethereum)
-    const contract = new web3_.eth.Contract(PROJECTABI, bscProjectContact);
-    const res = await contract.methods.editProject(
-        tokenInfo.Pproject_Name ? tokenInfo.Pproject_Name : '',
-        tokenInfo.Project_Symbol ? tokenInfo.Project_Symbol : '',
-        tokenInfo.Project_Logo ? tokenInfo.Project_Logo : '',
-        tokenInfo.Project_Website ? tokenInfo.Project_Website : '',
-        tokenInfo.Project_Telegram ? tokenInfo.Project_Telegram : '',
-        tokenInfo.Project_Twitter ? tokenInfo.Project_Twitter : '',
-        tokenInfo.Project_Address ? tokenInfo.Project_Address : '',
-    ).send({ from: account })
-    console.log('tx res-----', res)
     return res
 }
 

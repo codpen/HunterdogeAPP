@@ -1,5 +1,5 @@
-import { bscWBNBContact } from "../connection/contracts";
-
+import {bscWBNBContact} from "../connection/contracts";
+import {BQUERY_KEY} from "../constants";
 const url = "https://graphql.bitquery.io/";
 export const getPrice24H = async (address) => {
     let current = new Date();
@@ -46,7 +46,7 @@ export const getPrice24H = async (address) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "X-API-KEY": "BQYlaag0B0moE0ngSFGP03NLuffZ52sD"
+            "X-API-KEY": "${BQUERY_KEY}"
         },
         body: JSON.stringify({
             query

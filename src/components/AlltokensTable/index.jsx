@@ -1,31 +1,15 @@
-import {
-	Button,
-	Stack,
-	Tab,
-	Table,
-	TableBody,
-	TableCell,
-	TableContainer,
-	TableHead,
-	TableRow,
-	Tabs
-} from '@material-ui/core';
+import { Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs } from '@material-ui/core';
 import { Box } from '@mui/system';
-import info from '../../images/info_ico.svg';
 import React, { useContext, useEffect, useState } from 'react';
 import TabPanel from '../TabPanel'
 import Pagination from '../pagination/Pagination';
 import CheckboxShow from '../checkboxShow';
-import { SHEET_ID } from "../../constants";
 import Row from "./Row";
-import { Link } from "react-router-dom";
 import TabsStyled from '../Tabs/Tabs';
 import { paginate } from "../pagination/paginate";
 import { ModalContext } from '../../contexts/ModalProvider'
 import { GoogleSheetContext } from '../../contexts/GoogleSheetProvider';
-import { filter } from 'cheerio/lib/api/traversing';
-import { data } from 'cheerio/lib/api/attributes';
-import { getVotesPerProject, toChecksumAddress } from '../../connection/functions'
+import { toChecksumAddress } from '../../connection/functions'
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const fieldMap = {
@@ -49,12 +33,9 @@ const AllTokensTable = (isTitle) => {
 	const [value, setValue] = useState(0)
 	const { data } = useContext(GoogleSheetContext)
 	const [partActive, setPartActive] = useState(1)
-	//checkbox and pagination button
+
 	const [perPage, setPerPage] = useState(25)
 	const [page, setPage] = useState(1)
-
-	// const filterOneDay = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (24*60*60*1000))
-	// const filterWeek = data.filter(({Project_Create}) => Date.parse(Project_Create) >= new Date() - (7*24*60*60*1000))
 
 	const calcVotes = (item) => {
 		return parseInt(item.Project_Upvotes) * 2 + parseInt(item.Project_MedVotes) - parseInt(item.Project_Downvotes)
@@ -144,23 +125,32 @@ const AllTokensTable = (isTitle) => {
 							<TableHead>
 								<TableRow>
 									{mobileMatches && <TableCell>#Rank</TableCell>}
-									<TableCell sx={{ textAlign: 'left', fontSize: mobileMatches ? '16px' : '10px' }}>name</TableCell>
+									<TableCell sx={{
+										textAlign: 'left',
+										fontSize: mobileMatches ? '16px' : '10px'
+									}}>name</TableCell>
 									<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>Ticker</TableCell>
 									<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>MCAP</TableCell>
 									<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>Price</TableCell>
-									<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>Liq / Mcap<br /> Ratio</TableCell>
+									<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>Liq /
+										Mcap<br /> Ratio</TableCell>
 									<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>Holders</TableCell>
-									<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>&Oslash; Holder<br />growth per day</TableCell>
-									{mobileMatches && <TableCell sx={{ textAlign: 'left', fontSize: mobileMatches ? '16px' : '10px' }}>Votes</TableCell>}
-									{mobileMatches && <TableCell sx={{ textAlign: 'left', fontSize: mobileMatches ? '16px' : '10px' }}></TableCell>}
+									<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>&Oslash; Holder<br />growth
+										per day</TableCell>
+									{mobileMatches && <TableCell sx={{
+										textAlign: 'left',
+										fontSize: mobileMatches ? '16px' : '10px'
+									}}>Votes</TableCell>}
+									{mobileMatches && <TableCell sx={{
+										textAlign: 'left',
+										fontSize: mobileMatches ? '16px' : '10px'
+									}} />}
 								</TableRow>
 							</TableHead>
 							<TableBody>
-								{/* <TabPanel value={value} index={0}>
-									{data.map((row, index) => <Row key={index} index={index} data={row}/>)}
-								</TabPanel> */}
 								<TabPanel value={value} index={0}>
-									{currentData.newData.map((row, index) => <Row key={index} index={index} data={row} />)}
+									{currentData.newData.map((row, index) => <Row key={index} index={index}
+										data={row} />)}
 								</TabPanel>
 							</TableBody>
 						</Table>
@@ -169,7 +159,8 @@ const AllTokensTable = (isTitle) => {
 				<Stack direction="row" justifyContent="space-between" sx={{ mt: 3, px: 2 }}>
 					{mobileMatches && <CheckboxShow perPage={perPage} handleCheck={setPerPage} />}
 					{!mobileMatches && <div></div>}
-					<Pagination start={currentData.currentPage} end={currentData.endPage} pageHandler={setPage} page={page} />
+					<Pagination start={currentData.currentPage} end={currentData.endPage} pageHandler={setPage}
+						page={page} />
 				</Stack>
 			</Box>
 		</Stack>

@@ -1,19 +1,13 @@
-import { useState, useEffect } from 'react';
-import {Collapse, Stack, TableCell, TableRow, Typography, Table} from "@material-ui/core";
+import {useState} from 'react';
+import {Collapse, Stack, TableCell, TableRow, Typography} from "@material-ui/core";
 import {Box} from "@mui/system";
-import logo from "../../images/hunter_logo.png";
-import {Button, Flex, LinkWrapper, More} from "../common";
-import {useVotesPerProject} from "../../hooks/useVotesPerProject";
+import {Button, Flex, LinkWrapper} from "../common";
 import styled from "styled-components";
-import {Votes} from "../common/votes";
-import { CheckPopup } from '../checkPopup/checkPopup';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Bsc from "../../images/table/bscscan.svg";
 import Telegram from "../../images/table/telegram.svg";
 import Twitter from "../../images/table/twitter.svg";
 import Dx from "../../images/table/dx.svg";
-import { TableBody, TableHead } from '@mui/material';
-import { mobileVendor } from 'react-device-detect';
 import NoLogoImage from '../../images/nologo.jpg'
 
 const Row = ({data, index}) => {

@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Card from '@material-ui/core/Card';
-import { makeStyles } from "@material-ui/styles";
-import { Box } from "@mui/system";
-import { Typography, useMediaQuery } from "@material-ui/core";
+import {makeStyles} from "@material-ui/styles";
+import {Box} from "@mui/system";
+import {Typography, useMediaQuery} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import { isMember, register, membership, membershipCosts } from "../../connection/functions";
-import { useWeb3React } from "@web3-react/core";
 import styled from 'styled-components'
 
 const useStyles = makeStyles({
@@ -43,8 +41,8 @@ const useStyles = makeStyles({
 		width: ({ isMobile }) => isMobile ? '30px' : '68px',
 		height: ({ isMobile }) => isMobile ? '25px' : '51px',
 		fontWeight: 'bold',
-		fontSize: ({ isMobile }) => isMobile ? '1.65em' : '2.5em',
-		lineHeight: ({ isMobile }) => isMobile ? '1.65em' : '2.5em',
+		fontSize: ({isMobile})=> isMobile ? '1.65em' : '2em',
+		lineHeight: ({isMobile})=> isMobile ? '1.65em' : '2em',
 		borderRadius: '50%',
 		border: 'transparent',
 		backgroundColor: '#000',

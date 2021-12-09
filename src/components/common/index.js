@@ -17,7 +17,7 @@ export const Link_ = styled(Link)`
   transition: 0.4s;
 
   &:hover {
-    color: #AB882E;
+    color: #282c34;
   }
 `
 

@@ -1,17 +1,15 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom'
 import styled from "styled-components";
 
 import NoPresaleView from "../components/chartsViews/noPresale/NoPresale";
 import LiveChart from "../components/chartsViews/liveChart/LiveChart";
-import Comments from "../components/comments/";
 import TokenInformation from "../components/chartsViews/tokenInformation/TokenInformation";
 import PreSale from "../components/chartsViews/upcomingPreSale/Presale";
-import { useWeb3React } from "@web3-react/core";
 import { useWallet } from "@binance-chain/bsc-use-wallet";
 import TokenHeader from "../components/tokenInformationHeader/TokenHeader";
 import TokenHeaderMobile from "../components/tokenInformationHeader/TokenHeaderMobile";
-import { Button, Flex } from "../components/common/index";
+import { Button } from "../components/common/index";
 import PopularPreSales from "../components/popularPreSales";
 import TabsStyled from '../components/Tabs/Tabs';
 import LeaveComment from '../components/LeaveComment';
@@ -23,21 +21,11 @@ import { SHEET_ID_BANNER } from "../constants";
 import { useGoogleSheet } from '../hooks/useGoogleSheet';
 
 
-// const ChangePart = ({setPartActive, partActive}) => (
-//     <Part>
-//         <span className={partActive === 1 ? 'active' : ''} onClick={() => setPartActive(1)}>chart & stats</span>
-//         <Divider/>
-//         <span className={partActive === 2 ? 'active' : ''} onClick={() => setPartActive(2)}>token information</span>
-//         <Divider/>
-//         <span className={partActive === 3 ? 'active' : ''} onClick={() => setPartActive(3)}>upcoming pre-sale</span>
-//     </Part>
-// )
-// <Index />
 const TokenPage = () => {
 	let history = useHistory();
 	const { data } = useContext(GoogleSheetContext)
 	const banners = useGoogleSheet(SHEET_ID_BANNER)
-	
+
 	const { address } = useParams()
 	const mobileMatches = useMediaQuery('(max-width:600px)');
 
@@ -87,11 +75,14 @@ const TokenPage = () => {
 					</Link_>
 				}
 				<TabsStyled setPartActive={setPartActive} partActive={partActive} data={tabs} />
-				{partActive === 1 ? <LiveChart tokenData={tokenData} /> : partActive === 2 ? <TokenInformation tokenData={tokenData} /> : isPresale}
+				{partActive === 1 ? <LiveChart tokenData={tokenData} /> : partActive === 2 ?
+					<TokenInformation tokenData={tokenData} /> : isPresale}
 				{
 					mobileMatches
 						?
-						<Button onClick={() => { setOpenLeaveCommnet(true) }} size={'14px'} margin={'20px 10%'} height={'25px'} width={'80%'}>Leave a Comment</Button>
+						<Button onClick={() => {
+							setOpenLeaveCommnet(true)
+						}} size={'14px'} margin={'20px 10%'} height={'25px'} width={'80%'}>Leave a Comment</Button>
 						:
 						<LeaveComment />
 				}
@@ -127,8 +118,9 @@ const Edit = styled(Link)`
   text-transform: uppercase;
   color: #B78300;
   transition: 0.4s;
-  
+
   margin-right: 30px;
+
   &:hover {
     color: #d5b562;
   }
@@ -161,17 +153,12 @@ const Part = styled.div`
     text-transform: uppercase;
     color: #B78300;
     cursor: pointer;
-    
+
     transition: 0.4s;
 
     &:hover {
       color: #d5b562;
     }
-    //
-    //&:active {
-    //  font-weight: bold;
-    //}
-
     &.active {
       font-weight: bold;
     }

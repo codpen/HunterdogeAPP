@@ -1,12 +1,11 @@
-import { FormControl, MenuItem, Select, TextField, Typography } from '@material-ui/core';
-import { Button, InputAdornment, InputBase, Stack, IconButton, InputLabel } from '@mui/material';
-import { useContext, useEffect, useState } from 'react';
+import {MenuItem, Typography} from '@material-ui/core';
+import {Button, Stack} from '@mui/material';
+import {useContext, useState} from 'react';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { ReactComponent as IconSelect } from '../../images/select_ico.svg';
 import ButtonCheckbox from '../buttonCheckbox';
 import SelectForm from '../selectForm';
-import { ModalContext } from '../../contexts/ModalProvider';
-import { useHistory } from "react-router-dom";
+import {ModalContext} from '../../contexts/ModalProvider';
+import {useHistory} from "react-router-dom";
 
 const marketCap = [
   { value: 'mcap', label: 'Market Cap' },

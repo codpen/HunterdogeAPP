@@ -4,7 +4,7 @@ import logo from '../../images/hunter_logo.png';
 import dots from '../../images/dots.png';
 import up from '../../images/arr_up.png';
 import down from '../../images/arr_down.png';
-import { Button, Flex, Image } from '../common';
+import {Button, Flex, Image} from '../common';
 
 const Comment = ({show}) => {
     const report = () => console.log('report')

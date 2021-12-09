@@ -1,26 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { Stack, TableCell, TableRow, Typography } from "@material-ui/core";
-import { Box } from "@mui/system";
+import React, {useEffect, useState} from 'react';
+import {Stack, TableCell, TableRow, Typography} from "@material-ui/core";
+import {Box} from "@mui/system";
 import styled from "styled-components";
-import logo from "../../images/hunter_logo.png";
 
-import { ReactComponent as Kyc } from "../../images/KYC.svg";
-import { ReactComponent as Audit } from "../../images/Audit.svg";
-import { ReactComponent as Utility } from "../../images/Utility.svg";
-import { ReactComponent as Memecoin } from "../../images/Memecoin.svg";
+import {ReactComponent as Kyc} from "../../images/KYC.svg";
+import {ReactComponent as Audit} from "../../images/Audit.svg";
+import {ReactComponent as Utility} from "../../images/Utility.svg";
+import {ReactComponent as Memecoin} from "../../images/Memecoin.svg";
 
 import arrowUp from "../../images/arrow-up.svg";
-import { Changes24, Flex, Image, LinkWrapper, More } from "../common";
-import { useVotesPerProject } from "../../hooks/useVotesPerProject";
-import { Votes } from "../common/votes";
-import { getMCap, getVotesPerProject } from '../../connection/functions'
-import { CheckPopup } from '../checkPopup/checkPopup';
+import {Changes24, Flex, Image, LinkWrapper, More} from "../common";
+import {Votes} from "../common/votes";
+import {getMCap, getVotesPerProject} from '../../connection/functions'
+import {CheckPopup} from '../checkPopup/checkPopup';
 import arrowDown from "../../images/arrow-down.svg";
-import { getPrice24H } from "../../utils/getPrice24H";
-import { changeFormatter } from "../../utils/changeFormatter";
-import { useWeb3React } from "@web3-react/core";
-import { useWallet } from "@binance-chain/bsc-use-wallet";
-import { Badges } from "../common/badges/Badges";
+import {useWallet} from "@binance-chain/bsc-use-wallet";
+import {Badges} from "../common/badges/Badges";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import NoLogoImage from '../../images/nologo.jpg'
 
@@ -56,7 +51,7 @@ const Row = ({ data, index }) => {
             }
             const res = await getVotesPerProject(data.Project_Address)
             try {
-                setVotes(parseInt(res[0]) * 2 + parseInt(res[1]) - parseInt(res[2]))
+                setVotes(parseInt(res[0]) * 2 + parseInt(res[2]) - parseInt(res[1]))
             } catch (e) {
                 console.log(e)
             }

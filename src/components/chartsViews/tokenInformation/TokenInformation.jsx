@@ -1,19 +1,18 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import { makeStyles } from "@material-ui/styles";
-import { useParams } from 'react-router-dom';
 import {
     ContentWrapper,
     DescText,
     DescTextWrapper,
-    HeadTitle,
     HeadSubTitle,
+    HeadTitle,
     RightContent,
     Upcoming,
     Wrapper
 } from "./TokenInfoStyled";
-import { Button } from "../../common";
-import { Title, Value } from "../upcomingPreSale/PreSaleStyled";
-import { useMediaQuery } from '@material-ui/core';
+import {Button} from "../../common";
+import {Title, Value} from "../upcomingPreSale/PreSaleStyled";
+import {useMediaQuery} from '@material-ui/core';
 
 const useStyles = makeStyles({
 	root: {
@@ -36,7 +35,6 @@ const useStyles = makeStyles({
 });
 
 const TokenInformation = ({ tokenData = {} }) => {
-    const { address } = useParams();
     const mobileMatches = useMediaQuery('(max-width:600px)');
     const classes = useStyles({ isMobile: mobileMatches });
 

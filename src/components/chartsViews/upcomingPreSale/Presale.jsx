@@ -1,6 +1,7 @@
 import React from 'react';
-import {HeadTitle, RightContent,} from "../tokenInformation/TokenInfoStyled";
+import { HeadTitle, RightContent, } from "../tokenInformation/TokenInfoStyled";
 import { useParams } from 'react-router-dom'
+import { Timer } from 'react-compound-timerv2'
 import {
     Banner,
     BannerWrapper,
@@ -16,13 +17,15 @@ import {
     Wrapper
 } from './PreSaleStyled'
 
-import {Button} from "../../common";
+import { Button } from "../../common";
 
-const PreSale = ({tokenData={}}) => {
+const PreSale = ({ tokenData = {} }) => {
     const participationLink = () => {
         window.open(tokenData.Project_Presale_Link, '_blank')
     }
-    const {address} = useParams()
+    const { address } = useParams()
+    const starTime = (new Date(tokenData.Project_Presale_Start)).valueOf() - (new Date()).valueOf()
+    const endTime = (new Date(tokenData.Project_Presale_Start)).valueOf() - (new Date()).valueOf()
 
     return (
         <Wrapper>
@@ -36,8 +39,22 @@ const PreSale = ({tokenData={}}) => {
                     </Banner>
                     <Flex direction={'column'} content='center'>
                         <Flex items='center' margin={'0 0 20px 17px'}>
-                            <Value margin={'0 21px 0 0'} weight={'500'} size={'21px'}>Token sale starts in:</Value>
-                            <Text>13 d 24 h 50 min</Text>
+                            <Value margin={'0 21px 0 0'} weight={'500'} size={'21px'}>Token sale {starTime > 0 ? 'starts' : 'finishs'} in:</Value>
+                            <Text>
+                                <Timer
+                                    direction={'backward'}
+                                    initialTime={starTime > 0 ? starTime : endTime}
+                                    lastUnit={'m'}
+                                >
+                                    {() => (
+                                        <React.Fragment>
+                                            <Timer.Days /> d
+                                            <Timer.Hours /> h
+                                            <Timer.Minutes /> m
+                                        </React.Fragment>
+                                    )}
+                                </Timer>
+                            </Text>
                         </Flex>
                         <Button width={'277px'}>report this token to staff</Button>
                     </Flex>

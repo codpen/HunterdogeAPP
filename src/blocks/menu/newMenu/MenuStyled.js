@@ -58,6 +58,13 @@ export const Flex = styled.div`
   }
 `
 
+export const SmallWrappedButton = styled(Button)`
+  font-size: 12px;
+  border-radius: 6px;
+  color: black;
+  
+`
+
 export const WrappedButton = styled(Button)`
   font-size: 17px;
   max-width: 270px;

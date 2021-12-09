@@ -1,11 +1,11 @@
-import { useWallet } from '@binance-chain/bsc-use-wallet';
-import { makeStyles } from '@material-ui/styles';
-import { Card, Input, Stack, Typography } from '@mui/material';
-import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
-import React, { useState } from 'react';
+import {useWallet} from '@binance-chain/bsc-use-wallet';
+import {makeStyles} from '@material-ui/styles';
+import {Card, Input, Stack} from '@mui/material';
+import Tooltip, {tooltipClasses} from '@mui/material/Tooltip';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import logo from '../../images/hunter_logo.png';
-import { Button, Flex, Image, Text } from '../common';
+import {Button, Flex, Image} from '../common';
 import PickModal from './PickModal';
 
 const HtmlTooltip = styled(({ className, ...props }) => (

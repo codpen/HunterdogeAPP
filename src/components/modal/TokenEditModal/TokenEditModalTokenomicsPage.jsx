@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from "@material-ui/styles";
 import {Box} from "@mui/system";
-import {Typography, Grid, InputBase} from "@material-ui/core";
-import styled from 'styled-components';
+import {Grid, InputBase} from "@material-ui/core";
 
 const useStyles = makeStyles({
     inputRow: {

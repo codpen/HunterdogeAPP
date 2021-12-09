@@ -1,26 +1,13 @@
-import React, { useState, useMemo } from 'react';
-import {
-    Button,
-    Stack,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Typography
-} from '@material-ui/core';
+import React, {useMemo, useState} from 'react';
+import {Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@material-ui/core';
 import styled from "styled-components";
-import { Box } from '@mui/system';
-import logo from '../../images/hunter_logo.png';
-import { ButtonGreen, ButtonRed, ButtonYellow, More, VoteWrapper } from '../common'
-import { SHEET_ID_PRESALES } from "../../constants";
-import { useGoogleSheet } from '../../hooks/useGoogleSheet';
+import {Box} from '@mui/system';
+import {SHEET_ID_PRESALES} from "../../constants";
+import {useGoogleSheet} from '../../hooks/useGoogleSheet';
 import Row from "./Row";
 import TabsStyled from '../Tabs/Tabs';
-import info from '../../images/info_ico.svg';
 import Pagination from "../pagination/Pagination";
-import { paginate } from "../pagination/paginate";
+import {paginate} from "../pagination/paginate";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const tabs = [

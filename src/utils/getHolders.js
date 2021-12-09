@@ -1,7 +1,8 @@
+import {BQUERY_KEY} from "../constants";
 
 const url = "https://graphql.bitquery.io/";
 export const getHolders = async (address) => {
-    let a = new Date(	"2020-06-08");
+    let a = new Date("2020-06-08");
     let b = new Date();
 
     const query = ` 
@@ -34,7 +35,7 @@ export const getHolders = async (address) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "X-API-KEY": "BQYlaag0B0moE0ngSFGP03NLuffZ52sD"
+            "X-API-KEY": "${BQUERY_KEY}"
         },
         body: JSON.stringify({
             query

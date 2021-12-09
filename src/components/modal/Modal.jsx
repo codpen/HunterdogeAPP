@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { buyVotes, register, votePrice } from "../../connection/functions";
-import { useWeb3React } from "@web3-react/core";
-import { useWallet } from "@binance-chain/bsc-use-wallet";
+import { buyVotes, votePrice, approveTokens } from "../../connection/functions";
 import { Button, Flex, Image } from "../common";
 import { CloseButton, ImageWrapper, ModalCard, Text, Title, VotesWrapper, Wrapper } from "./StyledModal";
+import {useWallet} from "@binance-chain/bsc-use-wallet";
+
 import assets from '../../images/cryptoAsset.svg'
 import { Typography } from '@mui/material';
 import { useMediaQuery } from '@material-ui/core';
@@ -38,9 +38,10 @@ const Modal = ({ setIsOpen }) => {
         }
     }
 
-    const approve = async () => {
+    const approve = async (votes) => {
         if (account) {
-            await register(ethereum, account)
+            await approveTokens(ethereum, account)
+            await buyVotes(ethereum, account, votes)
         } else {
             alert('You need to connect wallet')
         }
@@ -62,7 +63,7 @@ const Modal = ({ setIsOpen }) => {
                             <Text size={mobileMatches ? '0.8em' :'1.2em'} style={{minWidth: (mobileMatches ? '50px' : '100px')}}>
                                 {item.value}
                             </Text>
-                            <Button size={mobileMatches ? '0.8em' :'1.15em'} weight={'800'} margin={'0 0 0 61px'} width={mobileMatches ? '80px' : '200px'} onClick={() => approve()} bg={'#DB3E6DCF'}>Approve</Button>
+                            <Button size={mobileMatches ? '0.8em' :'1.15em'} weight={'800'} margin={'0 0 0 61px'} width={mobileMatches ? '80px' : '200px'} onClick={() => approve(item.votes)} bg={'#DB3E6DCF'}>Approve</Button>
                             <Button size={mobileMatches ? '0.8em' :'1.15em'} weight={'800'} margin={'0 0 0 61px'} width={mobileMatches ? '80px' : '200px'} onClick={() => buy(item.votes)}>Buy now</Button>
                             <Typography variant="body2" sx={{fontSize: mobileMatches ? '0.9em' : '1.4em', ml: '10px'}}>
                                 = {Number(item.votes * voteCost)} $HD

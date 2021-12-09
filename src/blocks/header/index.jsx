@@ -1,8 +1,3 @@
-import {useEffect, useState} from 'react';
-import {Box} from "@mui/system";
-import Stack from "@mui/material/Stack";
-// import {styled} from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import styled from 'styled-components'
 
 import BlockHunt from '../../components/blockHunt'
