@@ -55,9 +55,7 @@ const TokenInformation = ({ tokenData = {} }) => {
                 <Title className={classes.label}>MAX SUPPLY</Title>
                 <Value className={classes.value}>{new Intl.NumberFormat('en-US').format(tokenData?.Project_Token_Max)}</Value>
                 <Title className={classes.label}>BURN SUPPLY</Title>
-                <Value className={classes.value}>{new Intl.NumberFormat('en-US').format(tokenData?.Project_Token_Burn)}</Value>
-                <Title className={classes.label}>PRE-SALE SUPPLY</Title>
-                <Value className={classes.value}>{new Intl.NumberFormat('en-US').format(tokenData?.Project_Token_PreSale)}</Value>
+                <Value className={classes.value}>{new Intl.NumberFormat('en-US').format(tokenData?.Project_Token_Burn)}%</Value>
                 <Title className={classes.label}>TEAM TOKENS IN % OF MAX SUPPLY</Title>
                 <Value className={classes.value}>{tokenData?.Project_Token_Team}</Value>
                 <Title className={classes.label}>LIQUIDITY LOCK DATE</Title>

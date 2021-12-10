@@ -11,13 +11,16 @@ import {ReactComponent as Memecoin} from "../../images/Memecoin.svg";
 import arrowUp from "../../images/arrow-up.svg";
 import {Changes24, Flex, Image, LinkWrapper, More} from "../common";
 import {Votes} from "../common/votes";
-import {getMCap, getVotesPerProject} from '../../connection/functions'
+import {getMCap, getVotesPerProject, toChecksumAddress} from '../../connection/functions'
 import {CheckPopup} from '../checkPopup/checkPopup';
 import arrowDown from "../../images/arrow-down.svg";
 import {useWallet} from "@binance-chain/bsc-use-wallet";
 import {Badges} from "../common/badges/Badges";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import NoLogoImage from '../../images/nologo.jpg'
+import { useBNBPrice } from '../../hooks/useBNBPrice';
+import { bscWBNBContact } from '../../connection/contracts';
+import { getPrice } from '../../utils/getPrice';
 
 const Row = ({ data, index }) => {
     // const {chainId} = useWeb3React()
@@ -28,6 +31,7 @@ const Row = ({ data, index }) => {
     const [isOpen, setIsOpen] = useState(false)
     const [change24h, setChange24h] = useState()
     const [votes, setVotes] = useState(0)
+    const bnbPrice = useBNBPrice(bscWBNBContact)
     const mobileMatches = useMediaQuery('(min-width:600px)');
 
     const tokenData = [
@@ -37,17 +41,11 @@ const Row = ({ data, index }) => {
         { key: 'Project_IsMemeCoin', text: 'Meme token', image: mobileMatches ? <Memecoin /> : <Memecoin width='12px' height='12px' /> }]
 
     useEffect(() => {
-        const fetchSheet = async () => {
-            try {
-                await fetch(`https://api.pancakeswap.info/api/v2/tokens/${data.Project_Address}`)
-                    .then((response) => {
-                        return response.json();
-                    })
-                    .then((data) => {
-                        setPrice((+data.data.price).toFixed(4))
-                    });
-            } catch (e) {
-                console.warn(e)
+        const fetchData = async () => {
+            const address = toChecksumAddress(data.Project_Address)
+            if (bnbPrice.price && data.Project_Address) {
+                const price = await getPrice(address, true)
+                setPrice((price * bnbPrice.price))
             }
             const res = await getVotesPerProject(data.Project_Address)
             try {
@@ -56,8 +54,8 @@ const Row = ({ data, index }) => {
                 console.log(e)
             }
         };
-        fetchSheet()
-    }, [data])
+        fetchData()
+    }, [data, bnbPrice.price])
 
     useEffect(() => {
         const getMarketCap = async () => {

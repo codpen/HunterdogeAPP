@@ -26,9 +26,9 @@ import {
     Wrapper,
     WrapperBadges
 } from './TokeHeaderStyled'
-import {Button, Flex, Image, Link_, LinkWrapper} from '../common'
-import {Votes} from "../common/votes";
-import {getMCap, getName, getSymbol, getVotesPerProject, isProjectManager} from '../../connection/functions'
+import { Button, Flex, Image, Link_, LinkWrapper } from '../common'
+import { Votes } from "../common/votes";
+import { getMCap, getName, getSymbol, getVotesPerProject, isProjectManager } from '../../connection/functions'
 import Telegram from "../../images/table/telegram.svg";
 import Twitter from "../../images/table/twitter.svg";
 import Instagram from "../../images/insta.svg";
@@ -42,12 +42,14 @@ import { ReactComponent as Utility1 } from "../../images/Utility_ns.svg";
 import { ReactComponent as Memecoin1 } from "../../images/Memecoin_ns.svg";
 
 import TokenEditModal from "../modal/TokenEditModal/TokenEditModal";
-import {getHolderPerDay} from '../../utils/getHolderPerDay';
+import { getHolderPerDay } from '../../utils/getHolderPerDay';
+import { getPrice } from '../../utils/getPrice';
+import { useBNBPrice } from '../../hooks/useBNBPrice';
 
 const TokenHeader = ({ tokenData = {} }) => {
     const { address } = useParams()
     // const { account } = useWeb3React()
-    const {account, chainId} = useWallet();
+    const { account, chainId } = useWallet();
     const [isTokenEditModal, setIsTokenEditModal] = useState(false)
     const [checkProjectManager, setCheckProjectManager] = useState(false)
     const [price, setPrice] = useState(0)
@@ -58,6 +60,7 @@ const TokenHeader = ({ tokenData = {} }) => {
     const [openBadges, setOpenBadges] = useState(false)
     const [openInfo, setOpenInfo] = useState(false)
     const [holdersPerDay, setHoldersPerDay] = useState(0)
+    const bnbPrice = useBNBPrice(account)
 
     const visitWebsite = () => {
         if (tokenData.Project_Website) {
@@ -66,12 +69,18 @@ const TokenHeader = ({ tokenData = {} }) => {
     }
 
     useEffect(async () => {
-        try {
-            const data = await fetch(`https://api.pancakeswap.info/api/v2/tokens/${address}`)
-            setPrice((+data.data.price).toFixed(4))
-        } catch (e) {
-            console.warn(e)
+        if(bnbPrice.price) {
+            const tokenPrice = await getPrice(address, true)
+            if(tokenPrice) {
+                const mcap = await getMCap(address, tokenPrice * bnbPrice.price)
+                setPrice(tokenPrice * bnbPrice.price)
+                setMCap(mcap)
+            }
+    
         }
+    }, [bnbPrice])
+
+    useEffect(async () => {
 
         const res = await getVotesPerProject(address)
         try {
@@ -98,15 +107,6 @@ const TokenHeader = ({ tokenData = {} }) => {
         else setCheckProjectManager(false)
     }, [account])
 
-    useEffect(() => {
-        const getMarketCap = async () => {
-            const mcap = await getMCap(address, price)
-            console.log(mcap)
-            setMCap(mcap)
-        }
-        getMarketCap()
-    }, [price])
-
 
     const handleBadges = () => {
         setOpenBadges(true)
@@ -125,7 +125,7 @@ const TokenHeader = ({ tokenData = {} }) => {
     const bscScan = () => {
         window.open(`https://bscscan.com/address/${address}`, '_blank')
     };
-    
+
     const goToExternal = (url) => {
         window.open(url, '_blank');
     }
@@ -148,10 +148,10 @@ const TokenHeader = ({ tokenData = {} }) => {
                 <WrapperBadges>
                     {tokenData.Project_ISKYC === 'TRUE' &&
                         //    <Image src={Kyc}/>
-                        <Kyc1/>
+                        <Kyc1 />
                     }
                     {tokenData.Project_ISDOX === 'TRUE' &&
-                        <Audit1/>
+                        <Audit1 />
                         // <Image src={Audit}/>
                     }
                     {tokenData.Project_HasUtility === 'TRUE' &&
@@ -160,7 +160,7 @@ const TokenHeader = ({ tokenData = {} }) => {
                     }
                     {tokenData.Project_IsMemeCoin === 'TRUE' &&
                         // <Image src={Memecoin}/>
-                        <Memecoin1/>
+                        <Memecoin1 />
                     }
                 </WrapperBadges>
                 {/* <Flex margin={'15px 0 20px 0'}>
@@ -180,7 +180,7 @@ const TokenHeader = ({ tokenData = {} }) => {
             <InfoWrapper>
                 {!checkProjectManager &&
                     <Text cursor={'pointer'} size={'16px'} weight={'700'} margin={'0 0 21px auto'} color={'#B78300'}
-                          onClick={handleInfo}>
+                        onClick={handleInfo}>
                         + edit your token information
                         {openInfo && <Popup height={'66px'} width={'353px'} left={'290px'}>
                             <TextPopup color="rgba(171, 136, 46, 0.7)" fw={700} lh={'15px'}>Connect the manager wallet
@@ -200,7 +200,7 @@ const TokenHeader = ({ tokenData = {} }) => {
                     <Flex>
                         <Image height={'29px'} src={Like} />
                         <Text margin={'0 0 0 7px'} size={'24px'}>{votes}</Text>
-                        <Votes big={true} address={address}/>
+                        <Votes big={true} address={address} />
                     </Flex>
                 </Flex>
                 <Inner>
@@ -212,35 +212,35 @@ const TokenHeader = ({ tokenData = {} }) => {
                         <Flex items='flex-start' direction='column'>
                             <Flex>
                                 <Text>BSC</Text>
-                                <Image src={bnbLogo} margin={'0 0 0 7px'}/>
+                                <Image src={bnbLogo} margin={'0 0 0 7px'} />
                                 <Button disabled={!address} onClick={bscScan} bg={'rgba(255, 218, 1, 0.33)'}
-                                        color={'#B78300'} weight={700} margin={'0 79px 0 29px'} width={'116px'}
-                                        border={'1.3px solid rgba(183, 131, 0, 0.5)'}>BSC-SCAN</Button>
+                                    color={'#B78300'} weight={700} margin={'0 79px 0 29px'} width={'116px'}
+                                    border={'1.3px solid rgba(183, 131, 0, 0.5)'}>BSC-SCAN</Button>
                                 <SocialWrapper>
                                     <LinkStyled
                                         href={tokenData.Project_Telegram}
                                         disabled={!tokenData.Project_Telegram}
-                                        target="_blank"><Image src={Telegram} width={'19px'}/></LinkStyled>
+                                        target="_blank"><Image src={Telegram} width={'19px'} /></LinkStyled>
                                     <LinkStyled
                                         href={tokenData.Project_Twitter}
                                         disabled={!tokenData.Project_Twitter}
-                                        target="_blank"><Image src={Twitter} width={'18px'}/></LinkStyled>
+                                        target="_blank"><Image src={Twitter} width={'18px'} /></LinkStyled>
                                     <LinkStyled
                                         href={tokenData.Project_Instagram}
                                         disabled={!tokenData.Project_Instagram}
-                                        target="_blank"><Image src={Instagram} width={'18px'}/></LinkStyled>
+                                        target="_blank"><Image src={Instagram} width={'18px'} /></LinkStyled>
                                     <LinkStyled
                                         href={tokenData.Project_Reddit}
                                         disabled={!tokenData.Project_Reddit}
-                                        target="_blank"><Image src={Reddit} width={'19px'}/></LinkStyled>
+                                        target="_blank"><Image src={Reddit} width={'19px'} /></LinkStyled>
                                     <LinkStyled
                                         href={tokenData.Project_Medium}
                                         disabled={!tokenData.Project_Medium}
-                                        target="_blank"><Image src={Medium} width={'19px'}/></LinkStyled>
+                                        target="_blank"><Image src={Medium} width={'19px'} /></LinkStyled>
                                     <LinkStyled
                                         href={tokenData.Project_Discord}
                                         disabled={!tokenData.Project_Discord}
-                                        target="_blank"><Image src={Discord} width={'22px'}/></LinkStyled>
+                                        target="_blank"><Image src={Discord} width={'22px'} /></LinkStyled>
                                 </SocialWrapper>
                             </Flex>
 
@@ -251,7 +251,7 @@ const TokenHeader = ({ tokenData = {} }) => {
                         <Card>
                             <IcoWrapper><Image src={TokenPrice} /></IcoWrapper>
                             <span>token price</span>
-                            <CardInfo mt={'20px'}>${Number(price)}</CardInfo>
+                            <CardInfo mt={'20px'}>${Number(price.toFixed(8))}</CardInfo>
                         </Card>
                         <Card>
                             <IcoWrapper mt={'-16px'} height={'88px'}><Image src={MarketCap} /></IcoWrapper>
@@ -267,7 +267,7 @@ const TokenHeader = ({ tokenData = {} }) => {
                 </Inner>
             </InfoWrapper>
             {isTokenEditModal && checkProjectManager &&
-                <TokenEditModal setIsOpen={setIsTokenEditModal} tokenAddress={address} tokenData={tokenData}/>}
+                <TokenEditModal setIsOpen={setIsTokenEditModal} tokenAddress={address} tokenData={tokenData} />}
         </Wrapper>
     );
 };

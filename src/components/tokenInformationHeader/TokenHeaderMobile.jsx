@@ -32,6 +32,8 @@ import Reddit from "../../images/reddit.svg";
 import Medium from "../../images/medium.svg";
 import Discord from "../../images/discord.svg";
 import {getHolderPerDay} from '../../utils/getHolderPerDay';
+import { getPrice } from '../../utils/getPrice';
+import { useBNBPrice } from '../../hooks/useBNBPrice';
 
 const TokenHeaderMobile = ({ tokenData = {} }) => {
     const { address } = useParams()
@@ -46,6 +48,7 @@ const TokenHeaderMobile = ({ tokenData = {} }) => {
     const [openBadges, setOpenBadges] = useState(false)
     const [openInfo, setOpenInfo] = useState(false)
     const [holdersPerDay, setHoldersPerDay] = useState(0)
+    const bnbPrice = useBNBPrice(account)
 
     const visitWebsite = () => {
         if (tokenData.Project_Website) {
@@ -53,21 +56,23 @@ const TokenHeaderMobile = ({ tokenData = {} }) => {
         }
     }
 
+    
+    useEffect(async () => {
+        if(bnbPrice.price) {
+            const token = await getPrice(address)
+            if(token.price) {
+                const mcap = await getMCap(address, token.price * bnbPrice.price)
+                setPrice(token.price * bnbPrice.price)
+                setMCap(mcap)
+                setSymbol(token.symbol)
+                setName(token.name)
+            }
+        }
+        
+    }, [bnbPrice, address])
+
     useEffect(() => {
         const fetchSheet = async () => {
-            try {
-                await fetch(`https://api.pancakeswap.info/api/v2/tokens/${address}`)
-                    .then((response) => {
-                        return response.json();
-                    })
-                    .then((data) => {
-                        setPrice((+data.data.price).toFixed(4))
-
-                    });
-            } catch (e) {
-                console.warn(e)
-            }
-
             const res = await getVotesPerProject(address)
             try {
                 setVotes(parseInt(res[0])*2 + parseInt(res[2]) - parseInt(res[1]))
@@ -78,10 +83,6 @@ const TokenHeaderMobile = ({ tokenData = {} }) => {
             getHolderPerDay(address)
                 .then(res => res && setHoldersPerDay(`+ ${res}`))
 
-            const symbol = await getSymbol(address)
-            setSymbol(symbol)
-            const name = await getName(address)
-            setName(name)
         };
         fetchSheet()
     }, [address])
@@ -95,14 +96,6 @@ const TokenHeaderMobile = ({ tokenData = {} }) => {
         else setCheckProjectManager(false)
     }, [account])
 
-    useEffect(() => {
-        const getMarketCap = async () => {
-            const mcap = await getMCap(address, price)
-            console.log(mcap)
-            setMCap(mcap)
-        }
-        getMarketCap()
-    }, [price])
 
 
     const handleBadges = () => {

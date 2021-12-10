@@ -12,10 +12,10 @@ import { Changes24, Flex, Image, LinkWrapper, More } from "../common";
 import { Votes } from "../common/votes";
 import { getBalanceWBNB, getMCap, getPair, getVotesPerProject, toChecksumAddress } from '../../connection/functions'
 import { getHolders } from "../../utils/getHolders";
-import { getPrice24H } from "../../utils/getPrice24H";
+import { getPrice } from "../../utils/getPrice"
 import { getHolderPerDay } from "../../utils/getHolderPerDay";
 import { useWallet } from "@binance-chain/bsc-use-wallet";
-import { usePrice } from '../../hooks/usePrice';
+import { useBNBPrice } from '../../hooks/useBNBPrice';
 import { bscWBNBContact } from '../../connection/contracts';
 import { styled } from '@mui/material/styles';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
@@ -42,7 +42,7 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 }));
 
 const Row = ({ data, index }) => {
-    const bnbPrice = usePrice(bscWBNBContact)
+    const bnbPrice = useBNBPrice(bscWBNBContact)
     const mobileMatches = useMediaQuery('(min-width:600px)');
     const { account, chainId } = useWallet();
     const [price, setPrice] = useState(0)
@@ -71,16 +71,17 @@ const Row = ({ data, index }) => {
     }
 
     useEffect(async () => {
-        if (data && data.Project_Address) {
+        if (data.Project_Address) {
             const address = toChecksumAddress(data.Project_Address)
+            setSymbol(data)
             if (chainId === 56) {
                 const res = await getVotesPerProject(address)
                 try {
                     setVotes(parseInt(res[0]) * 2 + parseInt(res[1]) - parseInt(res[2]))
-                    data.Project_Upvotes = res[0]
-                    data.Project_MedVotes = res[1]
-                    data.Project_Downvotes = res[2]
-                    data.save()
+                    // data.Project_Upvotes = res[0]
+                    // data.Project_MedVotes = res[1]
+                    // data.Project_Downvotes = res[2]
+                    // data.save()
                 } catch (e) {
                     console.log(e)
                 }
@@ -93,52 +94,42 @@ const Row = ({ data, index }) => {
 
             getHolderPerDay(address)
                 .then(res => res && setHoldersPerDay(`+ ${res}`))
-
-            const price24H = await getPrice24H(address)
-
-            try {
-
-                await fetch(`https://api.pancakeswap.info/api/v2/tokens/${address}`)
-                    .then((response) => {
-                        return response.json();
-                    })
-                    .then(async (res) => {
-                        setPrice((+res.data.price))
-
-                        setChange24h(((res.data.price_BNB / price24H - 1) * 100).toFixed(4))
-
-                        setSymbol(res.data.symbol)
-                        let mcap = await getMCap(address, res.data.price)
-
-                        setMCap(mcap)
-                    });
-            } catch (e) {
-                console.warn(e)
-            }
         }
     }, [data])
 
-    useEffect(() => {
-        if (holders) data.Project_Holder = holders;
-        if (price) data.Project_Price = price;
-        if (mcap) data.Project_MarketCap = mcap;
-        if (holdersPerDay) data.Project_HolderGrowth = holdersPerDay;
-        if (ratio) data.Project_LiqMcapRatio = ratio;
+    // useEffect(() => {
+    //     if (holders) data.Project_Holder = holders;
+    //     if (price) data.Project_Price = price;
+    //     if (mcap) data.Project_MarketCap = mcap;
+    //     if (holdersPerDay) data.Project_HolderGrowth = holdersPerDay;
+    //     if (ratio) data.Project_LiqMcapRatio = ratio;
 
-        data.save()
-    }, [holders, price, mcap, holdersPerDay, ratio])
+    //     data.save()
+    // }, [holders, price, mcap, holdersPerDay, ratio])
 
     useEffect(async () => {
-        if (bnbPrice.price && mcap > 0) {
+        if (bnbPrice.price && data.Project_Address) {
             const address = toChecksumAddress(data.Project_Address)
             const pair = await getPair(address);
 
             const wbnb = await getBalanceWBNB(pair);
-            if (mcap > 0) {
-                setRatio(wbnb * bnbPrice.price / mcap * 100)
+
+            let current = new Date;
+            const price24H = await getPrice(address, true, new Date(current - 24*60*60*1000))
+            const price = await getPrice(address, true)
+            
+            if(price24H && price) {
+                setChange24h(((price / price24H - 1) * 100).toFixed(4))
+                setPrice((+price * bnbPrice.price))
+                let mcap = await getMCap(address, price * bnbPrice.price)
+                setMCap(mcap)
+                if (mcap > 0) {
+                    setRatio(wbnb * bnbPrice.price / mcap * 100)
+                }
             }
+
         }
-    }, [bnbPrice.price, mcap])
+    }, [bnbPrice.price, data])
 
     return (
         <TableRow>
@@ -231,9 +222,9 @@ const Row = ({ data, index }) => {
             <TableCell>
                 <Stack>
                     <Typography variant="table">
-                        {mobileMatches && <label>${Number(price.toFixed(18))}</label>}
+                        {mobileMatches && <label>${Number(price.toFixed(12))}</label>}
                         {!mobileMatches &&
-                            <small style={{ fontSize: '0.5rem' }}>${Number(price.toFixed(18))}</small>
+                            <small style={{ fontSize: '0.5rem' }}>${Number(price.toFixed(12))}</small>
                         }
                     </Typography>
                     {change24h !== 0 && isNaN(change24h) === false && <Flex margin={'6px 0 0 0'} justify={'evenly'}>

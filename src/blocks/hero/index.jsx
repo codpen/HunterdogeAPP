@@ -10,13 +10,14 @@ import {useGoogleSheet} from '../../hooks/useGoogleSheet';
 import {Image, LinkWrapper} from "../../components/common";
 import likeDark from "../../images/like_dark.svg";
 import chart from "../../images/chart_ico.svg";
-import {getUserVotes, isManager, returnMembership} from "../../connection/functions";
+import {getPair, getUserVotes, isManager, returnMembership} from "../../connection/functions";
 import {useWallet} from "@binance-chain/bsc-use-wallet";
 import RegisterModal from '../../components/modal/RegisterModal';
 import {usePrice} from "../../hooks/usePrice";
 import {bscTokenContact} from '../../connection/contracts'
 import TokenEditModal from "../../components/modal/TokenEditModal/TokenEditModal";
 import ConnectWallet from '../../connection/ConnectWallet';
+import { useBNBPrice } from '../../hooks/useBNBPrice';
 
 const AdsToken = () => (
     <Stack direction="row"
@@ -116,6 +117,15 @@ const Hero = ({setIsOpen, register}) => {
     const [isModal, setIsModal] = useState(false)
     const [isTokenEditModal, setIsTokenEditModal] = useState(false)
     const [checkManager, setCheckManager] = useState(false)
+    const [pairAddress, setPairAddress] = useState('')
+    const bnbPrice = useBNBPrice(account)
+    const [price, setPrice] = useState(0)
+
+    useEffect(()=>{
+        if(state.price && bnbPrice.price) {
+            setPrice(state.price * bnbPrice.price)
+        }
+    }, [state.price, bnbPrice.price])
 
     useEffect(() => {
         const call = async () => {
@@ -126,9 +136,14 @@ const Hero = ({setIsOpen, register}) => {
             const is_manager = await isManager(account)
             setCheckManager(is_manager)
         }
+        const getPairContract = async () => {
+            const pair = await getPair(bscTokenContact)
+            setPairAddress(pair)
+        }
         if (account) {
             getIsManager()
             call()
+            getPairContract()
         } else setCheckManager(false)
     }, [account])
 
@@ -174,9 +189,9 @@ const Hero = ({setIsOpen, register}) => {
                                     mr: '28px'
                                 }}
                     >
-                        {`1 HD = $ ${Number(state.price).toFixed(4)}`}
+                        {`1 HD = $ ${Number(price).toFixed(4)}`}
                     </Typography>
-                    <Button target="_blank" href="https://pancakeswap.finance">
+                    <Button target="_blank" href={`https://pancakeswap.finance/swap#/swap?inputCurrency=${pairAddress}`}>
                         Buy $HD
                     </Button>
                 </Stack>
