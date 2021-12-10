@@ -24,8 +24,9 @@ const PreSale = ({ tokenData = {} }) => {
         window.open(tokenData.Project_Presale_Link, '_blank')
     }
     const { address } = useParams()
-    const startTime = (new Date(tokenData.Project_Presale_Start)).valueOf() - (new Date()).valueOf()
-    const endTime = (new Date(tokenData.Project_Presale_End)).valueOf() - (new Date()).valueOf()
+    const startTime = (new Date(tokenData.Project_Presale_Start.replace('at', ''))).valueOf() - (new Date()).valueOf()
+    const endTime = (new Date(tokenData.Project_Presale_End.replace('at', ''))).valueOf() - (new Date()).valueOf()
+    console.log(startTime, endTime)
     return (
         <Wrapper>
             <HeadTitle align={'center'} size={'30px'}>Presale information</HeadTitle>
@@ -38,21 +39,31 @@ const PreSale = ({ tokenData = {} }) => {
                     </Banner>
                     <Flex direction={'column'} content='center'>
                         <Flex items='center' margin={'0 0 20px 17px'}>
-                            <Value margin={'0 21px 0 0'} weight={'500'} size={'21px'}>Token sale {startTime > 0 ? 'starts' : 'finishs'} in:</Value>
-                            <Text>
-                                <Timer
-                                    direction={'backward'}
-                                    initialTime={startTime > 0 ? startTime : endTime}
-                                >
-                                    {() => (
-                                        <React.Fragment>
-                                            <Timer.Days /> d &nbsp;
-                                            <Timer.Hours /> h &nbsp;
-                                            <Timer.Minutes /> m &nbsp;
-                                        </React.Fragment>
-                                    )}
-                                </Timer>
-                            </Text>
+                            {
+                                !startTime  &&
+                                !endTime  &&
+                                <Value margin={'0 21px 0 0'} weight={'500'} size={'21px'}>Token sale ended</Value>
+                            }
+                            {
+                                (startTime > 0 || endTime > 0) &&
+                                <>
+                                    <Value margin={'0 21px 0 0'} weight={'500'} size={'21px'}>Token sale {startTime > 0 ? 'starts' : 'finishs'} in:</Value>
+                                    <Text>
+                                        <Timer
+                                            direction={'backward'}
+                                            initialTime={startTime > 0 ? startTime : endTime}
+                                        >
+                                            {() => (
+                                                <React.Fragment>
+                                                    <Timer.Days /> d &nbsp;
+                                                    <Timer.Hours /> h &nbsp;
+                                                    <Timer.Minutes /> m &nbsp;
+                                                </React.Fragment>
+                                            )}
+                                        </Timer>
+                                    </Text>
+                                </>
+                            }
                         </Flex>
                         <Button width={'277px'}>report this token to staff</Button>
                     </Flex>

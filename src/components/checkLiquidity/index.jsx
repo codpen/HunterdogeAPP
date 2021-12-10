@@ -1,19 +1,20 @@
-import {Typography} from '@material-ui/core';
-import {Button, CircularProgress, Stack} from '@mui/material';
-import {Box} from '@mui/system';
+import { Typography } from '@material-ui/core';
+import { Button, CircularProgress, Stack } from '@mui/material';
+import { Box } from '@mui/system';
 import SearchInput from '../searchInput'
-import {useContext, useEffect, useState} from 'react';
-import {getBalanceToken, getBalanceWBNB, getPair, isHoneypot, toChecksumAddress} from '../../connection/functions'
-import {GoogleSheetContext} from '../../contexts/GoogleSheetProvider';
-import {usePrice} from '../../hooks/usePrice';
-import {bscWBNBContact} from '../../connection/contracts';
-import {ModalContext} from '../../contexts/ModalProvider';
+import { useContext, useEffect, useState } from 'react';
+import { getBalanceToken, getBalanceWBNB, getPair, isHoneypot, toChecksumAddress } from '../../connection/functions'
+import { GoogleSheetContext } from '../../contexts/GoogleSheetProvider';
+import { useBNBPrice } from '../../hooks/useBNBPrice';
+import { bscWBNBContact } from '../../connection/contracts';
+import { ModalContext } from '../../contexts/ModalProvider';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { getPrice } from '../../utils/getPrice';
 
 const CheckLiguidity = () => {
     const context = useContext(ModalContext)
-    const {data} = useContext(GoogleSheetContext)
-    const bnbPrice = usePrice(bscWBNBContact)
+    const { data } = useContext(GoogleSheetContext)
+    const bnbPrice = useBNBPrice(bscWBNBContact)
     const [getMoreInfo, setGetMoreInfo] = useState(false)
     const [spin, setSpin] = useState(false)
     const [pairAddress, setPairAddress] = useState('')
@@ -59,15 +60,11 @@ const CheckLiguidity = () => {
                 project.sell_tax = honey.sell_tax
 
                 try {
-                    const response = await fetch(`https://api.pancakeswap.info/api/v2/tokens/${address}`,{ method : "GET", mode: 'cors',}
-                );
-                    if (!response.ok) {
-                        throw Error(`${response.status} ${response.statusText}`);
-                    }
-                    const res = await response.json();
-                    project.price = res.data.price
-                    project.name = res.data.name
-                    project.symbol = res.data.symbol
+                    const res = await getPrice(address)
+                    
+                    project.price = res.price
+                    project.name = res.name
+                    project.symbol = res.symbol
                     project.totalLP = project.wbnb * bnbPrice.price
                     setProject(project)
                     setSpin(false)
@@ -88,10 +85,10 @@ const CheckLiguidity = () => {
         callAsync()
     }
 
-  const goToDexTool = () => {
-    if (!pairAddress) return false
-    window.open(`https://www.dextools.io/app/bsc/pair-explorer/${pairAddress}`, '_blank')
-  }
+    const goToDexTool = () => {
+        if (!pairAddress) return false
+        window.open(`https://www.dextools.io/app/bsc/pair-explorer/${pairAddress}`, '_blank')
+    }
 
     useEffect(() => {
         if (bnbPrice.price) {
@@ -125,7 +122,7 @@ const CheckLiguidity = () => {
             <Typography variant='h3'>
                 Check liquidity
             </Typography>
-            <Stack direction="row" sx={{mt: 2, mb: 2}}>
+            <Stack direction="row" sx={{ mt: 2, mb: 2 }}>
                 <SearchInput
                     setValue={checkSumAddress}
                     padding={'0 5px 0 15px'}
@@ -133,53 +130,53 @@ const CheckLiguidity = () => {
                 />
             </Stack>
             <Stack direction="row"
-                   sx={{
-                       backgroundColor: '#fff',
-                       border: '2px solid #B78300',
-                       borderRadius: '25px',
-                       px: '23px',
-                       pt: '13px',
-                       pb: '18px'
-                   }}
+                sx={{
+                    backgroundColor: '#fff',
+                    border: '2px solid #B78300',
+                    borderRadius: '25px',
+                    px: '23px',
+                    pt: '13px',
+                    pb: '18px'
+                }}
             >
-                <Stack sx={{width: '100%', height: '220px'}}>
+                <Stack sx={{ width: '100%', height: '220px' }}>
                     {
                         !project.totalLP
                             ?
                             <Typography variant="h4"
-                                        sx={{fontSize: 25, m: 'auto'}}
+                                sx={{ fontSize: 25, m: 'auto' }}
                             >
                                 CONNECT YOUR WALLET TO SEARCH FOR ANY BSC TOKEN
                             </Typography>
                             :
                             <>
                                 <Stack direction="row" justifyContent="space-between" alignItems="center"
-                                       sx={{
-                                           mb: '8px',
-                                           pb: 1,
-                                           borderBottom: '1px solid #AB882E'
-                                       }}
+                                    sx={{
+                                        mb: '8px',
+                                        pb: 1,
+                                        borderBottom: '1px solid #AB882E'
+                                    }}
                                 >
                                     <Typography variant="h4"
-                                                sx={{fontSize: 17}}
+                                        sx={{ fontSize: 17 }}
                                     >
                                         {project.name}
                                     </Typography>
                                     <Typography variant="body2"
-                                                sx={{
-                                                    fontSize: 12
-                                                }}
+                                        sx={{
+                                            fontSize: 12
+                                        }}
                                     >
                                         ${project.symbol}
                                     </Typography>
                                 </Stack>
                                 <Stack direction="row" justifyContent="space-between" alignItems="center"
-                                       sx={{
-                                           mb: 1.5
-                                       }}
+                                    sx={{
+                                        mb: 1.5
+                                    }}
                                 >
                                     <Typography variant="body1"
-                                                sx={{fontWeight: 500}}
+                                        sx={{ fontWeight: 500 }}
                                     >
                                         Total Liquidity
                                     </Typography>
@@ -188,12 +185,12 @@ const CheckLiguidity = () => {
                                     </Typography>
                                 </Stack>
                                 <Stack direction="row" justifyContent="space-between" alignItems="center"
-                                       sx={{
-                                           mb: 1.5
-                                       }}
+                                    sx={{
+                                        mb: 1.5
+                                    }}
                                 >
                                     <Typography variant="body1"
-                                                sx={{fontWeight: 500}}
+                                        sx={{ fontWeight: 500 }}
                                     >
                                         Pooled WBNB
                                     </Typography>
@@ -202,12 +199,12 @@ const CheckLiguidity = () => {
                                     </Typography>
                                 </Stack>
                                 <Stack direction="row" justifyContent="space-between" alignItems="center"
-                                       sx={{
-                                           mb: 1.5
-                                       }}
+                                    sx={{
+                                        mb: 1.5
+                                    }}
                                 >
                                     <Typography variant="body1"
-                                                sx={{fontWeight: 500}}
+                                        sx={{ fontWeight: 500 }}
                                     >
                                         Pooled {project.name}
                                     </Typography>
@@ -216,12 +213,12 @@ const CheckLiguidity = () => {
                                     </Typography>
                                 </Stack>
                                 <Stack direction="row" justifyContent="space-between" alignItems="center"
-                                       sx={{
-                                           mb: 1.5
-                                       }}
+                                    sx={{
+                                        mb: 1.5
+                                    }}
                                 >
                                     <Typography variant="body1"
-                                                sx={{fontWeight: 500}}
+                                        sx={{ fontWeight: 500 }}
                                     >
                                         Honeypot?
                                     </Typography>
@@ -230,12 +227,12 @@ const CheckLiguidity = () => {
                                     </Typography>
                                 </Stack>
                                 <Stack direction="row" justifyContent="space-between" alignItems="center"
-                                       sx={{
-                                           mb: 1.5
-                                       }}
+                                    sx={{
+                                        mb: 1.5
+                                    }}
                                 >
                                     <Typography variant="body1"
-                                                sx={{fontWeight: 500}}
+                                        sx={{ fontWeight: 500 }}
                                     >
                                         Buy / Sell taxes
                                     </Typography>
@@ -251,11 +248,11 @@ const CheckLiguidity = () => {
                 {
                     pairAddress
                         ?
-                        <Button onClick={goToDexTool} sx={{mt: '12px', mx: 'auto'}}>
+                        <Button onClick={goToDexTool} sx={{ mt: '12px', mx: 'auto' }}>
                             SHOW ON DEXTOOLS
                         </Button>
                         :
-                        <Button onClick={handleGetMoreInfo} sx={{mt: '12px', mx: 'auto'}}>
+                        <Button onClick={handleGetMoreInfo} sx={{ mt: '12px', mx: 'auto' }}>
                             GET MORE INFO
                         </Button>
                 }
@@ -272,7 +269,7 @@ const CheckLiguidity = () => {
                     backgroundColor: '#4033117d',
                     zIndex: 999
                 }}>
-                    <CircularProgress sx={{position: 'fixed', top: '50%', left: '50%'}}/>
+                    <CircularProgress sx={{ position: 'fixed', top: '50%', left: '50%' }} />
                 </Box>
             }
         </Box>

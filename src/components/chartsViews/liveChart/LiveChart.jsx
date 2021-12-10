@@ -17,8 +17,9 @@ import { HeadTitle, RightContent } from "../tokenInformation/TokenInfoStyled";
 import { Button } from "../../common";
 import ReportTokenModal from '../../modal/ReportToken';
 import { Box, Stack, useMediaQuery } from '@mui/material';
-import { usePrice } from '../../../hooks/usePrice';
+import { useBNBPrice } from '../../../hooks/useBNBPrice';
 import { bscWBNBContact } from '../../../connection/contracts';
+import { getPrice } from '../../../utils/getPrice';
 
 const Dashboard = ({ token }) => {
     const [query, setQuery] = useState('BNB')
@@ -64,43 +65,31 @@ const LiveChart = ({ tokenData = {} }) => {
     const [ratio, setRatio] = useState(0)
     const [change24h, setChange24h] = useState()
     const [isModal, setIsModal] = useState(false)
-    const bnbPrice = usePrice(bscWBNBContact)
+    const bnbPrice = useBNBPrice(bscWBNBContact)
 
+    
     useEffect(async () => {
-        const symbol = await getSymbol(address)
-        setSymbol(symbol)
-
-        try {
-            await fetch(`https://api.pancakeswap.info/api/v2/tokens/${address}`)
-                .then((response) => {
-                    return response.json();
-                })
-                .then((data) => {
-                    setPrice((+data.data.price))
-
-                });
-        } catch (e) {
-            console.warn(e)
+        if(bnbPrice.price) {
+            const token = await getPrice(address)
+            if(token.price) {
+                const mcap = await getMCap(address, token.price * bnbPrice.price)
+                setPrice(token.price * bnbPrice.price)
+                setMCap(mcap)
+                setSymbol(token.symbol)
+            }
+    
+            const pair = await getPair(address);
+    
+            const wbnb = await getBalanceWBNB(pair);
+            setWBNB(wbnb)
+            setTotalLP(wbnb * bnbPrice.price)
+            if (mcap > 0) {
+                setRatio(wbnb * bnbPrice.price / mcap * 100)
+            }
         }
-    }, [address])
+        
+    }, [bnbPrice, address])
 
-    useEffect(async () => {
-        const pair = await getPair(address);
-
-        const wbnb = await getBalanceWBNB(pair);
-        setWBNB(wbnb)
-        setTotalLP(wbnb * bnbPrice.price)
-        if (mcap > 0) {
-            setRatio(wbnb * bnbPrice.price / mcap * 100)
-        }
-    }, [bnbPrice])
-
-    useEffect(async () => {
-        if (price > 0) {
-            const mcap = await getMCap(address, price)
-            setMCap(mcap)
-        }
-    }, [price])
     return (
         <Wrapper isMobile={mobileMatches}>
             <ChartWrapper>
