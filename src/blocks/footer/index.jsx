@@ -40,38 +40,38 @@ const Footer = ({ register }) => {
                     <>
                         <Button onClick={submit}>Submit your Coin</Button>
                         <Flex direction={'row'} items={'center'}>
-                            <Text to='' size='12px' margin='10px 4px' mtop={'22px'}>Quick links:</Text>
-                            <Text to='/allTokens' size='12px' margin='10px 4px'>All Tokens</Text>
+                            <Text to='' size='10px' margin='10px 2px' mtop={'22px'}>Quick links:</Text>
+                            <Text to='/allTokens' size='10px' margin='10px 4px'>All Tokens</Text>
                             <LinkFooter
                                 href='https://idopresales.com/presale-reviews/hunter-doge-project-review-hd-presale-ido-on-dxsale/'
                                 target="_blank"
-                                size='12px'
-                                margin='10px 4px'
+                                size='10px'
+                                margin='10px 2px'
                             >
                                 KYC verification
                             </LinkFooter>
                             <LinkFooter
                                 href='https://content.hunterdoge.com'
                                 target="_blank"
-                                size='12px'
-                                margin='10px 4px'
+                                size='10px'
+                                margin='10px 2px'
                             >
                                 Download $HD contents
                             </LinkFooter>
                         </Flex>
                         <Flex direction={'row'} items={'center'} >
-                            <Text to='' size={'12px'} margin='4px'>Documents:</Text>
+                            <Text to='' size={'10px'} margin='4px'>Documents:</Text>
                             {/* <LinkFooter href='/'>Whitepaper</LinkFooter> */}
                             <LinkFooter
                                 href='https://ipfs.io/ipfs/QmdWZEMvNximaswhn3p6qTsioBASgGLx2QRMkDcXNrVxoG?filename=Techpaper_HunterDoge_v1.0.0.pdf'
                                 target="_blank"
-                                size='12px'
+                                size='10px'
                                 margin='4px'
                             >
                                 Tech paper
                             </LinkFooter>
                         </Flex>
-                        <LinkFooter href="mailto:info@hunterdoge.com" target="_blank" size={'12px'} margin='4px'>info@hunterdoge.com</LinkFooter>
+                        <LinkFooter href="mailto:info@hunterdoge.com" target="_blank" size={'10px'} margin='4px'>info@hunterdoge.com</LinkFooter>
                     </>
                 }
 

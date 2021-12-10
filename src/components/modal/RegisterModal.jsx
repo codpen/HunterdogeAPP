@@ -142,8 +142,9 @@ const RegisterModal = ({setIsOpen}) => {
                     {cost} $HD
                 </Typography>
             </div>
-            <ButtonGroup disableElevation variant="center"
-                         sx={{mt: '20px', textAlign: 'center', ml: mobileMatches ? '200px' : 'auto'}}>
+            <ButtonGroup 
+                disableElevation variant="center"
+                sx={{mt:'20px', textAlign:'center', ml:mobileMatches? '200px': 'auto', display:'flex', justifyContent:'center'}}>
                 <Button onClick={approve}
                         fullWidth sx={{
                     fontSize: (mobileMatches ? '1.75em' : '0.9em'),
