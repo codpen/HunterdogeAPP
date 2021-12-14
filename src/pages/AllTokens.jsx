@@ -12,7 +12,7 @@ const AllTokens = ({register}) => {
 
     return (
         <Stack sx={{mx: mobileMatches ? '60px' : 'auto'}}>
-            {register && <SearchOrFilter/>}
+             <SearchOrFilter/>
             <AllTokensTable/>
             <Stack direction="row" alignItems="center" sx={{gap: 8}}>
                 <PopularPreSales/>
