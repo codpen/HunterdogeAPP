@@ -2,6 +2,7 @@ package-lock.json
 build/
 .idea/
 node_modules/
+server/
 */.DS_Store
 .DS_Store
 .lock
