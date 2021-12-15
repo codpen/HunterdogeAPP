@@ -128,7 +128,7 @@ const TokenHeaderMobile = ({ tokenData = {} }) => {
         <Wrapper isMobile={true}>
             <BadgesWrapper isMobile={true}>
                 <Image src={tokenData.Project_Logo ? tokenData.Project_Logo : NoLogoImage} width={`${window.innerWidth / 4 - 10}px`} height={`${window.innerWidth / 4 - 10}px`} margin={'5px 0 8px 10px'} />
-                <HeadTitle size={'18x'}>{symbol}</HeadTitle>
+                <HeadTitle size={'18x'}>{tokenData.Project_Symbol}</HeadTitle>
                 <Flex margin={'10px 0'}>
                     {tokenData.Project_CMCLink && <Image onClick={()=>{goToExternal(tokenData.Project_CMCLink)}} width={'32%'} src={M} />}
                     {tokenData.Project_CGLink && <Image onClick={()=>{goToExternal(tokenData.Project_CGLink)}} width={'32%'} src={Lizard} />}
@@ -176,7 +176,7 @@ const TokenHeaderMobile = ({ tokenData = {} }) => {
                     }
                 </Flex>
                 <Flex margin={'30px 0px 0px 0px'} style={{ borderBottom: 'solid #B78300' }}>
-                    <HeadTitle margin={'0 auto 0 10px'} size={'20px'}>{name}</HeadTitle>
+                    <HeadTitle margin={'0 auto 0 10px'} size={'20px'}>{tokenData.Project_Name}</HeadTitle>
                     <Flex>
                         <Image height={'20px'} src={Like} />
                         <Text margin={'0 0 0 7px'} size={'12px'}>{votes}</Text>
