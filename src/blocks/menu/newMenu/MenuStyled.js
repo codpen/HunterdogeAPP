@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {Button, Image, Link_} from "../../../components/common";
+import { Button, Image, Link_ } from "../../../components/common";
 
 export const Wrapp = styled.div`
   width: 100%;
@@ -18,7 +18,7 @@ export const Wrapper = styled.div`
   background-color: #FAF0CB;
   box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.1);
   border-radius: 25px;
-  padding: 40px 10px 10px 10px;
+  padding: 70px 10px 10px 10px;
   text-align: center;
   flex-shrink: 0;
   z-index: 10;
@@ -47,7 +47,7 @@ export const WrappedLink = styled(Link_)`
 `
 
 export const Flex = styled.div`
-  margin-top: 55px;
+  margin-top: 25px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -61,7 +61,7 @@ export const Flex = styled.div`
 export const SmallWrappedButton = styled(Button)`
   font-size: 12px;
   border-radius: 6px;
-  color: black;
+  color: white;
   
 `
 
@@ -81,17 +81,29 @@ export const WrappedButton = styled(Button)`
     font-size: 14px;
   }
 `
-export const CloseButton= styled(Button)`
+export const CloseButton = styled(Button)`
   width: 24px;
   height: 24px;
   background: #B78300;
   border-radius: 50%;
   position: absolute;
   right: 0;
-  top: -80px;
+  top: -120px;
 `
 
 export const Title = styled.h1`
   font-size: 40px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+`
+export const Menubutton = styled(Button)`
+  background:transparent;
+  color: rgba(171, 136, 46, 0.85);
+  box-shadow:none;
+  padding-top:20px;
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 98.1%;
+
 `

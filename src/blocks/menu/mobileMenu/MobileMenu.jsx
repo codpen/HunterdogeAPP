@@ -45,7 +45,7 @@ const MobileMenu = ({ setIsContact }) => {
                 onClose={() => setOpen(false)}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-                style={{ display: 'flex', justifyContent: 'center', padding: '20px 10px' }}
+                style={{ display: 'flex', justifyContent: 'center', padding: '20px 10px', zIndex:'25' }}
             >
                 <NewMenu setOpen={setOpen} openRegister={() => { setIsRegister(true) }} setIsContact={setIsContact} />
             </Modal>
