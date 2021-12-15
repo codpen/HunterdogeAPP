@@ -179,7 +179,7 @@ class BitQueryFetchToGoogleSheet {
 }
 const instance = new BitQueryFetchToGoogleSheet;
 instance.run()
-// const cron = require('node-cron')
-// cron.schedule('0 * * * *', () => {
-//     run()
-// });
+const cron = require('node-cron')
+cron.schedule('0 * * * *', () => {
+    run()
+});
