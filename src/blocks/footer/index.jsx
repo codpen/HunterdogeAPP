@@ -39,9 +39,9 @@ const Footer = ({ register }) => {
                 {!mobileMatches &&
                     <>
                         <Button onClick={submit}>Submit your Coin</Button>
-                        <Flex direction={'row'} items={'center'}>
-                            <Text to='' size='10px' margin='10px 2px' mtop={'22px'}>Quick links:</Text>
-                            <Text to='/allTokens' size='10px' margin='10px 4px'>All Tokens</Text>
+                        <Flex direction={'row'} items={'center'} justify={'flex-start'} style={{width:'100%'}}>
+                            <Text to='' size='10px' margin='10px 2px' mtop={'22px'} weight='800'>Quick links:</Text>
+                            <LinkFooter href='/allTokens' size='10px' margin='10px 4px'>All Tokens</LinkFooter>
                             <LinkFooter
                                 href='https://idopresales.com/presale-reviews/hunter-doge-project-review-hd-presale-ido-on-dxsale/'
                                 target="_blank"
@@ -59,8 +59,8 @@ const Footer = ({ register }) => {
                                 Download $HD contents
                             </LinkFooter>
                         </Flex>
-                        <Flex direction={'row'} items={'center'} >
-                            <Text to='' size={'10px'} margin='4px'>Documents:</Text>
+                        <Flex direction={'row'} items={'center'} justify={'flex-start'} style={{width:'100%'}}>
+                            <Text to='' size={'10px'} margin='4px' weight='800'>Documents:</Text>
                             {/* <LinkFooter href='/'>Whitepaper</LinkFooter> */}
                             <LinkFooter
                                 href='https://ipfs.io/ipfs/QmdWZEMvNximaswhn3p6qTsioBASgGLx2QRMkDcXNrVxoG?filename=Techpaper_HunterDoge_v1.0.0.pdf'
@@ -71,7 +71,10 @@ const Footer = ({ register }) => {
                                 Tech paper
                             </LinkFooter>
                         </Flex>
-                        <LinkFooter href="mailto:info@hunterdoge.com" target="_blank" size={'10px'} margin='4px'>info@hunterdoge.com</LinkFooter>
+                        <Flex direction={'row'} items={'center'} justify={'flex-start'} style={{width:'100%'}}>
+                            <Text to='' size={'10px'} margin='4px' weight='800'>Contact:</Text>
+                            <LinkFooter href="mailto:info@hunterdoge.com" target="_blank" size={'10px'} margin='4px'>info@hunterdoge.com</LinkFooter>
+                        </Flex>
                     </>
                 }
 
@@ -97,7 +100,7 @@ const Footer = ({ register }) => {
                 <>
                     <Flex direction={'column'} items={'start'}>
                         <Title size={'30px'} mtop={'22px'}>Quick links</Title>
-                        <Text to='/allTokens'>All Tokens</Text>
+                        <LinkFooter href='/allTokens'>All Tokens</LinkFooter>
                         <LinkFooter href='https://idopresales.com/presale-reviews/hunter-doge-project-review-hd-presale-ido-on-dxsale/' target="_blank">KYC verification</LinkFooter>
                         <LinkFooter href='https://content.hunterdoge.com' target="_blank">Download $HD contents</LinkFooter>
                     </Flex>

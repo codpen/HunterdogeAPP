@@ -7,7 +7,7 @@ export const FooterMain = styled.div`
   height: auto;
   max-width: 100vw;
   width: 100%;
-  background-color: #775600;
+  background-color:  rgba(171, 136, 46, 0.25);
   margin-top: 46px;
   padding: 20px 10px;
   
@@ -18,22 +18,24 @@ export const FooterMain = styled.div`
   @media (min-width: 600px) {
     padding: 59px 30px 64px 30px;
     height: 323px;
+    background-color: #775600;
   }
 `
 export const Text = styled(Link)`
   font-family: Raleway;
-  font-style: normal;
-  font-weight: 500;
-  font-size: ${({size}) => size || '21px'};;
-  line-height: ${({size}) => size || '21px'};;
-  color: #FFFFFF;
+  font-style: ${({fontStyle}) => fontStyle || 'normal'};
+  font-weight: ${({weight}) => weight || '500'};;
+  font-size: ${({size}) => size || '21px'};
+  line-height: ${({size}) => size || '21px'};
   text-decoration: none;
-  
   margin: ${({margin}) => margin || '25px 0 0 0'};
+  color: #B78300;
+  @media (min-width: 600px) {
+    color: #FFFFFF;
+  }
 `
 
 export const Title = styled.h3`
-  color: #fff;
   text-transform: uppercase;
   font-size: ${({size}) => size || '30px'};
   line-height: ${({size}) => size || '30px'};
@@ -101,10 +103,13 @@ export const LinkFooter = styled.a`
   font-weight: 500;
   font-size: ${({size}) => size || '21px'};
   line-height: 21px;
-  color: #FFFFFF;
-  text-decoration: none;
-  
   margin: ${({margin}) => margin || '25px 0 0 0'};
+  color: #B78300;
+  text-decoration: underline;
+  @media (min-width: 600px) {
+    color: #FFFFFF;
+    text-decoration: none;
+  }
 `
 
 
