@@ -111,5 +111,13 @@ export const LinkFooter = styled.a`
     text-decoration: none;
   }
 `
-
-
+export const MarketingTitle =styled.h3`
+  width: 230px;
+  font-family: Raleway;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 31px;
+  margin-top: 12px;
+  color: #FFFFFF;
+`
