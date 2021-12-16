@@ -33,7 +33,7 @@ const tabs = [
 // )
 
 const PopularTokens = () => {
-    const bnbPrice = useBNBPrice(bscWBNBContact)
+    const bnbPrice = useBNBPrice()
     const mobileMatches = useMediaQuery('(min-width:600px)');
     const [value, setValue] = useState(0)
     const { data } = useContext(GoogleSheetContext)
