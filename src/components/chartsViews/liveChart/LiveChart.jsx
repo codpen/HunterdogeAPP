@@ -19,7 +19,6 @@ import ReportTokenModal from '../../modal/ReportToken';
 import { Box, Stack, useMediaQuery } from '@mui/material';
 import { useBNBPrice } from '../../../hooks/useBNBPrice';
 import { bscWBNBContact } from '../../../connection/contracts';
-import { getPrice } from '../../../utils/getPrice';
 
 const Dashboard = ({ token }) => {
     const [query, setQuery] = useState('BNB')
@@ -63,19 +62,15 @@ const LiveChart = ({ tokenData = {} }) => {
     const [wbnb, setWBNB] = useState(0)
     const [mcap, setMCap] = useState(0)
     const [ratio, setRatio] = useState(0)
-    const [change24h, setChange24h] = useState()
     const [isModal, setIsModal] = useState(false)
-    const bnbPrice = useBNBPrice(bscWBNBContact)
+    const bnbPrice = useBNBPrice()
 
     
     useEffect(async () => {
         if(bnbPrice.price) {
-            const token = await getPrice(address)
-            if(token.price) {
-                const mcap = await getMCap(address, token.price * bnbPrice.price)
-                setPrice(token.price * bnbPrice.price)
+            if(tokenData?.Project_Price) {
+                const mcap = await getMCap(address, tokenData?.Project_Price * bnbPrice.price)
                 setMCap(mcap)
-                setSymbol(token.symbol)
             }
     
             const pair = await getPair(address);
@@ -95,7 +90,7 @@ const LiveChart = ({ tokenData = {} }) => {
             <ChartWrapper>
                 <Flex margin={'0 0 5px 0'}>
                 </Flex>
-                <Dashboard token={symbol} />
+                <Dashboard token={tokenData?.Project_Symbol} />
                 <Button onClick={() => setIsModal(true)} size={'14px'} margin={'20px auto'} width={'277px'}
                     height={mobileMatches ? '25px' : undefined}>report this token to staff</Button>
             </ChartWrapper>
@@ -124,8 +119,8 @@ const LiveChart = ({ tokenData = {} }) => {
                 }}>
                     <Title>Current price in USD</Title>
                     <Flex>
-                        <Value>${new Intl.NumberFormat('en-US').format(price.toFixed(4))}</Value>
-                        {change24h && <Changes24 up={change24h.up}>{change24h.text}</Changes24>}
+                        <Value>${new Intl.NumberFormat('en-US').format(tokenData.Project_Price)}</Value>
+                        {tokenData?.Project_Price_24h && <Changes24 up={tokenData?.Project_Price_24h}>{tokenData?.Project_Price_24h}</Changes24>}
                     </Flex>
                 </Stack>
                 <Flex direction={mobileMatches ? 'column' : undefined}>

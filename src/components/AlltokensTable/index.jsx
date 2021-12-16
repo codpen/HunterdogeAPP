@@ -13,6 +13,9 @@ import { toChecksumAddress } from '../../connection/functions';
 import { getVotesPerProject } from '../../connection/functions';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+import { bscWBNBContact } from '../../connection/contracts';
+import { useBNBPrice } from '../../hooks/useBNBPrice';
+
 const fieldMap = {
 	mcap: 'Project_MarketCap',
 	price: 'Project_Price',
@@ -21,6 +24,7 @@ const fieldMap = {
 }
 
 const AllTokensTable = (isTitle) => {
+	const bnbPrice = useBNBPrice(bscWBNBContact)
 	const context = useContext(ModalContext)
 	const [currentData, setCurrentData] = useState({ newData: [], currentPage: 0, endPage: 0 })
 	const mobileMatches = useMediaQuery('(min-width:600px)');
@@ -180,7 +184,7 @@ const AllTokensTable = (isTitle) => {
 							<TableBody>
 								<TabPanel value={value} index={0}>
 									{currentData.newData.map((row, index) => <Row key={index} index={index}
-										data={row} />)}
+										data={row} bnbPrice={bnbPrice} />)}
 								</TabPanel>
 							</TableBody>
 						</Table>
