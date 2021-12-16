@@ -11,12 +11,7 @@ import arrowDown from "../../images/arrow-down.svg";
 import { Changes24, Flex, Image, LinkWrapper, More } from "../common";
 import { Votes } from "../common/votes";
 import { getBalanceWBNB, getMCap, getPair, getVotesPerProject, toChecksumAddress } from '../../connection/functions'
-import { getHolders } from "../../utils/getHolders";
-import { getPrice } from "../../utils/getPrice"
-import { getHolderPerDay } from "../../utils/getHolderPerDay";
 import { useWallet } from "@binance-chain/bsc-use-wallet";
-import { useBNBPrice } from '../../hooks/useBNBPrice';
-import { bscWBNBContact } from '../../connection/contracts';
 import { styled } from '@mui/material/styles';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -41,43 +36,20 @@ const HtmlTooltip = styled(({ className, ...props }) => (
     },
 }));
 
-const Row = ({ data, index }) => {
-    const bnbPrice = useBNBPrice(bscWBNBContact)
+const Row = ({ data, index, bnbPrice }) => {
     const mobileMatches = useMediaQuery('(min-width:600px)');
     const { account, chainId } = useWallet();
-    const [price, setPrice] = useState(0)
-    const [holders, setHolders] = useState(0)
-    const [holdersPerDay, setHoldersPerDay] = useState(0)
     const [mcap, setMCap] = useState(0)
-    const [symbol, setSymbol] = useState('')
-    const [change24h, setChange24h] = useState(0)
     const [votes, setVotes] = useState(0)
     const [ratio, setRatio] = useState(0)
-    const [timer, setTimer] = useState(0)
-
-    const callTimer = (address) => {
-        if (timer) {
-            clearInterval(timer)
-        }
-        let handle = setInterval(() => {
-            getHolderPerDay(address)
-                .then(res => {
-                    if (res) {
-                        setHoldersPerDay(`+ ${res}`)
-                    }
-                })
-        }, 3000000);
-        setTimer(handle)
-    }
 
     useEffect(async () => {
         if (data.Project_Address) {
             const address = toChecksumAddress(data.Project_Address)
-            setSymbol(data)
             if (chainId === 56) {
                 const res = await getVotesPerProject(address)
                 try {
-                    setVotes(parseInt(res[0]) * 2 + parseInt(res[1]) - parseInt(res[2]))
+                    setVotes(parseInt(res[0]) * 2 + parseInt(res[2]) - parseInt(res[1]))
                     // data.Project_Upvotes = res[0]
                     // data.Project_MedVotes = res[1]
                     // data.Project_Downvotes = res[2]
@@ -88,12 +60,6 @@ const Row = ({ data, index }) => {
             } else {
                 console.warn('Please connect your wallet to Binance Smart Chain network')
             }
-            getHolders(address)
-                .then(res => res && setHolders(res))
-            callTimer(address)
-
-            getHolderPerDay(address)
-                .then(res => res && setHoldersPerDay(`+ ${res}`))
         }
     }, [data])
 
@@ -114,14 +80,8 @@ const Row = ({ data, index }) => {
 
             const wbnb = await getBalanceWBNB(pair);
 
-            let current = new Date;
-            const price24H = await getPrice(address, true, new Date(current - 24*60*60*1000))
-            const price = await getPrice(address, true)
-            
-            if(price24H && price) {
-                setChange24h(((price / price24H - 1) * 100).toFixed(4))
-                setPrice((+price * bnbPrice.price))
-                let mcap = await getMCap(address, price * bnbPrice.price)
+            if(data.Project_Price_24h && data.Project_Price) {
+                let mcap = await getMCap(address, data.Project_Price)
                 setMCap(mcap)
                 if (mcap > 0) {
                     setRatio(wbnb * bnbPrice.price / mcap * 100)
@@ -222,14 +182,14 @@ const Row = ({ data, index }) => {
             <TableCell>
                 <Stack>
                     <Typography variant="table">
-                        {mobileMatches && <label>${Number(price.toFixed(12))}</label>}
+                        {mobileMatches && <label>${Number(data.Project_Price.toFixed(12))}</label>}
                         {!mobileMatches &&
-                            <small style={{ fontSize: '0.5rem' }}>${Number(price.toFixed(12))}</small>
+                            <small style={{ fontSize: '0.5rem' }}>${Number(data.Project_Price.toFixed(12))}</small>
                         }
                     </Typography>
-                    {change24h !== 0 && isNaN(change24h) === false && <Flex margin={'6px 0 0 0'} justify={'evenly'}>
-                        <Image src={change24h > 0 ? arrowUp : arrowDown} />
-                        <Changes24 up={change24h}>{change24h}%</Changes24>
+                    {data.Project_Price_24h !== 0 && isNaN(data.Project_Price_24h) === false && <Flex margin={'6px 0 0 0'} justify={'evenly'}>
+                        <Image src={data.Project_Price_24h > 0 ? arrowUp : arrowDown} />
+                        <Changes24 up={data.Project_Price_24h}>{data.Project_Price_24h}%</Changes24>
                     </Flex>}
                 </Stack>
             </TableCell>
@@ -243,17 +203,17 @@ const Row = ({ data, index }) => {
             </TableCell>
             <TableCell>
                 <Typography variant="table">
-                    {mobileMatches && <label>{holders}</label>}
+                    {mobileMatches && <label>{data.Project_Holder}</label>}
                     {!mobileMatches &&
-                        <small style={{ fontSize: '0.5rem' }}>{holders}</small>
+                        <small style={{ fontSize: '0.5rem' }}>{data.Project_Holder}</small>
                     }
                 </Typography>
             </TableCell>
             <TableCell>
                 <Typography variant="table">
-                    {mobileMatches && <label>{holdersPerDay}</label>}
+                    {mobileMatches && <label>{data.Project_HolderGrowth}</label>}
                     {!mobileMatches &&
-                        <small style={{ fontSize: '0.5rem' }}>{holdersPerDay}</small>
+                        <small style={{ fontSize: '0.5rem' }}>{data.Project_HolderGrowth}</small>
                     }
                 </Typography>
             </TableCell>

@@ -42,6 +42,7 @@ const TokenPage = () => {
 
 	useEffect(() => {
 		data.map((row) => {
+			console.log(row)
 			if (row?.Project_Address?.toLowerCase() === address.toLowerCase()) {
 				setTokenData(row)
 

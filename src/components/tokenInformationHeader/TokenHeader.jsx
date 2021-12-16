@@ -28,7 +28,7 @@ import {
 } from './TokeHeaderStyled'
 import { Button, Flex, Image, Link_, LinkWrapper } from '../common'
 import { Votes } from "../common/votes";
-import { getMCap, getName, getSymbol, getVotesPerProject, isProjectManager } from '../../connection/functions'
+import { getMCap, getVotesPerProject, isProjectManager } from '../../connection/functions'
 import Telegram from "../../images/table/telegram.svg";
 import Twitter from "../../images/table/twitter.svg";
 import Instagram from "../../images/insta.svg";
@@ -42,8 +42,6 @@ import { ReactComponent as Utility1 } from "../../images/Utility_ns.svg";
 import { ReactComponent as Memecoin1 } from "../../images/Memecoin_ns.svg";
 
 import TokenEditModal from "../modal/TokenEditModal/TokenEditModal";
-import { getHolderPerDay } from '../../utils/getHolderPerDay';
-import { getPrice } from '../../utils/getPrice';
 import { useBNBPrice } from '../../hooks/useBNBPrice';
 
 const TokenHeader = ({ tokenData = {} }) => {
@@ -54,13 +52,10 @@ const TokenHeader = ({ tokenData = {} }) => {
     const [checkProjectManager, setCheckProjectManager] = useState(false)
     const [price, setPrice] = useState(0)
     const [mcap, setMCap] = useState(0)
-    const [symbol, setSymbol] = useState('')
-    const [name, setName] = useState('')
     const [votes, setVotes] = useState(0)
     const [openBadges, setOpenBadges] = useState(false)
     const [openInfo, setOpenInfo] = useState(false)
-    const [holdersPerDay, setHoldersPerDay] = useState(0)
-    const bnbPrice = useBNBPrice(account)
+    const bnbPrice = useBNBPrice()
 
     const visitWebsite = () => {
         if (tokenData.Project_Website) {
@@ -70,10 +65,9 @@ const TokenHeader = ({ tokenData = {} }) => {
 
     useEffect(async () => {
         if(bnbPrice.price) {
-            const tokenPrice = await getPrice(address, true)
-            if(tokenPrice) {
-                const mcap = await getMCap(address, tokenPrice * bnbPrice.price)
-                setPrice(tokenPrice * bnbPrice.price)
+            if(tokenData?.Project_Price) {
+                const mcap = await getMCap(address, tokenData?.Project_Price * bnbPrice.price)
+                setPrice(tokenData?.Project_Price * bnbPrice.price)
                 setMCap(mcap)
             }
     
@@ -88,14 +82,6 @@ const TokenHeader = ({ tokenData = {} }) => {
         } catch (e) {
             console.log(e)
         }
-
-        getHolderPerDay(address)
-            .then(res => res && setHoldersPerDay(`+ ${res}`))
-
-        const symbol = await getSymbol(address)
-        setSymbol(symbol)
-        const name = await getName(address)
-        setName(name)
     }, [address])
 
     useEffect(() => {
@@ -197,7 +183,7 @@ const TokenHeader = ({ tokenData = {} }) => {
                     </Link_>
                 }
                 <Flex justify={'center'}>
-                    <HeadTitle margin={'0 auto 0 10px'} size={'50px'}>{name}</HeadTitle>
+                    <HeadTitle margin={'0 auto 0 10px'} size={'50px'}>{tokenData?.Project_Name}</HeadTitle>
                     <Flex>
                         <Image height={'29px'} src={Like} />
                         <Text margin={'0 0 0 7px'} size={'24px'}>{votes}</Text>
@@ -252,7 +238,7 @@ const TokenHeader = ({ tokenData = {} }) => {
                         <Card>
                             <IcoWrapper><Image src={TokenPrice} /></IcoWrapper>
                             <span>token price</span>
-                            <CardInfo mt={'20px'}>${Number(price.toFixed(8))}</CardInfo>
+                            <CardInfo mt={'20px'}>${Number(tokenData.Project_Price)}</CardInfo>
                         </Card>
                         <Card>
                             <IcoWrapper mt={'-16px'} height={'88px'}><Image src={MarketCap} /></IcoWrapper>
@@ -262,7 +248,7 @@ const TokenHeader = ({ tokenData = {} }) => {
                         <Card color={'rgba(255, 218, 1, 0.25)'}>
                             <IcoWrapper><Image src={Popularity} /></IcoWrapper>
                             <span>Ø Holder growth <br /> per day</span>
-                            <CardInfo>{holdersPerDay}</CardInfo>
+                            <CardInfo>{tokenData?.Project_HolderGrowth}</CardInfo>
                         </Card>
                     </Flex>
                 </Inner>

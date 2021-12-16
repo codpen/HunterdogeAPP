@@ -6,7 +6,6 @@ import { useContext, useEffect, useState } from 'react';
 import { getBalanceToken, getBalanceWBNB, getPair, isHoneypot, toChecksumAddress } from '../../connection/functions'
 import { GoogleSheetContext } from '../../contexts/GoogleSheetProvider';
 import { useBNBPrice } from '../../hooks/useBNBPrice';
-import { bscWBNBContact } from '../../connection/contracts';
 import { ModalContext } from '../../contexts/ModalProvider';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { getPrice } from '../../utils/getPrice';
@@ -14,7 +13,7 @@ import { getPrice } from '../../utils/getPrice';
 const CheckLiguidity = () => {
     const context = useContext(ModalContext)
     const { data } = useContext(GoogleSheetContext)
-    const bnbPrice = useBNBPrice(bscWBNBContact)
+    const bnbPrice = useBNBPrice()
     const [getMoreInfo, setGetMoreInfo] = useState(false)
     const [spin, setSpin] = useState(false)
     const [pairAddress, setPairAddress] = useState('')

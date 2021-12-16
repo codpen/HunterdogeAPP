@@ -18,20 +18,14 @@ import {useWallet} from "@binance-chain/bsc-use-wallet";
 import {Badges} from "../common/badges/Badges";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import NoLogoImage from '../../images/nologo.jpg'
-import { useBNBPrice } from '../../hooks/useBNBPrice';
-import { bscWBNBContact } from '../../connection/contracts';
-import { getPrice } from '../../utils/getPrice';
 
-const Row = ({ data, index }) => {
+const Row = ({ data, index, bnbPrice }) => {
     // const {chainId} = useWeb3React()
     const { account, chainId } = useWallet();
     // const {votes, error, isLoading} = useVotesPerProject(data.Project_Address)
-    const [price, setPrice] = useState(0)
     const [mcap, setMCap] = useState(0)
     const [isOpen, setIsOpen] = useState(false)
-    const [change24h, setChange24h] = useState()
     const [votes, setVotes] = useState(0)
-    const bnbPrice = useBNBPrice(bscWBNBContact)
     const mobileMatches = useMediaQuery('(min-width:600px)');
 
     const tokenData = [
@@ -43,11 +37,7 @@ const Row = ({ data, index }) => {
     useEffect(() => {
         const fetchData = async () => {
             const address = toChecksumAddress(data.Project_Address)
-            if (bnbPrice.price && data.Project_Address) {
-                const price = await getPrice(address, true)
-                setPrice((price * bnbPrice.price))
-            }
-            const res = await getVotesPerProject(data.Project_Address)
+            const res = await getVotesPerProject(address)
             try {
                 setVotes(parseInt(res[0]) * 2 + parseInt(res[2]) - parseInt(res[1]))
             } catch (e) {
@@ -59,12 +49,12 @@ const Row = ({ data, index }) => {
 
     useEffect(() => {
         const getMarketCap = async () => {
-            const mcap = await getMCap(data.Project_Address, price)
+            const mcap = await getMCap(data.Project_Address, data?.Project_Price)
             // console.log(mcap)
             setMCap(mcap)
         }
         getMarketCap()
-    }, [price])
+    }, [data?.Project_Price])
 
     return (
         <TableRow>
@@ -128,14 +118,14 @@ const Row = ({ data, index }) => {
             <TableCell>
                 <Stack>
                     <Typography variant="table">
-                        {mobileMatches && <label>${new Intl.NumberFormat('en-US').format(price)}</label>}
+                        {mobileMatches && <label>${new Intl.NumberFormat('en-US').format(data?.Project_Price)}</label>}
                         {!mobileMatches &&
-                            <small style={{ fontSize: '0.5rem' }}>${new Intl.NumberFormat('en-US').format(price)}</small>
+                            <small style={{ fontSize: '0.5rem' }}>${new Intl.NumberFormat('en-US').format(data?.Project_Price)}</small>
                         }
                     </Typography>
-                    {change24h && <Flex margin={'6px 0 0 0'} justify={'evenly'}>
-                        <Image src={change24h.up ? arrowUp : arrowDown} />
-                        <Changes24 up={change24h.up}>{change24h.text}</Changes24>
+                    {data?.Project_Price_24h && <Flex margin={'6px 0 0 0'} justify={'evenly'}>
+                        <Image src={data?.Project_Price_24h ? arrowUp : arrowDown} />
+                        <Changes24 up={data?.Project_Price_24h}>{data?.Project_Price_24h}</Changes24>
                     </Flex>}
                 </Stack>
             </TableCell>
