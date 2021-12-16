@@ -9,7 +9,8 @@ import TabsStyled from '../Tabs/Tabs';
 import { paginate } from "../pagination/paginate";
 import { ModalContext } from '../../contexts/ModalProvider'
 import { GoogleSheetContext } from '../../contexts/GoogleSheetProvider';
-import { toChecksumAddress } from '../../connection/functions'
+import { toChecksumAddress } from '../../connection/functions';
+import { getVotesPerProject } from '../../connection/functions';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const fieldMap = {
@@ -31,7 +32,35 @@ const AllTokensTable = (isTitle) => {
 	tabs = [...tabs, { label: "All time", close: false }]
 
 	const [value, setValue] = useState(0)
-	const { data } = useContext(GoogleSheetContext)
+	const { data: googleSheetData } = useContext(GoogleSheetContext)
+	const [data, setData] = useState([])
+
+	const getVotes = (tokens) => {
+        const _tokens = tokens.map(async (_token, idx) => {
+            try {
+                const res_1 = await getVotesPerProject(_token.Project_Address)
+                const _votes = parseInt(res_1[0]) * 2 + parseInt(res_1[2]) - parseInt(res_1[1])
+                _token.votes = _votes
+                return _token
+            } catch {
+                _token.votes = 0
+                return _token
+            }
+        })
+        return Promise.all(_tokens)
+    }
+
+    useEffect(() => {
+        if (googleSheetData.length > 0) {
+            getVotes(googleSheetData).then(_tokens => {
+                _tokens.sort((a, b) => {
+                    return b.votes - a.votes
+                })
+                setData(_tokens)
+           })
+        }
+    }, [googleSheetData])
+
 	const [partActive, setPartActive] = useState(1)
 
 	const [perPage, setPerPage] = useState(25)
@@ -87,6 +116,7 @@ const AllTokensTable = (isTitle) => {
 	}
 	useEffect(() => {
 		let result = filter()
+		console.log('data------', data)
 		const res = paginate(result.length, page, perPage, result)
 		setCurrentData(res)
 	}, [data, partActive, page, perPage])
