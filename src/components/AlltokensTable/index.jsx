@@ -147,7 +147,7 @@ const AllTokensTable = (isTitle) => {
 				</Tabs>
 				<Box
 					sx={{
-						backgroundColor: '#ffffff',
+						backgroundColor: (mobileMatches ? '#FFF' : '#FFF8CC'),
 						borderRadius: '25px',
 						borderTopLeftRadius: 0,
 						boxShadow: '5px 5px 0px rgba(0, 0, 0, 0.1)',
@@ -166,15 +166,16 @@ const AllTokensTable = (isTitle) => {
 									<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>Ticker</TableCell>
 									<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>MCAP</TableCell>
 									<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>Price</TableCell>
-									<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>Liq /
-										Mcap<br /> Ratio</TableCell>
-									<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>Holders</TableCell>
-									<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>&Oslash; Holder<br />growth
-										per day</TableCell>
-									{mobileMatches && <TableCell sx={{
+								{mobileMatches &&	<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>Liq /
+										Mcap<br /> Ratio</TableCell>}
+
+								{mobileMatches &&	<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>Holders</TableCell>}
+								{mobileMatches &&	<TableCell sx={{ fontSize: mobileMatches ? '16px' : '10px' }}>&Oslash; Holder<br />growth
+										per day</TableCell>}
+									 <TableCell sx={{
 										textAlign: 'left',
 										fontSize: mobileMatches ? '16px' : '10px'
-									}}>Votes</TableCell>}
+									}}>Votes</TableCell>
 									{mobileMatches && <TableCell sx={{
 										textAlign: 'left',
 										fontSize: mobileMatches ? '16px' : '10px'

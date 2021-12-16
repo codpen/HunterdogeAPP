@@ -186,6 +186,18 @@ export const More = styled.button`
   &:hover {
     background-color: #d5b562
   }
+  @media screen and (max-width: 600px) {
+    width: 15px;
+    height: 15px;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 10px;
+    line-height: 98.1%;
+    text-align: center;
+    text-transform: uppercase;
+    padding-bottom:4px;
+  }
 `
 
 export const Flex = styled.div`

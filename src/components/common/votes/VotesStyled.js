@@ -68,12 +68,12 @@ export const Modal = styled.div`
       border-left: 20px solid #fff;
     }
   
-  @media screen and (min-width: 1800px) {
-    right: ${({big}) => big ? '200px' : '-155px'};
-      &::before {
-        left: ${({big}) => big ? '133px' : '-37px'};
-        border: 20px solid transparent;
-        ${({big}) => big ? 'border-left: 20px solid #fff;' : 'border-right: 20px solid #fff;'}
-      }
-  }
+  // @media screen and (min-width: 1800px) {
+  //   right: ${({big}) => big ? '200px' : '-155px'};
+  //     &::before {
+  //       left: ${({big}) => big ? '133px' : '-37px'};
+  //       border: 20px solid transparent;
+  //       ${({big}) => big ? 'border-left: 20px solid #fff;' : 'border-right: 20px solid #fff;'}
+  //     }
+  // }
 `

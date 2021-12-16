@@ -196,7 +196,7 @@ const Row = ({ data, index, bnbPrice }) => {
             <TableCell>
                 <Typography variant="h6" sx={{ fontSize: 16, fontWeight: 600, color: "#16DF42" }}>
                     {mobileMatches && <label>{new Intl.NumberFormat('en-US').format(ratio)}%</label>}
-                    {!mobileMatches &&
+                    {mobileMatches &&
                         <small style={{ fontSize: '0.5rem' }}>{new Intl.NumberFormat('en-US').format(ratio)}%</small>
                     }
                 </Typography>
@@ -218,16 +218,16 @@ const Row = ({ data, index, bnbPrice }) => {
                 </Typography>
             </TableCell>
 
-            {mobileMatches &&
+            {!mobileMatches &&
                 <>
                     <TableCell>
-                        <Typography variant="table" sx={{ width: '50px' }}>
+                        <Typography variant="table" sx={{ width:  mobileMatches? '50px':'20px', fontsize:'15px'}}>
                             {votes}
                         </Typography>
                     </TableCell>
                     <TableCell>
                         <Stack direction="row" alignItems="center">
-                            <Votes address={data.Project_Address} />
+                           {mobileMatches && <Votes   address={data.Project_Address} />}
                             <More>...</More>
                         </Stack>
                     </TableCell>

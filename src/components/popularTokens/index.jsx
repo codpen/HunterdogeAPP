@@ -102,7 +102,7 @@ const PopularTokens = () => {
             <TabsStyled setPartActive={setPartActive} partActive={partActive} data={tabs} />
             <Box
                 sx={{
-                    backgroundColor: '#ffffff',
+                    backgroundColor: (mobileMatches ? '#FFF' : '#FFF8CC'),
                     borderRadius: '25px',
                     borderTopLeftRadius: 0,
                     boxShadow: '5px 5px 0px rgba(0, 0, 0, 0.1)',

@@ -63,8 +63,24 @@ const LiveChart = ({ tokenData = {} }) => {
     const [mcap, setMCap] = useState(0)
     const [ratio, setRatio] = useState(0)
     const [isModal, setIsModal] = useState(false)
-    const bnbPrice = useBNBPrice()
+    const bnbPrice = useBNBPrice(bscWBNBContact)
+    const MoneyFormat =  (a) =>
+   {    const b=Number(a.replace(',', ''))
+         // Nine Zeroes for Billions
+         return Math.abs(b) >= 1.0e+9
 
+              ? Math.abs(b) / 1.0e+9 + "B"
+              // Six Zeroes for Millions 
+              : Math.abs(b) >= 1.0e+6
+
+              ? Math.abs(b) / 1.0e+6 + "M"
+              // Three Zeroes for Thousands
+              : Math.abs(b) >= 1.0e+3
+
+              ? Math.abs(b) / 1.0e+3 + "K"
+
+              : Math.abs(b);
+  }
     
     useEffect(async () => {
         if(bnbPrice.price) {
@@ -102,7 +118,7 @@ const LiveChart = ({ tokenData = {} }) => {
                     justifyContent: 'space-between'
                 }}>
                     <Title>Max supply</Title>
-                    <Value>{new Intl.NumberFormat('en-US').format(tokenData?.Project_Token_Max)}</Value>
+                    <Value>{tokenData?.Project_Token_Max?MoneyFormat(tokenData?.Project_Token_Max):''}</Value>
                 </Stack>
                 <Stack sx={{
                     display: 'flex',

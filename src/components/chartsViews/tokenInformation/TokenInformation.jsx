@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from "@material-ui/styles";
 import {
     ContentWrapper,
@@ -37,6 +37,23 @@ const useStyles = makeStyles({
 const TokenInformation = ({ tokenData = {} }) => {
     const mobileMatches = useMediaQuery('(max-width:600px)');
     const classes = useStyles({ isMobile: mobileMatches });
+   const MoneyFormat =  (a) =>
+   {    const b=Number(a.replace(',', ''))
+         // Nine Zeroes for Billions
+         return Math.abs(b) >= 1.0e+9
+
+              ? Math.abs(b) / 1.0e+9 + "B"
+              // Six Zeroes for Millions 
+              : Math.abs(b) >= 1.0e+6
+
+              ? Math.abs(b) / 1.0e+6 + "M"
+              // Three Zeroes for Thousands
+              : Math.abs(b) >= 1.0e+3
+
+              ? Math.abs(b) / 1.0e+3 + "K"
+
+              : Math.abs(b);
+  }
 
     return (
         <Wrapper isMobile={mobileMatches}>
@@ -53,7 +70,7 @@ const TokenInformation = ({ tokenData = {} }) => {
             <RightContent width={mobileMatches ? '100%' : undefined} >
                 <HeadTitle className={classes.headTitle} margin={'0px 0px 15px'}>TOKENOMICS</HeadTitle>
                 <Title className={classes.label}>MAX SUPPLY</Title>
-                <Value className={classes.value}>{new Intl.NumberFormat('en-US').format(tokenData?.Project_Token_Max)}</Value>
+                <Value className={classes.value}>{tokenData?.Project_Token_Max?MoneyFormat(tokenData?.Project_Token_Max):''}</Value>
                 <Title className={classes.label}>BURN SUPPLY</Title>
                 <Value className={classes.value}>{new Intl.NumberFormat('en-US').format(tokenData?.Project_Token_Burn)}%</Value>
                 <Title className={classes.label}>TEAM TOKENS IN % OF MAX SUPPLY</Title>
