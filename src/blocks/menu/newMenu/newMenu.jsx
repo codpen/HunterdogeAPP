@@ -1,10 +1,13 @@
 import React from 'react';
-import {LinkWrapper} from "../../../components/common";
+import { LinkWrapper } from "../../../components/common";
 import hunterdogeShadow from '../../../images/hunterdoge_menu.png';
 import SearchInput from "../../../components/searchInput";
-import {CloseButton, Flex, ImageWrapper, SmallWrappedButton, Title, Wrapp, WrappedButton, Wrapper} from "./MenuStyled";
+import { CloseButton, Flex, ImageWrapper, SmallWrappedButton, Title, Wrapp, WrappedButton, Wrapper, Menubutton } from "./MenuStyled";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-
+import { Stack } from '@mui/material';
+import ConnectWallet from '../../../connection/ConnectWallet';
+import { Button } from "../../../components/common";
+import {Button as MuiButton} from "@mui/material";
 const NewMenu = (props) => {
     const mobileMatches = useMediaQuery('(min-width:600px)');
     const onClickRegister = () => {
@@ -19,38 +22,83 @@ const NewMenu = (props) => {
     }
     return (
         <>
-            <Wrapper>
-                {!mobileMatches && <Title>HUNTERDOGE</Title>}
-                <Wrapp>
-                    {!mobileMatches && <CloseButton onClick={() => props.setOpen(false)}>X</CloseButton>}
-                    <SearchInput small mb={mobileMatches ? '28px' : '0px'}/>
-                </Wrapp>
-                {!mobileMatches &&
-                    <WrappedButton onClick={onClickRegister} sx={{mt: 1.5}}>
-                        register
-                    </WrappedButton>
-                }
-                <LinkWrapper onClick={() => {
-                    props.setOpen && props.setOpen(false)
-                }} to="/allTokens">
-                    <WrappedButton>all tokens</WrappedButton>
-                </LinkWrapper>
-                <a onClick={() => {
-                    props.setOpen && props.setOpen(false)
-                }} href="https://t.me/huntersground" target="_blank" style={{width: '100%'}}>
-                    <WrappedButton>telegram shill bot</WrappedButton>
-                </a>
-                <WrappedButton onClick={onClickContact}>contact</WrappedButton>
-                <Flex>
+            {mobileMatches &&
+                <Wrapper>
+                    <Wrapp>
+                        <SearchInput small mb={'28px'} />
+                    </Wrapp>
+                    <LinkWrapper onClick={() => {
+                        props.setOpen && props.setOpen(false)
+                    }} to="/allTokens">
+                        <WrappedButton>all tokens</WrappedButton>
+                    </LinkWrapper>
                     <a onClick={() => {
                         props.setOpen && props.setOpen(false)
-                    }} href="https://t.me/hunterdogeofficial" target="_blank" style={{width: '100%'}}>
-                        <SmallWrappedButton > Apply for Listing
-                        </SmallWrappedButton>
+                    }} href="https://t.me/huntersground" target="_blank" style={{ width: '100%' }}>
+                        <WrappedButton>telegram shill bot</WrappedButton>
                     </a>
-                    <ImageWrapper src={hunterdogeShadow}/>
-                </Flex>
-            </Wrapper>
+                    <WrappedButton onClick={onClickContact}>contact</WrappedButton>
+                    <Flex>
+                        <a onClick={() => {
+                            props.setOpen && props.setOpen(false)
+                        }} href="https://t.me/hunterdogeofficial" target="_blank" style={{ width: '100%' }}>
+                            <SmallWrappedButton > Apply for Listing
+                            </SmallWrappedButton>
+                        </a>
+                        <ImageWrapper src={hunterdogeShadow} />
+                    </Flex>
+                </Wrapper>
+            }
+            {!mobileMatches &&
+                <Wrapper >
+                    <Title>HUNTERDOGE</Title>
+                    <Wrapp>
+                        <CloseButton onClick={() => props.setOpen(false)}>X</CloseButton>
+                    </Wrapp>
+                    <Stack direction='row' sx={{mb:'20px', display:'flex', justifyContent:'space-between', width:'100%'}} >
+                        <MuiButton onClick={onClickRegister} 
+                            sx={{
+                                width: '50%', 
+                                border: '10px solid B78300', 
+                                padding: `${!mobileMatches? '2px 8px': '10px 16px'}`,
+                                mr: '10px',
+                                fontSize: '12px',
+                            }}
+                        >
+                            register
+                        </MuiButton>
+                        <ConnectWallet />
+                    </Stack>
+                    <Wrapp sx={{mb:1.5}}>
+                        <SearchInput small/>
+                    </Wrapp>
+                    <LinkWrapper onClick={() => {
+                        props.setOpen && props.setOpen(false)
+                    }} to="/allTokens">
+                        <Menubutton>all tokens</Menubutton>
+                    </LinkWrapper>
+                    {/* <LinkWrapper onClick={() => {
+                        props.setOpen && props.setOpen(false)
+                    }} to="/nft-gallery">
+                        <Menubutton>NFT GALLERY</Menubutton>
+                    </LinkWrapper> */}
+                    <a onClick={() => {
+                        props.setOpen && props.setOpen(false)
+                    }} href="https://t.me/huntersground" target="_blank" style={{ width: '100%' }}>
+                        <Menubutton>telegram shill bot</Menubutton>
+                    </a>
+                    <Menubutton onClick={onClickContact}>contact</Menubutton>
+                    <Flex>
+                        <a onClick={() => {
+                            props.setOpen && props.setOpen(false)
+                        }} href="https://t.me/hunterdogeofficial" target="_blank" style={{ width: '100%' }}>
+                            <SmallWrappedButton > Apply for Listing
+                            </SmallWrappedButton>
+                        </a>
+                        <ImageWrapper src={hunterdogeShadow} />
+                    </Flex>
+                </Wrapper>
+            }
 
         </>
 

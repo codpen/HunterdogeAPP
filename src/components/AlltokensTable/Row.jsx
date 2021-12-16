@@ -49,7 +49,7 @@ const Row = ({ data, index, bnbPrice }) => {
             if (chainId === 56) {
                 const res = await getVotesPerProject(address)
                 try {
-                    setVotes(parseInt(res[0]) * 2 + parseInt(res[1]) - parseInt(res[2]))
+                    setVotes(parseInt(res[0]) * 2 + parseInt(res[2]) - parseInt(res[1]))
                     // data.Project_Upvotes = res[0]
                     // data.Project_MedVotes = res[1]
                     // data.Project_Downvotes = res[2]

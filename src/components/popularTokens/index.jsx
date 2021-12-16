@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import { Box } from '@mui/system';
 import { Link } from 'react-router-dom';
@@ -36,7 +36,34 @@ const PopularTokens = () => {
     const mobileMatches = useMediaQuery('(min-width:600px)');
     const [value, setValue] = useState(0)
     const { data } = useContext(GoogleSheetContext)
+    const [sortedData, setSortedData] = useState([])
     const [partActive, setPartActive] = useState(1)
+
+    const getVotes = (tokens) => {
+        const _tokens = tokens.map(async (_token, idx) => {
+            try {
+                const res_1 = await getVotesPerProject(_token.Project_Address)
+                const _votes = parseInt(res_1[0]) * 2 + parseInt(res_1[2]) - parseInt(res_1[1])
+                _token.votes = _votes
+                return _token
+            } catch {
+                _token.votes = 0
+                return _token
+            }
+        })
+        return Promise.all(_tokens)
+    }
+
+    useEffect(() => {
+        if (data.length > 0) {
+            const _data = getVotes(data).then(_tokens => {
+                _tokens.sort((a, b) => {
+                    return b.votes - a.votes
+                })
+                setSortedData(_tokens)
+           })
+        }
+    }, [data])
 
     const { filterOneDay, filterWeek } = useMemo(() => {
         const getWeekNumber = (date) => {
@@ -47,37 +74,14 @@ const PopularTokens = () => {
             return weekNo;
         }
 
-        const filterOneDay = data.filter(({ Project_Token_LaunchDate }) => Date.parse(Project_Token_LaunchDate) >= new Date() - (24 * 60 * 60 * 1000))
-        const filterWeek = data.filter(({ Project_Token_LaunchDate }) => Date.parse(Project_Token_LaunchDate) >= new Date() - (7 * 24 * 60 * 60 * 1000))
+        const filterOneDay = sortedData.filter(({ Project_Token_LaunchDate }) => Date.parse(Project_Token_LaunchDate) >= new Date() - (24 * 60 * 60 * 1000))
+        const filterWeek = sortedData.filter(({ Project_Token_LaunchDate }) => Date.parse(Project_Token_LaunchDate) >= new Date() - (7 * 24 * 60 * 60 * 1000))
         return { filterOneDay, filterWeek }
-    }, [data])
+    }, [sortedData])
 
     const handleChange = (event, newValue) => {
         setValue(newValue)
     }
-
-    // const sortTokens = (tokens) => {
-    //     let _tokens = tokens.map(async (token) => {
-    //         let _token = { ...token }
-    //         _token.votes = 0
-    //         const res_1 = await getVotesPerProject(_token.Project_Address)
-    //         try {
-    //             const _votes = parseInt(res_1[0]) * 2 + parseInt(res_1[2]) - parseInt(res_1[1])
-    //             console.log('_votes--------', _votes)
-    //             _token.votes = _votes
-    //             return _token
-    //         }
-    //         catch(e){
-    //             console.log(e)
-    //         }
-    //     })
-    //     // _tokens.sort((a, b) => {
-    //     //     console.log('a------', a.votes, '---b---------', b.votes)
-    //     //     return a.votes - b.votes
-    //     // })
-    //     // console.log('-----_tokens----', _tokens)
-    //     return _tokens;
-    // }
 
     return (
         <Box sx={{ mt: '30px', width: '100%', textAlign: 'center', position: 'relative' }}>
@@ -120,7 +124,7 @@ const PopularTokens = () => {
                         </TableHead>
                         <TableBody sx={{ overflow: 'hidden' }}>
                             <TabPanel value={value} index={0}>
-                                {partActive === 1 && data.map((row, index) => <Row key={index * 10} index={index} data={row} bnbPrice={bnbPrice} />)}
+                                {partActive === 1 && sortedData && sortedData.map((row, index) => <Row key={index * 10} index={index} data={row} bnbPrice={bnbPrice} />)}
                                 {partActive === 2 && filterOneDay.map((row, index) => <Row key={index * 9} index={index} data={row} bnbPrice={bnbPrice} />)}
                                 {partActive === 3 && filterWeek.map((row, index) => <Row key={index * 11} index={index} data={row} bnbPrice={bnbPrice} />)}
                             </TabPanel>

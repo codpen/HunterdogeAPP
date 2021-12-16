@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Link } from "react-router-dom";
 //styles
 import { Flex, Image } from "../../components/common";
-import { FooterMain, Text, Button, Title, ImageWrapper, SocialWrapper, LinkStyled, LinkFooter } from "./FooterStyled";
+import { FooterMain, Text, Button, Title, ImageWrapper, SocialWrapper, LinkStyled, LinkFooter,MarketingTitle} from "./FooterStyled";
 //icons
 import Telegram from "../../images/socialBg/telegram.svg";
 import Twitter from "../../images/socialBg/twitter.svg";
@@ -39,9 +39,9 @@ const Footer = ({ register }) => {
                 {!mobileMatches &&
                     <>
                         <Button onClick={submit}>Submit your Coin</Button>
-                        <Flex direction={'row'} items={'center'}>
-                            <Text to='' size='10px' margin='10px 2px' mtop={'22px'}>Quick links:</Text>
-                            <Text to='/allTokens' size='10px' margin='10px 4px'>All Tokens</Text>
+                        <Flex direction={'row'} items={'center'} justify={'flex-start'} style={{width:'100%'}}>
+                            <Text to='' size='10px' margin='10px 2px' mtop={'22px'} weight='800'>Quick links:</Text>
+                            <LinkFooter href='/allTokens' size='10px' margin='10px 4px'>All Tokens</LinkFooter>
                             <LinkFooter
                                 href='https://idopresales.com/presale-reviews/hunter-doge-project-review-hd-presale-ido-on-dxsale/'
                                 target="_blank"
@@ -59,8 +59,8 @@ const Footer = ({ register }) => {
                                 Download $HD contents
                             </LinkFooter>
                         </Flex>
-                        <Flex direction={'row'} items={'center'} >
-                            <Text to='' size={'10px'} margin='4px'>Documents:</Text>
+                        <Flex direction={'row'} items={'center'} justify={'flex-start'} style={{width:'100%'}}>
+                            <Text to='' size={'10px'} margin='4px' weight='800'>Documents:</Text>
                             {/* <LinkFooter href='/'>Whitepaper</LinkFooter> */}
                             <LinkFooter
                                 href='https://ipfs.io/ipfs/QmdWZEMvNximaswhn3p6qTsioBASgGLx2QRMkDcXNrVxoG?filename=Techpaper_HunterDoge_v1.0.0.pdf'
@@ -71,25 +71,31 @@ const Footer = ({ register }) => {
                                 Tech paper
                             </LinkFooter>
                         </Flex>
-                        <LinkFooter href="mailto:info@hunterdoge.com" target="_blank" size={'10px'} margin='4px'>info@hunterdoge.com</LinkFooter>
+                        <Flex direction={'row'} items={'center'} justify={'flex-start'} style={{width:'100%'}}>
+                            <Text to='' size={'10px'} margin='4px' weight='800'>For banner ads or AMAs:</Text>
+                            <LinkFooter href="https://t.me/hunter_hans" target="_blank" size={'10px'} margin='4px'>Contact us on Telegram</LinkFooter>
+                        </Flex>
                     </>
                 }
 
                 <SocialWrapper>
                     <LinkStyled href='https://t.me/hunterdogeofficial' target="_blank">
-                        <Image src={Telegram} width={'48px'} margin={'auto 4px'} />
+                        <Image src={Telegram} width={'48px'} margin={'auto 2px'} />
                     </LinkStyled>
                     <LinkStyled href='https://twitter.com/hunterdoge_' target="_blank">
-                        <Image src={Twitter} width={'48px'} margin={'auto 4px'} />
+                        <Image src={Twitter} width={'48px'} margin={'auto 2px'} />
                     </LinkStyled>
                     <LinkStyled href='https://www.instagram.com/hunterdogeofficial/' target="_blank">
-                        <Image src={Instagram} width={'48px'} margin={'auto 4px'} />
+                        <Image src={Instagram} width={'48px'} margin={'auto 2px'} />
                     </LinkStyled>
                     <LinkStyled href='https://www.reddit.com/user/hunterdoge_?utm_source=share&utm_medium=ios_app&utm_name=iossmf' target="_blank">
-                        <Image src={Reddit} width={'48px'} margin={'auto 4px'} />
+                        <Image src={Reddit} width={'48px'} margin={'auto 2px'} />
                     </LinkStyled>
                     <LinkStyled href='https://medium.com/@hunterdoge' target="_blank">
-                        <Image src={Medium} width={'48px'} margin={'auto 4px'} />
+                        <Image src={Medium} width={'48px'} margin={'auto 2px'} />
+                    </LinkStyled>
+                    <LinkStyled href='https://medium.com/@hunterdoge' target="_blank">
+                        {!mobileMatches && <LinkFooter href="mailto:info@hunterdoge.com" target="_blank" size={'10px'} margin-top='16px'>info@hunterdoge.com</LinkFooter>}
                     </LinkStyled>
                 </SocialWrapper>
             </Flex>
@@ -97,7 +103,7 @@ const Footer = ({ register }) => {
                 <>
                     <Flex direction={'column'} items={'start'}>
                         <Title size={'30px'} mtop={'22px'}>Quick links</Title>
-                        <Text to='/allTokens'>All Tokens</Text>
+                        <LinkFooter href='/allTokens'>All Tokens</LinkFooter>
                         <LinkFooter href='https://idopresales.com/presale-reviews/hunter-doge-project-review-hd-presale-ido-on-dxsale/' target="_blank">KYC verification</LinkFooter>
                         <LinkFooter href='https://content.hunterdoge.com' target="_blank">Download $HD contents</LinkFooter>
                     </Flex>
@@ -105,6 +111,12 @@ const Footer = ({ register }) => {
                         <Title size={'30px'} mtop={'22px'}>Documents</Title>
                         {/* <LinkFooter href='/'>Whitepaper</LinkFooter> */}
                         <LinkFooter href='https://ipfs.io/ipfs/QmdWZEMvNximaswhn3p6qTsioBASgGLx2QRMkDcXNrVxoG?filename=Techpaper_HunterDoge_v1.0.0.pdf' target="_blank">Tech paper</LinkFooter>
+                    </Flex>
+                    <Flex direction={'column'} items={'start'}>
+                        <Title size={'30px'} mtop={'22px'}>Marketing</Title>
+                        {/* <LinkFooter href='/'>Whitepaper</LinkFooter> */}
+                        <LinkFooter href='https://t.me/hunter_hans' target="_blank">Telegram contact</LinkFooter>
+                        <MarketingTitle>For banner ads or AMAs please contact us on Telegram.</MarketingTitle>
                     </Flex>
                     <Flex>
                         <Flex direction={'column'} items={'start'}>

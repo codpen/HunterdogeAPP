@@ -31,8 +31,8 @@ export default function ConnectWallet() {
                         sx={{
                             width: '100%', 
                             border: '10px solid B78300', 
-                            padding: `${!mobileMatches? '2px 8px': '10px 16px'}`,
-                            fontSize: `${!mobileMatches? '10px': '15px'}`,
+                            padding: `${!mobileMatches? '6px 4px': '10px 16px'}`,
+                            fontSize: `${!mobileMatches? '12px': '15px'}`,
                         }}
                     >
                         DISCONNECT {account.slice(0,4) + '...' + account.slice(-4)}
@@ -43,8 +43,8 @@ export default function ConnectWallet() {
                         sx={{ 
                             width: '100%', 
                             border: '10px solid B78300', 
-                            padding: `${!mobileMatches? '2px 8px': '10px 16px'}`,
-                            fontSize: `${!mobileMatches? '10px': '15px'}`,
+                            padding: `${!mobileMatches? '6px 4px': '10px 16px'}`,
+                            fontSize: `${!mobileMatches? '12px': '15px'}`,
                         }}
                     >
                         {'Connect Wallet'}

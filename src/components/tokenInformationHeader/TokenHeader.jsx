@@ -120,6 +120,7 @@ const TokenHeader = ({ tokenData = {} }) => {
         <Wrapper>
             <BadgesWrapper>
                 <Image src={tokenData.Project_Logo ? tokenData.Project_Logo : NoLogoImage} height={'162px'} margin={'14px 0 21px 0'} />
+                <HeadTitle size={'42px'}>{tokenData.Project_Symbol}</HeadTitle>
                 <LinkWrapper to='#' disabled={!tokenData.Project_Website}>
                     <Button weight={'700'} height='29px' disabled={!tokenData.Project_Website} onClick={visitWebsite}>
                         visit website
