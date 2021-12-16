@@ -56,10 +56,25 @@ const GoogleSheetContextProvider = (props) => {
                 // loads document properties and worksheets
                 await doc.loadInfo();
                 const sheet = doc.sheetsById[id];
-                const rows = await sheet.getRows();
+                let rows = await sheet.getRows();
+                rows = rows.map((item) => {
+                    try {
+                        item.Project_Price = Number(item.Project_Price.replace(',', '.')) || 0
+                    }catch(e) {
+                        item.Project_Price = 0
+                    }
+                    try {
+                        item.Project_Price_24h = Number(item.Project_Price_24h.replace(',', '.')) || 0
+                    } catch(e) {
+                        item.Project_Price_24h = 0
+                    }
+                    return item
+                })
+                
                 setData([...rows])
                 setState({error: undefined, isLoading: false})
             } catch (e) {
+                console.log(e)
                 setState({error: e, isLoading: false})
             }
         };

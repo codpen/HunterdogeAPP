@@ -119,7 +119,7 @@ const LiveChart = ({ tokenData = {} }) => {
                 }}>
                     <Title>Current price in USD</Title>
                     <Flex>
-                        <Value>${new Intl.NumberFormat('en-US').format(tokenData.Project_Price)}</Value>
+                        <Value>${new Intl.NumberFormat('en-US').format(tokenData.Project_Price.toFixed(6))}</Value>
                         {tokenData?.Project_Price_24h && <Changes24 up={tokenData?.Project_Price_24h}>{tokenData?.Project_Price_24h}</Changes24>}
                     </Flex>
                 </Stack>

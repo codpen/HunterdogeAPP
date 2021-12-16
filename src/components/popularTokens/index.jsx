@@ -10,6 +10,7 @@ import TabsStyled from '../Tabs/Tabs';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useBNBPrice } from '../../hooks/useBNBPrice';
 import { bscWBNBContact } from '../../connection/contracts';
+import { getVotesPerProject } from '../../connection/functions';
 
 const tabs = [
     { label: "all-time" },
@@ -32,7 +33,7 @@ const tabs = [
 // )
 
 const PopularTokens = () => {
-    const bnbPrice = useBNBPrice(bscWBNBContact)
+    const bnbPrice = useBNBPrice()
     const mobileMatches = useMediaQuery('(min-width:600px)');
     const [value, setValue] = useState(0)
     const { data } = useContext(GoogleSheetContext)
