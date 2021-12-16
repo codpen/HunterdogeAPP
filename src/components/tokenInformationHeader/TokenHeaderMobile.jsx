@@ -24,15 +24,13 @@ import {
 } from './TokeHeaderStyled'
 import {Button, Flex, Image} from '../common'
 import {Votes} from "../common/votes";
-import {getMCap, getName, getSymbol, getVotesPerProject, isProjectManager} from '../../connection/functions'
+import {getMCap, getVotesPerProject, isProjectManager} from '../../connection/functions'
 import Telegram from "../../images/table/telegram.svg";
 import Twitter from "../../images/table/twitter.svg";
 import Instagram from "../../images/insta.svg";
 import Reddit from "../../images/reddit.svg";
 import Medium from "../../images/medium.svg";
 import Discord from "../../images/discord.svg";
-import {getHolderPerDay} from '../../utils/getHolderPerDay';
-import { getPrice } from '../../utils/getPrice';
 import { useBNBPrice } from '../../hooks/useBNBPrice';
 
 const TokenHeaderMobile = ({ tokenData = {} }) => {
@@ -42,13 +40,10 @@ const TokenHeaderMobile = ({ tokenData = {} }) => {
     const [checkProjectManager, setCheckProjectManager] = useState(false)
     const [price, setPrice] = useState(0)
     const [mcap, setMCap] = useState(0)
-    const [symbol, setSymbol] = useState('')
-    const [name, setName] = useState('')
     const [votes, setVotes] = useState(0)
     const [openBadges, setOpenBadges] = useState(false)
     const [openInfo, setOpenInfo] = useState(false)
-    const [holdersPerDay, setHoldersPerDay] = useState(0)
-    const bnbPrice = useBNBPrice(account)
+    const bnbPrice = useBNBPrice()
 
     const visitWebsite = () => {
         if (tokenData.Project_Website) {
@@ -59,13 +54,10 @@ const TokenHeaderMobile = ({ tokenData = {} }) => {
     
     useEffect(async () => {
         if(bnbPrice.price) {
-            const token = await getPrice(address)
-            if(token.price) {
-                const mcap = await getMCap(address, token.price * bnbPrice.price)
-                setPrice(token.price * bnbPrice.price)
+            if(tokenData?.Project_Price) {
+                const mcap = await getMCap(address, tokenData?.Project_Price * bnbPrice.price)
+                setPrice(tokenData?.Project_Price * bnbPrice.price)
                 setMCap(mcap)
-                setSymbol(token.symbol)
-                setName(token.name)
             }
         }
         
@@ -79,9 +71,6 @@ const TokenHeaderMobile = ({ tokenData = {} }) => {
             } catch (e) {
                 console.log(e)
             }
-
-            getHolderPerDay(address)
-                .then(res => res && setHoldersPerDay(`+ ${res}`))
 
         };
         fetchSheet()
@@ -128,7 +117,7 @@ const TokenHeaderMobile = ({ tokenData = {} }) => {
         <Wrapper isMobile={true}>
             <BadgesWrapper isMobile={true}>
                 <Image src={tokenData.Project_Logo ? tokenData.Project_Logo : NoLogoImage} width={`${window.innerWidth / 4 - 10}px`} height={`${window.innerWidth / 4 - 10}px`} margin={'5px 0 8px 10px'} />
-                <HeadTitle size={'18x'}>{symbol}</HeadTitle>
+                <HeadTitle size={'18x'}>{tokenData.Project_Symbol}</HeadTitle>
                 <Flex margin={'10px 0'}>
                     {tokenData.Project_CMCLink && <Image onClick={()=>{goToExternal(tokenData.Project_CMCLink)}} width={'32%'} src={M} />}
                     {tokenData.Project_CGLink && <Image onClick={()=>{goToExternal(tokenData.Project_CGLink)}} width={'32%'} src={Lizard} />}
@@ -176,7 +165,7 @@ const TokenHeaderMobile = ({ tokenData = {} }) => {
                     }
                 </Flex>
                 <Flex margin={'30px 0px 0px 0px'} style={{ borderBottom: 'solid #B78300' }}>
-                    <HeadTitle margin={'0 auto 0 10px'} size={'20px'}>{name}</HeadTitle>
+                    <HeadTitle margin={'0 auto 0 10px'} size={'20px'}>{tokenData?.Project_Name}</HeadTitle>
                     <Flex>
                         <Image height={'20px'} src={Like} />
                         <Text margin={'0 0 0 7px'} size={'12px'}>{votes}</Text>
@@ -207,7 +196,7 @@ const TokenHeaderMobile = ({ tokenData = {} }) => {
 
                 <Flex>
                     <Text size={'9px'} margin={'3px 0px'} >Token Price</Text>
-                    <Text size={'9px'} margin={'3px 0px'} style={{ paddingRight: '6px', height: '15px' }}>${Number(price)}</Text>
+                    <Text size={'9px'} margin={'3px 0px'} style={{ paddingRight: '6px', height: '15px' }}>${Number(tokenData?.Project_Price)}</Text>
                 </Flex>
 
                 <Flex>
@@ -217,7 +206,7 @@ const TokenHeaderMobile = ({ tokenData = {} }) => {
 
                 <Flex>
                     <Text size={'9px'} margin={'3px 0px'} >Ø Holder growth per day</Text>
-                    <Text size={'9px'} margin={'3px 0px'} style={{ paddingRight: '6px', height: '15px' }}>{holdersPerDay}</Text>
+                    <Text size={'9px'} margin={'3px 0px'} style={{ paddingRight: '6px', height: '15px' }}>{tokenData?.Project_HolderGrowth}</Text>
                 </Flex>
                 <Flex justify={'center'} margin={'5px 0px 10px 0px'}>
                     <Button height='25px' size={'12px'} width={'calc(100% / 2)'} style={{ whiteSpace: 'nowrap' }} disabled={!tokenData.Project_Website} onClick={visitWebsite}>

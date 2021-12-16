@@ -118,7 +118,7 @@ const Hero = ({setIsOpen, register}) => {
     const [isTokenEditModal, setIsTokenEditModal] = useState(false)
     const [checkManager, setCheckManager] = useState(false)
     const [pairAddress, setPairAddress] = useState('')
-    const bnbPrice = useBNBPrice(account)
+    const bnbPrice = useBNBPrice()
     const [price, setPrice] = useState(0)
 
     useEffect(()=>{

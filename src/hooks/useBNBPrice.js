@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 const url = "https://graphql.bitquery.io/";
 
-export const useBNBPrice = (address, time = 30000) => {
+export const useBNBPrice = (time = 300000) => {
     const [state, setState] = useState({ price: 0 })
 
     useEffect(() => {
@@ -59,11 +59,12 @@ export const useBNBPrice = (address, time = 30000) => {
         fetchSheet()
         if (time) {
             timer = setInterval(() => {
-                fetchSheet()
+                // fetchSheet()
+                console.log((new Date).valueOf)
             }, time)
         }
         return () => clearInterval(timer)
-    }, [address])
+    }, [bscWBNBContact])
 
     return state;
 }
