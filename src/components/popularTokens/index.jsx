@@ -8,8 +8,6 @@ import TabPanel from '../TabPanel';
 import Row from "./Row";
 import TabsStyled from '../Tabs/Tabs';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useBNBPrice } from '../../hooks/useBNBPrice';
-import { bscWBNBContact } from '../../connection/contracts';
 import { getVotesPerProject } from '../../connection/functions';
 
 const tabs = [
@@ -33,7 +31,6 @@ const tabs = [
 // )
 
 const PopularTokens = () => {
-    const bnbPrice = useBNBPrice(bscWBNBContact)
     const mobileMatches = useMediaQuery('(min-width:600px)');
     const [value, setValue] = useState(0)
     const { data } = useContext(GoogleSheetContext)
@@ -96,7 +93,7 @@ const PopularTokens = () => {
                     sx={{
                         position: 'absolute',
                         right: 0,
-                        top: '2%'
+                        top: '0%'
                     }}
                 />
             }
@@ -130,9 +127,9 @@ const PopularTokens = () => {
                         </TableHead>
                         <TableBody sx={{ overflow: 'hidden' }}>
                             <TabPanel value={value} index={0}>
-                                {partActive === 1 && sortedData && sortedData.map((row, index) => <Row key={index * 10} index={index} data={row} bnbPrice={bnbPrice} />)}
-                                {partActive === 2 && filterOneDay.map((row, index) => <Row key={index * 9} index={index} data={row} bnbPrice={bnbPrice} />)}
-                                {partActive === 3 && filterWeek.map((row, index) => <Row key={index * 11} index={index} data={row} bnbPrice={bnbPrice} />)}
+                                {partActive === 1 && sortedData && sortedData.map((row, index) => <Row key={index * 10} index={index} data={row} />)}
+                                {partActive === 2 && filterOneDay.map((row, index) => <Row key={index * 9} index={index} data={row} />)}
+                                {partActive === 3 && filterWeek.map((row, index) => <Row key={index * 11} index={index} data={row} />)}
                             </TabPanel>
                         </TableBody>
                     </Table>

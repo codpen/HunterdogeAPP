@@ -59,8 +59,8 @@ export const useBNBPrice = (time = 300000) => {
         fetchSheet()
         if (time) {
             timer = setInterval(() => {
-                // fetchSheet()
-                console.log((new Date).valueOf)
+                fetchSheet()
+                console.log(time)
             }, time)
         }
         return () => clearInterval(timer)
