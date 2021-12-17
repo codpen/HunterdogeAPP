@@ -1,27 +1,83 @@
-import {useWallet} from "@binance-chain/bsc-use-wallet";
+import { useContext } from 'react';
+import { useWallet } from "@binance-chain/bsc-use-wallet";
 import styled from "styled-components";
-
-export const CheckPopup = ({setIsOpen, big = false, item={}}) => {
+import Stack from '@mui/material/Stack';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { GoogleSheetContext } from '../../contexts/GoogleSheetProvider';
+import { Votes } from "../common/votes";
+export const CheckPopup = ({ setIsOpen, big = false, item = {} }) => {
   // const {account} = useWeb3React()
   const { account, chainId } = useWallet();
-
+  const { data } = useContext(GoogleSheetContext)
+  const mobileMatches = useMediaQuery('(min-width:600px)');
   return (
-    <Modal big={big}>
-      <CloseButton onClick={() => {
-        console.log('WTF');
-      }}>X</CloseButton>
-             {item.Project_Address && <CheckLink target={'_blank'} href={`/token/${item.Project_Address}`}>Check Profile</CheckLink>}
-             {item.Project_Website && <CheckLink target={'_blank'} href={item.Project_Website}>Check Website</CheckLink>}
-             {item.Project_Presale_Link && <CheckLink target={'_blank'} href={item.Project_Presale_Link}>Check Pre-sale</CheckLink>}
-    </Modal>
+    <div>
+      {mobileMatches &&
+        <Modal big={big}>
+          <CloseButton onClick={() => {
+            console.log('WTF');
+          }}>X</CloseButton>
+          {item.Project_Address && <CheckLink target={'_blank'} href={`/token/${item.Project_Address}`}>Check Profile</CheckLink>}
+          {item.Project_Website && <CheckLink target={'_blank'} href={item.Project_Website}>Check Website</CheckLink>}
+          {item.Project_Presale_Link && <CheckLink target={'_blank'} href={item.Project_Presale_Link}>Check Pre-sale</CheckLink>}
+        </Modal>
+      }
+      {!mobileMatches &&
+        <Modalmobile>
+          <Stack direction="row">
+            <Votes  address={''} />
+            <MobileCheckLink target={'_blank'} href={`/token/${item.Project_Address}`}>Check Profile</MobileCheckLink>
+            <MobileCheckLink target={'_blank'} href={item.Project_Website}>Visit Website</MobileCheckLink>
+            <MobileCheckLink target={'_blank'} href={item.Project_Presale_Link}>Check BSC-Scan</MobileCheckLink>
+            <Polygon></Polygon>
+          </Stack>
+
+        </Modalmobile>}
+    </div>
   )
 }
+//mobile modal
+const Modalmobile = styled.div`
+  position: absolute;
+  right:16px;
+  width: 330px;
+  top:-8px;
+  height: 30px;
+  background: #B78300;
+  border: 1px solid #B78300;
+  box-sizing: border-box;
+  border-radius: 50px;
+ `
+const MobileCheckLink =styled.a`
+  padding:5px;
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 10px;
+  line-height: 98.1%;
+  /* identical to box height, or 8px */
+
+  text-align: center;
+
+  color: #FFF8CC;
+
+`
+const Polygon =styled.div`
+position: absolute;
+right: -4px;
+top: 8px;
+width: 15px;
+height: 12px;
+background: #B78300;
+transform: rotate(45deg);
+
+`
 
 const Modal = styled.div`
   position: absolute;
   top: -17px;
   //right: -155px;
-  right: ${({big}) => big ? '-110px' : '50px'};
+  right: ${({ big }) => big ? '-110px' : '50px'};
   width: 168px;
   height: 87px;
   background: #FFFFFF;

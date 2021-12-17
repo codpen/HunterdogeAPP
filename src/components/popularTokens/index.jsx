@@ -62,7 +62,7 @@ const PopularTokens = () => {
                     return b.votes - a.votes
                 })
                 setSortedData(_tokens)
-           })
+            })
         }
     }, [data])
 
@@ -74,9 +74,14 @@ const PopularTokens = () => {
             var weekNo = Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
             return weekNo;
         }
-
-        const filterOneDay = sortedData.filter(({ Project_Token_LaunchDate }) => Date.parse(Project_Token_LaunchDate) >= new Date() - (24 * 60 * 60 * 1000))
-        const filterWeek = sortedData.filter(({ Project_Token_LaunchDate }) => Date.parse(Project_Token_LaunchDate) >= new Date() - (7 * 24 * 60 * 60 * 1000))
+        const filterOneDay = sortedData.filter((token) => { 
+            if (token.Project_added_date) return Date.parse(token.Project_added_date) >= new Date() - (24 * 60 * 60 * 1000)
+            else return false
+        })
+        const filterWeek = sortedData.filter((token) => { 
+            if (token.Project_added_date) return Date.parse(token.Project_added_date)>= new Date() - (7 * 24 * 60 * 60 * 1000)
+            else return false
+        })
         return { filterOneDay, filterWeek }
     }, [sortedData])
 

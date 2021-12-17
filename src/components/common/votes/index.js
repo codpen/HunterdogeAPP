@@ -1,19 +1,19 @@
-import React, {useContext, useState} from "react";
-import {downVoteProject, upVoteProject, medVoteProject} from "../../../connection/functions";
-import {Button, ButtonGreen, ButtonRed, ButtonYellow, VoteWrapper} from "../index";
-import {useWallet} from "@binance-chain/bsc-use-wallet";
-import {ExtraSmall, Input, Modal} from "./VotesStyled";
+import React, { useContext, useState,useEffect, useCall } from "react";
+import { downVoteProject, upVoteProject, medVoteProject } from "../../../connection/functions";
+import { Button, ButtonGreen, ButtonRed, ButtonYellow, VoteWrapper } from "../index";
+import { useWallet } from "@binance-chain/bsc-use-wallet";
+import { ExtraSmall, Input, Modal } from "./VotesStyled";
 import { ModalContext } from "../../../contexts/ModalProvider";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-
-export const Votes = ({address, big = false, height, size}) => {
+export const Votes = ({ address, big = false, height, size }) => {
     // const {account, chainId} = useWeb3React()
     const { account, chainId, ethereum } = useWallet();
     const [votes, setVotes] = useState(0)
     const [activeBtn, setActiveBtn] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
     const context = useContext(ModalContext)
-
+    const mobileMatches = useMediaQuery('(min-width:600px)');
     const voteUp = () => {
         if (chainId === 56) {
             if (votes > 0) {
@@ -50,31 +50,56 @@ export const Votes = ({address, big = false, height, size}) => {
         }
     }
 
-    const activeInput = async () => {
-        if(context.isMember[account]) {
+    const activeInput = () => {
+        if (context.isMember[account]) {
             setActiveBtn(!activeBtn)
             setIsOpen(false)
         } else {
+            setActiveBtn(!activeBtn)
+            setIsOpen(false)
             alert('You need to register yourself first(for free)')
         }
     }
 
-    return (<VoteWrapper big={big}>
-            {activeBtn && <Input big={big}
-                                 placeholder='enter number of the votes'
-                                 onChange={(e) => setVotes(e.target.value)}
-                                 onClick={() => setIsOpen(true)}
-            />}
-            {isOpen && <Modal big={big}>
-                <ButtonGreen onClick={() => voteUp()} >vote <ExtraSmall> x </ExtraSmall> 2</ButtonGreen>
-                <ButtonYellow onClick={() => voteMed()}>vote <ExtraSmall> x </ExtraSmall> 1</ButtonYellow>
-                <ButtonRed onClick={voteAgainst}>vote <ExtraSmall> x </ExtraSmall> -1</ButtonRed>
-            </Modal>}
-            <Button margin={big && '0 0 0 auto'}
+    return (
+        <div>
+            {mobileMatches && <VoteWrapper big={big}>
+                {activeBtn && <Input big={big}
+                    placeholder='enter number of the votes'
+                    onChange={(e) => setVotes(e.target.value)}
+                    onClick={() => setIsOpen(true)}
+                />}
+                {isOpen && 
+                <Modal big={big}>
+                    <ButtonGreen onClick={() => voteUp()} >vote <ExtraSmall> x </ExtraSmall> 2</ButtonGreen>
+                    <ButtonYellow onClick={() => voteMed()}>vote <ExtraSmall> x </ExtraSmall> 1</ButtonYellow>
+                    <ButtonRed onClick={voteAgainst}>vote <ExtraSmall> x </ExtraSmall> -1</ButtonRed>
+                </Modal>}
+                <Button margin={big && '0 0 0 auto'}
                     width={'79px'}
                     size={size || undefined}
                     height={activeBtn ? (height || '28px') : (height || '')}
                     onClick={activeInput}>Vote</Button>
-        </VoteWrapper>
+                
+            </VoteWrapper>}
+            {!mobileMatches && 
+            <VoteWrapper big={big}>
+                {activeBtn && <Input big={big}
+                    placeholder='enter number of the votes'
+                    onChange={(e) => setVotes(e.target.value)}
+                    onClick={() => setIsOpen(true)}
+                />}
+                {isOpen && <Modal big={big}>
+                    <ButtonGreen onClick={() => voteUp()} >vote <ExtraSmall> x </ExtraSmall> 2</ButtonGreen>
+                    <ButtonYellow onClick={() => voteMed()}>vote <ExtraSmall> x </ExtraSmall> 1</ButtonYellow>
+                    <ButtonRed onClick={voteAgainst}>vote <ExtraSmall> x </ExtraSmall> -1</ButtonRed>
+                </Modal>}
+                <Button margin={big && '0 0 0 auto'}
+                    width={'79px'}
+                    size={size || undefined}
+                    height={'28px'}
+                    onClick={activeInput}>Vote</Button>
+            </VoteWrapper>}
+        </div>
     )
 }

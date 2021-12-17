@@ -136,12 +136,10 @@ const Row = ({ data, index, bnbPrice }) => {
             </TableCell>
             <TableCell>
                 <Stack direction="row" alignItems="center">
-                    {mobileMatches && <Votes address={data.Project_Address} />}
-                    {mobileMatches &&
+                    {mobileMatches && <Votes address={data.Project_Address} height={'36px'} />}
                         <More onClick={() => setIsOpen(!isOpen)}>...
                             {isOpen && <CheckPopup item={data} setIsOpen={setIsOpen} />}
                         </More>
-                    }
                 </Stack>
             </TableCell>
         </TableRow>
