@@ -44,6 +44,8 @@ export const Button = styled.button`
   margin: ${({margin}) => margin || '0'};
   position: ${({position}) => position || 'relative'};
   right: ${({right}) => right || 'unset'};
+  bottom: ${({bottom}) => bottom || 'unset'};
+  left: ${({left}) => left || 'unset'};
 
   font-family: Raleway;
   font-style: normal;

@@ -13,6 +13,7 @@ export const Wrapper = styled.div`
   border-radius: 25px;
   padding: ${({ isMobile }) => isMobile ? '15px 2px' : '37px 10px 17px 38px'};
   flex-direction: ${({ isMobile }) => isMobile ? 'column' : 'inherit'};
+  position:${({position})=>position }
 `
 
 export const ContentWrapper = styled.div`

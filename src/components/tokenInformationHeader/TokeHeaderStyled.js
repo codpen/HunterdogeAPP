@@ -220,7 +220,7 @@ export const Popup = styled.div`
   width: ${({ width }) => width || '462px'};
   height: ${({ height }) => height || '97px'};
   left: ${({ left }) => left || '170px'};
-  top: ${({ isTop }) => isTop ? '50px' : '-30px'};
+  top: ${({ isTop }) => isTop ? '50px' : '-70px'};
   padding: 17px 19px 17px 32px;
   background: #FFF599;
   border: 3px solid #FAF0CB;
@@ -246,6 +246,11 @@ export const Popup = styled.div`
       left: -39px;
       border: 15px solid transparent;
       border-right: 25px solid #FFF599;
+      @media screen and (min-width: 600px) {
+        top: 30px;
+        left: -20px;
+        transform: rotate(80deg);
+      }
     }`
   }
 `

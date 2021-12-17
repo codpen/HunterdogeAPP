@@ -36,6 +36,7 @@ const useStyles = makeStyles({
 
 const TokenInformation = ({ tokenData = {} }) => {
     const mobileMatches = useMediaQuery('(max-width:600px)');
+    console.log('1111111',mobileMatches)
     const classes = useStyles({ isMobile: mobileMatches });
    const MoneyFormat =  (a) =>
    {    const b=Number(a.replace(',', ''))
@@ -56,7 +57,7 @@ const TokenInformation = ({ tokenData = {} }) => {
   }
 
     return (
-        <Wrapper isMobile={mobileMatches}>
+        <Wrapper isMobile={mobileMatches}  position={!mobileMatches?'relative':undefined}>
             <ContentWrapper margin={mobileMatches ? '0px' : '0px 38px 0px 0px'}>
                 <HeadTitle className={classes.headTitle} >PROJECT DESCRIPTION</HeadTitle>
                 <DescTextWrapper margin={mobileMatches ? '10px 0px' : '14px 0 69px 0'}>
@@ -65,7 +66,7 @@ const TokenInformation = ({ tokenData = {} }) => {
                         {tokenData?.Project_Description}
                     </DescText>
                 </DescTextWrapper>
-                <Button  size={'14px'} margin={'20px 0px'} width={'277px'} height={ mobileMatches ? '25px' : undefined}>report this token to staff</Button>
+                <Button  size={'14px'} margin={'20px 0px'} width={'277px'} height={ mobileMatches ? '25px' : undefined} position={!mobileMatches?'absolute':undefined}  bottom={!mobileMatches?'20px' : undefined} left={!mobileMatches ? '180px': undefined}>report this token to staff</Button>
             </ContentWrapper>
             <RightContent width={mobileMatches ? '100%' : undefined} >
                 <HeadTitle className={classes.headTitle} margin={'0px 0px 15px'}>TOKENOMICS</HeadTitle>

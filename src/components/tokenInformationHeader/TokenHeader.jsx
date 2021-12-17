@@ -169,7 +169,7 @@ const TokenHeader = ({ tokenData = {} }) => {
                     <Text cursor={'pointer'} size={'16px'} weight={'700'} margin={'0 0 21px auto'} color={'#B78300'}
                         onClick={handleInfo}>
                         + edit your token information
-                        {openInfo && <Popup height={'66px'} width={'353px'} left={'290px'}>
+                        {openInfo && <Popup height={'66px'} width={'353px'}   left={'10px'} >
                             <TextPopup color="rgba(171, 136, 46, 0.7)" fw={700} lh={'15px'}>Connect the manager wallet
                                 first in order to edit token information.</TextPopup>
                         </Popup>}
