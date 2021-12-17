@@ -88,6 +88,7 @@ const TokenEditModal = ({ setIsOpen, tokenAddress, tokenData }) => {
     const saveInfo = async () => {
         setIsDisableSaveBtn(true)
         try {
+            tokenInfo.Project_added_date = new Date()
             const res = await addTokenInfo(tokenAddress, tokenInfo, account, ethereum)
             setTokenInfo(null)
             setIsOpen(false)

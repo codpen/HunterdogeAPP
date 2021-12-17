@@ -13,7 +13,6 @@ import { toChecksumAddress } from '../../connection/functions';
 import { getVotesPerProject } from '../../connection/functions';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import { bscWBNBContact } from '../../connection/contracts';
 import { useBNBPrice } from '../../hooks/useBNBPrice';
 
 const fieldMap = {
@@ -24,7 +23,7 @@ const fieldMap = {
 }
 
 const AllTokensTable = (isTitle) => {
-	const bnbPrice = useBNBPrice(bscWBNBContact)
+	const bnbPrice = useBNBPrice()
 	const context = useContext(ModalContext)
 	const [currentData, setCurrentData] = useState({ newData: [], currentPage: 0, endPage: 0 })
 	const mobileMatches = useMediaQuery('(min-width:600px)');

@@ -25,7 +25,7 @@ export const CheckPopup = ({ setIsOpen, big = false, item = {} }) => {
       {!mobileMatches &&
         <Modalmobile>
           <Stack direction="row">
-            <Votes  address={''} />
+            <Votes  address={item.Project_Address} />
             <MobileCheckLink target={'_blank'} href={`/token/${item.Project_Address}`}>Check Profile</MobileCheckLink>
             <MobileCheckLink target={'_blank'} href={item.Project_Website}>Visit Website</MobileCheckLink>
             <MobileCheckLink target={'_blank'} href={item.Project_Presale_Link}>Check BSC-Scan</MobileCheckLink>

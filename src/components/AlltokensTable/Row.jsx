@@ -79,8 +79,7 @@ const Row = ({ data, index, bnbPrice }) => {
             const pair = await getPair(address);
 
             const wbnb = await getBalanceWBNB(pair);
-
-            if(data.Project_Price_24h && data.Project_Price) {
+            if(data.Project_Price) {
                 let mcap = await getMCap(address, data.Project_Price)
                 setMCap(mcap)
                 if (mcap > 0) {
