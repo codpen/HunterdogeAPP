@@ -55,8 +55,6 @@ export const Votes = ({ address, big = false, height, size }) => {
             setActiveBtn(!activeBtn)
             setIsOpen(false)
         } else {
-            setActiveBtn(!activeBtn)
-            setIsOpen(false)
             alert('You need to register yourself first(for free)')
         }
     }
