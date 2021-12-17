@@ -19,7 +19,7 @@ import {Badges} from "../common/badges/Badges";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import NoLogoImage from '../../images/nologo.jpg'
 
-const Row = ({ data, index, bnbPrice }) => {
+const Row = ({ data, index }) => {
     // const {chainId} = useWeb3React()
     const { account, chainId } = useWallet();
     // const {votes, error, isLoading} = useVotesPerProject(data.Project_Address)
@@ -45,7 +45,7 @@ const Row = ({ data, index, bnbPrice }) => {
             }
         };
         fetchData()
-    }, [data, bnbPrice.price])
+    }, [data])
 
     useEffect(() => {
         const getMarketCap = async () => {
@@ -123,8 +123,8 @@ const Row = ({ data, index, bnbPrice }) => {
                             <small style={{ fontSize: '0.5rem' }}>${new Intl.NumberFormat('en-US').format(data.Project_Price.toFixed(12))}</small>
                         }
                     </Typography>
-                    {data.Project_Price_24h && <Flex margin={'6px 0 0 0'} justify={'evenly'}>
-                        <Image src={data.Project_Price_24h ? arrowUp : arrowDown} />
+                    {data.Project_Price_24h !== 0 && <Flex margin={'6px 0 0 0'} justify={'evenly'}>
+                        <Image src={data.Project_Price_24h > 0 ? arrowUp : arrowDown} />
                         <Changes24 up={data.Project_Price_24h}>{data.Project_Price_24h}</Changes24>
                     </Flex>}
                 </Stack>
